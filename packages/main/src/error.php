@@ -7,4 +7,8 @@
  * @link   http://nomicms.ru
  */
 
-echo 'main/error - подключен';
+if (isset($errorId)) {
+    return 'Внимание ошибка id' . $errorId;
+} else {
+    return 'Ошибка без id';
+}

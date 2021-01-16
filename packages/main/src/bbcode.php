@@ -7,4 +7,4 @@
  * @link   http://nomicms.ru
  */
 
-echo 'main/bbcode - подключен';
+return 'Страница с бб-кодами';

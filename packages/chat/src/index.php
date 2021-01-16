@@ -7,4 +7,4 @@
  * @link   http://nomicms.ru
  */
 
-echo 'news/index - подключен';
+return 'Главная страница чата';

@@ -7,4 +7,4 @@
  * @link   http://nomicms.ru
  */
 
-return 'user/settings - подключен';
+return 'Настройки пользователя';

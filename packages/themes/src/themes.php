@@ -7,4 +7,4 @@
  * @link   http://nomicms.ru
  */
 
-echo 'themes/themes - подключен';
+return 'Пользовательская настройка оформления';

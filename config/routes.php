@@ -36,7 +36,7 @@ return function (ContainerInterface $container) {
         if ($package == '.' || $package == '..') continue;
 
         // Путь к маршрутам каждого установленного пакета
-        $path = getPathPackage($package) . '/config/routes';
+        $path = 'packages/' . $package . '/config/routes';
 
         // Если файл с маршрутами не найден в пакете то пропускаем
         if (file_exists(ROOT . $path . '.php') === false) {

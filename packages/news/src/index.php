@@ -7,4 +7,4 @@
  * @link   http://nomicms.ru
  */
 
-echo 'news/index - подключен';
+echo 'Все новости';

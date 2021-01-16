@@ -7,4 +7,4 @@
  * @link   http://nomicms.ru
  */
 
-return 'user/profile - подключен';
+return 'Твой профиль';

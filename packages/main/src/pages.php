@@ -14,4 +14,4 @@
 
 //$view::set('test', 'аххахаха');
 
-return 'Компонент Main/index подключен';
+return 'Страницы';

@@ -7,4 +7,4 @@
  * @link   http://nomicms.ru
  */
 
-echo 'main/smiles - подключен';
+return 'Страница со смайлами';

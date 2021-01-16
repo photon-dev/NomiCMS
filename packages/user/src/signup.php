@@ -7,4 +7,4 @@
  * @link   http://nomicms.ru
  */
 
-return 'user/signup - подключен';
+return 'Регистрация';
