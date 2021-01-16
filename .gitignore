@@ -1,24 +1,18 @@
+# Root dir ignores
+database/*
 
-files/ava/*
-!files/ava/.htaccess
-!files/ava/no_ava.png
-!files/ava/16_no_ava.png
+# System dir ignores
+system/Apps/*
+system/Cache/*
+system/Package/*
+system/System/*
 
-files/forum/*
-!files/forum/.htaccess
+# Website dir ignores
+website/files/downloads/*
+website/files/avatars/*
+website/files/forum/*
+website/files/lib/*
+website/files/dias/*
 
-files/lib/*
-!files/lib/.htaccess
-
-files/mail/*
-!files/mail/.htaccess
-
-files/zc/*
-!files/zc/.htaccess
-
-!files/zc/screen
-files/zc/screen/*
-!files/zc/screen/.htaccess
-
-info.txt
-robots.txt
+# Other files ignores
+website/themes/custom/template/basic2.php
