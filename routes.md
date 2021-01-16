@@ -8,12 +8,11 @@
 /chat/1/del
 
 ## Маршруты главного модуля
-/
-/pages
-/pages/bbcode
-/pages/smiles
-/error
-/error/404
+1 /pages
+2 /pages/bbcode
+3 /pages/smiles
+4 /error
+5 /error/404
 
 ## Маршруты модуля новости
 /news
