@@ -48,44 +48,48 @@ class Reflection
         // Зависимиости
         $dependences = [];
 
+        // Получить параметры конструктора
         $getParams = $this->getConstructor()->getParameters();
-        //$params = array_merge($getParams, $params);
 
-        //dd($params);
+        // Разобрать
         foreach ($getParams as $param) {
-            $dependency = $param->getClass();
 
-            if (null === $dependency) {
-                if ($param->isDefaultValueAvailable()) {
+            // Если параметр не namespace
+            if ($param->getType()->isBuiltin()) {
+
+                // Если найдены переданные параметры
+                if (isset($params[$param->name])) {
+
+                    // Получить зависимость изходя из параметров
+                    $dependency = $params[$param->name];
+
+                    // Если зависимость это анонимная функция
+                    if ($dependency instanceof Closure) {
+
+                        $dependences[] = $dependency();
+
+                    // Если зависимость не анонимная функция
+                    } else {
+
+                        $dependences[] = $dependency;
+
+                    }
+
+                // Если параметры не найдены, но указаны по умолчанию
+                } elseif ($param->isDefaultValueAvailable()) {
 
                     $dependences[] = $param->getDefaultValue();
 
-                } elseif (isset($params[$param->name])) {
-
-                    $funs = $params[$param->name];
-
-                    if ($funs instanceof Closure) {
-
-                        $dependences[] = $funs();
-
-                    } elseif (is_array($funs)) {
-
-                        $dependences[] = $funs;
-
-                    } else {
-                        throw new ContainerNotFound("Не может быть переданы {$param->name} в {$this->reflector->getName()}");
-                    }
-
+                // Если не указаны по умолчанию
                 } else {
-                    throw new ContainerNotFound("Не может быть разрешена классовая зависимость {$param->name}");
+                    throw new ContainerNotFound("Не возможно передать параметр {$param->name} в {$this->reflector->getName()}");
                 }
+            // Если указан namespace
             } else {
 
-                $dependences[] = $this->getSearch($dependency->name);
+                $dependences[] = $this->getSearch($param->getType()->getName());
             }
         }
-
-        //dd($di);
 
         return $dependences;
     }
