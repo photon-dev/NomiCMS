@@ -70,8 +70,6 @@ class Autoload
 
         $class = strtolower($path) . $fileName;
 
-        //var_dump($class);
-
         // Загрузить
         return $this->loadFile($class);
 
