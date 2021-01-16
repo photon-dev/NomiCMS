@@ -20,7 +20,7 @@ class DB extends mysqli
     public function __construct(Config $config)
     {
         // Получить настройки базы данной
-        $db = $config::pull('system/database');
+        $db = $config::load('system/database', false);
 
         // Подключиться к базе данной
         parent::__construct($db['server'], $db['user'], $db['pass'], $db['base']);

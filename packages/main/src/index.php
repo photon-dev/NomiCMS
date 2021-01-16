@@ -10,7 +10,7 @@
 // Загрузить вид
 
 //$main = $container->get('config')->get('route');
-//$view = $container->get('view');
+//$db = $container->get('db');
 
 //$view::set('test', 'аххахаха');
 
