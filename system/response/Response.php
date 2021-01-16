@@ -36,6 +36,9 @@ class Response extends ResponseCodes implements ResponseInterface
     // Тело ответа
     protected $body = '';
 
+    // Тело ответа
+    protected $content = '';
+
     // Ответ отправлен
     protected $sent = false;
 
@@ -61,7 +64,7 @@ class Response extends ResponseCodes implements ResponseInterface
     // Записать в содержимое
     public function write($str)
     {
-        $this->body .= $str;
+        $this->content .= $str;
     }
 
     // Отправить содержимое
@@ -75,9 +78,9 @@ class Response extends ResponseCodes implements ResponseInterface
     }
 
     // Получить содержимое
-    public function getBody()
+    public function getContent()
     {
-        return $this->body;
+        return $this->content;
     }
 
     // Очистка ответа.

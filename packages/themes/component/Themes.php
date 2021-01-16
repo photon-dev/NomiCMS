@@ -11,54 +11,64 @@ namespace Packages\Themes\Component;
 
 // Использовать
 use System\Container\ContainerInterface;
+use Packages\User\Component\User;
 
 /**
  * Класс Themes
  */
 class Themes
 {
-    // Контейнер зависимостей
-    protected $container;
+    // Имя папки
+    protected $theme = 'custom';
 
-    // Полный путь к шаблонам
-    protected $path = THEMES;
+    // Полный путь
+    protected $path = '';
 
     // Конструктор
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInterface $container, User $user)
     {
-        // Установить контейнер
-        $this->container = $container;
+        // Установить тему если авторизован
+        if ($user->logger) {
 
-        $settings = $this->getSettings();
+            $this->theme = $user['theme'];
 
-        $this->path = $this->getPathTheme($settings['theme']);
+        // Если не авторизован загрузить изходя из настроек
+        } else {
+            // Загрузить настройки
+            $settings = $container->get('config')->pull('themes', 'themes/config/settings', PACKAGE);
+
+            $this->theme = $settings['theme'];
+        }
+
+        $this->setPath();
     }
 
-    protected function getSettings()
+    // Установить путь к теме
+    protected function setPath()
     {
-        $config = $this->container->get('config');
+        $path = THEMES . $this->theme . DS;
 
-        return $config::pull('themes/config/settings', true, PACKAGE);
+        if ($this->has($path)) {
+
+            $this->path = $path;
+
+            return true;
+        }
+
+        $this->path = THEMES . 'custom/';
+
+        return false;
     }
 
-    protected function parse()
+    // Проверить папку и файл конфиг
+    protected function has(string $path)
     {
-        return THEMES . $theme . DS;
+        return (is_dir($path) && file_exists($path . 'theme.php'));
     }
 
-    // Проверить емееть ли папку тема
-    public function getPathTheme(string $theme)
+    // Получить путь к теме
+    public function getPath()
     {
-        return THEMES . $theme . DS;
-    }
-
-    public function has(string $path)
-    {
-        return is_dir($path);
-    }
-
-    private function getPath()
-    {
-        return '';
+        return $this->path;
     }
 }

@@ -7,11 +7,12 @@
  * @link   http://nomicms.ru
  */
 
-// Загрузить вид
 
-//$main = $container->get('config')->get('route');
-//$db = $container->get('db');
+$view->set('name', 'Гость');
 
-//$view::set('test', 'аххахаха');
+$view->output('name');
+
+
+//dd($view->themes->theme);
 
 return 'Компонент Main/index подключен';

@@ -7,7 +7,7 @@
  * @link   http://nomicms.ru
  */
 
-namespace Packages\User;
+namespace Packages\User\Component;
 
 // Использовать
 use System\Container\ContainerInterface;
@@ -54,13 +54,11 @@ class User
     // Получить данные пользователя
     public function getUser()
     {
-        $uid = $this->user['uid'];
-
-        if ($this->logger && $this->has($uid)) {
+        if ($this->logger && isset($this->user['uid'])) {
             return $this->user;
         }
 
-        return false;
+        return [];
     }
 
 }

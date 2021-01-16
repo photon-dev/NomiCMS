@@ -18,7 +18,7 @@ interface ResponseInterface
 
     public function getStatusCode($id);
 
-    public function getBody();
+    public function getContent();
 
     public function body(string $str);
 

@@ -39,8 +39,18 @@ switch ($app->run()) {
                 extract($app->getParams());
             }
 
+            // Загрузить вид
+            $view = $container->get('view');
+
             // Подключить исходный файл
-            echo require PACKS . $app->getPathSource();
+            require PACKS . $app->getPathSource();
+
+            // Установить настройки загрузки
+            $view->autoload['counter'] =  $autoload->counter;
+            $view->autoload['timing'] =  round($autoload->timing, 6);
+
+            $view->memory = round((memory_get_usage() - NOMI_MEMORY) / 1024);
+            $view->timing = round(microtime(true) - NOMI_START, 6);
 
         // Если файл не найден сообщить об этом
         } else {
@@ -55,10 +65,11 @@ switch ($app->run()) {
         //$app->notFound('Страница не найдена');
     break;
 }
-
+/*
 // Создано на момент тестирования
 echo '<br />';// . $app->run();
 
 echo '<br /><br />Использование память: ' . round((memory_get_usage() - NOMI_MEMORY) / 1024) . ' кб';
 echo '<br />Загрузчик: ' . $autoload->counter . ' за ' . round($autoload->timing, 6);
 echo '<br />Генерация: ' . round(microtime(true) - NOMI_START, 6);
+*/
