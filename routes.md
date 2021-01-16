@@ -18,8 +18,8 @@
 ## Маршруты модуля новости
 - /news
 - /news/add
-- /news/1
-- /news/1/edit
+- /news/id (id новости)
+- /news/id/edit (id новости, и edit, либо del)
 
 ## Маршруты модуля тем оформлений
 - /user/themes
