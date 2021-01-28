@@ -12,7 +12,7 @@
   */
 return [
     // Имя сайта
-    'name' => 'NomiCMS',
+    'name' => 'Nomicms',
 
     // Режим разработки
      //dev, product
@@ -39,6 +39,9 @@ return [
 
     // Языки
     'local' => 'ru',
+
+    // Пакет
+    'package' => 'main'
 
     // Пунктов на страницу
     'post_page' => 10
