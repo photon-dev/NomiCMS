@@ -12,6 +12,7 @@ namespace System\Router;
 // Использовать
 use System\Router\RouteParse;
 use System\Router\RouterInterface;
+use System\Config\Config;
 
 /**
  * Класс маршрутизации
@@ -21,12 +22,23 @@ class Router extends RouteParse implements RouterInterface
     // Текущий маршрут
     private $route = [];
 
+    // Пакет по умолчанию
+    protected $url = '/';
+
     // Найти маршрут
     protected $found = false;
 
     // Конструктор
-    public function __construct(array $routes)
+    public function __construct(array $routes = [], Config $config)
     {
+        // Получить пакет по умолчанию
+        $package = $config->get('config')['default_package'];
+
+        // Установить пакет
+        if ($this->package !== $package) {
+            $this->package = $package;
+        }
+
         // Разобрать маршруты
         $this->parse($routes);
     }

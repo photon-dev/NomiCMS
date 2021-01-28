@@ -110,6 +110,14 @@ class View extends Template
         // Загрузить настройки
         $config = $this->container->get('config')->pull('seo', 'system/seo');
 
+        self::setObject('title', function ()
+        {
+            if ($this->title) {
+                return $config['title']
+            }
+            $config['title']
+        });
+
         $doc = (object) [
             'local_html'    => $config['title'],
             'title'         => $this->title ? $this->title : $config['title'],

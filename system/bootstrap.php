@@ -9,8 +9,8 @@
 
 // Использовать
 use System\Container\Container;
-use System\Router\Router;
 use System\App\NomiApp;
+use System\Text\Misc;
 
 // Если не найден загрузчик, сообщить
 if (!file_exists(ROOT . 'system/autoload.php')) {
@@ -23,32 +23,41 @@ require ROOT . 'system/autoload.php';
 // Создать контейнер
 $container = new Container;
 
-
-// Загрузить, установить службы
+// Загрузить, установить зависимости
 $dependencies = loadFile('config/dependencies');
 $dependencies($container);
+
+// Загрузить настройки
+$config = $container->get('config')->pull('config', 'system/config');
 
 // Освободить память
 unset($dependencies);
 
-// Собрать и установить все доступные маршруты
-$routes = loadFile('config/routes');
-$routes = $routes($container);
-
-// Запустить маршрутизатор
-$router = new Router($routes);
-
 // Создать приложение
-$app = new NomiApp($container, $router);
-
-// Загрузить системные настройки
-$settings = $container->get('config')->pull('config', 'system/config');
+$app = new NomiApp($container);
 
 // Получить, установить среду окружения
-if ($env = $app->getEnvironment($settings['env'])) {
+if ($env = $app->getEnvironment($config['env'])) {
      loadFile('config/boot/' . $env);
 }  else
     die('Среда окружения не может быть определена');
+
+// Установка временной зоны
+if ($config['timezone'] != date_default_timezone_get()) {
+    date_default_timezone_set($config['timezone']);
+}
+
+// Настроить приложение
+$app->configure();
+
+// Иницилизировать сессии
+session_name($config['session_name']) or die('Невозможно инициализировать сессии');
+session_start() or die('Невозможно инициализировать сессии');
+
+define('sess', preg_replace('#[^a-z0-9]#i', '', session_id()));
+
+
+dd (Misc::translit('Невозможно инициализировать сессии'));
 
 //dd($app->router);
 

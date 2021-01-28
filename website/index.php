@@ -23,9 +23,12 @@ define('NOMI_MEMORY', memory_get_usage());
 // Корневая директория
 define('ROOT', dirname(__DIR__) . '/');
 
+ob_start();
+
 // Загрузить bootstrap
 $app = require ROOT . 'system/bootstrap.php';
 
+/*
 // Запустить приложение
 switch ($app->run()) {
      // Страница найдена
@@ -65,11 +68,11 @@ switch ($app->run()) {
         //$app->notFound('Страница не найдена');
     break;
 }
-/*
+*/
+
 // Создано на момент тестирования
 echo '<br />';// . $app->run();
 
 echo '<br /><br />Использование память: ' . round((memory_get_usage() - NOMI_MEMORY) / 1024) . ' кб';
 echo '<br />Загрузчик: ' . $autoload->counter . ' за ' . round($autoload->timing, 6);
 echo '<br />Генерация: ' . round(microtime(true) - NOMI_START, 6);
-*/

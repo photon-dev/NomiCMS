@@ -14,6 +14,9 @@ return [
      // Config
      System\Config\Config::class,
 
+     // Config
+     System\Router\Router::class,
+
      // Json
      System\Json\Json::class,
 

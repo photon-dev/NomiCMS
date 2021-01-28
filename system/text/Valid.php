@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * NomiCMS - Content Management System
  *
@@ -7,10 +7,11 @@
  * @link   http://nomicms.ru
  */
 
+namespace System\Text;
+
 /**
- * Настройки пакета Main
+ * Класс Misc
  */
-return [
-    // Url-адрес по умолчанию
-    'url' => '/'
-];
+class Valid
+{
+}

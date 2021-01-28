@@ -11,7 +11,7 @@ namespace System\App;
 
 // Использовать
 use System\Container\ContainerInterface;
-use System\Router\Router;
+use System\Router\RouterInterface;
 use System\App\Package;
 use System\App\AppInterface;
 use System\App\Factory;
@@ -33,44 +33,22 @@ class NomiApp extends Package implements AppInterface
     public const NOT_FOUND = false;
 
     // Конструктор
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInterface $container, RouterInterface $router)
     {
         // Сохранить контейнер
         $this->container = $container;
 
-        /* $this->router();*/
-
         // Сохранить если true маршрут найден
-        //$this->found = $router->getFound();
-        /*
+        $this->found = $router->getFound();
+
         if ($this->found) {
             parent::__construct($router->getRoute());
         }
-        */
-    }
-
-    // Настроить приложение
-    public function configure()
-    {
-    }
-
-    // Запустить маршрутизатор
-    public function router()
-    {
-
-        // Получить доступные маршруты
-        $routes = loadFile('config/routes');
-
-        // Получить маршрутизатор
-        $router = $this->container->get('router', [
-            'routes' => $routes($this->container)
-        ]);
     }
 
     // Получить среду окружения
-    public function getEnvironment(string $env)
+    public function getEnvironment($env)
     {
-        // Установить среду окружения
         if ($env == 'dev' || $env == 'product') {
             return $env;
         }
