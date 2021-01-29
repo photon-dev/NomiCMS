@@ -12,7 +12,9 @@ namespace System\Config;
 // Использовать
 use System\Config\Exception\ConfigNotFound;
 
-// Класс Config
+/**
+ * Класс Config
+ */
 class Config
 {
     private static $storage = [];
@@ -69,8 +71,7 @@ class Config
     // Проверка значения
     private static function has(string $key): bool
     {
-        return isset(self::$storage[$key]);
-        //return array_key_exists($key, self::$storage);
+        return (isset(self::$storage[$key]) && array_key_exists($key, self::$storage));
     }
 
     // Получить все данные

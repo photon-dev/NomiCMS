@@ -41,7 +41,8 @@ class NomiApp extends Package implements AppInterface
         // Сохранить контейнер
         $this->container = $container;
 
-        $this->config = $container->get('config.config')->pull('config', 'system/config');
+        // Загрузить настройки системы
+        $this->config = $container->get('config.config')->pull('config', 'system/config');;
 
         /* $this->router();*/
 
@@ -54,13 +55,46 @@ class NomiApp extends Package implements AppInterface
         */
     }
 
+    // Получить среду окружения
+    public function setEnv(): void
+    {
+        // Определить, установить среду
+        if (getEnvironment($this->config['env'])) {
+
+            loadFile('config/boot/' . $this->config['env']);
+
+        // Показать ошибку
+        } else
+            die('Среда окружения не может быть определена');
+    }
+
+    // Установить сессию, и получить ее id
+    protected function setSession(): string
+    {
+        // Иницилизировать сессии
+        session_name($this->config['session_name']) or die('Невозможно инициализировать сессии');
+        session_start() or die('Невозможно инициализировать сессии');
+        session_reset();
+
+        // Показать id сессии
+        return preg_replace('#[^a-z0-9]#i', '', session_id());
+    }
+
     // Настроить приложение
     public function configure()
     {
-        if ($env = $app->getEnvironment($this->config['env'])) {
-            loadFile('config/boot/' . $env);
-        } else
-            die();
+        $this->setEnv();
+
+        // Установка временной зоны
+        if ($this->config['timezone'] != date_default_timezone_get()) {
+            date_default_timezone_set($this-config['timezone']);
+        }
+
+        // Установить сессию, и получить ее id
+        $sessionId = $this->setSession();
+
+        define('sess', $sessionId);
+
     }
 
     // Запустить маршрутизатор
@@ -74,17 +108,6 @@ class NomiApp extends Package implements AppInterface
         $router = $this->container->get('router', [
             'routes' => $routes($this->container)
         ]);
-    }
-
-    // Получить среду окружения
-    public function getEnvironment(string $env)
-    {
-        // Установить среду окружения
-        if ($env == 'dev' || $env == 'product') {
-            return $env;
-        }
-
-        return false;
     }
 
     // Запустить приложение

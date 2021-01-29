@@ -27,36 +27,14 @@ $container = new Container;
 $dependencies = loadFile('config/dependencies');
 $dependencies($container);
 
-// Загрузить настройки
-$config = $container->get('config.config')->pull('config', 'system/config');
-
 // Освободить память
 unset($dependencies);
 
 // Создать приложение
 $app = new NomiApp($container);
 
-// Получить, установить среду окружения
-if ($env = $app->getEnvironment($config['env'])) {
-    loadFile('config/boot/' . $env);
-}  else
-    die('Среда окружения не может быть определена');
-
-// Установка временной зоны
-if ($config['timezone'] != date_default_timezone_get()) {
-    date_default_timezone_set($config['timezone']);
-}
-
 // Настроить приложение
 $app->configure();
-
-// Иницилизировать сессии
-session_name($config['session_name']) or die('Невозможно инициализировать сессии');
-session_start() or die('Невозможно инициализировать сессии');
-
-define('sess', preg_replace('#[^a-z0-9]#i', '', session_id()));
-
-//dd($app->router);
 
 /*
 // Загрузить системные настройки

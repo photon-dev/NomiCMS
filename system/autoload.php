@@ -98,7 +98,6 @@ class Autoload
     {
         // Проверить
         if (file_exists($path) === false) {
-
             $fileName = substr($path, strrpos($path, '/') + 1);
 
             throw new \Exception("Файл '{$fileName}' не найден. Проверьте путь '{$path}'");

@@ -8,7 +8,7 @@
  */
 
 // Использовать
-use System\Handler\ErrorHandler;
+use System\Handler\Handler;
 
 // Форматирует вывод массивов и обьектов в строку
 // Создано на момент разработки и тестирования
@@ -38,7 +38,7 @@ if (!function_exists('handler'))
     function handler(string $error, bool $preend = false)
     {
         // Запустить обработчик
-        $err = new ErrorHandler;
+        $err = new Handler;
         $err->set($error);
 
         // Показать ошибки
@@ -58,6 +58,17 @@ if (!function_exists('error'))
 
         require_once PACKS . 'main/view/error.php';
         die;
+    }
+}
+
+if (!function_exists('getEnvironment')) {
+    function getEnvironment(string $env)
+    {
+        if ($env == 'dev' || $env == 'product') {
+            return true;
+        }
+
+        return false;
     }
 }
 
