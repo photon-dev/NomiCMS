@@ -34,7 +34,6 @@ class Misc
     {
         // Получить зависимость
         $db = $container->get('database.db');
-        $user = $container->get('packages.user.component.user');
 
         // Обработать строку
         $text = trim($text);
