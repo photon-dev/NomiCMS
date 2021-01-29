@@ -23,7 +23,7 @@ class Router extends RouteParse implements RouterInterface
     private $route = [];
 
     // Пакет по умолчанию
-    protected $url = '/';
+    protected $package = '/';
 
     // Найти маршрут
     protected $found = false;

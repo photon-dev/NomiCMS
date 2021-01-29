@@ -55,7 +55,20 @@ class NomiApp extends Package implements AppInterface
         */
     }
 
-    // Получить среду окружения
+    // Запустить маршрутизатор
+    public function router()
+    {
+
+        // Получить доступные маршруты
+        $routes = loadFile('config/routes');
+
+        // Получить маршрутизатор
+        $router = $this->container->get('router.router', [
+            'routes' => $routes($this->container)
+        ]);
+    }
+
+    // Установить среду окружения
     public function setEnv(): void
     {
         // Определить, установить среду
@@ -95,19 +108,6 @@ class NomiApp extends Package implements AppInterface
 
         define('sess', $sessionId);
 
-    }
-
-    // Запустить маршрутизатор
-    public function router()
-    {
-
-        // Получить доступные маршруты
-        $routes = loadFile('config/routes');
-
-        // Получить маршрутизатор
-        $router = $this->container->get('router', [
-            'routes' => $routes($this->container)
-        ]);
     }
 
     // Запустить приложение

@@ -61,7 +61,7 @@ if (!function_exists('error'))
     }
 }
 
-if (!function_exists('getEnvironment')) {
+if (!function_exists('checkEnvironment')) {
     function getEnvironment(string $env)
     {
         if ($env == 'dev' || $env == 'product') {
