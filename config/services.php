@@ -11,14 +11,14 @@
  * Список требуемых служб
  */
 return [
-     // Config
-     System\Config\Config::class,
-
-     // Config
-     System\Router\Router::class,
+    // Config
+    System\Config\Config::class,
 
      // Json
      System\Json\Json::class,
+
+     // Config
+     System\Router\Router::class,
 
      // Database
      System\Database\DB::class,

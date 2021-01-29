@@ -27,12 +27,14 @@ class Package
     // Источник (по умолчанию index)
     private $src = 'index';
 
-    public function __construct(array $route)
+    public function __construct(array $route = [])
     {
+        //$route = $this->container->get('config')->get('route');
+
         $this->route = $route;
 
-        $this->package =  $route['package'];
-        $this->src =  $route['src'];
+        //$this->package =  $route['package'];
+        //$this->src =  $route['src'];
     }
 
     // Получить GET параметры

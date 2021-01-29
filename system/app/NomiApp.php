@@ -25,15 +25,16 @@ class NomiApp extends Package implements AppInterface
     protected $container;
 
     // Системные настройки
-    protected $config = [];
+    protected $system = [];
+
+    // Настройки пакета
+    protected $settings = [];
+
+    // Текущий маршрут
+    protected $route = [];
 
     // Найден
     protected $found = false;
-
-    // Страница найдена
-    public const FOUND = true;
-    // Страница не найдена
-    public const NOT_FOUND = false;
 
     // Конструктор
     public function __construct(ContainerInterface $container)
@@ -41,10 +42,17 @@ class NomiApp extends Package implements AppInterface
         // Сохранить контейнер
         $this->container = $container;
 
-        // Загрузить настройки системы
-        $this->config = $container->get('config.config')->get('config');
+        $config = $container->get('config.config');
 
-        /* $this->router();*/
+        // Загрузить настройки системы
+        $this->system = $config::get('system');
+
+        // Загрузить настройки пакета
+        $this->settings = $config::pull($this->system['default_package'] . '/config/settings', PACKAGE);
+
+        $route = $this->router();
+
+        parent::__construct();
 
         // Сохранить если true маршрут найден
         //$this->found = $router->getFound();
@@ -56,15 +64,15 @@ class NomiApp extends Package implements AppInterface
     }
 
     // Запустить маршрутизатор
-    public function router()
+    protected function router()
     {
-
         // Получить доступные маршруты
         $routes = loadFile('config/routes');
 
         // Получить маршрутизатор
         $router = $this->container->get('router.router', [
-            'routes' => $routes($this->container)
+            'routes' => $routes($this->container),
+            'package' => $this->system['default_package']
         ]);
     }
 

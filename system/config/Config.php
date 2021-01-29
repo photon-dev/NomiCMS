@@ -17,7 +17,7 @@ use System\Config\Exception\ConfigNotFound;
  */
 class Config
 {
-    private static $storage = [];
+    protected static $storage = [];
 
     public static function get(string $key)
     {
@@ -45,10 +45,13 @@ class Config
         }
     }
 
-    public static function pull(string $key, string $config, bool $package = false) {
+    public static function pull(string $config, bool $package = false) {
 
         // Загружаем данные из файла
         $data = self::load($config, $package);
+
+        // Получить ключ
+        $key = self::getKey($config, $package);
 
         // Добавить в хранилище
         self::add($key, $data);
@@ -58,20 +61,31 @@ class Config
     }
 
     // Загрузка файла
-    public static function load(string $file, bool $package)
+    public static function load(string $path, bool $package)
     {
         // Если PACKAGE тогда загружаем из папки packages/
         if ($package) {
-            return loadFile('packages/' .$file);
+            return loadFile('packages/' .$path);
         }
 
-        return loadFile('config/' .$file);
+        return loadFile('config/' .$path);
     }
 
     // Проверка значения
-    private static function has(string $key): bool
+    protected static function has(string $key): bool
     {
         return (isset(self::$storage[$key]) && array_key_exists($key, self::$storage));
+    }
+
+    // Получить ключ
+    protected static function getKey(string $config, $package): string
+    {
+        // Если PACKAGE тогда загружаем из папки packages/
+        if ($package) {
+            return substr($config, 0, strpos($config, '/'));
+        }
+
+        return substr($config, strrpos($config, '/') + 1);
     }
 
     // Получить все данные

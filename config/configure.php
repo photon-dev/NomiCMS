@@ -16,13 +16,12 @@ use System\Container\ContainerInterface;
 return function (ContainerInterface $container) {
 
     // Загрузить настройки
-    $config = $container->get('config.config')->pull('config', 'system/config');
+    $config = $container->get('config.config')->pull('system/system');
 
     // Определить, установить среду
     if ($config['env'] == 'dev' || $config['env'] == 'product') {
 
         loadFile('config/boot/' . $config['env']);
-
         return $config;
     }
 

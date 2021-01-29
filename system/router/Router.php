@@ -29,14 +29,15 @@ class Router extends RouteParse implements RouterInterface
     protected $found = false;
 
     // Конструктор
-    public function __construct(array $routes = [], Config $config)
+    public function __construct(array $routes = [], string $package = 'main', Config $config)
     {
         // Получить пакет по умолчанию
-        $package = $config->get('config')['default_package'];
+        $url = $config::get($package);
 
         // Установить пакет
-        if ($this->package !== $package) {
-            $this->package = $package;
+        //if (array_key_exists($routes, )) {
+        if ($url) {
+            dd($package);
         }
 
         // Разобрать маршруты

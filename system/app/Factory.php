@@ -20,10 +20,12 @@ class Factory
 {
     // Если проложение уже запущено
     protected static $app;
-    
+
     // Создать фабрику
-    public static function create(AppInterface $app, ContainerInterface $container)
+    public static function create(ContainerInterface $container): NomiApp
     {
+        dd('ok');
+        /*
         // Загрузить исходный файл
         return function () use ($container, $app) {
 
@@ -38,5 +40,6 @@ class Factory
             // Показать
             return $src;
         };
+        */
     }
 }
