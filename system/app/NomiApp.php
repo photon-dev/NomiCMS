@@ -42,7 +42,7 @@ class NomiApp extends Package implements AppInterface
         $this->container = $container;
 
         // Загрузить настройки системы
-        $this->config = $container->get('config.config')->pull('config', 'system/config');;
+        $this->config = $container->get('config.config')->get('config');
 
         /* $this->router();*/
 
@@ -68,58 +68,21 @@ class NomiApp extends Package implements AppInterface
         ]);
     }
 
-    // Установить среду окружения
-    public function setEnv(): void
-    {
-        // Определить, установить среду
-        if (getEnvironment($this->config['env'])) {
-
-            loadFile('config/boot/' . $this->config['env']);
-
-        // Показать ошибку
-        } else
-            die('Среда окружения не может быть определена');
-    }
-
-    // Установить сессию, и получить ее id
-    protected function setSession(): string
-    {
-        // Иницилизировать сессии
-        session_name($this->config['session_name']) or die('Невозможно инициализировать сессии');
-        session_start() or die('Невозможно инициализировать сессии');
-        session_reset();
-
-        // Показать id сессии
-        return preg_replace('#[^a-z0-9]#i', '', session_id());
-    }
-
     // Настроить приложение
     public function configure()
     {
-        $this->setEnv();
-
-        // Установка временной зоны
-        if ($this->config['timezone'] != date_default_timezone_get()) {
-            date_default_timezone_set($this-config['timezone']);
-        }
-
-        // Установить сессию, и получить ее id
-        $sessionId = $this->setSession();
-
-        define('sess', $sessionId);
-
     }
 
     // Запустить приложение
     public function run()
     {
         // Если маршрут найден, сообщить об этом
-        if ($this->found) {
-            return true;
-        }
+        //if ($this->found) {
+            //return true;
+        //}
 
         // Показать ошибку
-        return false;
+        return 'Приложение запущено';
     }
 
     // Показать ошибку

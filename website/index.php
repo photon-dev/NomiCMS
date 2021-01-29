@@ -71,7 +71,7 @@ switch ($app->run()) {
 */
 
 // Создано на момент тестирования
-echo '<br />';// . $app->run();
+echo '<br />' . $app->run();
 
 echo '<br /><br />Использование память: ' . round((memory_get_usage() - NOMI_MEMORY) / 1024) . ' кб';
 echo '<br />Загрузчик: ' . $autoload->counter . ' за ' . round($autoload->timing, 6);
