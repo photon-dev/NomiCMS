@@ -52,7 +52,7 @@ class Container extends ContainerParse implements ContainerInterface
     public function set($service, $name = ''): self
     {
         // Если это не анонимная функция
-        if (! ($service instanceof Closure)) {
+        if (! ($service instanceof Closure) && empty($name)) {
             // Получить имя службы
             $name = $this->getName($service);
         }
@@ -123,9 +123,9 @@ class Container extends ContainerParse implements ContainerInterface
     }
 
     // Поиск в установленных служб
-    public function has(string $name): bool
+    public function has(string $name = ''): bool
     {
-        return (isset($this->installed[$name]) && array_key_exists($name, $this->installed));
+        return (!empty($name) && isset($this->installed[$name]) && array_key_exists($name, $this->installed));
     }
 
     // Получить список установленных служб

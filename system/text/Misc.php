@@ -9,45 +9,97 @@
 
 namespace System\Text;
 
+// Использовать
+use System\Container\ContainerInterface;
+use System\Text\Smiles;
+use System\Text\Bbcode;
+
 /**
  * Класс Misc
  */
 class Misc
 {
-    // Получить рандомное число в байтах
-    public static function random_b(int $count = 9): string
-    {
-        $bytes = random_bytes($count);
-        return bin2hex($bytes);
-    }
-
     // Обработать число
     public static function abs(int $int)
     {
-        return abs(intval($int));
+        // Обработать
+        $int = abs(intval($int));
+
+        // Показать
+        return $int;
     }
 
-    // Получить строку на английской
-    public static function translit(string $str = ''): string
+    // Обработать строку перед помещением в базу данных
+    public static function str(string $str, ContainerInterface $container): string
     {
-        $letters = [
-            'а' => 'a', 'б' => 'b', 'в' => 'v', 'г' => 'g', 'д' => 'd',
-            'е' => 'e', 'ё' => 'e', 'ж' => 'zh', 'з' => 'z', 'и' => 'i',
-            'й' => 'y', 'к' => 'k', 'л' => 'l', 'м' => 'm', 'н' => 'n',
-            'о' => 'o', 'п' => 'p', 'р' => 'r', 'с' => 's', 'т' => 't',
-            'у' => 'u', 'ф' => 'f', 'х' => 'h', 'ц' => 'c', 'ч' => 'ch',
-            'ш' => 'sh', 'щ' => 'sch', 'ь' => '', 'ы' => 'y', 'ъ' => '',
-            'э' => 'e', 'ю' => 'yu','я' => 'ya',
+        // Получить зависимость
+        $db = $container->get('database.db');
+        $user = $container->get('packages.user.component.user');
 
-            'А' => 'A', 'Б' => 'B', 'В' => 'V', 'Г' => 'G', 'Д' => 'D',
-            'Е' => 'E', 'Ё' => 'E', 'Ж' => 'Zh', 'З' => 'Z', 'И' => 'I',
-            'Й' => 'Y', 'К' => 'K', 'Л' => 'L', 'М' => 'M', 'Н' => 'N',
-            'О' => 'O', 'П' => 'P', 'Р' => 'R', 'С' => 'S', 'Т' => 'T',
-            'У' => 'U', 'Ф' => 'F', 'Х' => 'H', 'Ц' => 'C', 'Ч' => 'Ch',
-            'Ш' => 'Sh', 'Щ' => 'Sch', 'Ь' => '', 'Ы' => 'Y', 'Ъ' => '',
-            'Э' => 'E', 'Ю' => 'Yu', 'Я' => 'Ya'
-        ];
+        // Обработать строку
+        $text = trim($text);
+        $text = $db->real_escape_string($text);
+        $text = htmlspecialchars($text, ENT_QUOTES);
 
-        return strtr($str, $letters);
+        // Показать
+        return $str;
     }
+
+    // Обработать сроку перед показом в html коде
+    public static function output(string $text): string
+    {
+        $text = nl2br($text);
+        //$text = bbcode($text);
+        //$text = smiles($text);
+
+        // Показать
+        return $text;
+    }
+
+    // Получить рандомную строку
+    public static function random(int $preend = 1, int $length = 32)
+    {
+        // Пустая строка
+        $output = '';
+        // Цифры
+        $numbers = '0123456789';
+        // Маленткие и большые буквы
+        $letters = 'abcdefghijklmnopqrstuvwxyz';
+        $bigLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+        // Обработк,а создание
+        for ($i = 0; $i < $length; $i++) {
+            switch (mt_rand(1, $preend)) {
+                // Содание рандомной цифры
+                case 1:
+                    $output .= $numbers[mt_rand(0, strlen($numbers) - 1)];
+
+                    break;
+                // Создание рандомной буквы
+                case 2:
+                    $output .= $letters[mt_rand(0, strlen($letters) - 1)];
+
+                    break;
+                // Создание рандомной большой буквы
+                case 3:
+                    $output .= $bigLetters[mt_rand(0, strlen($bigLetters) - 1)];
+
+                    break;
+            }
+        }
+
+        // Показать
+        return $output;
+    }
+
+    // Получить рандомное число в байтах, и перевести в int
+    public static function random_b(int $count = 9): string
+    {
+        // Получить строку
+        $bytes = random_bytes($count);
+
+        // Перевести, показать
+        return bin2hex($bytes);
+    }
+
 }

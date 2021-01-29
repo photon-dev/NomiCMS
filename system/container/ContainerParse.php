@@ -18,8 +18,10 @@ class ContainerParse
     // mb_strtolower преобразует строку в нижний регистр
     public function getName(string $name): string
     {
-        $name = substr(strrchr($name, '\\'), 1);
+        $name = mb_strtolower($name);
+        $name = str_replace(['\\', 'system.'], ['.', ''], $name);
+        //$name = substr(strrchr($name, '\\'), 1);
 
-        return mb_strtolower($name);
+        return $name;
     }
 }

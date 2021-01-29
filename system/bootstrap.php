@@ -28,7 +28,7 @@ $dependencies = loadFile('config/dependencies');
 $dependencies($container);
 
 // Загрузить настройки
-$config = $container->get('config')->pull('config', 'system/config');
+$config = $container->get('config.config')->pull('config', 'system/config');
 
 // Освободить память
 unset($dependencies);
@@ -55,9 +55,6 @@ session_name($config['session_name']) or die('Невозможно инициа�
 session_start() or die('Невозможно инициализировать сессии');
 
 define('sess', preg_replace('#[^a-z0-9]#i', '', session_id()));
-
-
-dd (Misc::translit('Невозможно инициализировать сессии'));
 
 //dd($app->router);
 
