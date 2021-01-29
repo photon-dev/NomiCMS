@@ -17,12 +17,15 @@ use System\App\AppInterface;
 use System\App\Factory;
 
 /**
- * Класс PHPoint
+ * Класс NomiApp
  */
 class NomiApp extends Package implements AppInterface
 {
     // Контейнер
     protected $container;
+
+    // Системные настройки
+    protected $config = [];
 
     // Найден
     protected $found = false;
@@ -38,6 +41,8 @@ class NomiApp extends Package implements AppInterface
         // Сохранить контейнер
         $this->container = $container;
 
+        $this->config = $container->get('config.config')->pull('config', 'system/config');
+
         /* $this->router();*/
 
         // Сохранить если true маршрут найден
@@ -52,6 +57,10 @@ class NomiApp extends Package implements AppInterface
     // Настроить приложение
     public function configure()
     {
+        if ($env = $app->getEnvironment($this->config['env'])) {
+            loadFile('config/boot/' . $env);
+        } else
+            die();
     }
 
     // Запустить маршрутизатор

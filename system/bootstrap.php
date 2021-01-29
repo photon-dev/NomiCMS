@@ -38,7 +38,7 @@ $app = new NomiApp($container);
 
 // Получить, установить среду окружения
 if ($env = $app->getEnvironment($config['env'])) {
-     loadFile('config/boot/' . $env);
+    loadFile('config/boot/' . $env);
 }  else
     die('Среда окружения не может быть определена');
 

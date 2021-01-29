@@ -19,7 +19,6 @@ class ContainerParse
     public function getName(string $name): string
     {
         $name = str_replace(['System\\', '\\'], ['', '.'], $name);
-        //$name = substr(strrchr($name, '\\'), 1);
 
         return mb_strtolower($name);;
     }
