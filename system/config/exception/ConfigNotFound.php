@@ -12,7 +12,9 @@ namespace System\Config\Exception;
 // Использовать
 use Exception;
 
-// Сервис не найден
+/**
+ * Класс ConfigNotFound
+ */
 class ConfigNotFound extends Exception
 {
 }
