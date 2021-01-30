@@ -31,14 +31,19 @@ class RouteParse
         return str_replace($keys, $values, $url);
     }
 
-    // Получить строку браузера
-    protected function getCurrentUri(): string
+    // Получить url-адрес из строки браузера
+    protected function getCurrentUri(string $uri = ''): string
     {
-        $uri = $_SERVER['REQUEST_URI'];
+        // Если url не указан получаем его
+        if (empty($uri)) {
+            $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        }
 
+        // Удалить все что находиться после ?
         if (false !== $pos = strpos($uri, '?')) {
             $uri = substr($uri, 0, $pos);
         }
+
         return rawurldecode($uri);
     }
 }

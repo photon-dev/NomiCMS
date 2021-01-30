@@ -22,10 +22,8 @@ class Factory
     protected static $app;
 
     // Создать фабрику
-    public static function create(ContainerInterface $container): NomiApp
+    public static function create(AppInterface $app, ContainerInterface $container)//: NomiApp
     {
-        dd('ok');
-        /*
         // Загрузить исходный файл
         return function () use ($container, $app) {
 
@@ -34,12 +32,21 @@ class Factory
                 extract($app->getParams());
             }
 
+            // Запустить шаблонизатор
+            $view = $container->get('view.view');
+
             // Загрузить
             $src = require PACKS . $app->getPathSource();
+
+            // Установить настройки загрузки
+            $view->autoload['counter'] =  NOMI_AUTOLOAD_COUNTER;
+            $view->autoload['timing'] =  round(NOMI_AUTOLOAD_TIMING, 6);
+
+            $view->memory = round((memory_get_usage() - NOMI_MEMORY) / 1024);
+            $view->timing = round(microtime(true) - NOMI_START, 6);
 
             // Показать
             return $src;
         };
-        */
     }
 }

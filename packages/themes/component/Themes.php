@@ -35,7 +35,7 @@ class Themes
         // Если не авторизован загрузить изходя из настроек
         } else {
             // Загрузить настройки
-            $settings = $container->get('config')->pull('themes', 'themes/config/settings', PACKAGE);
+            $settings = $container->get('config.config')::pull('themes/config/settings', PACKAGE);
 
             $this->theme = $settings['theme'];
         }

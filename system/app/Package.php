@@ -21,16 +21,22 @@ class Package
     // Текущий маршрут
     protected $route = [];
 
-    public function __construct()
-    {
-        //$route = $this->container->get('config')->get('route');
-        //$this->route = $route;
-    }
+    // Найден маршрут
+    protected $found = false;
+
+    // Конструктор
+    public function __construct(){}
 
     // Получить GET параметры
     public function getParams()
     {
         return $this->route['params'];
+    }
+
+    // Получить путь к исходному файлу
+    public function getPathSource()
+    {
+        return $this->route['package'] . '/src/' . $this->route['src'] . '.php';
     }
 
     // Существует ли пакет
@@ -43,11 +49,5 @@ class Package
     public function hasSource()
     {
         return file_exists(PACKS . $this->getPathSource());
-    }
-
-    // Получить путь к исходному файлу
-    public function getPathSource()
-    {
-        return $this->route['package'] . '/src/' . $this->route['src'] . '.php';
     }
 }

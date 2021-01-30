@@ -27,7 +27,7 @@ class Router extends RouteParse
     public function __construct(array $routes = [])
     {
         // Если url-адрес равен '/'
-        if ($this->getUri() == '/') {
+        if ($this->getCurrentUri() == '/') {
 
             // Поиск маршрута по умолчанию
             if ($key = array_search('/', array_column($routes, 'url'))) {
@@ -46,21 +46,11 @@ class Router extends RouteParse
         }
     }
 
-    // Получить url-адрес из строки браузера
-    protected function getUri()
-    {
-        // Получить url-адрес
-        $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-
-        // Показать
-        return $this->getCurrentUri($uri);
-    }
-
     // Разобрать маршруты
     protected function parse(array $routes): void
     {
         // Получить url-адрес
-        $uri = $this->getUri();
+        $uri = $this->getCurrentUri();
 
         // Разбор маршрутов
         foreach ($routes as $route) {

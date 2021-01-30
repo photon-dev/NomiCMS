@@ -110,5 +110,10 @@ class Autoload
 // Предварительная авто-загрузка загрузчика
 $autoload = Autoload::bootstrap();
 
+// Количество загруженных файлов
+define('NOMI_AUTOLOAD_COUNTER', $autoload->counter);
+// Скорось загрузки
+define('NOMI_AUTOLOAD_TIMING', $autoload->timing);
+
 // Вывод загруженного класса
 return $autoload;

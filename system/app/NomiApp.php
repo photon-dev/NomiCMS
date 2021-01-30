@@ -30,10 +30,7 @@ class NomiApp extends Package implements AppInterface
     // Настройки пакета
     protected $settings = [];
 
-    // Текущий маршрут
-    protected $route = [];
-
-    // Найден
+    // Запущен
     protected $status = false;
 
     // Конструктор
@@ -50,29 +47,21 @@ class NomiApp extends Package implements AppInterface
         // Загрузить настройки пакета
         $this->settings = $config::pull($this->system['default_package'] . '/config/settings', PACKAGE);
 
-        /* dd($this->settings);*/
     }
 
     // Запустить маршрутизатор
-    protected function router()
+    protected function router(): void
     {
-        // Получить доступные маршруты
+        // Загрузить доступные маршруты
         $routes = loadFile('config/routes');
 
-        // Получить маршрутизатор
-        $router = $this->container->get('router.router', [
-            'routes' => $routes($this->container),
-            'package' => $this->system['default_package']
-        ]);
+        // Обработать их
+        $routes = $routes($this->container);
 
-        return $router;
-    }
-
-    // Настроить приложение
-    public function configure()
-    {
         // Запустить маршрутизатор
-        $router = $this->router();
+        $router = $this->container->get('router.router', [
+            'routes' => $routes
+        ]);
 
         // Если маршрут найден
         if ($router->getFound()) {
@@ -80,26 +69,74 @@ class NomiApp extends Package implements AppInterface
             $this->route = $router->getRoute();
 
             // Установить как запущено
-            $this->status = true;
-        }
+            $this->found = true;
 
-        dd($this->route);
+        }
+    }
+
+    // Заперт на повторную загрузка приложения
+    protected function die()
+    {
+        if ($this->status) {
+            die('Повторная настройка приложение не доступна');
+            return;
+        }
+    }
+
+    // Получить информацию о текущем маршруте
+    public function getRoute(): array
+    {
+        return $this->route;
+    }
+
+    // Настроить приложение
+    public function configure()
+    {
+        // Запертить на повторную настройку
+        $this->die();
+
+        // Запустить маршрутизатор
+        $this->router();
+
+        /**
+         * В данной месте будут выполняться все возможные Event (Эвенты)
+         *
+         * Event - Это рассылка писем, счетчик онлайна, работа с аунтификацией, и т.п.
+         * В данный момент пропущщу
+         */
     }
 
     // Запустить приложение
     public function run()
     {
-        // Если маршрут найден, сообщить об этом
-        //if ($this->status) {
-            //return true;
-        //}
+        // Запертить на повторный запуск
+        $this->die();
 
-        // Показать ошибку
-        return 'Приложение запущено';
+        if (! $this->found) {
+            $this->notFound('Страница не найдена');
+        }
+
+        // Если папка с пакетом не найдена
+        if (! $this->hasPackage()) {
+            die("Пакет <b>{$this->route['package']}</b> не найден");
+            return;
+        }
+
+        // Если исходный файл не найден
+        if (! $this->hasPackage()) {
+            die("Исходный файл <b>{$this->route['src']}</b> не найден");
+            return;
+        }
+
+        $factory = Factory::create($this, $this->container);
+
+        $this->status = true;
+
+        return $factory();
     }
 
     // Показать ошибку
-    public function notFound($error)
+    protected function notFound($error)
     {
         return error($error);
     }
