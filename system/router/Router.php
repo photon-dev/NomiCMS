@@ -69,8 +69,8 @@ class Router extends RouteParse
                 array_shift($matches);
 
                 // Если совпадения, и параметры найдены
-                if (isset($matches) && isset($params)) {
-                    $params = $this->match($matches, $params);
+                if (isset($matches) && isset($route['params'])) {
+                    $params = $this->match($matches, $route['params']);
                 }
 
                 // Созранить информацию о маршруте
