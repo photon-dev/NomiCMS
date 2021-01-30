@@ -90,7 +90,10 @@ if (!function_exists('cssTime'))
 if (!function_exists('go_die')) {
     function go_die(string $url = '/', $exit = true)
     {
+        //ob_start();
+
         header('location: ' . $url);
+
         if ($exit) {
             die;
         }

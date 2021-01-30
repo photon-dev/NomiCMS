@@ -50,17 +50,7 @@ class NomiApp extends Package implements AppInterface
         // Загрузить настройки пакета
         $this->settings = $config::pull($this->system['default_package'] . '/config/settings', PACKAGE);
 
-        $route = $this->router();
-
-        parent::__construct();
-
-        // Сохранить если true маршрут найден
-        //$this->found = $router->getFound();
-        /*
-        if ($this->found) {
-            parent::__construct($router->getRoute());
-        }
-        */
+        dd($this->settings);
     }
 
     // Запустить маршрутизатор
@@ -74,11 +64,19 @@ class NomiApp extends Package implements AppInterface
             'routes' => $routes($this->container),
             'package' => $this->system['default_package']
         ]);
+
+        return $router;
     }
 
     // Настроить приложение
     public function configure()
     {
+        // Запустить маршрутизатор
+        $router = $this->router();
+
+        $this->found = $router->getFound();
+
+        dd($this->found);
     }
 
     // Запустить приложение

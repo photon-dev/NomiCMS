@@ -19,22 +19,12 @@ use System\Router\Router;
 class Package
 {
     // Текущий маршрут
-    private $route = [];
+    protected $route = [];
 
-    // Пакет (по умолчанию main)
-    private $package = 'main';
-
-    // Источник (по умолчанию index)
-    private $src = 'index';
-
-    public function __construct(array $route = [])
+    public function __construct()
     {
         //$route = $this->container->get('config')->get('route');
-
-        $this->route = $route;
-
-        //$this->package =  $route['package'];
-        //$this->src =  $route['src'];
+        //$this->route = $route;
     }
 
     // Получить GET параметры

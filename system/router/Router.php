@@ -11,19 +11,16 @@ namespace System\Router;
 
 // Использовать
 use System\Router\RouteParse;
-use System\Router\RouterInterface;
+//use System\Router\RouterInterface;
 use System\Config\Config;
 
 /**
  * Класс маршрутизации
  */
-class Router extends RouteParse implements RouterInterface
+class Router extends RouteParse //implements RouterInterface
 {
     // Текущий маршрут
-    private $route = [];
-
-    // Пакет по умолчанию
-    protected $package = '/';
+    protected $route = [];
 
     // Найти маршрут
     protected $found = false;
@@ -32,23 +29,43 @@ class Router extends RouteParse implements RouterInterface
     public function __construct(array $routes = [], string $package = 'main', Config $config)
     {
         // Получить пакет по умолчанию
-        $url = $config::get($package);
+        $url = $config::get($package)['url'];
 
-        // Установить пакет
-        //if (array_key_exists($routes, )) {
-        if ($url) {
-            dd($package);
+        // Если url-адрес по умолчанию
+        if ($this->getUri() == $url) {
+            // Получить маршрут , если url-адрес = '/'
+            $key = array_search($url, array_column($routes, 'url'));
+
+            // Если по умолчанию, маршрут найден
+            if ($key !== false) {
+
+                // Установить маршрут
+                $this->route = $routes[$key];
+
+                // Сообщить что маршрут найден
+                $this->found = true;
+                return $this;
+            } else
+                die('Ошибка маршрут по умолчанию не найден');
         }
 
-        // Разобрать маршруты
         $this->parse($routes);
     }
 
+    // Получить url-адрес из строки браузера
+    protected function getUri()
+    {
+        // Получить uri
+        $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+        // Показать
+        return $this->getCurrentUri($uri);
+    }
     // Разобрать маршруты
     protected function parse(array $routes): void
     {
-        $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-        $uri = $this->getCurrentUri($uri);
+        // Получить url-адрес
+        $uri = $this->getUri();
 
         // Разбор маршрутов
         foreach ($routes as $route) {
