@@ -39,7 +39,7 @@ return function (ContainerInterface $container) {
         $path = 'packages/' . $package . '/config/routes';
 
         // Если файл с маршрутами не найден в пакете то пропускаем
-        if (file_exists(ROOT . $path . '.php') === false) {
+        if (! file_exists(ROOT . $path . '.php')) {
             continue;
         }
 

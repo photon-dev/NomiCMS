@@ -49,7 +49,7 @@ class Router extends RouteParse
     // Получить url-адрес из строки браузера
     protected function getUri()
     {
-        // Получить uri
+        // Получить url-адрес
         $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
         // Показать
@@ -65,8 +65,9 @@ class Router extends RouteParse
         // Разбор маршрутов
         foreach ($routes as $route) {
 
-            //  || strpos($route['url'], '{') !== false
-            if (strstr($route['url'], '{') !== false) {
+            // Проверить если первом вхождении подстроки
+            // Ищем символ {
+            if (strpos($route['url'], '{') !== false) {
                 $route['url'] = $this->parseUrl($route['url']);
             }
 
