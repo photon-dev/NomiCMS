@@ -61,7 +61,7 @@ class Config
     }
 
     // Загрузка файла
-    public static function load(string $path, bool $package)
+    public static function load(string $path, bool $package = false)
     {
         // Если PACKAGE тогда загружаем из папки packages/
         if ($package) {

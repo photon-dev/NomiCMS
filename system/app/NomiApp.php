@@ -34,7 +34,7 @@ class NomiApp extends Package implements AppInterface
     protected $route = [];
 
     // Найден
-    protected $found = false;
+    protected $status = false;
 
     // Конструктор
     public function __construct(ContainerInterface $container)
@@ -74,10 +74,13 @@ class NomiApp extends Package implements AppInterface
         // Запустить маршрутизатор
         $router = $this->router();
 
-        $this->found = $router->getFound();
-
-        if ($this->found) {
+        // Если маршрут найден
+        if ($router->getFound()) {
+            // Получить маршрут
             $this->route = $router->getRoute();
+
+            // Установить как запущено
+            $this->status = true;
         }
 
         dd($this->route);
@@ -87,7 +90,7 @@ class NomiApp extends Package implements AppInterface
     public function run()
     {
         // Если маршрут найден, сообщить об этом
-        //if ($this->found) {
+        //if ($this->status) {
             //return true;
         //}
 

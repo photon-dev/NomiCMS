@@ -11,13 +11,12 @@ namespace System\Router;
 
 // Использовать
 use System\Router\RouteParse;
-//use System\Router\RouterInterface;
 use System\Config\Config;
 
 /**
  * Класс маршрутизации
  */
-class Router extends RouteParse //implements RouterInterface
+class Router extends RouteParse
 {
     // Текущий маршрут
     protected $route = [];
@@ -26,31 +25,26 @@ class Router extends RouteParse //implements RouterInterface
     protected $found = false;
 
     // Конструктор
-    public function __construct(array $routes = [], string $package = 'main', Config $config)
+    public function __construct(array $routes = [], Config $config)
     {
-        // Получить пакет по умолчанию
-        $url = $config::get($package)['url'];
+        // Если url-адрес равен '/'
+        if ($this->getUri() == '/') {
 
-        // Если url-адрес по умолчанию
-        if ($this->getUri() == $url) {
-            // Получить маршрут , если url-адрес = '/'
-            $key = array_search($url, array_column($routes, 'url'));
+            // Поиск маршрута по умолчанию
+            if ($key = array_search('/', array_column($routes, 'url'))) {
 
-            // Если по умолчанию, маршрут найден
-            if ($key !== false) {
-
-                // Установить маршрут
+                // Сохранить маршрут
                 $this->route = $routes[$key];
-                $this->route['params'] ?? false,
-
                 // Сообщить что маршрут найден
                 $this->found = true;
-                return $this;
-            } else
-                die('Ошибка маршрут по умолчанию не найден');
+            } else {
+                die('<b>Маршрут по умолчанию не найден.</b><br />Проверьте правильность настройки маршрутизации...');
+            }
         }
 
-        $this->parse($routes);
+        if ($this->found === false) {
+            $this->parse($routes);
+        }
     }
 
     // Получить url-адрес из строки браузера
@@ -62,6 +56,7 @@ class Router extends RouteParse //implements RouterInterface
         // Показать
         return $this->getCurrentUri($uri);
     }
+
     // Разобрать маршруты
     protected function parse(array $routes): void
     {
@@ -83,16 +78,18 @@ class Router extends RouteParse //implements RouterInterface
                 $currentUrl = $matches[0];
                 array_shift($matches);
 
-                // Сохранить информацию о маршруте
-                $this->route = [
-                    'url' => $currentUrl,
-                    'package' => $route['package'],
-                    'src' => $route['src'],
-                    'params' => $route['params'] ?? false,
-                    'matches' => ($matches) ? $matches : false
-                ];
+                // Если совпадения, и параметры найдены
+                if (isset($matches) && isset($params)) {
+                    $params = $this->match($matches, $params);
+                }
 
-                dd($this->route['params']);
+                // Созранить информацию о маршруте
+                $this->route = [
+                    'url'       => $currentUrl,
+                    'package'   => $route['package'],
+                    'src'       => $route['src'],
+                    'params'    => $params ?? false
+                ];
 
                 // Установить что найден
                 $this->found = true;
@@ -102,28 +99,17 @@ class Router extends RouteParse //implements RouterInterface
     }
 
     // Проверить совпадения
-    protected function match(): array
+    protected function match(array $matches, array $params): array
     {
-        dd($this->route['matches']);
-        // Установить массив
-        $params = [];
+        // Совместить параметры с совпадениями
+        foreach ($matches as $key => $value) {
+            $params[$params[$key]] = $value;
 
-        // Заполнить массив совпадениями
-        foreach ($this->route['matches'] as $key => $value) {
-            $params[$this->route['params'][$key]] = $value;
+            unset($params[$key]);
         }
 
-        // Показать массив
+        // Показать параметры
         return $params;
-    }
-
-    // Получить параметры
-    protected function getParams(): void
-    {
-        // Если параметры указаны, обработать и собрать в кучу все совпадения
-        if ($this->route['params'] && $this->route['matches']) {
-            $this->route['params'] = $this->match();
-        }
     }
 
     // Получить найден ли маршрут
@@ -137,10 +123,8 @@ class Router extends RouteParse //implements RouterInterface
     {
         // Если маршрут найден
         if ($this->found) {
-            // Получить параметры
-            $this->getParams();
 
-            unset($this->route['matches']);
+            // Показать маршрут
             return $this->route;
         }
 

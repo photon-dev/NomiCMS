@@ -14,15 +14,8 @@ return [
     [
         'url' => '/',
         'package' => 'main',
-        'src' => 'index'
-    ],
-    [
-        'url' => '/main',
-        'package' => 'main',
         'src' => 'index',
-        'params' => [
-            'idMain'
-        ]
+        'params' => false
     ],
     [
         'url' => '/pages',
