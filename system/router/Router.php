@@ -11,7 +11,6 @@ namespace System\Router;
 
 // Использовать
 use System\Router\RouteParse;
-use System\Config\Config;
 
 /**
  * Класс маршрутизации
@@ -25,7 +24,7 @@ class Router extends RouteParse
     protected $found = false;
 
     // Конструктор
-    public function __construct(array $routes = [], Config $config)
+    public function __construct(array $routes = [])
     {
         // Если url-адрес равен '/'
         if ($this->getUri() == '/') {
