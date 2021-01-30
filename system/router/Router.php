@@ -41,6 +41,7 @@ class Router extends RouteParse //implements RouterInterface
 
                 // Установить маршрут
                 $this->route = $routes[$key];
+                $this->route['params'] ?? false,
 
                 // Сообщить что маршрут найден
                 $this->found = true;
@@ -91,6 +92,8 @@ class Router extends RouteParse //implements RouterInterface
                     'matches' => ($matches) ? $matches : false
                 ];
 
+                dd($this->route['params']);
+
                 // Установить что найден
                 $this->found = true;
                 break;
@@ -101,12 +104,16 @@ class Router extends RouteParse //implements RouterInterface
     // Проверить совпадения
     protected function match(): array
     {
+        dd($this->route['matches']);
+        // Установить массив
         $params = [];
 
+        // Заполнить массив совпадениями
         foreach ($this->route['matches'] as $key => $value) {
             $params[$this->route['params'][$key]] = $value;
         }
 
+        // Показать массив
         return $params;
     }
 
@@ -114,9 +121,8 @@ class Router extends RouteParse //implements RouterInterface
     protected function getParams(): void
     {
         // Если параметры указаны, обработать и собрать в кучу все совпадения
-        if ($this->found && $this->route['params'] && isset($this->route['matches'])) {
+        if ($this->route['params'] && $this->route['matches']) {
             $this->route['params'] = $this->match();
-
         }
     }
 
@@ -134,7 +140,7 @@ class Router extends RouteParse //implements RouterInterface
             // Получить параметры
             $this->getParams();
 
-            unset ($this->route['matches']);
+            unset($this->route['matches']);
             return $this->route;
         }
 

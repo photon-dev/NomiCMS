@@ -18,8 +18,5 @@ return [
     'edit_posts' => 2,
 
     // Удалить сообщение
-    'del_posts' => 3,
-
-    // Url-адрес по умолчанию
-    'url' => '/chat'
+    'del_posts' => 3
 ];

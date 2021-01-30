@@ -17,6 +17,14 @@ return [
         'src' => 'index'
     ],
     [
+        'url' => '/main',
+        'package' => 'main',
+        'src' => 'index',
+        'params' => [
+            'idMain'
+        ]
+    ],
+    [
         'url' => '/pages',
         'package' => 'main',
         'src' => 'pages'

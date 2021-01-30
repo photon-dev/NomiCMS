@@ -21,8 +21,5 @@ return [
     'edit_users' => 4,
 
     // Удалить пользователя
-    'del_users' => 5,
-
-    // Url-адрес по умолчанию
-    'url' => '/user'
+    'del_users' => 5
 ];
