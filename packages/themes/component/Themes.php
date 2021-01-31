@@ -28,7 +28,6 @@ class Themes
     // Конструктор
     public function __construct(Config $config, User $user)
     {
-
         // Если пользователь, то тема пользовательская
         // В другом случае, тема системная
         if ($user->logger) {
