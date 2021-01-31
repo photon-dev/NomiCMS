@@ -12,6 +12,7 @@ namespace System\App;
 // Использовать
 use System\Container\ContainerInterface;
 use System\App\AppInterface;
+use System\Response\Response;
 
 /**
  * Класс Factory
@@ -22,10 +23,12 @@ class Factory
     protected static $app;
 
     // Создать фабрику
-    public static function create(AppInterface $app, ContainerInterface $container)//: NomiApp
+    public static function create(AppInterface $app, ContainerInterface $container)
     {
         // Загрузить исходный файл
-        return function () use ($container, $app) {
+        return function ($autoload) use ($app, $container) {
+
+            $user = $container->get('packages.user.component.user');
 
             // Если есть GET данные то распаковать их
             if ($app->getParams()) {
@@ -35,18 +38,17 @@ class Factory
             // Запустить шаблонизатор
             $view = $container->get('view.view');
 
-            // Загрузить
-            $src = require PACKS . $app->getPathSource();
+            // Загрузить файл источник
+            require PACKS . $app->getPathSource();
 
-            // Установить настройки загрузки
-            $view->autoload['counter'] =  NOMI_AUTOLOAD_COUNTER;
-            $view->autoload['timing'] =  round(NOMI_AUTOLOAD_TIMING, 6);
-
+            // Установить загрузки
+            $view->autoload['counter'] =  $autoload->counter;
+            $view->autoload['timing'] =  round($autoload->timing, 6);
             $view->memory = round((memory_get_usage() - NOMI_MEMORY) / 1024);
             $view->timing = round(microtime(true) - NOMI_START, 6);
 
             // Показать
-            return $src;
+            return $view->output();
         };
     }
 }

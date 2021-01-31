@@ -26,12 +26,12 @@ return [
      // User
      Packages\User\Component\User::class,
 
+     // Response
+     System\Http\Response::class,
+
      // View
      System\View\View::class,
 
      // Themes
-     Packages\Themes\Component\Themes::class,
-
-     // Response
-     System\Response\Response::class
+     Packages\Themes\Component\Themes::class
 ];

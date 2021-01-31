@@ -27,6 +27,12 @@ class Package
     // Конструктор
     public function __construct(){}
 
+    // Получить текущий маршрут
+    public function getRoute()
+    {
+        return $this->route['params'];
+    }
+
     // Получить GET параметры
     public function getParams()
     {

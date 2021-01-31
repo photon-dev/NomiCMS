@@ -7,4 +7,4 @@
  * @link   http://nomicms.ru
  */
 
-return "Привет. Твой id {$userId}";
+echo "Привет. Твой id {$userId}";

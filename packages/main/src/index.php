@@ -10,9 +10,9 @@
 
 $view->set('name', 'Гость');
 
-$view->output('name');
+$view->view('name');
 
 
 //dd($view->themes->theme);
 
-return 'Компонент Main/index подключен';
+//return 'Компонент Main/index подключен';

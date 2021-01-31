@@ -7,7 +7,7 @@
  * @link   http://nomicms.ru
  */
 
-namespace System\Response;
+namespace System\Http;
 
 /**
  * Класс Ipus

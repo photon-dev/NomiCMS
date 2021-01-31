@@ -11,7 +11,8 @@ namespace System\View;
 
 // Использовать
 use System\Container\ContainerInterface;
-use System\Response\Response;
+use System\Http\Response;
+use System\Http\ResponseInterface;
 use System\View\Template;
 use System\View\Exception\TemplateNotFound;
 use Packages\Themes\Component\Themes;
@@ -24,12 +25,10 @@ class View extends Template
     // Контейнер зависимостей
     protected $container;
 
-    // Ответ клиенту
-    public $response;
-
     // Хранилище
     protected $themes;
 
+    // Скрыть контент
     public $showed = false;
 
     // Имя страницы
@@ -51,13 +50,10 @@ class View extends Template
     ];
 
     // Конструктор
-    public function __construct(ContainerInterface $container, Response $response, Themes $themes)
+    public function __construct(ContainerInterface $container, Themes $themes)
     {
         // Установить контейнер
         $this->container = $container;
-
-        // Установить ответ клиенту
-        $this->response = $response;
 
         // Установить тему
         $this->themes = $themes;
@@ -89,41 +85,50 @@ class View extends Template
     }
 
     // Показать шаблон
-    public function output(string $file, bool $response = false): void
+    public function view(string $file, bool $preend = false): void
     {
+        $response = $this->container->get('http.response');
+
         $content = $this->loadFile($file);
 
-        if ($response) {
-            $this->response->body($content);
+        if ($file == 'basic') {
+            //dd($content);
+        }
+
+        if ($preend) {
+            $response->body($content);
         } else {
-            $this->response->write($content);
+            $response->write($content);
         }
     }
 
     // При завершении скрипта показать ответ клиенту
-    public function __destruct()//: Response
+    public function output()
     {
+        $response = $this->container->get('http.response');
+
         if ($this->showed) {
 
-            return  $this->response->clear();
+            return  $response->clear();
         }
+
         // Загрузить настройки
-        $config = $this->container->get('config.config')::pull('system/seo');
+        $seo = $this->container->get('config.config')::pull('system/seo');
 
         self::setObject('title', function ()
         {
             if ($this->title) {
-                return $config['title'];
+                return $seo['title'];
             }
             //$config['title'];
         });
 
         $doc = (object) [
-            'local_html'    => $config['title'],
-            'title'         => $this->title ? $this->title : $config['title'],
-            'description'   => $this->description ? $this->description : $config['description'],
-            'keywords'      => $this->keywords ?? $config['keywords'],
-            'content'       => $this->response->getContent(),
+            'local_html'    => $seo['local_html'],
+            'title'         => $this->title ? $this->title : $seo['title'],
+            'description'   => $this->description ? $this->description : $seo['description'],
+            'keywords'      => $this->keywords ?? $seo['keywords'],
+            'content'       => $response->getContent(),
             'memory'        => $this->memory,
             'timing'        => $this->timing,
             'autoload'      => $this->autoload
@@ -131,11 +136,9 @@ class View extends Template
 
         self::setObject('response', $doc);
 
-        //dd(self::get());
+        $this->view('basic', true);
 
-        $this->output('basic', true);
-
-        return $this->response->send();
+        return $response;
     }
 
 }

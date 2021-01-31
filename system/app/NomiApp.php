@@ -15,6 +15,7 @@ use System\Router\Router;
 use System\App\Package;
 use System\App\AppInterface;
 use System\App\Factory;
+use System\Response\ResponseInterface;
 
 /**
  * Класс NomiApp
@@ -107,7 +108,7 @@ class NomiApp extends Package implements AppInterface
     }
 
     // Запустить приложение
-    public function run()
+    public function run($autoload)
     {
         // Запертить на повторный запуск
         $this->die();
@@ -128,11 +129,15 @@ class NomiApp extends Package implements AppInterface
             return;
         }
 
+        // Создать фабрику
         $factory = Factory::create($this, $this->container);
+        $response = $factory($autoload);
 
+        // Установить статус
         $this->status = true;
 
-        return $factory();
+        // Отправить все содержимое
+        return $response->send();
     }
 
     // Показать ошибку

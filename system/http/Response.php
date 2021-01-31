@@ -7,11 +7,11 @@
  * @link   http://nomicms.ru
  */
 
-namespace System\Response;
+namespace System\Http;
 
 // Использовать
-use System\Response\ResponseInterface;
-use System\Response\ResponseCodes;
+use System\Http\ResponseInterface;
+use System\Http\ResponseCodes;
 
 use InvalidArgumentException;
 use Exception;
@@ -49,20 +49,14 @@ class Response extends ResponseCodes implements ResponseInterface
 
     }
 
-    // Получить статус
-    public function getStatus(): int
-    {
-        return $this->status;
-    }
-
-    // Cодержимое
-    public function body(string $body)
+    // Установить тело
+    public function body(string $body): void
     {
         $this->body = $body;
     }
 
     // Записать в содержимое
-    public function write($str)
+    public function write(string $str): void
     {
         $this->content .= $str;
     }
@@ -77,14 +71,32 @@ class Response extends ResponseCodes implements ResponseInterface
         }
     }
 
+    public function setHeader(string $name, $value, $replace = true)
+    {
+        $this->headers[$name] = $value;
+    }
+
+    // Получить статус
+    public function getStatus(): int
+    {
+        return $this->status;
+    }
+
+    // Получить тело
+    public function getBody(): string
+    {
+        return $this->body;
+    }
+
     // Получить содержимое
-    public function getContent()
+    public function getContent(): string
     {
         return $this->content;
     }
 
-    // Очистка ответа.
-    public function clear() {
+    // Очистить все
+    public function clear(): self
+    {
         $this->status = 200;
         $this->headers = [];
         $this->body = '';
@@ -102,6 +114,7 @@ class Response extends ResponseCodes implements ResponseInterface
         return $status;
     }
 
+    // Получить код статуса
     public function getStatusCode($id = false)
     {
         if ($id === false) {

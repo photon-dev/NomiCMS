@@ -12,6 +12,9 @@
  */
 class Autoload
 {
+    // Статус
+    protected static $status = false;
+
     // Счетчик
     public $counter = 0;
 
@@ -21,7 +24,13 @@ class Autoload
     // Предварительная загрузка
     public static function bootstrap(): self
     {
-        return new self();
+        if (self::$status === false) {
+            self::$status = true;
+
+            return new self();
+        }
+
+        die('Повторная активация загрузчика запрещена');
     }
 
     // Конструктор
@@ -109,11 +118,6 @@ class Autoload
 
 // Предварительная авто-загрузка загрузчика
 $autoload = Autoload::bootstrap();
-
-// Количество загруженных файлов
-define('NOMI_AUTOLOAD_COUNTER', $autoload->counter);
-// Скорось загрузки
-define('NOMI_AUTOLOAD_TIMING', $autoload->timing);
 
 // Вывод загруженного класса
 return $autoload;

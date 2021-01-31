@@ -54,6 +54,10 @@ class Reflection
         // Разобрать
         foreach ($getParams as $param) {
 
+            if ($param->getType()->getName() === 'Response'){
+                dd();
+            }
+
             // Если параметр не namespace
             if ($param->getType()->isBuiltin()) {
 
