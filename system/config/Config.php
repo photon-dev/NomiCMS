@@ -19,6 +19,7 @@ class Config
 {
     protected static $storage = [];
 
+    // Получить
     public static function get(string $key)
     {
         // Проверка по ключу
@@ -36,7 +37,7 @@ class Config
         if (self::has($key) === true) {
             throw new ConfigNotFound("Ключ: {$key} в System\Config\Config уже занят");
         }
-
+        // Сохранить данные
         self::$storage[$key] = $data;
 
         // Вывод eсли true
@@ -45,22 +46,20 @@ class Config
         }
     }
 
+    // Загрузить и добавить в хранилище
     public static function pull(string $config, int $preend = 0) {
 
-        // Загружаем данные из файла
+        // Загрузить файл
         $data = self::load($config, $preend);
 
-        // Получить ключ
+        // Получить ключ, добавить в хранилище
         $key = self::getKey($config, $preend);
-
-        // Добавить в хранилище
         self::add($key, $data);
 
-        // Вывод если загружен
         return $data;
     }
 
-    // Загрузка файла
+    // Загрузить файл
     public static function load(string $file, int $preend = 0)
     {
         // Если равен 1, тогда путь root/packages/
@@ -74,7 +73,7 @@ class Config
             $path = THEMES;
 
         // В противном случае root/config/
-        }else {
+        } else {
             $path = CONFIG;
         }
 

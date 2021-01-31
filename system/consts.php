@@ -28,8 +28,16 @@ const WEBSITE = ROOT . 'website/';
 // Темы оформления
 const THEMES = WEBSITE . 'themes/';
 
-// Если это пакет
+// Пакет, тема
 const PACKAGE = 1;
-
-// Если это тема
 const THEME = 2;
+
+// Временные Константы
+const SECOND = 1; // Секунда
+const MINUTE = 60; // Минута
+const HOUR = 3600; // Час
+const DAY = 86400; // День
+const WEEK = 604800; // Неделя
+const MONTH = 2592000; // Месяц
+const YEAR = 31536000; // Год
+const DECADE = 315360000; // Десятилетие

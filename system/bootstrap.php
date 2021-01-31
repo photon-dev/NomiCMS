@@ -42,6 +42,9 @@ session_start() or die('Невозможно инициализировать с
 // Сохранить имя сессии в константу
 define('sess', preg_replace('#[^a-z0-9]#i', '', session_id()));
 
+// Время хранить в константе
+define('TIME', time());
+
 // Освободить память
 unset($dependencies, $configure, $system);
 
