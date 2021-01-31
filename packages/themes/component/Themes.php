@@ -11,6 +11,7 @@ namespace Packages\Themes\Component;
 
 // Использовать
 use System\Container\ContainerInterface;
+use System\Config\Config;
 use Packages\User\Component\User;
 
 /**
@@ -25,7 +26,7 @@ class Themes
     protected $path = '';
 
     // Конструктор
-    public function __construct(ContainerInterface $container, User $user)
+    public function __construct(ContainerInterface $container, Config $config, User $user)
     {
         // Если авторизован тема пользователя
         if ($user->logger) {
@@ -55,11 +56,10 @@ class Themes
             return true;
         } elseif (is_dir(THEMES . 'custom/')) {
 
-        } elseif () {
-            
-        }
+            $this->path = THEMES . 'custom/';
 
-        $this->path = THEMES . 'custom/';
+        } else
+            die('Папка с темой не обнаружена');
 
         return false;
     }

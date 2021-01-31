@@ -12,8 +12,17 @@
   */
 return [
     // Имя папки
-    'name' => 'Custom',
+    'name' => 'Традиционная',
 
-    // Автор
-    'author' => 'Tosyk'
+    // Имя темы
+    'dir' => 'custom',
+
+    // Версия темы
+    'ver' => '0.1b'
+
+    // Авторы
+    'authors' => [
+        'Tosyk',
+        'Photon'
+    ]
 ];
