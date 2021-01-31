@@ -71,6 +71,7 @@ class Response extends ResponseCodes implements ResponseInterface
         }
     }
 
+    // Установить заголовок
     public function setHeader(string $name, $value, $replace = true)
     {
         $this->headers[$name] = $value;

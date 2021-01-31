@@ -28,7 +28,7 @@ class Factory
         // Загрузить исходный файл
         return function ($autoload) use ($app, $container) {
 
-            $user = $container->get('packages.user.component.user');
+            //$user = $container->get('packages.user.component.user');
 
             // Если есть GET данные то распаковать их
             if ($app->getParams()) {
@@ -36,19 +36,23 @@ class Factory
             }
 
             // Запустить шаблонизатор
-            $view = $container->get('view.view');
+            $view = $container->get('view.view', [
+                'config' => [
+                    
+                ]
+            ]);
 
             // Загрузить файл источник
             require PACKS . $app->getPathSource();
 
             // Установить загрузки
-            $view->autoload['counter'] =  $autoload->counter;
-            $view->autoload['timing'] =  round($autoload->timing, 6);
-            $view->memory = round((memory_get_usage() - NOMI_MEMORY) / 1024);
-            $view->timing = round(microtime(true) - NOMI_START, 6);
+            //$view->autoload['counter'] =  $autoload->counter;
+            //$view->autoload['timing'] =  round($autoload->timing, 6);
+            //$view->memory = round((memory_get_usage() - NOMI_MEMORY) / 1024);
+            //$view->timing = round(microtime(true) - NOMI_START, 6);
 
             // Показать
-            return $view->output();
+            return $response->send();
         };
     }
 }

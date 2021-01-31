@@ -27,12 +27,12 @@ class Themes
     // Конструктор
     public function __construct(ContainerInterface $container, User $user)
     {
-        // Установить тему если авторизован
+        // Если авторизован тема пользователя
         if ($user->logger) {
 
             $this->theme = $user['theme'];
 
-        // Если не авторизован загрузить изходя из настроек
+        // Если не авторизован тема по умолчанию
         } else {
             // Загрузить настройки
             $settings = $container->get('config.config')::pull('themes/config/settings', PACKAGE);

@@ -50,7 +50,7 @@ class View extends Template
     ];
 
     // Конструктор
-    public function __construct(ContainerInterface $container, Themes $themes)
+    public function __construct(array $config = [], ContainerInterface $container, Themes $themes)
     {
         // Установить контейнер
         $this->container = $container;
@@ -105,10 +105,10 @@ class View extends Template
     // При завершении скрипта показать ответ клиенту
     public function output()
     {
+        // Получить зависимость response
         $response = $this->container->get('http.response');
 
         if ($this->showed) {
-
             return  $response->clear();
         }
 

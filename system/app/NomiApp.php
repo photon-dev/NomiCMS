@@ -128,16 +128,14 @@ class NomiApp extends Package implements AppInterface
             die("Исходный файл <b>{$this->route['src']}</b> не найден");
             return;
         }
-
-        // Создать фабрику
-        $factory = Factory::create($this, $this->container);
-        $response = $factory($autoload);
-
         // Установить статус
         $this->status = true;
 
+        // Создать фабрику
+        $factory = Factory::create($this, $this->container);
+
         // Отправить все содержимое
-        return $response->send();
+        return $factory($autoload);
     }
 
     // Показать ошибку
