@@ -34,25 +34,25 @@ class Template
 	}
 
     // Добавить массив по ключу
-    public static function setArray(string $key, array $array)
+    public static function setArray(string $key, array $array): void
     {
         self::$data[$key] = $array;
     }
 
     // Добавить обьект по ключу
-    public static function setObject(string $key, object $object)
+    public static function setObject(string $key, object $object): void
     {
         self::$data[$key] = $object;
     }
 
     // Получить данные
-    public function get()
+    public function get(): array
     {
         return self::$data;
     }
 
     // Очистить данные
-    public static function сlear()
+    public static function сlear(): void
     {
         self::$data = [];
     }

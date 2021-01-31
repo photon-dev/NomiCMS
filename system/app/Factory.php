@@ -36,11 +36,7 @@ class Factory
             }
 
             // Запустить шаблонизатор
-            $view = $container->get('view.view', [
-                'config' => [
-                    
-                ]
-            ]);
+            //$view = $container->get('view.view');
 
             // Загрузить файл источник
             require PACKS . $app->getPathSource();
@@ -52,7 +48,7 @@ class Factory
             //$view->timing = round(microtime(true) - NOMI_START, 6);
 
             // Показать
-            return $response->send();
+            //return $response->send();
         };
     }
 }

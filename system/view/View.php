@@ -50,7 +50,7 @@ class View extends Template
     ];
 
     // Конструктор
-    public function __construct(array $config = [], ContainerInterface $container, Themes $themes)
+    public function __construct(ContainerInterface $container, Themes $themes)
     {
         // Установить контейнер
         $this->container = $container;
@@ -138,7 +138,7 @@ class View extends Template
 
         $this->view('basic', true);
 
-        return $response;
+        //return $response->send( );
     }
 
 }

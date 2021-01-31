@@ -7,10 +7,14 @@
  * @link   http://nomicms.ru
  */
 
+$view = $container->get('view.view');
+
 
 $view->set('name', 'Гость');
-
 $view->view('name');
+
+
+$view->output();
 
 
 //dd($view->themes->theme);

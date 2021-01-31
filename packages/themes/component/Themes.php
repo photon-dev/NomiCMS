@@ -53,6 +53,10 @@ class Themes
             $this->path = $path;
 
             return true;
+        } elseif (is_dir(THEMES . 'custom/')) {
+
+        } elseif () {
+            
         }
 
         $this->path = THEMES . 'custom/';
