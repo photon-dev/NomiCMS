@@ -45,13 +45,7 @@ class Themes
 
         //dd($theme);
 
-        $this->setPath();
-    }
-
-    // Установить тему оформления
-    protected function setTheme()
-    {
-        // code...
+        //$this->setPath();
     }
 
     // Установить путь к теме
@@ -79,6 +73,12 @@ class Themes
     protected function has(string $path)
     {
         return (is_dir($path) && file_exists($path . 'theme.php'));
+    }
+
+    // Установить тему оформления
+    public function verify()
+    {
+        dd('ok');
     }
 
     // Получить путь к теме

@@ -58,6 +58,7 @@ class View extends Template
         // Установить тему
         $this->themes = $themes;
 
+        $this->themes->verify();
     }
 
     protected function getPath()
@@ -65,36 +66,36 @@ class View extends Template
         return $this->themes->getPath()  . 'views/';
     }
 
-    protected function load(string $file)
+    protected function load(string $file, bool $load)
     {
-        $path = $this->getPath() . $file . '.php';
+        // Установить путь от куда грузить
+        $path = $load ? $themes->getPath :
 
-        if (!file_exists($path)) {
-            dd($path);
-            throw new TemplateNotFound("Шаблон {$file} не найден");
-        }
+        dd($load);
+        //$path = $this->getPath() . $file . '.php';
 
-        extract(self::get());
+        //if (!file_exists($path . $file . '.php')) {
+            //throw new TemplateNotFound("Шаблон {$file} не найден");
+        //}
 
-        ob_start();
-        require $path;
+        //extract(self::get());
+
+        //ob_start();
+
+        //loadFile($file, $path);
 
         // Очистим дату для экономии используемых данных
-        self::сlear();
+        //self::сlear();
 
-        return ob_get_clean();
+        //return ob_get_clean();
     }
 
     // Показать шаблон
-    public function view(string $file, int $load = 0, bool $preend = false): void
+    public function view(string $file, bool $load = false, bool $preend = false): void
     {
         $response = $this->container->get('http.response');
 
-        $content = $this->load($file);
-
-        if ($file == 'basic') {
-            //dd($content);
-        }
+        $content = $this->load($file, $load);
 
         if ($preend) {
             $response->body($content);
@@ -130,9 +131,9 @@ class View extends Template
 
         self::setObject('response', $doc);
 
-        $this->view('basic', THEME, true);
+        //$this->view('basic', true, true);
 
-        return $response->send();
+        //return $response->send();
     }
 
 }

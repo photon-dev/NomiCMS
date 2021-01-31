@@ -11,7 +11,7 @@ $view = $container->get('view.view');
 
 
 $view->set('name', 'Гость');
-$view->view('index');
+//$view->view('index');
 
 
 $view->output();
