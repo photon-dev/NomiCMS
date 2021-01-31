@@ -30,7 +30,7 @@ class Config
     }
 
     // Добавить в хранилище
-    public static function add(string $key, array $data, bool $output = false)
+    public static function add(string $key, array $data, bool $output = true)
     {
         // Проверка по ключу
         if (self::has($key) === true) {
@@ -45,13 +45,13 @@ class Config
         }
     }
 
-    public static function pull(string $config, bool $package = false) {
+    public static function pull(string $config, int $preend = 0) {
 
         // Загружаем данные из файла
-        $data = self::load($config, $package);
+        $data = self::load($config, $preend);
 
         // Получить ключ
-        $key = self::getKey($config, $package);
+        $key = self::getKey($config, $preend);
 
         // Добавить в хранилище
         self::add($key, $data);
@@ -61,14 +61,24 @@ class Config
     }
 
     // Загрузка файла
-    public static function load(string $path, bool $package = false)
+    public static function load(string $file, int $preend = 0)
     {
-        // Если PACKAGE тогда загружаем из папки packages/
-        if ($package) {
-            return loadFile('packages/' .$path);
+        // Если равен 1, тогда путь root/packages/
+        if ($preend == 1) {
+
+            $path = PACKS;
+
+        // Если равен 2, тогда путь root/website/themes/
+        } elseif ($preend == 2) {
+
+            $path = THEMES;
+
+        // В противном случае root/config/
+        }else {
+            $path = CONFIG;
         }
 
-        return loadFile('config/' .$path);
+        return loadFile($file, $path);
     }
 
     // Проверка значения
@@ -78,10 +88,10 @@ class Config
     }
 
     // Получить ключ
-    protected static function getKey(string $config, $package): string
+    protected static function getKey(string $config, int $preend): string
     {
-        // Если PACKAGE тогда загружаем из папки packages/
-        if ($package) {
+        // Если равен 1 или 2, тогда получаем первое вхождение
+        if ($preend == 1 || $preend == 2) {
             return substr($config, 0, strpos($config, '/'));
         }
 

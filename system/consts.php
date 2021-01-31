@@ -29,4 +29,7 @@ const WEBSITE = ROOT . 'website/';
 const THEMES = WEBSITE . 'themes/';
 
 // Если это пакет
-const PACKAGE = true;
+const PACKAGE = 1;
+
+// Если это тема
+const THEME = 2;

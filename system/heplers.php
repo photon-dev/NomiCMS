@@ -21,15 +21,17 @@ if (!function_exists('dd')) {
 
 // Функция загрузки файлов с настройками
 if (!function_exists('loadFile')) {
-    function loadFile(string $file)
+    function loadFile(string $file, string $path = '')
     {
-        $path = ROOT . $file . '.php';
+        if (empty($path)) {
+            $path = ROOT;
+        }
 
-        if (!file_exists($path)) {
+        if (!file_exists($path . $file . '.php')) {
             die("Файл {$file}.php не найден");
         }
 
-        return require $path;
+        return require $path . $file . '.php';
     }
 }
 

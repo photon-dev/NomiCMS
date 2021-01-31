@@ -26,27 +26,39 @@ class Themes
     protected $path = '';
 
     // Конструктор
-    public function __construct(ContainerInterface $container, Config $config, User $user)
+    public function __construct(Config $config, User $user)
     {
-        // Если авторизован тема пользователя
+
+        // Если пользователь, то тема пользовательская
+        // В другом случае, тема системная
         if ($user->logger) {
 
-            $this->theme = $user['theme'];
+            $this->theme = $user->user['theme'];
 
-        // Если не авторизован тема по умолчанию
         } else {
-            // Загрузить настройки
-            $settings = $container->get('config.config')::pull('themes/config/settings', PACKAGE);
+            // Загрузить настройки тем оформлений
+            $settings = $config::load('themes/config/settings', PACKAGE);
 
             $this->theme = $settings['theme'];
         }
 
-        $this->setPath();
+        $theme = $config::pull($this->theme . '/theme', THEME);
+
+        dd($theme);
+
+        $this->setPath($theme);
+    }
+
+    // Установить тему оформления
+    protected function setTheme()
+    {
+        // code...
     }
 
     // Установить путь к теме
     protected function setPath()
     {
+
         $path = THEMES . $this->theme . DS;
 
         if ($this->has($path)) {

@@ -18,7 +18,7 @@ return [
     'dir' => 'custom',
 
     // Версия темы
-    'ver' => '0.1b'
+    'ver' => '0.1b',
 
     // Авторы
     'authors' => [

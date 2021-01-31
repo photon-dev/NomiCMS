@@ -9,7 +9,7 @@
     <meta name="description" content="<?= $response->description ?>">
     <meta name="keywords" content="<?= $response->keywords ?>">
 
-    <link rel="stylesheet" href="/themes/custom/style.css?8423 ?> /">
+    <link rel="stylesheet" href="/themes/custom/css/style.css?8423 ?> /">
 
     <link rel="icon" href="/themes/custom/favicon.ico" sizes="16x16">
 </head>

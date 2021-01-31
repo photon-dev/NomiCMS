@@ -62,7 +62,7 @@ class View extends Template
 
     protected function getPath()
     {
-        return $this->themes->getPath()  . 'template/';
+        return $this->themes->getPath()  . 'views/';
     }
 
     protected function loadFile(string $file)
