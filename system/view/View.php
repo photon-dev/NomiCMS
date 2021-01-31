@@ -65,11 +65,12 @@ class View extends Template
         return $this->themes->getPath()  . 'views/';
     }
 
-    protected function loadFile(string $file)
+    protected function load(string $file)
     {
         $path = $this->getPath() . $file . '.php';
 
         if (!file_exists($path)) {
+            dd($path);
             throw new TemplateNotFound("Шаблон {$file} не найден");
         }
 
@@ -85,11 +86,11 @@ class View extends Template
     }
 
     // Показать шаблон
-    public function view(string $file, bool $preend = false): void
+    public function view(string $file, int $load = 0, bool $preend = false): void
     {
         $response = $this->container->get('http.response');
 
-        $content = $this->loadFile($file);
+        $content = $this->load($file);
 
         if ($file == 'basic') {
             //dd($content);
@@ -112,16 +113,8 @@ class View extends Template
             return  $response->clear();
         }
 
-        // Загрузить настройки
+        // Загрузить настройки seo
         $seo = $this->container->get('config.config')::pull('system/seo');
-
-        self::setObject('title', function ()
-        {
-            if ($this->title) {
-                return $seo['title'];
-            }
-            //$config['title'];
-        });
 
         $doc = (object) [
             'local_html'    => $seo['local_html'],
@@ -129,6 +122,7 @@ class View extends Template
             'description'   => $this->description ? $this->description : $seo['description'],
             'keywords'      => $this->keywords ?? $seo['keywords'],
             'content'       => $response->getContent(),
+            'view'          => $this,
             'memory'        => $this->memory,
             'timing'        => $this->timing,
             'autoload'      => $this->autoload
@@ -136,9 +130,9 @@ class View extends Template
 
         self::setObject('response', $doc);
 
-        $this->view('basic', true);
+        $this->view('basic', THEME, true);
 
-        //return $response->send( );
+        return $response->send();
     }
 
 }

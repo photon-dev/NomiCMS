@@ -41,11 +41,11 @@ class Themes
             $this->theme = $settings['theme'];
         }
 
-        $theme = $config::pull($this->theme . '/theme', THEME);
+        //$theme = $config::pull($this->theme . '/theme', THEME);
 
-        dd($theme);
+        //dd($theme);
 
-        $this->setPath($theme);
+        $this->setPath();
     }
 
     // Установить тему оформления
