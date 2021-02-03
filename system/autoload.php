@@ -15,46 +15,47 @@ class Autoload
     // Статус
     protected static $status = false;
 
+    // Список загружаемых файлов
+    protected static $files = [];
+
     // Счетчик
-    public $counter = 0;
+    protected $counter = 0;
 
     // Тайминг (Время потраченное за загрузку всех файлов)
-    public $timing = 0;
+    protected $timing = 0;
 
     // Предварительная загрузка
-    public static function bootstrap(): self
+    public static function bootstrap(): Autoload
     {
         if (self::$status === false) {
             self::$status = true;
 
-            return new self();
+            return new Autoload();
         }
 
-        die('Повторная активация загрузчика запрещена');
+        die('Повторная активация загрузчика не допустима');
+    }
+
+
+    public static function setListFiles(array $list = []): void
+    {
+        self::$files = $list;
     }
 
     // Конструктор
     protected function __construct()
     {
-        // Загрузить доп. файлы
-        $this->files();
-
-        //spl_autoload_extensions('.php,.inc');
-        spl_autoload_register(['Autoload', 'run'], true, true);
-    }
-
-    // Предварительно загрузить доп. файлы
-    protected function files(): void
-    {
         // Запустить время
         $microtime = microtime(true);
 
-        // Получить список файлов
-        $files = require ROOT . 'config/preload.php';
-
-        foreach ($files as $file) {
+        // Разобрать список доп. файлов
+        foreach (self::$files as $file) {
+            // Загрузить доп. файл
             $this->loadFile($file);
         }
+
+        //spl_autoload_extensions('.php,.inc');
+        spl_autoload_register(['self', 'run'], true, true);
 
         // Сохранить потраченное время загрузки
         $this->timing += microtime(true) - $microtime;
@@ -114,10 +115,25 @@ class Autoload
 
         return true;
     }
+
+    // Получить счетчик
+    public function getCounter(): int
+    {
+        return $this->counter;
+    }
+
+    // Получить тайминг
+    public function getTiming(): float
+    {
+        return $this->timing;
+    }
 }
 
-// Предварительная авто-загрузка загрузчика
-$autoload = Autoload::bootstrap();
+// Установить список дополнительных файлов
+Autoload::setListFiles([
+    'system/consts',
+    'system/heplers'
+]);
 
-// Вывод загруженного класса
-return $autoload;
+// Иницилизировать загрузчик
+return $autoload = Autoload::bootstrap();
