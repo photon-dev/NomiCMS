@@ -55,7 +55,7 @@ class Dependencies
                         // Получить зависимость изходя из параметров
                         $dependency = $this->userParams[$param->name];
 
-                        // Если параметр это анонимная функция
+                        // Если зависимость это анонимная функция
                         if ($dependency instanceof Closure) {
 
                             $dependences[] = $dependency();
