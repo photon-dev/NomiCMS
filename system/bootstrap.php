@@ -8,18 +8,8 @@
  */
 
 // Использовать
-use System\App\App;
-use System\Container\ContainerInterface;
 use System\Container\Container;
 use System\App\NomiApp;
-use System\Config\Config;
-
-if (!function_exists('dd')) {
-    function dd($dd)
-    {
-        return var_dump($dd);
-    }
-}
 
 // Проверить текущаю версию php
 if (version_compare(PHP_VERSION, '7.2.2', 'lt')) {
@@ -49,12 +39,6 @@ $configure = loadFile('config/configure');
 $system = $configure($container);
 
 
-/*
-
-// Конфигурирование
-$configure = loadFile('config/configure');
-$system = $configure($container);
-
 // Установить временную зону
 if ($system['timezone'] != date_default_timezone_get()) {
     date_default_timezone_set($system['timezone']);
@@ -78,7 +62,6 @@ $app = new NomiApp($container);
 
 // Настроить приложение
 $app->configure();
-*/
 
 // Показать
-return 'Hello World';//$app;
+return $app;

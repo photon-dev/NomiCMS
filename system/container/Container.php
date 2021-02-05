@@ -73,7 +73,6 @@ class Container extends ContainerParse implements ContainerInterface
     {
         // Если зависимость уже используеться возращаем ее
         if (isset($this->used[$name]) && array_key_exists($name, $this->used)) {
-            dd('used');
             return $this->used[$name];
         }
 

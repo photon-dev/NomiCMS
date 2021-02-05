@@ -7,7 +7,7 @@
  * @link   http://nomicms.ru
  */
 
-$view = $container->get('view.view');
+$view = $container->get('view');
 
 
 $view->set('name', 'Гость');

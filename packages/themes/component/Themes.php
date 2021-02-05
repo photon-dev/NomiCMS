@@ -28,6 +28,8 @@ class Themes
     // Конструктор
     public function __construct(Config $config, User $user)
     {
+        //$this->theme = $user->logger ? $user->user['theme'] : $settings['theme'];
+
         // Если пользователь, то тема пользовательская
         // В другом случае, тема системная
         if ($user->logger) {

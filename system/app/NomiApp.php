@@ -40,7 +40,7 @@ class NomiApp extends Package implements AppInterface
         // Сохранить контейнер
         $this->container = $container;
 
-        $config = $container->get('config.config');
+        $config = $container->get('config');
 
         // Загрузить настройки системы
         $this->system = $config::get('system');
@@ -60,7 +60,7 @@ class NomiApp extends Package implements AppInterface
         $routes = $routes($this->container);
 
         // Запустить маршрутизатор
-        $router = $this->container->get('router.router', [
+        $router = $this->container->get('router', [
             'routes' => $routes
         ]);
 
@@ -70,7 +70,7 @@ class NomiApp extends Package implements AppInterface
             $this->route = $router->getRoute();
 
             // Сохранить маршрут
-            $this->container->get('config.config')::add('route', $this->route);
+            $this->container->get('config')::add('route', $this->route);
 
             // Установить как запущено
             $this->found = true;
@@ -131,6 +131,7 @@ class NomiApp extends Package implements AppInterface
             die("Исходный файл <b>{$this->route['src']}</b> не найден");
             return;
         }
+        
         // Установить статус
         $this->status = true;
 

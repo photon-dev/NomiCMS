@@ -14,7 +14,7 @@ use System\Container\ContainerInterface;
 return function (ContainerInterface $container) {
 
     // Достаем обьект Json из контейнер
-    $json = $container->get('json.json')::create(TEMP, 'config/routes');
+    $json = $container->get('json')::create(TEMP, 'config/routes');
 
     // Проверяем создан ли кэш маршрутов
     // Если нет тогда кодом ниже парсим новый кэш

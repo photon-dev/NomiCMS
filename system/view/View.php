@@ -63,7 +63,7 @@ class View extends Template
 
     protected function getPath()
     {
-        $system = $this->container->get('config.config')::get('system');
+        $system = $this->container->get('config')::get('system');
 
         return PACKS . $system['default_package']  . DS;
     }
@@ -90,12 +90,13 @@ class View extends Template
         //self::сlear();
 
         //return ob_get_clean();
+        return ''; 
     }
 
     // Показать шаблон
     public function view(string $file, bool $load = false, bool $preend = false): void
     {
-        $response = $this->container->get('http.response');
+        $response = $this->container->get('response');
 
         $content = $this->load($file, $load);
 
@@ -110,14 +111,14 @@ class View extends Template
     public function output()
     {
         // Получить зависимость response
-        $response = $this->container->get('http.response');
+        $response = $this->container->get('response');
 
         if ($this->showed) {
             return  $response->clear();
         }
 
         // Загрузить настройки seo
-        $seo = $this->container->get('config.config')::pull('system/seo');
+        $seo = $this->container->get('config')::pull('system/seo');
 
         $doc = (object) [
             'local_html'    => $seo['local_html'],
