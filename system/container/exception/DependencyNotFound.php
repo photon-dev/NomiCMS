@@ -15,6 +15,6 @@ use Exception;
 /**
  * Сервис не найден
  */
-class ContainerNotFound extends Exception
+class DependencyNotFound extends Exception
 {
 }

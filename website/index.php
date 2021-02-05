@@ -7,31 +7,26 @@
  * @link   http://nomicms.ru
  */
 
-// Проверить версию php
-$phpVersion = phpversion();
-if ($phpVersion < '7.2') {
-    die('Ваша версия PHP должна быть 7.2 или выше. Текущая версия: ' . $phpVersion);
-}
-unset($phpVersion);
+// Корневая директория
+ if (! defined('ROOT')) {
+     define('ROOT', dirname(__DIR__) . DIRECTORY_SEPARATOR);
+ }
 
 // Генерации страницы
 define('NOMI_START', microtime(true));
-
 // Используемая память
 define('NOMI_MEMORY', memory_get_usage());
-
-// Корневая директория
-define('ROOT', dirname(__DIR__) . '/');
 
 // Загрузить bootstrap
 $app = require ROOT . 'system/bootstrap.php';
 
 // Запустить приложение
-$app->run($autoload);
+echo $app;
+//$app->run($autoload);
 
 // Создано на момент тестирования
 //echo '<br />' . $app->run();
 
-echo '<br /><br />Использование память: ' . round((memory_get_usage() - NOMI_MEMORY) / 1024) . ' кб';
-echo '<br />Загрузчик: ' . $autoload->counter . ' за ' . round($autoload->timing, 6);
+echo '<br /><br />Память: ' . round((memory_get_usage() - NOMI_MEMORY) / 1024) . ' кб';
+echo '<br />Загрузчик: ' . $autoload->getCounter() . ' за ' . round($autoload->getTiming(), 6);
 echo '<br />Генерация: ' . round(microtime(true) - NOMI_START, 6);

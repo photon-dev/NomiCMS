@@ -12,18 +12,18 @@ namespace System\Container\Definition;
 // Использовать
 use System\Container\ContainerInterface;
 use System\Container\Definition\Dependencies;
-use ReflectionClass;
+use ReflectionFunction;
 use System\Container\Exception\DependencyNotFound;
 
 /**
- * Отражение класса
+ * Отражение функции
  */
-class Reflection extends Dependencies
+class Anon  extends Dependencies
 {
     // Контейнер
     protected $container;
 
-    // Отражение
+    // Отражение анонимной функции
     protected $reflector;
 
     // Конструтор
@@ -34,31 +34,24 @@ class Reflection extends Dependencies
     }
 
     // Создать отражение функции
-    public function __invoke($dependency, array $params)
+    public function __invoke(object $dependency, array $params)
     {
         // Создать отражение
-        $reflector = new ReflectionClass($dependency);
-
-        if ($reflector->isInstantiable() === false) {
-            throw new DependencyNotFound("Не возможжно создать экземпляр зависимости: {$dependency}");
-        }
-
+        $reflector = new ReflectionFunction($dependency);
         $this->reflector = $reflector;
-
-        // Если конструктор не обнаружен
-        if (NULL === $reflector->getConstructor()) {
-            return $reflector->newInstance();
-        }
 
         // Установить пользовательские параметры
         $this->setUserParams($params);
 
-        // Получить параметры консруктора
-        $params = $reflector->getConstructor()->getParameters();
+        // Получить параметры зависимости
+        $params = $reflector->getParameters();
 
         // Получить зависимости
         $dependences = $this->get($params);
 
-        return $reflector->newInstanceArgs($dependences);
+        // Получить функцию
+        return call_user_func_array($dependency, $dependences);
     }
+
+
 }

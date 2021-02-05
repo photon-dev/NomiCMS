@@ -69,6 +69,9 @@ class NomiApp extends Package implements AppInterface
             // Получить маршрут
             $this->route = $router->getRoute();
 
+            // Сохранить маршрут
+            $this->container->get('config.config')::add('route', $this->route);
+
             // Установить как запущено
             $this->found = true;
 

@@ -36,7 +36,7 @@ class Autoload
         die('Повторная активация загрузчика не допустима');
     }
 
-
+    // Установить список дополнительных файлов
     public static function setListFiles(array $list = []): void
     {
         self::$files = $list;
@@ -48,10 +48,13 @@ class Autoload
         // Запустить время
         $microtime = microtime(true);
 
-        // Разобрать список доп. файлов
-        foreach (self::$files as $file) {
-            // Загрузить доп. файл
-            $this->loadFile($file);
+        // Если установлен хоть файл - загрузить
+        if (isset(self::$files[0])) {
+            // Разобрать список доп. файлов
+            foreach (self::$files as $file) {
+                // Загрузить доп. файл
+                $this->loadFile($file);
+            }
         }
 
         //spl_autoload_extensions('.php,.inc');

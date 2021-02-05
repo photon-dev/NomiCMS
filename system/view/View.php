@@ -58,20 +58,22 @@ class View extends Template
         // Установить тему
         $this->themes = $themes;
 
-        $this->themes->verify();
+        //$this->themes->verify();
     }
 
     protected function getPath()
     {
-        return $this->themes->getPath()  . 'views/';
+        $system = $this->container->get('config.config')::get('system');
+
+        return PACKS . $system['default_package']  . DS;
     }
 
     protected function load(string $file, bool $load)
     {
         // Установить путь от куда грузить
-        $path = $load ? $themes->getPath :
+        $path = $load ? $this->themes->getPath() : $this->getPath();
 
-        dd($load);
+        dd($path . 'view/');
         //$path = $this->getPath() . $file . '.php';
 
         //if (!file_exists($path . $file . '.php')) {
@@ -131,7 +133,7 @@ class View extends Template
 
         self::setObject('response', $doc);
 
-        //$this->view('basic', true, true);
+        $this->view('basic', true, true);
 
         //return $response->send();
     }

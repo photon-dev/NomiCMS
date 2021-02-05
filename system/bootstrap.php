@@ -8,11 +8,29 @@
  */
 
 // Использовать
+use System\App\App;
+use System\Container\ContainerInterface;
 use System\Container\Container;
 use System\App\NomiApp;
+use System\Config\Config;
 
-// Если не найден загрузчик, сообщить
-if (!file_exists(ROOT . 'system/autoload.php')) {
+if (!function_exists('dd')) {
+    function dd($dd)
+    {
+        return var_dump($dd);
+    }
+}
+
+// Проверить текущаю версию php
+if (version_compare(PHP_VERSION, '7.2.2', 'lt')) {
+    die(
+        'Требуется PHP 7.2.2++. <br /> Текущая версия: '
+        . phpversion()
+    );
+}
+
+// Если файл автоматической загрузки не найден, вывести сообщение об ошибке
+if (! file_exists(ROOT . 'system/autoload.php')) {
     die('Не удалось запустить авто-загрузчик');
 }
 
@@ -25,6 +43,13 @@ $container = new Container;
 // Загрузить, установить зависимости
 $dependencies = loadFile('config/dependencies');
 $dependencies($container);
+
+// Конфигурирование
+$configure = loadFile('config/configure');
+$system = $configure($container);
+
+
+/*
 
 // Конфигурирование
 $configure = loadFile('config/configure');
@@ -53,6 +78,7 @@ $app = new NomiApp($container);
 
 // Настроить приложение
 $app->configure();
+*/
 
 // Показать
-return $app;
+return 'Hello World';//$app;

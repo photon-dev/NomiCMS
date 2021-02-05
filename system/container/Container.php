@@ -13,18 +13,17 @@ namespace System\Container;
 use System\Container\ContainerParse;
 use System\Container\ContainerInterface;
 use System\Container\Definition\Reflection;
-use System\Container\Definition\ReflectionClosure;
-use System\Container\Exception\ContainerNotFound;
+use System\Container\Definition\Anon;
 use Closure;
+use System\Container\Exception\DependencyNotFound;
 
 /**
- * Контейнер
+ * Контейнер зависимостей
+ *
+ * Создан для быстрого получения, любого класса в другом классе
  */
 class Container extends ContainerParse implements ContainerInterface
 {
-    // Возможность игнорировать переопределение служб
-    protected $ignoreOverride = false;
-
     // Установленные службы
     protected $installed = [];
 
@@ -35,106 +34,96 @@ class Container extends ContainerParse implements ContainerInterface
     protected $reflector;
 
     // Отражение анонимной функции
-    protected $closure;
+    protected $anon;
 
     // Конструктор
-    public function __construct(array $config = [], Reflector $reflector = null, ReflectionClosure $closure = null)
+    public function __construct(array $config = [], Reflector $reflector = null, ReflectionClosure $anon = null)
     {
-        // Установить переопределение служб
-        $this->ignoreOverride = $config['ignoreOverride'] ?? false;
-
         // Установить отражения
         $this->reflector = $reflector ?: new Reflection($this);
-        $this->closure = $closure ?: new ReflectionClosure($this);
+        $this->anon = $anon ?: new Anon($this);
     }
 
     // Установить службу
-    public function set($service, $name = ''): self
+    public function set($dependency, $name = ''): self
     {
         // Если это не анонимная функция
-        if (! ($service instanceof Closure) && empty($name)) {
-            // Получить имя службы
-            $name = $this->getName($service);
+        if (! ($dependency instanceof Closure) && empty($name)) {
+            // Получить имя зависимости
+            $name = $this->getName($dependency);
+
+        // Противном случае если имя не указано выдать ошибку
+        } elseif (empty($name)) {
+            throw new DependencyNotFound("Имя зависимости для анонимной функции должно быть указано");
         }
 
-        // Проверить службу
-        if ($this->has($name) && ! $this->ignoreOverride) {
-            throw new ContainerNotFound("Служба {$name} уже установлена. Переопределение выключено (ignoreOverride = false).");
+        // Если зависимость не найден и переопределение выключено, сообщить об этом
+        if ($this->has($name)) {
+            throw new DependencyNotFound("Зависимость {$name} уже установлена");
         }
 
-        if ($this->ignoreOverride) {
-            unset($this->used[$name]);
-        }
-
-        // Сохранить службу
-        $this->installed[$name] = $service;
+        // Сохранить зависимость
+        $this->installed[$name] = $dependency;
 
         return $this;
     }
 
-    // Получить службу
+    // Получить зависимость
     public function get(string $name, array $params = [])
     {
-        // Если служба уже используеться возращаем ее
+        // Если зависимость уже используеться возращаем ее
         if (isset($this->used[$name]) && array_key_exists($name, $this->used)) {
+            dd('used');
             return $this->used[$name];
         }
 
-        // Если служба не установлена
+        // Если зависимость не установлена
         if (! $this->has($name)) {
-            throw new ContainerNotFound("Служба {$name} не установлена");
+            throw new DependencyNotFound("Зависимость {$name} не установлена");
         }
 
-        // Получить службу
-        $service = $this->installed[$name];
+        // Получить зависимость
+        $dependency = $this->installed[$name];
         unset($this->installed[$name]);
 
-        // Собрать службу
-        $build = $this->build($service, $params);
+        // Собрать зависимость
+        $build = $this->build($dependency, $params);
 
         // Показать
         return $this->used[$name] = $build;
     }
 
-    // Собрать службу
-    protected function build($service, array $params)
+    // Собрать зависимость
+    protected function build($dependency, array $params)
     {
-        // Если служба это анонимная функция
-        if ($service instanceof Closure) {
-            $closure = $this->closure;
+        // Если зависимость анонимная функция, получить ее
+        if ($dependency instanceof Closure) {
+            $anon = $this->anon;
 
             // Показать
-            return $closure($service);
+            return $anon($dependency, $params);
         }
 
-        // Создать отражение
-        $reflector = $this->reflector->create($service);
-
-        // Получить конструктор
-        if (NULL === $reflector->getConstructor()) {
-            return $reflector->newInstance();
-        }
-
-        // Получить зависимости
-        $dependences = $this->reflector->di($params);
+        // Если зависимость класс
+        $reflector = $this->reflector;
 
         // Показать
-        return $reflector->newInstanceArgs($dependences);
+        return  $reflector($dependency, $params);
     }
 
-    // Поиск в установленных служб
+    // Поиск в установленных зависимостях
     public function has(string $name = ''): bool
     {
         return (!empty($name) && isset($this->installed[$name]) && array_key_exists($name, $this->installed));
     }
 
-    // Получить список установленных служб
+    // Получить список установленных зависимостях
     public function getInstalled(): array
     {
         return $this->installed;
     }
 
-    // Получить список используемых служб
+    // Получить список используемых зависимостях
     public function getUsed(): array
     {
         return $this->used;

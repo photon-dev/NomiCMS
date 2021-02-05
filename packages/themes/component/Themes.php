@@ -45,7 +45,7 @@ class Themes
 
         //dd($theme);
 
-        //$this->setPath();
+        $this->setPath();
     }
 
     // Установить путь к теме

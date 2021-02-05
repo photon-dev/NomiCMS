@@ -9,7 +9,9 @@
 
 namespace System\Container;
 
-// Интерфейс контейнера
+/**
+ * Интерфейс контейнера
+ */
 interface ContainerInterface
 {
     // Установить службу
