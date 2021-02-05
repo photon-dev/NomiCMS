@@ -19,7 +19,13 @@
         <img src="/themes/custom/img/logo.png" alt="*" /></a>
     </div>
 
-    <?php echo $response->content ?>
+    <?php $response->view->view('header', true, true); ?>
+
+    <?php $response->view->view('index'); ?>
+
+    <?php $response->content; ?>
+
+    <?php $response->view->view('footer', true, true); ?>
 
     <div class="footer">
         <a href="/" title="Онлайн">Онлайн: 1 </a> | 0<br />

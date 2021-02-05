@@ -28,6 +28,9 @@ class View extends Template
     // Хранилище
     protected $themes;
 
+    // Загружен
+    public $run = false;
+
     // Скрыть контент
     public $showed = false;
 
@@ -40,14 +43,8 @@ class View extends Template
     // Ключевые слова
     public $keywords = false;
 
-    // Память и синхронизация
+    //
     public $memory, $timing = 0;
-
-    // Авто-загрузчик
-    public $autoload = [
-        'counter' => 0,
-        'timing' => 0
-    ];
 
     // Конструктор
     public function __construct(ContainerInterface $container, Themes $themes)
@@ -57,43 +54,43 @@ class View extends Template
 
         // Сохранить тему
         $this->themes = $themes;
-
-        // Установить путь к теме
-        $this->themes->setPath();
-
-        //$this->themes->verify();
     }
 
-    protected function getPathPackage()
+    // Получить путь к шаблонам пакета
+    protected function getPathPackage(): string
     {
-        $system = $this->container->get('config')::get('system');
+        $route = $this->container->get('config')::get('route');
 
-        return PACKS . $system['default_package']  . DS;
+        return PACKS . $route['package']  . '/view/';
     }
 
+    // Загрузить шаблон
     protected function load(string $file, bool $load)
     {
-        // Установить путь от куда грузить
-        $path = $load ? $this->themes->getPath() : $this->getPath();
+        // Установить путь от куда грузить шаблон
+        $path = $load ? $this->themes->getPath() : $this->getPathPackage();
 
-        //dd($path . 'view/');
-        //$path = $this->getPath() . $file . '.php';
+        if (is_dir($path) === false) {
+            throw new TemplateNotFound("Папка с шаблонами не найдена, проверьте ее по адресу: {$path}");
+        }
 
-        //if (!file_exists($path . $file . '.php')) {
-            //throw new TemplateNotFound("Шаблон {$file} не найден");
-        //}
+        // Если шаблон не найден сообщить об этом
+        if (file_exists($path . $file . '.php') === false) {
+            throw new TemplateNotFound("Шаблон {$file} не найден");
+        }
 
-        //extract(self::get());
+        // Если данные найдены, показать их
+        extract(self::get());
 
-        //ob_start();
+        ob_start();
 
-        //loadFile($file, $path);
+        // Подключить шаблон
+        require $path . $file . '.php';
 
         // Очистим дату для экономии используемых данных
-        //self::сlear();
+        self::сlear();
 
-        //return ob_get_clean();
-        return '';
+        return ob_get_clean();
     }
 
     // Показать шаблон
@@ -110,36 +107,35 @@ class View extends Template
         }
     }
 
-    // При завершении скрипта показать ответ клиенту
-    public function output()
+    // Вывести на экран все содержимое
+    public function __destruct()
     {
         // Получить зависимость response
         $response = $this->container->get('response');
 
         if ($this->showed) {
-            return  $response->clear();
+            return $response->clear();
         }
 
         // Загрузить настройки seo
         $seo = $this->container->get('config')::pull('system/seo');
 
-        $doc = (object) [
+        $basic = (object) [
             'local_html'    => $seo['local_html'],
             'title'         => $this->title ? $this->title : $seo['title'],
             'description'   => $this->description ? $this->description : $seo['description'],
             'keywords'      => $this->keywords ?? $seo['keywords'],
             'content'       => $response->getContent(),
-            'view'          => $this,
             'memory'        => $this->memory,
-            'timing'        => $this->timing,
-            'autoload'      => $this->autoload
+            'timing'        => $this->timing
         ];
 
-        self::setObject('response', $doc);
+        // Сохранить настройки
+        self::setObject('response', $basic);
 
         $this->view('basic', true, true);
 
-        //return $response->send();
+        return $response->send();
     }
 
 }

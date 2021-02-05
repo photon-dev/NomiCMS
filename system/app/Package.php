@@ -34,7 +34,7 @@ class Package
     }
 
     // Получить GET параметры
-    public function getParams(): array|bool
+    public function getParams()
     {
         return $this->route['params'];
     }

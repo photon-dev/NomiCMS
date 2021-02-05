@@ -33,10 +33,10 @@ class Response extends ResponseCodes implements ResponseInterface
     // Кеширование
     protected $cache = false;
 
-    // Тело ответа
+    // Тело
     protected $body = '';
 
-    // Тело ответа
+    // Контент
     protected $content = '';
 
     // Ответ отправлен

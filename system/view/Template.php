@@ -15,45 +15,36 @@ namespace System\View;
 class Template
 {
     // Хранилище данных
-    protected static $data = [];
+    protected static $storage = [];
 
-    // Добавить массив и разбить по ключам
-	public static function set($key, string $text = ''): void
+    // Добавить строку
+	public static function set(string $key, string $value = ''): void
 	{
-        // Если ключ равен массиву разбить его содержимого на элементы
-        if (is_array($key)) {
-
-            // Сохранить в данные
-            self::$data = array_merge(self::$data, $key);
-
-        } else {
-
-            // Сохранить текст
-            self::$data[$key] = $text;
-        }
+        // Сохранить
+        self::$storage[$key] = $value;
 	}
 
-    // Добавить массив по ключу
-    public static function setArray(string $key, array $array): void
+    // Добавить массив
+    public static function setArray(string $key, array $data): void
     {
-        self::$data[$key] = $array;
+        self::$storage[$key] = $data;
     }
 
-    // Добавить обьект по ключу
-    public static function setObject(string $key, object $object): void
+    // Добавить обьект
+    public static function setObject(string $key, object $data): void
     {
-        self::$data[$key] = $object;
+        self::$storage[$key] = $data;
     }
 
     // Получить данные
-    public function get(): array
+    public static function get(): array
     {
-        return self::$data;
+        return self::$storage;
     }
 
     // Очистить данные
     public static function сlear(): void
     {
-        self::$data = [];
+        self::$storage = [];
     }
 }

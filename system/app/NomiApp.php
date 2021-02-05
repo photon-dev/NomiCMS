@@ -105,7 +105,7 @@ class NomiApp extends Package implements AppInterface
     }
 
     // Запустить приложение
-    public function run($autoload)
+    public function run()
     {
         // Запертить на повторный запуск
         $this->die();
@@ -133,7 +133,7 @@ class NomiApp extends Package implements AppInterface
         $factory = Factory::create($this, $this->container);
 
         // Отправить все содержимое
-        return $factory($autoload);
+        return $factory();
     }
 
     // Показать ошибку
