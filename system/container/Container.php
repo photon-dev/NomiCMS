@@ -24,10 +24,10 @@ use System\Container\Exception\DependencyNotFound;
  */
 class Container extends ContainerParse implements ContainerInterface
 {
-    // Установленные службы
+    // Установленные
     protected $installed = [];
 
-    // Используемые службы
+    // Используемые
     protected $used = [];
 
     // Отражение класса

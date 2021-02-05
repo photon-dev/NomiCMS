@@ -26,8 +26,6 @@ $app->run($autoload);
 
 // Создано на момент тестирования
 //echo '<br />' . $app->run();
-/*
 echo '<br /><br />Память: ' . round((memory_get_usage() - NOMI_MEMORY) / 1024) . ' кб';
 echo '<br />Загрузчик: ' . $autoload->getCounter() . ' за ' . round($autoload->getTiming(), 6);
 echo '<br />Генерация: ' . round(microtime(true) - NOMI_START, 6);
-*/

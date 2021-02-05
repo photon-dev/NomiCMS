@@ -19,43 +19,39 @@ use Packages\User\Component\User;
  */
 class Themes
 {
-    // Имя папки
-    protected $theme = 'custom';
-
     // Полный путь
-    protected $path = '';
+    protected $path = WEBSITE . 'themes/';
+
+    // Тема оформления
+    protected $theme = 'custom';
 
     // Конструктор
     public function __construct(Config $config, User $user)
     {
-        //$this->theme = $user->logger ? $user->user['theme'] : $settings['theme'];
+        // Загрузить настройки тем оформлений
+        $settings = $config::load('themes/config/settings', PACKAGE);
 
         // Если пользователь, то тема пользовательская
         // В другом случае, тема системная
-        if ($user->logger) {
+        $this->theme = $user->logger ? $user->user['theme'] : $settings['theme'];
 
-            $this->theme = $user->user['theme'];
-
-        } else {
-            // Загрузить настройки тем оформлений
-            $settings = $config::load('themes/config/settings', PACKAGE);
-
-            $this->theme = $settings['theme'];
-        }
-
-        //$theme = $config::pull($this->theme . '/theme', THEME);
-
-        //dd($theme);
-
-        $this->setPath();
     }
 
     // Установить путь к теме
-    protected function setPath()
+    public function setPath()
     {
+        if (! is_dir($this->path . $this->theme . DS)) {
+            die("Тема {$this->theme} не найдена");
+        }
 
-        $path = THEMES . $this->theme . DS;
+        if (! file_exists($this->path . $this->theme . DS . 'theme.php')) {
+            die("Файл конфигурации темы {$this->theme} не найдена");
+        }
 
+
+        dd($this->path . $this->theme . DS);
+        //$path = THEMES . $this->theme . DS;
+        /*
         if ($this->has($path)) {
 
             $this->path = $path;
@@ -69,12 +65,21 @@ class Themes
             die('Папка с темой не обнаружена');
 
         return false;
+        */
     }
 
     // Проверить папку и файл конфиг
     protected function has(string $path)
     {
-        return (is_dir($path) && file_exists($path . 'theme.php'));
+        if (! is_dir(THEMES . $path)) {
+            die('Папка с темы оформления не найден');
+        }
+
+        if (file_exists($path . 'theme.php')) {
+            die('Файл конфигурации темы оформления не найден');
+        }
+
+        return '';
     }
 
     // Установить тему оформления

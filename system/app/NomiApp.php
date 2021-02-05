@@ -87,12 +87,6 @@ class NomiApp extends Package implements AppInterface
         }
     }
 
-    // Получить информацию о текущем маршруте
-    public function getRoute(): array
-    {
-        return $this->route;
-    }
-
     // Настроить приложение
     public function configure()
     {
@@ -131,7 +125,7 @@ class NomiApp extends Package implements AppInterface
             die("Исходный файл <b>{$this->route['src']}</b> не найден");
             return;
         }
-        
+
         // Установить статус
         $this->status = true;
 

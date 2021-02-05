@@ -28,31 +28,31 @@ class Package
     public function __construct(){}
 
     // Получить текущий маршрут
-    public function getRoute()
+    public function getRoute(): array
     {
         return $this->route['params'];
     }
 
     // Получить GET параметры
-    public function getParams()
+    public function getParams(): array|bool
     {
         return $this->route['params'];
     }
 
     // Получить путь к исходному файлу
-    public function getPathSource()
+    public function getPathSource(): string
     {
         return $this->route['package'] . '/src/' . $this->route['src'] . '.php';
     }
 
     // Существует ли пакет
-    public function hasPackage()
+    public function hasPackage(): string
     {
         return is_dir(PACKS . $this->route['package'] . '/');
     }
 
     // Существует ли исходный файл
-    public function hasSource()
+    public function hasSource(): string
     {
         return file_exists(PACKS . $this->getPathSource());
     }

@@ -52,16 +52,19 @@ class View extends Template
     // Конструктор
     public function __construct(ContainerInterface $container, Themes $themes)
     {
-        // Установить контейнер
+        // Сохранить контейнер
         $this->container = $container;
 
-        // Установить тему
+        // Сохранить тему
         $this->themes = $themes;
+
+        // Установить путь к теме
+        $this->themes->setPath();
 
         //$this->themes->verify();
     }
 
-    protected function getPath()
+    protected function getPathPackage()
     {
         $system = $this->container->get('config')::get('system');
 
@@ -73,7 +76,7 @@ class View extends Template
         // Установить путь от куда грузить
         $path = $load ? $this->themes->getPath() : $this->getPath();
 
-        dd($path . 'view/');
+        //dd($path . 'view/');
         //$path = $this->getPath() . $file . '.php';
 
         //if (!file_exists($path . $file . '.php')) {
@@ -90,7 +93,7 @@ class View extends Template
         //self::сlear();
 
         //return ob_get_clean();
-        return ''; 
+        return '';
     }
 
     // Показать шаблон
