@@ -77,7 +77,6 @@ class Dependencies
 
                 // В противном случае, вызвыть поиск по имени типа аргумента
                 } else {
-
                     $dependences[] = $this->getSearch($type->getName());
                 }
 
