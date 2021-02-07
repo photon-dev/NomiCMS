@@ -14,31 +14,35 @@ use System\Http\Request\RequestFactory;
 use System\Http\Request\RequestException;
 
 /**
- * Класс Request
+ * Класс фабрика запросов
  */
 class Request
 {
-    public function __construct(){}
+    // Данные get
+    protected $request;
 
-    // Получить
-    public function __get(string $name): RequestFactory
+    public function __construct(Request $request = null)
     {
-        // Получить список методов
-        $method = $this->getMethods();
-
-        // Проверить метод
-        if (isset($method[$name]) === false) {
-            throw new RequestException("Метод {$name} не определён");
-        }
-
-        // Создать фабрику запроса
-        $factory = new RequestFactory($method[$name]);
-
-        // Отправить данные
-        return $factory;
+        //$this->request = $request ?: new request();
     }
 
-    // Список методов получения запросов
+    public function __get(string $name): RequestFactory
+    {
+        $method = $this->getMethods();
+
+        // Проверить метод и получить данные
+        if (isset($method[$name])) {
+
+            // Создать фабрику запроса
+            $factory = new RequestFactory($method[$name]);
+
+            // Отправить данные
+            return $factory;
+        }
+
+        throw new RequestException("Метод {$name} не определён");
+    }
+
     protected function getMethods(): array
     {
         return [

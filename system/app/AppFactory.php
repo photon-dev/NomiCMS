@@ -13,6 +13,7 @@ namespace System\App;
 use System\Container\ContainerInterface;
 use System\App\AppInterface;
 use System\Http\ResponseInterface;
+use System\Http\Request\Request;
 
 /**
  * Класс AppFactory
@@ -39,9 +40,27 @@ class AppFactory
 
             // Получить response
             $response = $container->get('response');
-            dd($container->getInstalled());
-            // Получить request
-            $cookie = $container->get('Cookie');
+
+            $request = new Request();
+
+            $get = $request->get;
+            $post = $request->post;
+            $files = $request->files;
+
+            //if ($post->has('file')) {
+                dd($files);
+            //}
+
+            echo '
+            <form action="" method="post" enctype="multipart/form-data">
+                Файл (zip, rar):<br/>
+                <input name="file" type="file">
+                <label class="select_file" for="file"><img src="/themes/custom/img/file.png" alt="*" /><span>Выбрать файл</span></label><br />
+
+                <button>Добавить</button>
+
+            </form>
+            ';
 
 
             //setcookie('login', 'Photon', time()+60+60*24*365);

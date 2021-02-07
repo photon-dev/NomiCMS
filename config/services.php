@@ -23,12 +23,6 @@ return [
      // Database
      System\Database\DB::class,
 
-     // Request
-     System\Http\Request\Request::class,
-
-     // Cookie
-     System\Http\Cookie\Cookie::class,
-
      // User
      Packages\User\Component\User::class,
 
