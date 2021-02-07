@@ -38,15 +38,14 @@ class Dependencies
 
         // Разобрать зависимости параметры
         foreach ($params as $param) {
-            // Если определение перед переменной пусто
-            // Получить зависимость изходя из имени
 
-            $type = $param->getType();
+            // Если тип евляеться определением имён типов
+            if ($param->getType() instanceof ReflectionNamedType) {
 
-            // Если тип аргумента евляеться определением имён типов
-            if ($type instanceof ReflectionNamedType) {
+                // Получить тип
+                $type = $param->getType();
 
-                // Если тип аргумента евляеться встроенным
+                // Если тип евляеться встроенным
                 if ($type->isBuiltin()) {
 
                     // Если имя указано в пользовательских параметрах
@@ -75,13 +74,13 @@ class Dependencies
                         throw new DependencyNotFound("Не возможно получить параметр {$param->name} в {$this->reflector->getName()}");
                     }
 
-                // В противном случае, вызвыть поиск по имени типа аргумента
+                // В противном случае, вызвыть поиск по имени типа
                 } else {
                     $dependences[] = $this->getSearch($type->getName());
                 }
 
 
-            // В противном случае, вызвать поиск по имени аргумента.
+            // В противном случае, вызвать поиск по имени.
             } else {
                 $dependences[] =  $this->getSearch($param->name);
             }
