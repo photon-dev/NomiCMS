@@ -15,7 +15,10 @@ use System\Handler\Handler;
 if (!function_exists('dd')) {
     function dd($dd)
     {
-        return var_dump($dd);
+        echo "<pre>";
+        var_dump($dd);
+        echo "</pre>";
+        return '';
     }
 }
 
@@ -99,5 +102,20 @@ if (!function_exists('go_die')) {
         if ($exit) {
             die;
         }
+    }
+}
+
+// функция вида
+if (!function_exists('render')) {
+    function render()
+    {
+        return function ($data, $path)
+        {
+            // Извлечь данные
+            extract($data);
+            unset($data);
+
+            include $path;
+        };
     }
 }

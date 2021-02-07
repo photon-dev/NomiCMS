@@ -48,7 +48,7 @@ class Response extends ResponseCodes implements ResponseInterface
         $this->status = $this->invalidStatus($status);
 
     }
-
+    
     // Установить тело
     public function body(string $body): void
     {

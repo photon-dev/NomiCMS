@@ -57,7 +57,7 @@ class Themes
     }
 
     // Получить путь к теме
-    public function getPath()
+    public function getPath(): string
     {
         return $this->path . $this->theme . '/view/';
     }

@@ -7,10 +7,13 @@
  * @link   http://nomicms.ru
  */
 
+$view->title = 'Система управления содержимым';
 
-$view->set('name', 'Гость');
+$view->add([
+    'name' => 'Гость'
+], 'index');
 
-$view->view('index');
+$view->render('index');
 
 //dd($view->themes->theme);
 

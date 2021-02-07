@@ -9,42 +9,23 @@
 
 namespace System\View;
 
+// Использовать
+use System\View\Storage;
+
 /**
  * Класс Template
  */
-class Template
+class Template extends Storage//implements TemplateInterface
 {
-    // Хранилище данных
-    protected static $storage = [];
-
-    // Добавить строку
-	public static function set(string $key, string $value = ''): void
-	{
-        // Сохранить
-        self::$storage[$key] = $value;
-	}
-
-    // Добавить массив
-    public static function setArray(string $key, array $data): void
+    // Добавить
+    public static function add(array $data, $templates = false)
     {
-        self::$storage[$key] = $data;
+        return parent::add($data, $templates);
     }
 
-    // Добавить обьект
-    public static function setObject(string $key, object $data): void
+    // Получить все всех, или одиночки
+    public static function get($template = false): array
     {
-        self::$storage[$key] = $data;
-    }
-
-    // Получить данные
-    public static function get(): array
-    {
-        return self::$storage;
-    }
-
-    // Очистить данные
-    public static function сlear(): void
-    {
-        self::$storage = [];
+        return parent::get($template);
     }
 }

@@ -34,16 +34,7 @@ class View extends Template
     // Скрыть контент
     public $showed = false;
 
-    // Имя страницы
-    public $title = false;
-
-    // Описание страницы
-    public $description = false;
-
-    // Ключевые слова
-    public $keywords = false;
-
-    //
+    // Системные данные
     public $memory, $timing = 0;
 
     // Конструктор
@@ -65,7 +56,7 @@ class View extends Template
     }
 
     // Загрузить шаблон
-    protected function load(string $file, bool $load)
+    protected function loadFile(string $file, bool $load)
     {
         // Установить путь от куда грузить шаблон
         $path = $load ? $this->themes->getPath() : $this->getPathPackage();
@@ -79,63 +70,72 @@ class View extends Template
             throw new TemplateNotFound("Шаблон {$file} не найден");
         }
 
-        // Если данные найдены, показать их
-        extract(self::get());
-
         ob_start();
 
+        //$render = render();
+        //$render(self::get(), $path . $file . '.php');
+        // Извлечь данные
+        /*dd($this::get($file));*/
+        extract($this::get($file));
+
         // Подключить шаблон
-        require $path . $file . '.php';
+        include $path . $file . '.php';
 
         // Очистим дату для экономии используемых данных
-        self::сlear();
+        //self::сlear();
 
         return ob_get_clean();
     }
 
     // Показать шаблон
-    public function view(string $file, bool $load = false, bool $preend = false): void
+    public function render(string $file, bool $load = false, bool $preend = false): void
     {
         $response = $this->container->get('response');
 
-        $content = $this->load($file, $load);
+        // Загрузить файл
+        $content = $this->loadFile($file, $load);
 
         if ($preend) {
             $response->body($content);
         } else {
             $response->write($content);
         }
+        //$response->
     }
 
     // Вывести на экран все содержимое
-    public function __destruct()
+    //public function __destruct()
+    public function put()
     {
         // Получить зависимость response
         $response = $this->container->get('response');
 
         if ($this->showed) {
             return $response->clear();
+            //return ;
         }
 
         // Загрузить настройки seo
         $seo = $this->container->get('config')::pull('system/seo');
 
-        $basic = (object) [
-            'local_html'    => $seo['local_html'],
-            'title'         => $this->title ? $this->title : $seo['title'],
-            'description'   => $this->description ? $this->description : $seo['description'],
-            'keywords'      => $this->keywords ?? $seo['keywords'],
-            'content'       => $response->getContent(),
-            'memory'        => $this->memory,
-            'timing'        => $this->timing
+        $basic = [
+            'response' => (object) [
+                'local_html'    => $seo['local_html'],
+                'title'         => $this->title ? $seo['title'] . ' - ' .$this->title : $seo['title'],
+                'description'   => $this->description ?? $seo['description'],
+                'keywords'      => $this->keywords ?? $seo['keywords'],
+                'content'       => $response->getContent(),
+                'memory'        => round((memory_get_usage() - NOMI_MEMORY) / 1024),
+                'timing'        => round(microtime(true) - NOMI_START, 6)
+            ]
         ];
 
         // Сохранить настройки
-        self::setObject('response', $basic);
+        $this::add($basic, 'basic');
 
-        $this->view('basic', true, true);
+        $this->render('basic', true, true);
 
-        return $response->send();
+        //return $response->send();
     }
 
 }

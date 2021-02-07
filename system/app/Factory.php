@@ -28,7 +28,9 @@ class Factory
         // Загрузить исходный файл
         return function () use ($app, $container) {
 
-            //$user = $container->get('packages.user.component.user');
+            // Получить зависимость response
+            $response = $container->get('response');
+
             // Запустить вид
             $view = $container->get('view');
 
@@ -43,11 +45,14 @@ class Factory
             // Загрузить файл источник
             require PACKS . $app->getPathSource();
 
-            $view->memory = round((memory_get_usage() - NOMI_MEMORY) / 1024);
-            $view->timing = round(microtime(true) - NOMI_START, 6);
+            //$view->memory = round((memory_get_usage() - NOMI_MEMORY) / 1024);
+            //$view->timing = round(microtime(true) - NOMI_START, 6);
+            $view->put();
+
+            //dd($response);
 
             // Показать
-            //return $response->send();
+            return $response->send();
         };
     }
 }
