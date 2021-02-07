@@ -33,7 +33,7 @@ class Misc
     public static function str(string $str, ContainerInterface $container): string
     {
         // Получить зависимость
-        $db = $container->get('database.db');
+        $db = $container->get('db');
 
         // Обработать строку
         $text = trim($text);

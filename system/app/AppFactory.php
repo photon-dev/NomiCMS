@@ -13,12 +13,11 @@ namespace System\App;
 use System\Container\ContainerInterface;
 use System\App\AppInterface;
 use System\Http\ResponseInterface;
-use System\Http\Cookie\Cookie;
 
 /**
- * Класс Factory
+ * Класс AppFactory
  */
-class Factory
+class AppFactory
 {
     // Если проложение уже запущено
     protected static $app;
@@ -27,13 +26,13 @@ class Factory
     public static function create(AppInterface $app, ContainerInterface $container)
     {
         // Если приложение запущено выдать предупреждение
-        if (Factory::$app !== null) {
+        if (AppFactory::$app !== null) {
             die('Приложение уже запущено');
             return ;
         }
 
         // Установить приложение
-        Factory::$app = $app;
+        AppFactory::$app = $app;
 
         // Собрать все содержимое, и отправить
         return function () use ($app, $container): ResponseInterface {
@@ -41,17 +40,32 @@ class Factory
             // Получить response
             $response = $container->get('response');
 
-            $cookie = new Cookie();
+            // Получить request
+            $request = $container->get('request');
 
-            $cookie->set('login', 'Photon', [
-                'expires' => TIME+60+60*24*365
-            ]);
+            // Получить файл
+            $post = $request->post->message;
 
+            if ($request->post->message) {
+
+
+            }
+            // Файл загружен
+            dd($request->post->S_Code);
+
+            echo '
+            <form method="POST" name="message" action="">
+                Сообщение:<br>
+                <textarea name="message"></textarea><br>
+                <input type="hidden" name="S_Code" value="11cccac23743195c813de8ec0cf6cb49">
+                <button>Отправить</button>
+            </form>
+            ';
 
 
             //setcookie('login', 'Photon', time()+60+60*24*365);
 
-            dd($cookie->login);
+            //dd($cookie->login);
 
             // Установить заголовки
             //$response->setHeaders();

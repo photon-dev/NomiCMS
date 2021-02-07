@@ -13,7 +13,7 @@ namespace System\App;
 use System\Container\ContainerInterface;
 use System\App\Package;
 use System\App\AppInterface;
-use System\App\Factory;
+use System\App\AppFactory;
 
 /**
  * Класс NomiApp
@@ -128,7 +128,7 @@ class NomiApp extends Package implements AppInterface
         $this->status = true;
 
         // Создать фабрику
-        $factory = Factory::create($this, $this->container);
+        $factory = AppFactory::create($this, $this->container);
         $response = $factory();
 
         // Отправить все содержимое

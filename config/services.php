@@ -26,6 +26,9 @@ return [
      // User
      Packages\User\Component\User::class,
 
+     // Request
+     System\Http\Request\Request::class,
+
      // Response
      System\Http\Response::class,
 
@@ -33,5 +36,5 @@ return [
      System\View\View::class,
 
      // Themes
-     Packages\Themes\Component\Themes::class
+     Packages\Themes\Component\Themes::class,
 ];
