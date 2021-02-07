@@ -9,10 +9,6 @@
 
 namespace System\Http\Request;
 
-// Использовать
-//use System\Http\Request\RequestFactory;
-//use System\Http\Request\RequestException;
-
 /**
  * Класс RequestFactory
  */
