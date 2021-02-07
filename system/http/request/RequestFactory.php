@@ -14,7 +14,7 @@ namespace System\Http\Request;
 //use System\Http\Request\RequestException;
 
 /**
- * Класс фабрика запросов
+ * Класс RequestFactory
  */
 class RequestFactory
 {

@@ -43,17 +43,24 @@ class AppFactory
             // Получить request
             $request = $container->get('request');
 
-            // Получить файл
-            $post = $request->post->message;
+            // Если сообщение и код введены
+            if ($request->post->has('message') && $request->post->has('S_Code')) {
 
-            if ($request->post->message) {
+                $message = $request->post->message;
+                $code = $request->post->S_Code;
 
+                if (empty($message)) echo '<p style="color: #f44336">Введите сообщение</p>';
+                if ($code == '11cccac23743195c813de8ec0cf6cb49') echo '<p style="color: #f44336">Проверочный код введен не верно</p>';
 
+                if (!empty($message)) {
+
+                    echo '<b>Ваше сообщение:</b> <p style="color: #4CAF50">' . $message . '</p>';
+                }
+            } else {
+                echo '<p style="color: #2980B9">Хотите написать в чат?</p>';
             }
-            // Файл загружен
-            dd($request->post->S_Code);
 
-            echo '
+            echo '<hr><br />
             <form method="POST" name="message" action="">
                 Сообщение:<br>
                 <textarea name="message"></textarea><br>
@@ -61,6 +68,32 @@ class AppFactory
                 <button>Отправить</button>
             </form>
             ';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
             //setcookie('login', 'Photon', time()+60+60*24*365);

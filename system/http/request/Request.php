@@ -14,7 +14,7 @@ use System\Http\Request\RequestFactory;
 use System\Http\Request\RequestException;
 
 /**
- * Класс фабрика запросов
+ * Класс Request
  */
 class Request
 {
