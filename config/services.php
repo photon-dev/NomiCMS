@@ -23,11 +23,14 @@ return [
      // Database
      System\Database\DB::class,
 
-     // User
-     Packages\User\Component\User::class,
-
      // Request
      System\Http\Request\Request::class,
+
+     // Cookie
+     System\Http\Cookie\Cookie::class,
+
+     // User
+     Packages\User\Component\User::class,
 
      // Response
      System\Http\Response::class,
@@ -36,5 +39,5 @@ return [
      System\View\View::class,
 
      // Themes
-     Packages\Themes\Component\Themes::class,
+     Packages\Themes\Component\Themes::class
 ];

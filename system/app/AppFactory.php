@@ -39,61 +39,9 @@ class AppFactory
 
             // Получить response
             $response = $container->get('response');
-
+            dd($container->getInstalled());
             // Получить request
-            $request = $container->get('request');
-
-            // Если сообщение и код введены
-            if ($request->post->has('message') && $request->post->has('S_Code')) {
-
-                $message = $request->post->message;
-                $code = $request->post->S_Code;
-
-                if (empty($message)) echo '<p style="color: #f44336">Введите сообщение</p>';
-                if ($code == '11cccac23743195c813de8ec0cf6cb49') echo '<p style="color: #f44336">Проверочный код введен не верно</p>';
-
-                if (!empty($message)) {
-
-                    echo '<b>Ваше сообщение:</b> <p style="color: #4CAF50">' . $message . '</p>';
-                }
-            } else {
-                echo '<p style="color: #2980B9">Хотите написать в чат?</p>';
-            }
-
-            echo '<hr><br />
-            <form method="POST" name="message" action="">
-                Сообщение:<br>
-                <textarea name="message"></textarea><br>
-                <input type="hidden" name="S_Code" value="11cccac23743195c813de8ec0cf6cb49">
-                <button>Отправить</button>
-            </form>
-            ';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            $cookie = $container->get('Cookie');
 
 
             //setcookie('login', 'Photon', time()+60+60*24*365);
