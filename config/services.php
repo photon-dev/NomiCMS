@@ -26,6 +26,12 @@ return [
      // User
      Packages\User\Component\User::class,
 
+     // Request
+     System\Http\Request\Request::class,
+
+     // Request
+     System\Http\Cookie\Cookie::class,
+
      // Response
      System\Http\Response::class,
 

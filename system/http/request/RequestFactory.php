@@ -9,12 +9,8 @@
 
 namespace System\Http\Request;
 
-// Использовать
-//use System\Http\Request\RequestFactory;
-//use System\Http\Request\RequestException;
-
 /**
- * Класс фабрика запросов
+ * Класс RequestFactory
  */
 class RequestFactory
 {
@@ -34,10 +30,18 @@ class RequestFactory
     }
 
     // Получить
-    public function get($name)
+    public function __get($name)
     {
         if ($this->has($name)) {
             return $this->data[$name];
         }
+
+        return false;
+    }
+
+    // Получить все данные
+    public function getData()
+    {
+        return $this->data;
     }
 }
