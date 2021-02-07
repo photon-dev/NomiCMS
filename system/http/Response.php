@@ -48,7 +48,7 @@ class Response extends ResponseCodes implements ResponseInterface
         $this->status = $this->invalidStatus($status);
 
     }
-    
+
     // Установить тело
     public function body(string $body): void
     {
@@ -71,10 +71,49 @@ class Response extends ResponseCodes implements ResponseInterface
         }
     }
 
-    // Установить заголовок
-    public function setHeader(string $name, $value, $replace = true)
+    public function sendHeaders()
     {
-        $this->headers[$name] = $value;
+        if (! headers_sent()) {
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public function header(string $name, $value)
+    {
+        if ($this->sent === false) {
+
+            foreach ($this->headers as $header) {
+                header($header);
+            }
+
+        }
+    }
+
+    // Установить заголовок
+    public function setHeader(string $name, string $value, $preend = true): self
+    {
+        if ($preend)
+        {
+            $this->headers[$name] = $value;
+
+            return $this;
+        }
+
+
+        $this->headers[] = [$name, $value];
+        return $this;
+    }
+
+    // Установить заголовоки
+    public function setHeaders(array $headers): void
+    {
+        foreach ($headers as $header)
+		{
+			$this->setHeader($header['name'], $header['value'], $header['replace']);
+		}
     }
 
     // Получить статус

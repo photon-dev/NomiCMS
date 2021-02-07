@@ -11,11 +11,10 @@ namespace System\View;
 
 // Использовать
 use System\Container\ContainerInterface;
-use System\Http\Response;
-use System\Http\ResponseInterface;
 use System\View\Template;
 use System\View\Exception\TemplateNotFound;
 use Packages\Themes\Component\Themes;
+use System\Http\ResponseInterface;
 
 /**
  * Класс View
@@ -105,7 +104,7 @@ class View extends Template
 
     // Вывести на экран все содержимое
     //public function __destruct()
-    public function put()
+    public function put(): ResponseInterface
     {
         // Получить зависимость response
         $response = $this->container->get('response');
@@ -126,7 +125,7 @@ class View extends Template
                 'keywords'      => $this->keywords ?? $seo['keywords'],
                 'content'       => $response->getContent(),
                 'memory'        => round((memory_get_usage() - NOMI_MEMORY) / 1024),
-                'timing'        => round(microtime(true) - NOMI_START, 6)
+                'timing'        => round(microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'], 6)
             ]
         ];
 
@@ -135,7 +134,7 @@ class View extends Template
 
         $this->render('basic', true, true);
 
-        //return $response->send();
+        return $response;
     }
 
 }

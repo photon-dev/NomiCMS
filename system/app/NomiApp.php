@@ -11,11 +11,9 @@ namespace System\App;
 
 // Использовать
 use System\Container\ContainerInterface;
-use System\Router\Router;
 use System\App\Package;
 use System\App\AppInterface;
 use System\App\Factory;
-use System\Response\ResponseInterface;
 
 /**
  * Класс NomiApp
@@ -117,13 +115,13 @@ class NomiApp extends Package implements AppInterface
         // Если папка с пакетом не найдена
         if (! $this->hasPackage()) {
             die("Пакет <b>{$this->route['package']}</b> не найден");
-            return;
+            return ;
         }
 
         // Если исходный файл не найден
         if (! $this->hasPackage()) {
             die("Исходный файл <b>{$this->route['src']}</b> не найден");
-            return;
+            return ;
         }
 
         // Установить статус
@@ -131,9 +129,10 @@ class NomiApp extends Package implements AppInterface
 
         // Создать фабрику
         $factory = Factory::create($this, $this->container);
+        $response = $factory();
 
         // Отправить все содержимое
-        return $factory();
+        return $response->send();
     }
 
     // Показать ошибку
