@@ -10,22 +10,31 @@
 namespace System\View;
 
 // Использовать
-use System\View\Storage;
+use System\Container\ContainerInterface;
+use System\View\Template;
+use System\View\Exception\TemplateNotFound;
+use Packages\Themes\Component\Themes;
+use System\Http\ResponseInterface;
 
 /**
- * Класс Template
+ * Класс View
  */
-class Template extends Storage//implements TemplateInterface
+class Template //extends Template
 {
-    // Добавить
-    public static function add(array $data, $templates = false)
+    // Буфер
+    protected $buffer = 0;
+
+    // Контент
+    protected $content;
+
+    // Карта
+    public $map = [];
+
+    public function resolve(string $name)
     {
-        return parent::add($data, $templates);
+        if (isset($this->map[$name])) {
+            return $this->map[$name];
+        }
     }
 
-    // Получить все всех, или одиночки
-    public static function get($template = false): array
-    {
-        return parent::get($template);
-    }
 }

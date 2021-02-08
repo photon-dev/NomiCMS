@@ -1,5 +1,0 @@
-User-agent: *
-Host: nomicms.org
-Allow: /
-
-Sitemap: /sitemap.xml

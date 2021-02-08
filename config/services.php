@@ -33,7 +33,7 @@ return [
      System\Http\Cookie\Cookie::class,
 
      // Response
-     System\Http\Response::class,
+     System\Http\Response\Response::class,
 
      // View
      System\View\View::class,

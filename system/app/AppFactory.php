@@ -12,7 +12,8 @@ namespace System\App;
 // Использовать
 use System\Container\ContainerInterface;
 use System\App\AppInterface;
-use System\Http\ResponseInterface;
+use System\Http\Response\ResponseInterface;
+use System\View\Template;
 
 /**
  * Класс AppFactory
@@ -40,15 +41,20 @@ class AppFactory
             // Получить response
             $response = $container->get('response');
 
-            $cookie = $container->get('cookie');
+            //header('Expires: ' . date('r'), true);
 
-            //$_SESSION['login'] = 'Photon';
+            //$response->setHeader('Cache-Control',  'no-store, no-cache, must-revalidate');
 
-            dd($_SESSION);
+            $view = $container->get('view');
 
-            //setcookie('login', 'Photon', time()+60+60*24*365);
+            $view->render('index');
 
-            //dd($cookie->login);
+            // Запустить
+            $view->put();
+
+            dd($view->map);
+
+            //dd($response->headers);
 
             // Установить заголовки
             //$response->setHeaders();
@@ -75,7 +81,6 @@ class AppFactory
 
             //dd($response);
             */
-
             // Отправить ответ
             return $response;
         };
