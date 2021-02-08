@@ -44,18 +44,24 @@ class View //extends Template
 
         // Сохранить тему
         $this->themes = $themes;
+
+        ob_start();
     }
 
     // Получить путь к шаблонам пакета
-    protected function getPathPackage(): string
+    protected function getPathe(bool $load): string
     {
-        $route = $this->container->get('config')::get('route');
+        if ($load) {
+            $route = $this->container->get('config')::get('route');
 
-        return PACKS . $route['package']  . '/view/';
+            return PACKS . $route['package']  . '/view/';
+        }
+
+        return $this->getPathTheme();
     }
 
     // Загрузить шаблон
-    protected function loadFile(string $file, bool $load)
+    protected function loadFile(string $file, bool $load = true)
     {
         // Установить путь от куда грузить шаблон
         $path = $load ? $this->themes->getPath() : $this->getPathPackage();
@@ -69,19 +75,13 @@ class View //extends Template
             throw new TemplateNotFound("Шаблон {$file} не найден");
         }
 
-        ob_start();
-
-        //$render = render();
-        //$render(self::get(), $path . $file . '.php');
         // Извлечь данные
-        /*dd($this::get($file));*/
         extract($this::get($file));
+
+        ob_start();
 
         // Подключить шаблон
         include $path . $file . '.php';
-
-        // Очистим дату для экономии используемых данных
-        //self::сlear();
 
         return ob_get_clean();
     }

@@ -52,7 +52,7 @@ class User
     }
 
     // Получить данные пользователя
-    public function getUser()
+    public function getUser(): array
     {
         if ($this->logger && isset($this->user['uid'])) {
             return $this->user;

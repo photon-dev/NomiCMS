@@ -52,6 +52,11 @@ class Template //extends Template
         $this->everyone = array_merge($this->everyone, $data);
     }
 
+    public function has(string $name)
+    {
+        return isset($map[$name]);
+    }
+
     // Получить данные
     public function get(string $template)
     {

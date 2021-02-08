@@ -30,8 +30,8 @@ class View extends Template
     // Скрыть контент
     public $showed = false;
 
-    // Системные данные
-    public $memory, $timing = 0;
+    // Статус
+    public $status = false;
 
     // Конструктор
     public function __construct(ContainerInterface $container, Themes $themes)
@@ -56,11 +56,10 @@ class View extends Template
     }
 
     // Загрузить шаблон
-    protected function load(string $file, bool $priority)
+    protected function load(string $file, bool $priority = true)
     {
         // Получить путь к шаблону
-        //$path = $this->getPath($priority);
-        $path = SYS . 'view/test/';
+        $path = $this->getPath($priority);
 
         if (is_dir($path) === false) {
             throw new TemplateNotFound("Папка с шаблонами не найдена, проверьте ее по адресу: {$path}");
@@ -68,7 +67,7 @@ class View extends Template
 
         // Если шаблон не найден сообщить об этом
         if (file_exists($path . $file . '.php') === false) {
-            throw new TemplateNotFound("Шаблон {$file} не найден");
+            throw new TemplateNotFound("Шаблон {$file} $path не найден");
         }
 
         extract($this::get($file));
@@ -80,16 +79,35 @@ class View extends Template
         return ob_get_clean();
     }
 
-    // Render
-    public function render(string $template, bool $priority = false): void
+    protected function template(string $file)
     {
+        echo $this->load($file);
+    }
+
+    // Render
+    public function render(string $template, bool $priority = false, bool $write = false): void
+    {
+        if ($this->status) {
+            return ;
+        }
+
+        if ($template == 'layout') {
+            $this->status = true;
+        }
+
+        // Подключить response
         $response = $this->container->get('response');
 
         // Загрузить файл
         $content = $this->load($template, $priority);
 
-        echo $content;
-        //$response->body($content);
+        // Сохранить в тело ответа
+        if ($write) {
+            $response->body($content);
+        // Либо в контент
+        } else {
+            $response->write($content);
+        }
     }
 
     // Вывести на экран все содержимое
@@ -102,31 +120,33 @@ class View extends Template
         // Загрузить настройки seo
         $seo = $this->container->get('config')::pull('system/seo');
 
-        // Установить заголовок страницы
-        $title = [
+        // Параметры для всех страниц
+        $all = [
             'title' => $this->title ?? $seo['title']
         ];
 
-        $basic = [
-            'response' => (object) [
-                'local_html'    => $seo['local_html'],
-                'title'         => $this->title ?? $seo['title'],
-                'description'   => $this->description ?? $seo['description'],
-                'keywords'      => $this->keywords ?? $seo['keywords'],
-                //'content'       => $response->getContent(),
-                'memory'        => round((memory_get_usage() - NOMI_MEMORY) / 1024),
-                'timing'        => round(microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'], 6)
-            ]
+        // Параметры для макета
+        $layout = [
+            'lang'      => $seo['local_html'],
+            'desc'      => $this->description ?? $seo['description'],
+            'keywords'  => $this->keywords ?? $seo['keywords'],
+            'content'   => $response->getContent()
         ];
 
-        $this->setAll($title);
-        $this->set($basic, 'layout');
-        //$this->render('header');
-        //$this->render('footer');
+        $footer = [
+            'memory' => round((memory_get_usage() - NOMI_MEMORY) / 1024),
+            'timing' => round(microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'], 6)
+        ];
 
-        $this->render('layout', true);
+        // Установить настройки указанные выше
+        $this->setAll($all);
+        $this->set($layout, 'layout');
+        $this->set($footer, 'footer');
 
-        return '';
+        // Рендерить макет
+        $this->render('layout', true, true);
+
+        //return $response;
     }
 
 }

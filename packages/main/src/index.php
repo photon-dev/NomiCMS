@@ -7,11 +7,14 @@
  * @link   http://nomicms.ru
  */
 
-$view->title = 'Система управления содержимым';
+$view->title = 'Главная страница';
 
-$view->add([
-    'name' => 'Гость'
-], 'index');
+$post = [
+    'welcome' => 'Photon'
+];
+
+
+$view->set($post, 'index');
 
 $view->render('index');
 

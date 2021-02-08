@@ -41,36 +41,17 @@ class AppFactory
             // Получить response
             $response = $container->get('response');
 
-            //header('Expires: ' . date('r'), true);
-
-            //$response->setHeader('Cache-Control',  'no-store, no-cache, must-revalidate');
-
             $view = $container->get('view');
-
-            $view->set([
-                'text' => 'Photon'
-            ], 'index');
-
-            $view->set([
-                'copy' => 'Nomicms'
-            ], 'footer');
-
-            // Запустить
-            $view->put();
-
-            dd($view->some);
-            dd($view->everyone);
 
             // Установить заголовки
             //$response->setHeaders();
-            //header('Cache-Control: no-store, no-cache, must-revalidate', true);
-            //header('Expires: ' . date('r'), true);
-            //header('Content-Type: text/html; charset=utf-8', true);
+            header('Cache-Control: no-store, no-cache, must-revalidate', true);
+            header('Expires: ' . date('r'), true);
+            header('Content-Type: text/html; charset=utf-8', true);
 
             // Получить view
             //$view = $container->get('view');
 
-            /*
             // Если есть GET данные то распаковать их
             if ($app->getParams()) {
                 extract($app->getParams());
@@ -82,10 +63,11 @@ class AppFactory
             // Загрузить файл источник
             require PACKS . $app->getPathSource();
 
-            $response = $view->put();
+            //
+            $view->put();
 
-            //dd($response);
-            */
+            //dd($response->getContent());
+
             // Отправить ответ
             return $response;
         };
