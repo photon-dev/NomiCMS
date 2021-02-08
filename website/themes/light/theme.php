@@ -12,16 +12,16 @@
   */
 return [
     // Имя
-    'name' => 'Традиционная',
+    'name' => 'Светлая',
 
     // Папка
-    'dir' => 'custom',
+    'dir' => 'light',
 
     // Авторы
     'author' => [
-        'name' => 'Tosyk',
-		'email' => 'admin@nomicms.ru',
-		'site' => 'http://nomicms.ru/us1'
+        'name' => 'Photon',
+		'email' => 'photon.dev@yandex.ru',
+		'site' => 'http://nomicms.ru/us379'
     ],
 
     // Версия

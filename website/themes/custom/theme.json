@@ -1,0 +1,10 @@
+{
+    "name": "Традиционная",
+    "dir": "custom",
+    "author": {
+        "name": "Tosyk",
+        "email": "admin@nomicms.ru",
+        "site": "http://nomicms.ru/us1"
+    },
+    "ver": "1.0"
+}

@@ -1,0 +1,10 @@
+{
+    "name": "Светлая",
+    "dir": "light",
+    "author": {
+        "name": "Photon",
+        "email": "photon.dev@yandex.ru",
+        "site": "http://nomicms.ru/us379"
+    },
+    "ver": "1.0"
+}

@@ -5,11 +5,12 @@
 </head>
 <body>
     <!--- Header --->
-    <?php $this->render('header', true); ?>
+    <?php $this->render('header', true) ?>
 
-    <?php echo $response->content ?>
+    <!--- Main Page --->
+    <?php $this->render('index', true) ?>
 
-    <!--- Header --->
-    <?php $this->render('header', true); ?>
+    <!--- Footer --->
+    <?php $this->render('footer', true) ?>
 </doby>
 </html>

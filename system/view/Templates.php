@@ -17,6 +17,12 @@ use System\View\Storage;
  */
 class Template extends Storage//implements TemplateInterface
 {
+    // Для всех
+    protected static $everyone = [];
+
+    // Для некоторых, или одиночки
+    protected static $some = [];
+
     // Добавить
     public static function add(array $data, $templates = false)
     {

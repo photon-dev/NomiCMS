@@ -47,14 +47,19 @@ class AppFactory
 
             $view = $container->get('view');
 
-            $view->render('index');
+            $view->set([
+                'text' => 'Photon'
+            ], 'index');
+
+            $view->set([
+                'copy' => 'Nomicms'
+            ], 'footer');
 
             // Запустить
             $view->put();
 
-            dd($view->map);
-
-            //dd($response->headers);
+            dd($view->some);
+            dd($view->everyone);
 
             // Установить заголовки
             //$response->setHeaders();

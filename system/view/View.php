@@ -56,29 +56,75 @@ class View extends Template
     }
 
     // Загрузить шаблон
-    protected function load(string $filename, bool $priority)
+    protected function load(string $file, bool $priority)
     {
         // Получить путь к шаблону
-        $path = $this->getPath();
+        //$path = $this->getPath($priority);
+        $path = SYS . 'view/test/';
+
+        if (is_dir($path) === false) {
+            throw new TemplateNotFound("Папка с шаблонами не найдена, проверьте ее по адресу: {$path}");
+        }
+
+        // Если шаблон не найден сообщить об этом
+        if (file_exists($path . $file . '.php') === false) {
+            throw new TemplateNotFound("Шаблон {$file} не найден");
+        }
+
+        extract($this::get($file));
+
+        ob_start();
+
+        include $path . $file . '.php';
+
+        return ob_get_clean();
     }
 
     // Render
     public function render(string $template, bool $priority = false): void
     {
-        //$data = ;
+        $response = $this->container->get('response');
 
-        $this->map[$template] = $priority;
-        //dd($name);
+        // Загрузить файл
+        $content = $this->load($template, $priority);
+
+        echo $content;
+        //$response->body($content);
     }
 
     // Вывести на экран все содержимое
     //public function __destruct()
     public function put()
     {
+        // Получить зависимость response
+        $response = $this->container->get('response');
 
-        $this->render('header');
-        $this->render('footer');
-        $this->render('layout');
+        // Загрузить настройки seo
+        $seo = $this->container->get('config')::pull('system/seo');
+
+        // Установить заголовок страницы
+        $title = [
+            'title' => $this->title ?? $seo['title']
+        ];
+
+        $basic = [
+            'response' => (object) [
+                'local_html'    => $seo['local_html'],
+                'title'         => $this->title ?? $seo['title'],
+                'description'   => $this->description ?? $seo['description'],
+                'keywords'      => $this->keywords ?? $seo['keywords'],
+                //'content'       => $response->getContent(),
+                'memory'        => round((memory_get_usage() - NOMI_MEMORY) / 1024),
+                'timing'        => round(microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'], 6)
+            ]
+        ];
+
+        $this->setAll($title);
+        $this->set($basic, 'layout');
+        //$this->render('header');
+        //$this->render('footer');
+
+        $this->render('layout', true);
 
         return '';
     }

@@ -21,20 +21,53 @@ use System\Http\ResponseInterface;
  */
 class Template //extends Template
 {
-    // Буфер
-    protected $buffer = 0;
-
-    // Контент
-    protected $content;
-
     // Карта
     public $map = [];
 
-    public function resolve(string $name)
+    // Для всех
+    public $everyone = [];
+
+    // Для некоторых, или одиночки
+    public $some = [];
+
+    // Передано
+    public $output = [];
+
+    // Установить для одиночки
+    public function set(array $data, string $template): bool
     {
-        if (isset($this->map[$name])) {
-            return $this->map[$name];
+        // Если шаблон найден, установить для него дополнительные данные
+        if (isset($this->some[$template])) {
+            $this->some[$template] = array_merge($this->some[$template], $data);
+            return true;
         }
+
+        $this->some[$template] = $data;
+        return false;
+    }
+
+    // Установить для всех
+    public function setAll(array $data): void
+    {
+        $this->everyone = array_merge($this->everyone, $data);
+    }
+
+    // Получить данные
+    public function get(string $template)
+    {
+        $data = [];
+
+        // Получить данные для шаблона
+        if (isset($this->some[$template])) {
+            $data = array_merge($data, $this->some[$template]);
+
+            // Стереть данные
+            unset($this->some[$template]);
+        }
+
+        $data = array_merge($data, $this->everyone);
+
+        return $data;
     }
 
 }
