@@ -27,6 +27,6 @@ return [
 			'site' => 'http://nomicms.ru/us379'
 		]
 	],
-	'require' => "^3.0",
-	'version' => "^1.0"
+	'require' => "3.0",
+	'version' => "1.0"
 ];

@@ -114,13 +114,13 @@ class NomiApp extends Package implements AppInterface
 
         // Если папка с пакетом не найдена
         if (! $this->hasPackage()) {
-            die("Пакет <b>{$this->route['package']}</b> не найден");
+            die("Пакет: <b>{$this->route['package']}</b> не найден");
             return ;
         }
 
         // Если исходный файл не найден
-        if (! $this->hasPackage()) {
-            die("Исходный файл <b>{$this->route['src']}</b> не найден");
+        if (! $this->hasSource()) {
+            die("Файл: <b>{$this->route['src']}</b> не найден.<br /> Пакет: <b>{$this->route['package']}</b>");
             return ;
         }
 

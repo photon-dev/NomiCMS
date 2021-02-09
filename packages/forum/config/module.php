@@ -13,8 +13,8 @@
 return [
 	'system' => true,
 	'enable' => true,
-	'name' => 'Пользователи',
-	'dir' => 'user',
+	'name' => 'Форум',
+	'dir' => 'forum',
 	'authors' => [
 		[
 			'name' => 'Tosyk',

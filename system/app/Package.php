@@ -46,13 +46,13 @@ class Package
     }
 
     // Существует ли пакет
-    public function hasPackage(): string
+    public function hasPackage(): bool
     {
         return is_dir(PACKS . $this->route['package'] . '/');
     }
 
     // Существует ли исходный файл
-    public function hasSource(): string
+    public function hasSource(): bool
     {
         return file_exists(PACKS . $this->getPathSource());
     }
