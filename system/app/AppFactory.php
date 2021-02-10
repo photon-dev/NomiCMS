@@ -49,24 +49,16 @@ class AppFactory
             header('Expires: ' . date('r'), true);
             header('Content-Type: text/html; charset=utf-8', true);
 
-            // Получить view
-            //$view = $container->get('view');
-
             // Если есть GET данные то распаковать их
             if ($app->getParams()) {
                 extract($app->getParams());
             }
 
-            // Запустить шаблонизатор
-            //$view = $container->get('view.view');
-
             // Загрузить файл источник
             require PACKS . $app->getPathSource();
 
-            //
+            // Вывести на экран все содержимое
             $view->put();
-
-            //dd($response->getContent());
 
             // Отправить ответ
             return $response;

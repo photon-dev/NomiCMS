@@ -13,11 +13,8 @@ $post = [
     'welcome' => 'Photon'
 ];
 
-
 $view->set($post, 'index');
 
 $view->render('index');
 
-//dd($view->themes->theme);
-
-//return 'Компонент Main/index подключен';
+dd($view->themes->theme);

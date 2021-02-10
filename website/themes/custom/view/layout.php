@@ -22,7 +22,5 @@
 
     <!--- Footer --->
 <?php $this->template('footer') ?>
-
-<?php $this->render('layout', true, true) ?>
 </doby>
 </html>

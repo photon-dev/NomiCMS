@@ -104,18 +104,3 @@ if (!function_exists('go_die')) {
         }
     }
 }
-
-// функция вида
-if (!function_exists('render')) {
-    function render()
-    {
-        return function ($data, $path)
-        {
-            // Извлечь данные
-            extract($data);
-            unset($data);
-
-            include $path;
-        };
-    }
-}

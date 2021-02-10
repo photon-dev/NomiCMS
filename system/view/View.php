@@ -57,7 +57,7 @@ class View extends Template
 
     // Загрузить шаблон
     protected function load(string $file, bool $priority = true)
-    {
+    {    
         // Получить путь к шаблону
         $path = $this->getPath($priority);
 
@@ -74,7 +74,7 @@ class View extends Template
 
         ob_start();
 
-        include $path . $file . '.php';
+        require_once $path . $file . '.php';
 
         return ob_get_clean();
     }
