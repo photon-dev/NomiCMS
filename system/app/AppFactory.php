@@ -41,10 +41,10 @@ class AppFactory
             // Получить response
             $response = $container->get('response');
 
+            // Получить шаблонизатор
             $view = $container->get('view');
 
             // Установить заголовки
-            //$response->setHeaders();
             header('Cache-Control: no-store, no-cache, must-revalidate', true);
             header('Expires: ' . date('r'), true);
             header('Content-Type: text/html; charset=utf-8', true);
@@ -57,7 +57,7 @@ class AppFactory
             // Загрузить файл источник
             require PACKS . $app->getPathSource();
 
-            // Если включено скрытите
+            // Если выключено скрытите
             if (! $view->showed) {
                 // Вывести на экран все содержимое
                 $view->put();

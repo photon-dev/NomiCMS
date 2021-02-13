@@ -13,7 +13,6 @@ namespace System\Http\Response;
 use System\Http\Response\ResponseInterface;
 use System\Http\Response\ResponseCodes;
 
-use InvalidArgumentException;
 use Exception;
 
 /**
@@ -23,15 +22,6 @@ class Response extends ResponseCodes implements ResponseInterface
 {
     // Код ответа сервера
     protected $status;
-
-    // Http заголовки
-    public $headers = [];
-
-    // Тип содержимого
-    protected $contentType;
-
-    // Кеширование
-    protected $cache = false;
 
     // Тело
     protected $body = '';
@@ -45,7 +35,19 @@ class Response extends ResponseCodes implements ResponseInterface
     // Конструктор
     public function __construct(array $options = [])
     {
-        $this->status = $this->invalidStatus(200);
+        $status = isset($options['status']) ? $options['status'] : 200;
+
+        $this->status = $this->invalidStatus($status);
+    }
+
+    // Проверить статус на валидность
+    public function invalidStatus(int $status): int
+    {
+        if ($status < 100 || $status > 599) {
+            throw new Exception("Недопустимый код состояния HTTP: {$status}");
+        }
+
+        return $status;
     }
 
     // Установить тело
@@ -60,16 +62,6 @@ class Response extends ResponseCodes implements ResponseInterface
         $this->content .= $str;
     }
 
-    // Отправить содержимое
-    public function send()
-    {
-        if ($this->sent === false) {
-            $this->sent = true;
-
-            echo $this->body;
-        }
-    }
-
     public function sendHeaders()
     {
         if (! headers_sent()) {
@@ -78,47 +70,6 @@ class Response extends ResponseCodes implements ResponseInterface
         }
 
         return false;
-    }
-
-    public function header(string $name, $value)
-    {
-        if ($this->sent === false) {
-
-            foreach ($this->headers as $header) {
-                header($header);
-            }
-
-        }
-    }
-
-    // Установить заголовок
-    public function setHeader(string $name, string $value, $preend = true): self
-    {
-        if ($preend)
-        {
-            $this->headers[$name] = $value;
-
-            return $this;
-        }
-
-
-        $this->headers[] = [$name, $value];
-        return $this;
-    }
-
-    // Установить заголовоки
-    public function setHeaders(array $headers): void
-    {
-        foreach ($headers as $header)
-		{
-			$this->setHeader($header['name'], $header['value'], $header['replace']);
-		}
-    }
-
-    // Получить статус
-    public function getStatus(): int
-    {
-        return $this->status;
     }
 
     // Получить тело
@@ -133,42 +84,41 @@ class Response extends ResponseCodes implements ResponseInterface
         return $this->content;
     }
 
-    // Очистить все
-    public function clear(): self
+    // Получить статус
+    public function getStatus(): int
     {
-        $this->status = 200;
-        $this->headers = [];
-        $this->body = '';
-
-        return $this;
+        return $this->status;
     }
 
-
-    public function invalidStatus($status)
+    // Установить статус ответа
+    public function setStatus(int $status): void
     {
-        if (!is_integer($status) || $status < 100 || $status > 599) {
-            throw new InvalidArgumentException("Недопустимый код состояния HTTP: {$status}");
-        }
-
-        return $status;
+        $this->status = $this->invalidStatus($status);
     }
 
     // Получить код статуса
-    public function getStatusCode($id = false)
+    public function hasStatus(int $status)
     {
-        if ($id === false) {
-            //var_dump($id);
-            return $this->status;
+        if (! isset(self::$codes[$status])) {
+            throw new Exception("Неверный код состояния HTTP: {$status}");
         }
-
-        if (array_key_exists($id, self::$codes)) {
-            return $id;
-        } else {
-            throw new Exception("Неверный код состояния HTTP: {$id}");
-        }
-
-        return $this;
     }
 
+    // Отправить содержимое
+    public function send()
+    {
+        // Проверить статус
+        $this->hasStatus($this->status);
+
+        // Установить код ответа
+        http_response_code($this->status);
+
+        // Если sent false отправить тело
+        if ($this->sent === false) {
+            $this->sent = true;
+
+            echo $this->body;
+        }
+    }
 
 }

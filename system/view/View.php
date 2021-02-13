@@ -49,13 +49,17 @@ class View extends Template
     // Получить путь к шаблонам
     protected function getPath(bool $priority)
     {
+        // Приоритет загрузки
         if ($priority) {
+            // Показать
             return $this->themes->getPath();
         }
 
-        $route = $this->container->get('config')::get('route');
+        // Получить имя пакета
+        $package = $this->container->get('config')::get('route')['package'];
 
-        return PACKS . $route['package']  . '/view/';
+        // Показать
+        return PACKS . $package  . '/view/';
     }
 
     // Загрузить шаблон
@@ -73,17 +77,20 @@ class View extends Template
             throw new TemplateNotFound("Шаблон {$file} $path не найден");
         }
 
+        // Извлечь переменные
         extract($this::get($file));
 
         ob_start();
 
+        // Подключить шаблон
         require $path . $file . '.php';
 
+        // Показать содержимое
         return ob_get_clean();
     }
 
     // Подключить шаблон прям в шаблон
-    protected function template(string $file)
+    protected function template(string $file): void
     {
         echo $this->load($file);
     }

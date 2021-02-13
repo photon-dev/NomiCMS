@@ -20,19 +20,21 @@ interface ResponseInterface
     // Записать в содержимое
     public function write(string $str): void;
 
-    // Отправить содержимое
-    public function send();
-
-    // Получить статус
-    public function getStatus(): int;
-
     // Получить тело
-    public function getBody();
+    public function getBody(): string;
 
     // Получить содержимое
-    public function getContent();
+    public function getContent(): string;
 
-    // Получить код статуса
-    public function getStatusCode($id);
+    // Проверить статус ответа
+    public function getStatus(): int;
 
+    // Установить статус
+    public function setStatus(int $status): void;
+
+    // Проверить статус ответа
+    public function hasStatus(int $status);
+
+    // Отправить содержимое
+    public function send();
 }
