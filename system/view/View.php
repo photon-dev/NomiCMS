@@ -120,6 +120,11 @@ class View extends Template
     // Вывести на экран все содержимое
     public function put(): void
     {
+        // Если надо скрыть контент
+        if ($this->showed) {
+            return ;
+        }
+
         // Получить зависимость response
         $response = $this->container->get('response');
 

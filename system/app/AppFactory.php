@@ -57,8 +57,11 @@ class AppFactory
             // Загрузить файл источник
             require PACKS . $app->getPathSource();
 
-            // Вывести на экран все содержимое
-            $view->put();
+            // Если включено скрытите
+            if (! $view->showed) {
+                // Вывести на экран все содержимое
+                $view->put();
+            }
 
             // Отправить ответ
             return $response;
