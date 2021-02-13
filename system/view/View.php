@@ -77,23 +77,27 @@ class View extends Template
 
         ob_start();
 
-        require_once $path . $file . '.php';
+        require $path . $file . '.php';
 
         return ob_get_clean();
     }
 
+    // Подключить шаблон прям в шаблон
     protected function template(string $file)
     {
         echo $this->load($file);
     }
 
-    // Render
+    // Рендерить шаблон
     public function render(string $template, bool $priority = false, bool $write = false): void
     {
+        // Если статус true ничего не показывать
         if ($this->status) {
             return ;
         }
 
+        // Если указан layout тогда считать что шаблонизатор запущен
+        // Костыль от повторного подключения шаблона layout.php
         if ($template == 'layout') {
             $this->status = true;
         }
@@ -101,7 +105,7 @@ class View extends Template
         // Подключить response
         $response = $this->container->get('response');
 
-        // Загрузить файл
+        // Загрузить шаблон
         $content = $this->load($template, $priority);
 
         // Сохранить в тело ответа
@@ -114,8 +118,7 @@ class View extends Template
     }
 
     // Вывести на экран все содержимое
-    //public function __destruct()
-    public function put()
+    public function put(): void
     {
         // Получить зависимость response
         $response = $this->container->get('response');
@@ -148,8 +151,6 @@ class View extends Template
 
         // Рендерить макет
         $this->render('layout', true, true);
-
-        //return $response;
     }
 
 }

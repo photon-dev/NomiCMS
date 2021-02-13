@@ -20,7 +20,7 @@ use Exception;
 class Template //extends Template
 {
     // Карта
-    public $map = [];
+    //public $map = [];
 
     // Для всех
     public $everyone = [];
@@ -34,9 +34,6 @@ class Template //extends Template
     // Установить для одиночки
     public function set(array $data, string $template): bool
     {
-        // Сохранить в карту имя шаблона
-        array_push($this->map, $template);
-
         // Если шаблон найден, установить для него дополнительные данные
         if (isset($this->some[$template])) {
             $this->some[$template] = array_merge($this->some[$template], $data);

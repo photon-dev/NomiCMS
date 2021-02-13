@@ -10,7 +10,6 @@
 namespace Packages\Themes\Component;
 
 // Использовать
-use System\Container\ContainerInterface;
 use System\Config\Config;
 use Packages\User\Component\User;
 

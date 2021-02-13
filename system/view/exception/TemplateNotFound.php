@@ -13,7 +13,7 @@ namespace System\View\Exception;
 use Exception;
 
 /**
- * Сервис не найден
+ * Класс TemplateNotFound
  */
 class TemplateNotFound extends Exception
 {

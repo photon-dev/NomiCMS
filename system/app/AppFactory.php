@@ -60,8 +60,6 @@ class AppFactory
             // Вывести на экран все содержимое
             $view->put();
 
-            dd($view->map);
-
             // Отправить ответ
             return $response;
         };
