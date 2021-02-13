@@ -12,12 +12,10 @@ namespace System\View;
 // Использовать
 use System\Container\ContainerInterface;
 use System\View\Template;
-use System\View\Exception\TemplateNotFound;
-use Packages\Themes\Component\Themes;
-use System\Http\ResponseInterface;
+use Exception;
 
 /**
- * Класс View
+ * Класс Template
  */
 class Template //extends Template
 {
@@ -36,6 +34,9 @@ class Template //extends Template
     // Установить для одиночки
     public function set(array $data, string $template): bool
     {
+        // Сохранить в карту имя шаблона
+        array_push($this->map, $template);
+
         // Если шаблон найден, установить для него дополнительные данные
         if (isset($this->some[$template])) {
             $this->some[$template] = array_merge($this->some[$template], $data);
@@ -43,6 +44,7 @@ class Template //extends Template
         }
 
         $this->some[$template] = $data;
+
         return false;
     }
 

@@ -28,32 +28,39 @@ class Themes
     // Конструктор
     public function __construct(Config $config, User $user)
     {
-        // Загрузить настройки тем оформлений
-        $settings = $config::load('themes/config/settings', PACKAGE);
-
-        // Если пользователь, то тема пользовательская
+        // Если пользователь авторизован
         // В другом случае, тема системная
-        $this->theme = $user->logger ? $user->user['theme'] : $settings['theme'];
-
-        // Проверить
-        $this->hasPaths();
+        if ($user->logger) {
+            $this->theme = $user->user['theme'];
+        } else {
+            // Загрузить настройки тем оформлений
+            $settings = $config::load('themes/config/settings', PACKAGE);
+            $this->theme = $settings['theme'];
+        }
     }
 
     // Проверить папки, файлы нужны для работы с темой
-    public function hasPaths(): void
+    public function hasPaths(): bool
     {
+        // Если папка темы не найдена
         if (! is_dir($this->path . $this->theme . DS)) {
-
             die("Тема {$this->theme} не найдена");
-
-        } elseif (! file_exists($this->path . $this->theme . DS . 'theme.php')) {
-
-            die("Файл конфигурации темы {$this->theme} не найдена");
-
-        } elseif (is_dir($this->path . 'custom/') === false) {
-
-            die('Традиционная тема не найдена');
+            return false;
         }
+
+        // Если config темы не найден
+        if (! file_exists($this->path . $this->theme . DS . 'theme.php')) {
+            die("Файл конфигурации темы {$this->theme} не найдена");
+            return false;
+        }
+
+        // Если системная тема не найдена
+        if (! is_dir($this->path . 'custom/')) {
+            die('Традиционная тема не найдена');
+            return false;
+        }
+
+        return true;
     }
 
     // Получить путь к теме

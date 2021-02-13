@@ -8,13 +8,13 @@
  */
 
 $view->title = 'Главная страница';
+$view->desc = 'Описание главной страницы';
+$view->keywords = 'Ключевые слова';
 
 $post = [
-    'welcome' => 'Photon'
+    'welcome' => 'Гость'
 ];
 
 $view->set($post, 'index');
 
 $view->render('index');
-
-dd($view->themes->theme);

@@ -39,8 +39,11 @@ class View extends Template
         // Сохранить контейнер
         $this->container = $container;
 
-        // Сохранить тему
-        $this->themes = $themes;
+        // Если путь к теме указан верный
+        if ($themes->hasPaths()) {
+            // Сохранить тему
+            $this->themes = $themes;
+        }
     }
 
     // Получить путь к шаблонам
@@ -57,7 +60,7 @@ class View extends Template
 
     // Загрузить шаблон
     protected function load(string $file, bool $priority = true)
-    {    
+    {
         // Получить путь к шаблону
         $path = $this->getPath($priority);
 
