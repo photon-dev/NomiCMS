@@ -26,11 +26,14 @@ return [
      // User
      Packages\User\Component\User::class,
 
-     // Request
-     System\Http\Request\Request::class,
+     // Session
+     System\Http\Session\Session::class,
+
+     // Cookie
+     System\Http\Cookie\Cookie::class,
 
      // Request
-     System\Http\Cookie\Cookie::class,
+     System\Http\Request\Request::class,
 
      // Response
      System\Http\Response\Response::class,
