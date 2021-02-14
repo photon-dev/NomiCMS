@@ -25,7 +25,7 @@ class Session
             return $_SESSION[$name] = $value;
         }
 
-        // Если сессия не найдена
+        // Если сессия не найдена, и перезапись отключена
         if (! $this->has($name) && ! $overwrite) {
             return $_SESSION[$name] = $value;
         }
@@ -38,13 +38,10 @@ class Session
     {
         // Ценность
         $value = $session[0];
-
-        //dd($session[0]);
-
         // Перезапись
-        $overwrite = $session[1];
-        $overwrite =  is_bool($overwrite) ? $overwrite : true;
+        $overwrite =  is_bool($session[1]) ? $session[1] : true;
 
+        // Установить
         $this->set($name, $value, $overwrite);
     }
 

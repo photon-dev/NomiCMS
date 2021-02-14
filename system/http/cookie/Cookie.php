@@ -18,7 +18,7 @@ class Cookie
     public function __construc(){}
 
     // Установить печенье
-    protected function setCookie(string $name, string $value, array $options = []): bool
+    protected function set(string $name, string $value, array $options = []): bool
     {
         return setcookie($name, $value, $options);
     }
@@ -32,7 +32,7 @@ class Cookie
         $options = $cookie[1];
 
         // Установить
-        $this->setCookie($name, $value, $options);
+        $this->set($name, $value, $options);
     }
 
     // Получить печенье
