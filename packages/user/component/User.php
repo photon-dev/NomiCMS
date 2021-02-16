@@ -18,6 +18,9 @@ use System\Database\DB;
  */
 class User
 {
+    // Контейнер
+    protected $container;
+
     // Данные пользователя
     protected $user = [];
 
@@ -27,23 +30,16 @@ class User
     // Проверка на бан
     public $banned = false;
 
-    public function __construct() {
+    public function __construct(ContainerInterface $container)
+    {
+        // Сохранить контейнер
+        $this->container = $container;
 
     }
 
     protected function logon()
     {
-        $session = $_SESSION['nickname'] ?? false;
-        $login = $_COOKIE['nickname'] ?? false;
-        $password = $_COOKIE['password'] ?? false;
 
-        if ($session) {
-            return $session;
-        } else if ($login && $password) {
-            return [
-                $login, $password
-            ];
-        }
     }
 
     public function has($has): bool
@@ -54,7 +50,7 @@ class User
     // Получить данные пользователя
     public function getUser(): array
     {
-        if ($this->logger && isset($this->user['uid'])) {
+        if ($this->logger && isset($this->user->uid)) {
             return $this->user;
         }
 

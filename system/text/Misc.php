@@ -33,7 +33,7 @@ class Misc
     public static function str(string $str, ContainerInterface $container): string
     {
         // Получить зависимость
-        $db = $container->get('database.db');
+        $db = self::$container->get('db');
 
         // Обработать строку
         $text = trim($text);
@@ -91,7 +91,38 @@ class Misc
         return $output;
     }
 
-    // Получить рандомное число в байтах, и перевести в int
+    // Получить изменные окончания слов
+    // Пример
+    // День, дня, дней
+    public static function nums(string $num, string $one, string $two, string $more)
+    {
+        $l2 = substr($num, strlen($num) - 2, 2);
+
+        if ($l2 >= 5 && $l2 <= 20) {
+            return $more;
+        }
+
+        $sub = substr($num, strlen($num) - 1, 1);
+        switch ($sub) {
+            case 1:
+                return $one;
+                break;
+            case 2:
+                return $two;
+                break;
+            case 3:
+                return $two;
+                break;
+            case 4:
+                return $two;
+                break;
+            default:
+                return $more;
+                break;
+        }
+    }
+
+    // Получить рандомное число в байтах
     public static function random_b(int $count = 9): string
     {
         // Получить строку

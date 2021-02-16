@@ -94,6 +94,8 @@ class NomiApp extends Package implements AppInterface
         // Запустить маршрутизатор
         $this->router();
 
+        //$user = $this->container->get('user');
+
         /**
          * В данной месте будут выполняться все возможные Event (Эвенты)
          *

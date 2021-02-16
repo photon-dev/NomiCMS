@@ -7,27 +7,32 @@
  * @link   http://nomicms.ru
  */
 
+use System\Text\Password;
+use System\Http\Ipus;
+use System\Text\DateTime;
+
 $view->title = 'Главная страница';
 $view->desc = 'Описание главной страницы';
 $view->keywords = 'Ключевые слова';
 
+//$user = $container->get('user');
 
-$cookie = $container->get('cookie');
-$session = $container->get('session');
+$db = $container->get('db');
+$ip = Ipus::getIp();
+$pass = Password::create('pass');
 
-/*
-$session->login([
-    'login' => 'Photon',
-    'pass' => 8544450
-], true);
-*/
+$query = 'SELECT user.*, us.shift_time, us.local, us.theme, us.post_page
+FROM user
+LEFT JOIN user_settings AS us ON us.user_uid = user.uid
+WHERE uid = "1"
+';
 
-//$session->login = 'Photon';
+$result = $db->query($query);
+$user = $result->fetch_object();
+//$last_id = $db->insert_id;
 
-// Установить заголовок
-//$cookie->login('Photon', ['expires' => TIME+60*60*24, 'path' => '/']);
-
-dd($session->login);
+echo DateTime::times($user->date_signup);
+echo '<br />' . TIME;
 
 $post = [
     'welcome' => 'Гость'
