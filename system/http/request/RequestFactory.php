@@ -24,13 +24,13 @@ class RequestFactory
     }
 
     // Проверить
-    public function has(string $name)
+    public function has(string $name): bool
     {
         return isset($this->data[$name]);
     }
 
     // Получить
-    public function __get($name)
+    public function __get(string $name)
     {
         if ($this->has($name)) {
             return $this->data[$name];
@@ -40,7 +40,7 @@ class RequestFactory
     }
 
     // Получить все данные
-    public function getData()
+    public function getData(): array
     {
         return $this->data;
     }

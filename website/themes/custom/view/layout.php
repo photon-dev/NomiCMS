@@ -9,7 +9,9 @@
     <meta name="description" content="<?php echo $desc ?>">
     <meta name="keywords" content="<?php echo $keywords ?>">
 
-    <link rel="stylesheet" href="/themes/custom/css/style.min.css?8423 ?> /">
+    <!--- Stylesheets --->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600" rel="stylesheet">
+    <link rel="stylesheet" href="/themes/custom/css/style.css?84232 ?> /">
 
     <link rel="icon" href="/themes/custom/favicon.ico" sizes="16x16">
 </head>

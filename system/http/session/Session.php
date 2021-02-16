@@ -34,7 +34,7 @@ class Session
     }
 
     // Установить сессию через метод
-    public function __call(string $name, array $session)
+    public function __call(string $name, array $session): void
     {
         // Ценность
         $value = $session[0];
@@ -47,12 +47,12 @@ class Session
 
     // Установить сессию
     // Пример: $session->имя сессии = 'Данные для сохранения';
-    public function __set(string $name, string $value)
+    public function __set(string $name, string $value): void
     {
         $this->set($name, $value);
     }
 
-    // Получить cookie
+    // Получить сессию
     public function __get(string $name)
     {
         if ($this->has($name)) {
@@ -62,7 +62,7 @@ class Session
         return false;
     }
 
-    // Проверка сессии
+    // Проверка сессию
     public function has(string $name): bool
     {
         return isset($_SESSION[$name]);

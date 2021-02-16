@@ -890,6 +890,25 @@ hr {
   clear: both;
 }
 
+button {
+    outline: none;
+    margin-top: 2px;
+    transition: background .2s;
+    font-family: 'Open Sans', sans-serif;
+    cursor: pointer;
+    background: #2980b9;
+    display: inline-block;
+    padding: 7px 25px;
+    border: 0;
+    color: #fff;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+}
+
+button:hover {
+  background: #2f91d2;
+}
+
 input {
   outline: none;
   border: 0;
@@ -964,12 +983,12 @@ textarea:focus {
   color: #ddd;
 }
 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    margin: 0; 
+    margin: 0;
 }
 
 audio, video {

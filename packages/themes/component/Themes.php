@@ -30,7 +30,7 @@ class Themes
         // Если пользователь авторизован
         // В другом случае, тема системная
         if ($user->logger) {
-            $this->theme = $user->user['theme'];
+            $this->theme = $user->getUser()['theme'];
         } else {
             // Загрузить настройки тем оформлений
             $settings = $config::load('themes/config/settings', PACKAGE);

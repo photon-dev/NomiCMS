@@ -11,8 +11,10 @@ namespace System\Text;
 
 // Использовать
 use System\Container\ContainerInterface;
+use System\Database\DB;
 use System\Text\Smiles;
 use System\Text\Bbcode;
+use System\Session\Session;
 
 /**
  * Класс Misc
@@ -30,15 +32,16 @@ class Misc
     }
 
     // Обработать строку перед помещением в базу данных
-    public static function str(string $str, ContainerInterface $container): string
+    public static function str(string $str, DB $db): string
     {
         // Получить зависимость
-        $db = self::$container->get('db');
+        //$db = self::$container->get('db');
+        //$db = $container->get('db');
 
         // Обработать строку
-        $text = trim($text);
-        $text = $db->real_escape_string($text);
-        $text = htmlspecialchars($text, ENT_QUOTES);
+        $str = trim($str);
+        $str = $db->real_escape_string($str);
+        $str = htmlspecialchars($str, ENT_QUOTES);
 
         // Показать
         return $str;
@@ -120,6 +123,15 @@ class Misc
                 return $more;
                 break;
         }
+    }
+
+    // sdds
+    public static function code(Session $session, int $count = 16)
+    {
+        $code = self::random_b($count);
+        $session->code = $code;
+
+        return $code;
     }
 
     // Получить рандомное число в байтах

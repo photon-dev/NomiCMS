@@ -44,5 +44,10 @@ return [
         'params' => [
             'errorId'
         ]
+    ],
+    [
+        'url' => '/captcha',
+        'package' => 'main',
+        'src' => 'captcha'
     ]
 ];
