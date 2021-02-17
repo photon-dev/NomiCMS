@@ -844,8 +844,8 @@ input[type=checkbox] + label {
 input[type=checkbox] + label:before {
   content: "";
   display: inline-block;
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   margin-right: 10px;
   background: #161b1f;
   vertical-align: middle;
@@ -1004,4 +1004,9 @@ audio, video {
   .times, .cit, .files > a { font-size: 13px; }
   .messages > div, .comments > div, .dialogs a > b, .notify a > div, textarea, input, select { font-size: 14px; }
   ul, .news > div, .footer { font-size: 16px; }
+  input[type=checkbox] + label:before {
+    width: 18px;
+    height: 18px;
+    vertical-align: middle;
+  }
 }

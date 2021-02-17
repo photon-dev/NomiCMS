@@ -89,11 +89,6 @@ class User
 
             return true;
         }
-        
-        //$cookie->login('Photon', ['expires' => TIME + YEAR]);
-        //$cookie->password('$2y$10$AhPC/.083r11/N8x.66C7ujprrfrG4hDcozwciSvHYGV8UCc0B44G', ['expires' => TIME + YEAR]);
-
-        //dd($sessionLogin);
 
         return false;
     }

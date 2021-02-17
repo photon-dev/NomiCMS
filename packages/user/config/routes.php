@@ -30,6 +30,11 @@ return [
         'src' => 'settings'
     ],
     [
+        'url' => '/user/leave',
+        'package' => 'user',
+        'src' => 'leave'
+    ],
+    [
         'url' => '/signup',
         'package' => 'user',
         'src' => 'signup'
@@ -40,8 +45,8 @@ return [
         'src' => 'entry'
     ],
     [
-        'url' => '/user/leave',
+        'url' => '/recovery',
         'package' => 'user',
-        'src' => 'leave'
+        'src' => 'recovery'
     ]
 ];

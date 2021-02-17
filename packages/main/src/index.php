@@ -28,6 +28,6 @@ $post = [
     'welcome' => 'Гость'
 ];
 
-$view->set($post, 'index');
+$view->set('index', $post);
 
 $view->render('index');

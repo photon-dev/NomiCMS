@@ -39,7 +39,7 @@ class Session
         // Ценность
         $value = $session[0];
         // Перезапись
-        $overwrite =  is_bool($session[1]) ? $session[1] : true;
+        $overwrite =  isset($session[1]) ? $session[1] : true;
 
         // Установить
         $this->set($name, $value, $overwrite);

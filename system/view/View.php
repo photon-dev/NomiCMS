@@ -44,6 +44,8 @@ class View extends Template
             // Сохранить тему
             $this->themes = $themes;
         }
+
+        ob_start();
     }
 
     // Получить путь к шаблонам
@@ -78,7 +80,7 @@ class View extends Template
         }
 
         // Извлечь переменные
-        extract($this::get($file));
+        extract($this->get($file));
 
         ob_start();
 
@@ -138,28 +140,37 @@ class View extends Template
         // Загрузить настройки seo
         $seo = $this->container->get('config')::pull('system/seo');
 
+        // Получить пользователя
+        $user = $this->container->get('user');
+
         // Параметры для всех страниц
         $all = [
+            'user' => (object) [
+                'logger' => $user->logger,
+                'user' => $user->logger ? $user->getUser()['uid'] : '',
+                'login' => $user->logger ? $user->getUser()['login']: ''
+            ],
             'title' => $this->title ?? $seo['title']
         ];
 
         // Параметры для макета
-        $layout = [
+        $layout = (object) [
             'lang'      => $seo['local_html'],
             'desc'      => $this->description ?? $seo['description'],
             'keywords'  => $this->keywords ?? $seo['keywords'],
             'content'   => $response->getContent()
         ];
 
+        // Параметры footer
         $footer = [
             'memory' => round((memory_get_usage() - NOMI_MEMORY) / 1024),
             'timing' => round(microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'], 6)
         ];
 
-        // Установить настройки указанные выше
+        // Установить данные
+        $this->set('layout', $layout);
+        $this->set('footer', $footer);
         $this->setAll($all);
-        $this->set($layout, 'layout');
-        $this->set($footer, 'footer');
 
         // Рендерить макет
         $this->render('layout', true, true);

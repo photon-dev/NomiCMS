@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="<?php echo $lang ?>">
+<html lang="<?php echo $layout->lang ?>">
 <head>
     <title><?php echo $title ?></title>
     <meta charset="utf-8">
     <meta http-equiv="Cache-Control" content="private">
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta name='viewport' content='width=device-width, maximum-scale=1.0, initial-scale=1.0, user-scalable=no'>
-    <meta name="description" content="<?php echo $desc ?>">
-    <meta name="keywords" content="<?php echo $keywords ?>">
+    <meta name="description" content="<?php echo $layout->desc ?>">
+    <meta name="keywords" content="<?php echo $layout->keywords ?>">
 
     <!--- Stylesheets --->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600" rel="stylesheet">
@@ -20,7 +20,7 @@
 <?php $this->template('header') ?>
 
     <!--- Content --->
-<?php echo $content ?>
+    <?php echo $layout->content ?>
 
     <!--- Footer --->
 <?php $this->template('footer') ?>

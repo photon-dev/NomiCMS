@@ -4,7 +4,8 @@
     </div>
 
     <div class="title">
-        <img src="/themes/custom/img/title.png" alt="*" /> Главная
+        <img src="/themes/custom/img/title.png" alt="*" />
+        <?php echo $title; ?>
     </div>
 
     <div class="panel flex">

@@ -17,13 +17,13 @@ class Cookie
     // Конструктор
     public function __construc(){}
 
-    // Установить печенье
-    protected function set(string $name, string $value, array $options = []): bool
+    // Установить куки
+    protected function set(string $name, string $value = '', array $options = []): bool
     {
         return setcookie($name, $value, $options);
     }
 
-    // Установить печенье через метод
+    // Установить куки через метод
     public function __call(string $name, $cookie)
     {
         // Ценность
@@ -35,7 +35,7 @@ class Cookie
         $this->set($name, $value, $options);
     }
 
-    // Получить печенье
+    // Получить куки
     public function __get(string $name)
     {
         // Если печенье существует
@@ -45,7 +45,13 @@ class Cookie
         }
     }
 
-    // Проверка печенья
+    // Удалить куки
+    public function delete(string $name, array $options = ['path' => '/'])
+    {
+        $this->set($name, '', $options);
+    }
+
+    // Проверка куки
     public function has(string $name): bool
     {
         return isset($_COOKIE[$name]);

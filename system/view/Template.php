@@ -19,41 +19,43 @@ use Exception;
  */
 class Template //extends Template
 {
-    // Карта
-    //public $map = [];
-
     // Для всех
-    public $everyone = [];
+    protected $everyone = [];
 
-    // Для некоторых, или одиночки
-    public $some = [];
+    // Для выбранного
+    protected $some = [];
 
-    // Передано
-    public $output = [];
-
-    // Установить для одиночки
-    public function set(array $data, string $template): bool
+    // Установить данные для выбранного
+    public function set(...$set)
     {
-        // Если шаблон найден, установить для него дополнительные данные
-        if (isset($this->some[$template])) {
-            $this->some[$template] = array_merge($this->some[$template], $data);
+        // Имя шаблона
+        $template = $set[0];
+
+        // Слить
+        $merge = $set[2] ?? $template;
+
+        // Если данные евляються обьектом или старокой
+        if (is_object($set[1]) || is_string($set[1])) {
+            $this->some[$template] = [$merge => $set[1]];
+
             return true;
+        }
+
+        if (isset($set[2])) {
+            $data = [$merge => $set[1]];
+        } else {
+            $data = $set[1];
         }
 
         $this->some[$template] = $data;
 
-        return false;
+        return true;
     }
 
-    // Установить для всех
-    public function setAll(array $data): void
+    // Установить данные для всех
+    public function setAll($data): void
     {
         $this->everyone = array_merge($this->everyone, $data);
-    }
-
-    public function has(string $name)
-    {
-        return isset($map[$name]);
     }
 
     // Получить данные
@@ -61,7 +63,7 @@ class Template //extends Template
     {
         $data = [];
 
-        // Получить данные для шаблона
+        // Получить данные выбранного шаблона
         if (isset($this->some[$template])) {
             $data = array_merge($data, $this->some[$template]);
 
@@ -69,9 +71,10 @@ class Template //extends Template
             unset($this->some[$template]);
         }
 
+        // Слить с данными для всех
         $data = array_merge($data, $this->everyone);
 
+        // Показать
         return $data;
     }
-
 }

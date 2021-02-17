@@ -9,6 +9,7 @@
 
 // Использовать
 use System\Handler\Handler;
+use System\Container\ContainerInterface;
 
 // Форматирует вывод массивов и обьектов в строку
 // Создано на момент разработки и тестирования
@@ -93,14 +94,15 @@ if (!function_exists('cssTime'))
 
 // Переход через заголовок
 if (!function_exists('go_die')) {
-    function go_die(string $url = '/', $exit = true)
+    function go_die(ContainerInterface $container, string $url = '/')
     {
-        //ob_start();
+        // Получить шаблонизатор
+        $view = $container->get('view');
+        // Скрыть контент
+        $view->showed = true;
 
+        // Перейти
         header('location: ' . $url);
-
-        if ($exit) {
-            die;
-        }
+        die;
     }
 }
