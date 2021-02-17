@@ -140,19 +140,6 @@ class View extends Template
         // Загрузить настройки seo
         $seo = $this->container->get('config')::pull('system/seo');
 
-        // Получить пользователя
-        $user = $this->container->get('user');
-
-        // Параметры для всех страниц
-        $all = [
-            'user' => (object) [
-                'logger' => $user->logger,
-                'user' => $user->logger ? $user->getUser()['uid'] : '',
-                'login' => $user->logger ? $user->getUser()['login']: ''
-            ],
-            'title' => $this->title ?? $seo['title']
-        ];
-
         // Параметры для макета
         $layout = (object) [
             'lang'      => $seo['local_html'],
@@ -161,14 +148,34 @@ class View extends Template
             'content'   => $response->getContent()
         ];
 
+        // Получить пользователя
+        $user = $this->container->get('user');
+
+        $header = (object) [];
+
+        if ($user->logger) {
+            $header->user = [
+                'uid' => $user->getUser()['uid'],
+                'login' => $user->getUser()['login'],
+                'level' => $user->getUser()['level']
+            ];
+        }
+
         // Параметры footer
         $footer = [
             'memory' => round((memory_get_usage() - NOMI_MEMORY) / 1024),
             'timing' => round(microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'], 6)
         ];
 
+        // Параметры для всех страниц
+        $all = [
+            'user_logger' => $user->logger,
+            'title' => $this->title ?? $seo['title']
+        ];
+
         // Установить данные
         $this->set('layout', $layout);
+        $this->set('header', $header);
         $this->set('footer', $footer);
         $this->setAll($all);
 

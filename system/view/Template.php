@@ -20,7 +20,7 @@ use Exception;
 class Template //extends Template
 {
     // Для всех
-    protected $everyone = [];
+    public $everyone = [];
 
     // Для выбранного
     protected $some = [];
