@@ -8,13 +8,13 @@
  */
 
 /**
- * Конфиг модуля chat
+ * Конфиг модуля apanel
  */
 return [
 	'system' => true,
 	'enable' => true,
-	'name' => 'Мини-чат',
-	'dir' => 'chat',
+	'name' => 'Панель управления',
+	'dir' => 'apanel',
 	'authors' => [
 		[
 			'name' => 'Tosyk',

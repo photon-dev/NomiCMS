@@ -13,9 +13,10 @@
 
     RewriteCond %{REQUEST_URI} !^website
     RewriteRule ^(.*)$ website/$1 [L]
-</IfModule>
 
-<Files ~ "config|database|packages|system|temp">
-    Order allow,deny
-    Deny from all
-</Files>
+    RewriteRule ^config/ - [NC,F,L]
+    RewriteRule ^database/ - [NC,F,L]
+    RewriteRule ^packages/ - [NC,F,L]
+    RewriteRule ^system/ - [NC,F,L]
+    RewriteRule ^temp/ - [NC,F,L]
+</IfModule>

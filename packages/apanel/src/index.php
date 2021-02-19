@@ -9,11 +9,9 @@
 
 $user = $container->get('user');
 
- // Если уже авторизован
-if (! $user->logger) {
+  // Если не авторизован
+if (! $user->logger || $user->getUser()['level'] <= 2) {
     go_die($container, '/');
 }
 
-$profile = $user->getUser();
-
-$view->title = 'Привет ' . $profile['login'];
+$view->title = 'Панель управления';

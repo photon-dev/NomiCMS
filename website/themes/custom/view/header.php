@@ -11,12 +11,12 @@
     <div class="panel flex">
         <?php if ($user_logger): ?>
         <?php if ($header->user['level'] >= 2): ?>
-            <a class="apanel" href="/apanel" title="Панель управления">
+            <a class="apanel" href="/panel" title="Панель управления">
                 <img src="/themes/custom/img/admin.png" alt="*" />
             </a>
         <?php endif; ?>
-            <a href="/panel" title="Кабинет">
-                <img src="/themes/custom/img/panel.png" alt="*" />&nbsp;Кабинет
+            <a href="/user" title="Профиль">
+                <img src="/themes/custom/img/panel.png" alt="*" />&nbsp;Профиль
             </a>
             <a href="/dialogs" title="Диалоги">
                 <img src="/themes/custom/img/mail.png" alt="*" />&nbsp;Диалоги
