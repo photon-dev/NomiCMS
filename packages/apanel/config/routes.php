@@ -22,9 +22,9 @@ return [
         'src' => 'system'
     ],
     [
-        'url' => '/panel/{str}',
+        'url' => '/panel/system/{str}',
         'package' => 'apanel',
-        'src' => 'index',
+        'src' => 'system',
         'params' => [
             'action'
         ]

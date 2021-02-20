@@ -25,7 +25,8 @@ WHERE uid = "1"
 //$user = $result->fetch_object();
 
 $post = [
-    'welcome' => 'Гость'
+    'welcome' => 'Гость',
+    'logger' => $user->logger
 ];
 
 $view->set('index', $post);
