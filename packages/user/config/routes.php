@@ -8,7 +8,7 @@
  */
 
 /**
- * Маршруты
+ * Маршруты пакетаd user
  */
 return [
     [
@@ -18,6 +18,11 @@ return [
         'params' => [
             'userId'
         ]
+    ],
+    [
+        'url' => '/user/dialogs',
+        'package' => 'user',
+        'src' => 'dialogs'
     ],
     [
         'url' => '/user',

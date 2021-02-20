@@ -8,7 +8,7 @@
  */
 
 /**
- * Маршруты модуля apanel
+ * Маршруты пакета apanel
  */
 return [
     [
@@ -17,8 +17,16 @@ return [
         'src' => 'index'
     ],
     [
-        'url' => '/panel/entry',
+        'url' => '/panel/system',
         'package' => 'apanel',
-        'src' => 'entry'
-    ]
+        'src' => 'system'
+    ],
+    [
+        'url' => '/panel/{str}',
+        'package' => 'apanel',
+        'src' => 'index',
+        'params' => [
+            'action'
+        ]
+    ],
 ];

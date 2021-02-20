@@ -8,13 +8,13 @@
  */
 
 /**
- * Конфиг модуля chat
+ * Конфиг пакета themes
  */
 return [
 	'system' => true,
 	'enable' => true,
-	'name' => 'Мини-чат',
-	'dir' => 'chat',
+	'name' => 'Пользователи',
+	'dir' => 'user',
 	'authors' => [
 		[
 			'name' => 'Tosyk',

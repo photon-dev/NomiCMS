@@ -8,13 +8,13 @@
  */
 
 /**
- * Конфиг модуля Main
+ * Конфиг пакета apanel
  */
 return [
 	'system' => true,
 	'enable' => true,
-	'name' => 'Новости',
-	'dir' => 'news',
+	'name' => 'Панель управления',
+	'dir' => 'apanel',
 	'authors' => [
 		[
 			'name' => 'Tosyk',

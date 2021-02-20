@@ -8,13 +8,13 @@
  */
 
 /**
- * Конфиг модуля Main
+ * Конфиг пакета main
  */
 return [
 	'system' => true,
 	'enable' => true,
-	'name' => 'Пользователи',
-	'dir' => 'user',
+	'name' => 'Главная страница',
+	'dir' => 'main',
 	'authors' => [
 		[
 			'name' => 'Tosyk',

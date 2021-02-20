@@ -8,13 +8,13 @@
  */
 
 /**
- * Конфиг модуля Main
+ * Конфиг пакета news
  */
 return [
 	'system' => true,
 	'enable' => true,
-	'name' => 'Главная страница',
-	'dir' => 'main',
+	'name' => 'Новости',
+	'dir' => 'news',
 	'authors' => [
 		[
 			'name' => 'Tosyk',

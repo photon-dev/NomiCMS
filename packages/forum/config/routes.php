@@ -8,7 +8,7 @@
  */
 
 /**
- * Маршруты новостей
+ * Маршруты пакета forum
  */
 return [
     [
@@ -41,7 +41,7 @@ return [
         ]
     ],
     [
-        'url' => '/forum/topic/{num}/{action}',
+        'url' => '/forum/topic/{num}/{str}',
         'package' => 'forum',
         'src' => 'topic.action',
         'params' => [

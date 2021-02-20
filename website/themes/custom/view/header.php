@@ -18,7 +18,7 @@
             <a href="/user" title="Профиль">
                 <img src="/themes/custom/img/panel.png" alt="*" />&nbsp;Профиль
             </a>
-            <a href="/dialogs" title="Диалоги">
+            <a href="/user/dialogs" title="Диалоги">
                 <img src="/themes/custom/img/mail.png" alt="*" />&nbsp;Диалоги
             </a>
         <?php elseif (! $user_logger): ?>
