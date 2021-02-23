@@ -20,7 +20,7 @@ use System\View\View;
 class Pagination
 {
     // Список страниц
-    public $pages = 1;
+    public $pages = 0;
 
     // Выбранная страница
     public $page = 1;
@@ -38,9 +38,11 @@ class Pagination
         $this->view = $view;
 
         // Вычеслить количество страниц
-        $this->pages = ceil($count / $limit);
+        if ($count > $limit) {
+            $this->pages = ceil($count / $limit);
+        }
 
-        if ($request->get->p) {
+        if ($request->get->has('p')) {
             $this->page = $this->getPage($request->get->p);
         }
 
@@ -58,9 +60,10 @@ class Pagination
 
     protected function getPage(string $page)
     {
-        // Если страница указана и евляеться числом
+        // Если страница является последней
         if ($page == 'end') {
             $page = $this->pages;
+        // Если страница является числом
         }elseif (! empty($page) && is_numeric($page)) {
             $page = (int) $page;
         }

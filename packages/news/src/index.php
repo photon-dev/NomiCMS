@@ -15,7 +15,7 @@ $view->keywords = 'Новости, news';
 $db = $container->get('db');
 
 $page = $container->get('pagination', [
-    'count' => 156,
+    'count' => 15,
     'limit' => 7
 ]);
 
