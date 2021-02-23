@@ -6,5 +6,3 @@
  * @package nomicms/NomiCMS
  * @link   http://nomicms.ru
  */
-
-return "ID новости: <b>id{$newsId}</b>";

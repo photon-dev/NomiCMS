@@ -6,5 +6,3 @@
  * @package nomicms/NomiCMS
  * @link   http://nomicms.ru
  */
-
-return 'Добавление новой новости';

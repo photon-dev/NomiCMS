@@ -60,7 +60,7 @@ if ($request->has('login') && $request->has('password') && $request->has('code')
 
             // Выполнить запрос
             $query = $db->query('SELECT password FROM user WHERE login = "' . $post->login . '" LIMIT 1');
-
+            
             // Если пользователь найден
             if ($row = $query->fetch_object())
             {
