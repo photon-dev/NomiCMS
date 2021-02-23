@@ -42,5 +42,8 @@ return [
      System\View\View::class,
 
      // Themes
-     Packages\Themes\Component\Themes::class
+     Packages\Themes\Component\Themes::class,
+
+     // Pagination
+     System\Text\Pagination::class
 ];
