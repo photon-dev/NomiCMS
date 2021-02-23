@@ -18,6 +18,7 @@
 
     <?php for ($i = -2; $i <= 2; $i++): ?>
         <?php if (($page + $i) > 1 && ($page + $i) < $pages): ?>
+
             <?php if ($i != 0): ?>
                 <a href="<?php echo $url . 'p=' . ($page + $i); ?>" title="Страница <?php echo ($page + $i); ?>"><?php echo ($page + $i); ?></a>
             <?php else: ?>
@@ -38,7 +39,6 @@
     <?php endif; ?>
 
     <?php if ($page < ($pages - 3)): ?>
-        <!--<a href="' . $url . 'page=1">&laquo;</a>--->
         <a href="<?php echo $url . 'p=' . $pages; ?>" title="В конец">&gt;&gt;</a>
     <?php endif; ?>
     </div>
