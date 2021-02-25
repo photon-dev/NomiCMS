@@ -17,6 +17,14 @@ return [
         'src' => 'index'
     ],
     [
+        'url' => '/news/page/{str}',
+        'package' => 'news',
+        'src' => 'index',
+        'params' => [
+            'pageId'
+        ]
+    ],
+    [
         'url' => '/news/{num}',
         'package' => 'news',
         'src' => 'view',

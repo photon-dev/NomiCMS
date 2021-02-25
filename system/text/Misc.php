@@ -51,6 +51,7 @@ class Misc
     public static function output(string $text): string
     {
         $text = nl2br($text);
+        $text = htmlspecialchars($text, ENT_QUOTES);
         //$text = bbcode($text);
         //$text = smiles($text);
 

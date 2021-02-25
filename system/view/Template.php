@@ -37,7 +37,6 @@ class Template //extends Template
         // Если данные евляються обьектом или старокой
         if (is_object($set[1]) || is_string($set[1])) {
             $this->some[$template] = [$merge => $set[1]];
-
             return true;
         }
 

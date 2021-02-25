@@ -32,7 +32,7 @@ class Pagination
     protected $view;
 
     // Конструктор
-    public function __construct(int $count, int $limit, Request $request, View $view)
+    public function __construct(int $count, int $limit, string $page, View $view)
     {
         // Сохранить вид
         $this->view = $view;
@@ -42,12 +42,16 @@ class Pagination
             $this->pages = ceil($count / $limit);
         }
 
-        if ($request->get->has('p')) {
-            $this->page = $this->getPage($request->get->p);
-        }
+        $this->page = $this->getPage($page);
+        //$this->page = $page;
+        //if ($request->get->has('p')) {
+            //$this->page = $this->getPage($request->get->p);
+        //}
 
-        // Если не являеться числом, либо если страница больше общего количества страниц
-        if (! is_numeric($this->page) && $this->page > $this->pages) {
+        // Если page равен 0,
+        // Если page не являеться числом,
+        // И если page больше общего количества страниц
+        if ($this->page == 0 || ! is_numeric($this->page) && $this->page > $this->pages) {
             $view->showed = true;
 
             header('location: /error/404');
@@ -68,7 +72,7 @@ class Pagination
             $page = (int) $page;
         }
 
-        // Если page меньше 1
+        // Если page меньше 0
         if ($page < 1) {
             return 1;
         }
@@ -76,8 +80,10 @@ class Pagination
         return $page;
     }
 
-    public function view(View $view, string $url = '?')
+    public function view(View $view, string $url = '/p')
     {
+        $url .= '/page/';
+
         $view->set('pagination', [
             'url' => $url,
             'page' => $this->page,
