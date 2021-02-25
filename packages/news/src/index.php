@@ -18,7 +18,7 @@ $view->keywords = 'Новости, news';
 // Подключиться к базе данной
 $db = $container->get('db');
 
-dd($app->system);
+//dd($app->system);
 $count = $db->query('SELECT COUNT(*) FROM news')->fetch_row();
 $limit = 7;
 
