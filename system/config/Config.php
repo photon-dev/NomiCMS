@@ -77,7 +77,7 @@ class Config
             $path = CONFIG;
         }
 
-        return loadFile($file, $path);
+        return config($file, $path);
     }
 
     // Проверка значения

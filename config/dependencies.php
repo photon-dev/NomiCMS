@@ -16,7 +16,7 @@ use System\Container\ContainerInterface;
 return function (ContainerInterface $container) {
 
     // Загрузить список служб
-    $services = loadFile('config/services');
+    $services = config('config/services');
 
     // Установить
     foreach ($services as $service) {

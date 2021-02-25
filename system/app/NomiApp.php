@@ -11,14 +11,14 @@ namespace System\App;
 
 // Использовать
 use System\Container\ContainerInterface;
-use System\App\Package;
+use System\App\AppConfigure;
 use System\App\AppInterface;
 use System\App\AppFactory;
 
 /**
  * Класс NomiApp
  */
-class NomiApp extends Package implements AppInterface
+class NomiApp extends AppConfigure implements AppInterface
 {
     // Контейнер
     protected $container;
@@ -27,7 +27,7 @@ class NomiApp extends Package implements AppInterface
     protected $system = [];
 
     // Настройки пакета
-    protected $settings = [];
+    public $settings = [];
 
     // Запущен
     protected $status = false;
@@ -35,45 +35,14 @@ class NomiApp extends Package implements AppInterface
     // Конструктор
     public function __construct(ContainerInterface $container)
     {
+        // Загрузить настройки системы
+        $this->system = $container->get('config')::get('system');
+
         // Сохранить контейнер
         $this->container = $container;
 
-        $config = $container->get('config');
-
-        // Загрузить настройки системы
-        $this->system = $config::get('system');
-
-        // Загрузить настройки пакета
-        $this->settings = $config::pull($this->system['default_package'] . '/config/settings', PACKAGE);
-
-    }
-
-    // Запустить маршрутизатор
-    protected function router(): void
-    {
-        // Загрузить доступные маршруты
-        $routes = loadFile('config/routes');
-
-        // Обработать их
-        $routes = $routes($this->container);
-
-        // Запустить маршрутизатор
-        $router = $this->container->get('router', [
-            'routes' => $routes
-        ]);
-
-        // Если маршрут найден
-        if ($router->getFound()) {
-            // Получить маршрут
-            $this->route = $router->getRoute();
-
-            // Сохранить маршрут
-            $this->container->get('config')::add('route', $this->route);
-
-            // Установить как запущено
-            $this->found = true;
-
-        }
+        // Настроить приложение
+        parent::__construct();
     }
 
     // Заперт на повторную загрузка приложения
@@ -91,8 +60,14 @@ class NomiApp extends Package implements AppInterface
         // Запертить на повторную настройку
         $this->die();
 
-        // Запустить маршрутизатор
-        $this->router();
+        // Получить пользователя
+        $user = $this->container->get('user');
+
+        // Установить язык
+        $this->local = $user->logger ? $user->getUser()['local'] : $this->system['local'];
+
+        // Установить количество пунктов
+        $this->post_page = $user->logger ? $user->getUser()['post_page'] : $this->system['post_page'];
 
         /**
          * В данной месте будут выполняться все возможные Event (Эвенты)
@@ -100,6 +75,19 @@ class NomiApp extends Package implements AppInterface
          * Event - Это рассылка писем, счетчик онлайна, работа с аунтификацией, и т.п.
          * В данный момент пропущщу
          */
+    }
+
+    // Получить настройки
+    public function getSettings()
+    {
+        $user = $this->container->get('user');
+
+        //dd($this->system);
+
+        return [
+            'local' => $user->logger ? $user->getUser()['local'] : $this->system['local'],
+            'post_page' => $user->logger ? $user->getUser()['post_page'] : $this->system['post_page']
+        ];
     }
 
     // Запустить приложение

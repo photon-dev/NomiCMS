@@ -24,8 +24,8 @@ if (!function_exists('dd')) {
 }
 
 // Функция загрузки файлов с настройками
-if (!function_exists('loadFile')) {
-    function loadFile(string $file, string $path = '')
+if (!function_exists('config')) {
+    function config(string $file, string $path = '')
     {
         if (empty($path)) {
             $path = ROOT;

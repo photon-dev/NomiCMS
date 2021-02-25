@@ -23,4 +23,7 @@ interface AppInterface
     // Получить информацию о маршруте
     public function getRoute(): array;
 
+    // Получить настройки
+    public function getSettings();
+
 }

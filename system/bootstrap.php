@@ -31,11 +31,11 @@ require ROOT . 'system/autoload.php';
 $container = new Container;
 
 // Загрузить, установить зависимости
-$dependencies = loadFile('config/dependencies');
+$dependencies = config('config/dependencies');
 $dependencies($container);
 
 // Конфигурирование
-$configure = loadFile('config/configure');
+$configure = config('config/configure');
 $system = $configure($container);
 
 

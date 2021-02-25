@@ -44,7 +44,7 @@ return function (ContainerInterface $container) {
         }
 
         // Загрузить маршруты
-        $list = LoadFIle($path);
+        $list = config($path);
 
         // Добавить маршрут в общий список
         $routes = array_merge($routes, $list);

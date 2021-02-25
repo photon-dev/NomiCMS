@@ -18,14 +18,17 @@ $view->keywords = 'Новости, news';
 // Подключиться к базе данной
 $db = $container->get('db');
 
-//dd($app->system);
+//dd($app->settings);
+
+dd($container->get('config')::getStorage());
+// Получить количество новостей
 $count = $db->query('SELECT COUNT(*) FROM news')->fetch_row();
 $limit = 7;
 
 // Подключить постраничную навигацию
 $page = $container->get('pagination', [
     'count' => $count[0],
-    'limit' => $limit,
+    'limit' => $app->post_page,
     'page' => $pageId ?? ''
 ]);
 
@@ -40,6 +43,7 @@ ON n.uid = nc.news_uid
 GROUP BY n.uid
 ORDER BY n.uid DESC LIMIT  ' . $page->start . ', ' . $limit);
 
+// Обработать
 while ($news = $result->fetch_assoc()) {
     $news['date_write'] = DateTime::times($news['date_write']);
     $news['message'] = Misc::output($news['message']);

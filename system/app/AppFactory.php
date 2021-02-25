@@ -44,6 +44,9 @@ class AppFactory
             // Получить шаблонизатор
             $view = $container->get('view');
 
+            // Получить пользователя
+            $user = $container->get('user');
+
             // Установить заголовки
             header('Cache-Control: no-store, no-cache, must-revalidate', true);
             header('Expires: ' . date('r'), true);

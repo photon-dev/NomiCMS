@@ -33,7 +33,7 @@ return [
     'close' => false,
 
     // URL-адрес
-    'url' => 'http://nomicms.org',
+    'url' => 'nomicms.org',
 
     // Часовой пояс
     //'timezone' => 'UTC',
@@ -44,9 +44,6 @@ return [
 
     // Языки
     'local' => 'ru',
-
-    // Пакет по умолчанию
-    'default_package' => 'main',
 
     // Пунктов на страницу
     'post_page' => 10

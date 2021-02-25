@@ -21,7 +21,7 @@ return function (ContainerInterface $container) {
     // Определить, установить среду
     if ($config['env'] == 'dev' || $config['env'] == 'product') {
 
-        loadFile('config/boot/' . $config['env']);
+        config('config/boot/' . $config['env']);
         return $config;
     }
 
