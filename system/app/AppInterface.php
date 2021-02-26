@@ -20,10 +20,6 @@ interface AppInterface
     // Получить GET параметры
     public function getParams();
 
-    // Получить информацию о маршруте
-    public function getRoute(): array;
-
-    // Получить настройки
-    public function getSettings();
-
+    // Получить путь к исходному файлу
+    public function getPathSource(): string;
 }

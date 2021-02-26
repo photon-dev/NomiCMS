@@ -55,12 +55,12 @@ if ($request->has('login') && $request->has('password') && $request->has('code')
             $db = $container->get('db');
 
             // Обработать логин  и пароль
-            $post->login =  Misc::str($post->login, $db);
-            $post->password = Misc::str($post->password, $db);
+            $post->login =  Misc::str($post->login, $container);
+            $post->password = Misc::str($post->password, $container);
 
             // Выполнить запрос
             $query = $db->query('SELECT password FROM user WHERE login = "' . $post->login . '" LIMIT 1');
-            
+
             // Если пользователь найден
             if ($row = $query->fetch_object())
             {

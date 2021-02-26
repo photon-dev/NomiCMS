@@ -12,7 +12,7 @@ namespace System\Text;
 // Использовать
 use System\Container\ContainerInterface;
 use System\Database\DB;
-use System\Text\Smiles;
+//use System\Text\Smiles;
 use System\Text\Bbcode;
 use System\Session\Session;
 
@@ -32,11 +32,10 @@ class Misc
     }
 
     // Обработать строку перед помещением в базу данных
-    public static function str(string $str, DB $db): string
+    public static function str(string $str, ContainerInterface $container): string
     {
-        // Получить зависимость
-        //$db = self::$container->get('db');
-        //$db = $container->get('db');
+        // Подключиться к базе данной
+        $db = $container->get('db');
 
         // Обработать строку
         $str = trim($str);
@@ -51,8 +50,9 @@ class Misc
     public static function output(string $text): string
     {
         $text = nl2br($text);
-        $text = htmlspecialchars($text, ENT_QUOTES);
-        //$text = bbcode($text);
+        //$text = htmlspecialchars($text, ENT_QUOTES);
+        //$text = self::bbcode($text);
+        $text = Bbcode::code($text);
         //$text = smiles($text);
 
         // Показать

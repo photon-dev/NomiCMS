@@ -67,17 +67,6 @@ if (!function_exists('error'))
     }
 }
 
-if (!function_exists('checkEnv')) {
-    function checkEnv(string $env)
-    {
-        if ($env == 'dev' || $env == 'product') {
-            return true;
-        }
-
-        return false;
-    }
-}
-
 if (!function_exists('cssTime'))
 {
     function cssTime(string $css)

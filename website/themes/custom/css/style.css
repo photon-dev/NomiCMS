@@ -664,6 +664,7 @@ div .attach {
 
 .rep {
   background: #1a2127;
+  display: inline-block;
   padding: 1px 6px;
   border-radius: 2px;
   margin-right: 2px;
@@ -993,6 +994,18 @@ input[type=number]::-webkit-outer-spin-button {
 
 audio, video {
   width: 100%;
+}
+
+iframe.youtube {
+    width: 100%;
+    height: 230px;
+    border: 1px solid #323D46;
+    box-shadow: 2px 3px 8px rgba(0, 0, 0, .25);
+    transition: border .2s;
+}
+
+iframe.youtube:hover{
+    border: 1px solid #404E5A;
 }
 
 @media (min-width: 1600px) {

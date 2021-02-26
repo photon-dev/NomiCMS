@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<?php echo $layout->lang ?>">
+<html lang="<?php echo $layout->local ?>">
 <head>
     <title><?php echo $title ?></title>
     <meta charset="utf-8">
@@ -11,7 +11,7 @@
 
     <!--- Stylesheets --->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600" rel="stylesheet">
-    <link rel="stylesheet" href="/themes/custom/css/style.css?84232 ?> /">
+    <link href="/themes/custom/css/style.css?<?php echo $layout->style ?>" rel="stylesheet">
 
     <link rel="icon" href="/themes/custom/favicon.ico" sizes="16x16">
 </head>

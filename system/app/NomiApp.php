@@ -29,6 +29,12 @@ class NomiApp extends AppConfigure implements AppInterface
     // Настройки пакета
     public $settings = [];
 
+    // Язык
+    public $local = 'ru';
+
+    // Пунктов на страницу
+    public $post_page = 7;
+
     // Запущен
     protected $status = false;
 
@@ -75,19 +81,6 @@ class NomiApp extends AppConfigure implements AppInterface
          * Event - Это рассылка писем, счетчик онлайна, работа с аунтификацией, и т.п.
          * В данный момент пропущщу
          */
-    }
-
-    // Получить настройки
-    public function getSettings()
-    {
-        $user = $this->container->get('user');
-
-        //dd($this->system);
-
-        return [
-            'local' => $user->logger ? $user->getUser()['local'] : $this->system['local'],
-            'post_page' => $user->logger ? $user->getUser()['post_page'] : $this->system['post_page']
-        ];
     }
 
     // Запустить приложение

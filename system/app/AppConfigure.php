@@ -51,12 +51,6 @@ class AppConfigure
         }
     }
 
-    // Получить текущий маршрут
-    public function getRoute(): array
-    {
-        return $this->route;
-    }
-
     // Получить GET параметры
     public function getParams()
     {
@@ -72,12 +66,20 @@ class AppConfigure
     // Существует ли пакет
     public function hasPackage(): bool
     {
-        return is_dir(PACKS . $this->route['package'] . '/');
+        if (! $this->status) {
+            return is_dir(PACKS . $this->route['package'] . '/');
+        }
+
+        return false;
     }
 
     // Существует ли исходный файл
     public function hasSource(): bool
     {
-        return file_exists(PACKS . $this->getPathSource());
+        if (! $this->status) {
+            return file_exists(PACKS . $this->getPathSource());
+        }
+
+        return false;
     }
 }

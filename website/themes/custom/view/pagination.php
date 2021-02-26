@@ -1,5 +1,4 @@
 <?php if ($pages): ?>
-<hr>
 <div class="main">
     <div class="nav flex">
     <?php if ($page > 3): ?>
@@ -43,4 +42,5 @@
     <?php endif; ?>
     </div>
 </div>
+<hr>
 <?php endif; ?>

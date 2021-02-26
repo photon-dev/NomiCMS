@@ -137,19 +137,25 @@ class View extends Template
         // Получить зависимость response
         $response = $this->container->get('response');
 
-        // Загрузить настройки seo
-        $seo = $this->container->get('config')::pull('system/seo');
+        $config = $this->container->get('config');
 
-        // Параметры для макета
-        $layout = (object) [
-            'lang'      => $seo['local_html'],
-            'desc'      => $this->description ?? $seo['description'],
-            'keywords'  => $this->keywords ?? $seo['keywords'],
-            'content'   => $response->getContent()
-        ];
+        // Загрузить настройки system
+        $system = $config::get('system');
+
+        // Загрузить настройки seo
+        $seo = $config::pull('system/seo');
 
         // Получить пользователя
         $user = $this->container->get('user');
+
+        // Параметры для макета
+        $layout = (object) [
+            'local'     => $user->logger ? $user->getUser()['local'] : $system['local'],
+            'desc'      => $this->description ?? $seo['description'],
+            'keywords'  => $this->keywords ?? $seo['keywords'],
+            'content'   => $response->getContent(),
+            'style'     => cssTime('custom/css/style')
+        ];
 
         $header = (object) [];
 

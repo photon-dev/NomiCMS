@@ -16,5 +16,6 @@
 </div>
 <hr>
 <?php endforeach; ?>
+<span class="emoji-sad"></span>
 
 <?php echo $this->template('pagination'); ?>

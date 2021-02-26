@@ -11,19 +11,16 @@
 use System\Text\DateTime;
 use System\Text\Misc;
 
+// Подключиться к базе данной
+$db = $container->get('db');
+
+// Имя, описание, ключевые слова
 $view->title = 'Новости';
 $view->description = 'Список новостей сайта';
 $view->keywords = 'Новости, news';
 
-// Подключиться к базе данной
-$db = $container->get('db');
-
-//dd($app->settings);
-
-dd($container->get('config')::getStorage());
 // Получить количество новостей
 $count = $db->query('SELECT COUNT(*) FROM news')->fetch_row();
-$limit = 7;
 
 // Подключить постраничную навигацию
 $page = $container->get('pagination', [
@@ -41,7 +38,7 @@ FROM news AS n
 LEFT JOIN news_comments AS nc
 ON n.uid = nc.news_uid
 GROUP BY n.uid
-ORDER BY n.uid DESC LIMIT  ' . $page->start . ', ' . $limit);
+ORDER BY n.uid DESC LIMIT  ' . $page->start . ', ' . $app->post_page);
 
 // Обработать
 while ($news = $result->fetch_assoc()) {

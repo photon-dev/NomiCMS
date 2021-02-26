@@ -46,5 +46,5 @@ return [
     'local' => 'ru',
 
     // Пунктов на страницу
-    'post_page' => 10
+    'post_page' => 7
 ];

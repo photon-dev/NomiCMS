@@ -1,0 +1,8 @@
+[class^="emoji-"]:before, [class*=" emoji-"]:before {
+    margin-right: 2px;
+}
+
+.emoji-sad:before {
+    
+    content: '\1F614';
+}

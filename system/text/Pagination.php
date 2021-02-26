@@ -51,7 +51,7 @@ class Pagination
         // Если page равен 0,
         // Если page не являеться числом,
         // И если page больше общего количества страниц
-        if ($this->page == 0 || ! is_numeric($this->page) && $this->page > $this->pages) {
+        if (! is_numeric($this->page) && $this->page > $this->pages) {
             $view->showed = true;
 
             header('location: /error/404');
@@ -80,7 +80,7 @@ class Pagination
         return $page;
     }
 
-    public function view(View $view, string $url = '/p')
+    public function view(View $view, string $url = '/')
     {
         $url .= '/page/';
 
