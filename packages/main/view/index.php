@@ -1,22 +1,28 @@
-<div class="news">
-    <div>
-        <span title="">
-            📢 Привет <b><?php echo $welcome ?></b>
-            <span class="nt">1 час назад</span>
-        </span><br /><br />
-        Ты попал на тестовый сайт, <span style="color: #f44336">Nomicms v3.0.1601b</span><br />
-        Если вам так интерсно заходите время от времени.<br />
-        Следите за разработкой новой версии.<br /><br />
-
-        <span style="color: #f44336">Репозитории на github:</span><br />
-        <a class="link_visual" target="_blank" href="https://github.com/Photon-Dev/NomiCMS/tree/develop-v3.0">Ознакомиться</a>
-    </div>
-</div>
-<?php if ($logger) : ?>
 <div class="menu">
-    <a class="items" href="/user/leave" title="Выйти из профиля">
-        <img src="/themes/custom/img/del_friend.png" alt="*" />
-        Выйти из профиля
-    </a>
+    <span class="fmenu">
+        <a href="/news" title="Новости">
+            <i class="icon-megaphone c-red"></i>
+            Новости
+            <span><?php echo $count['news']; ?></span>
+            <?php if ($count['new_news']): ?>
+            <span>+ <?php echo $count['new_news']; ?></span>
+            <?php endif; ?>
+        </a>
+        <a href="/chat" title="Мини-чат">
+            <i class="icon-chat c-red"></i>
+            Мини-чат
+            <span><?php echo $count['chat_message']; ?></span>
+            <?php if ($count['new_chat_message']): ?>
+            <span>+ <?php echo $count['new_chat_message']; ?></span>
+            <?php endif; ?>
+        </a>
+        <a href="/users" title="Пользователи">
+            <i class="icon-users c-red"></i>
+            Мини-чат
+            <span><?php echo $count['users']; ?></span>
+            <?php if ($count['new_users']): ?>
+            <span>+ <?php echo $count['new_users']; ?></span>
+            <?php endif; ?>
+        </a>
+    </span>
 </div>
-<?php endif; ?>

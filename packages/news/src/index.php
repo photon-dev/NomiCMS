@@ -36,7 +36,7 @@ $rows = [];
 $result = $db->query('SELECT n.*, COUNT(nc.uid) AS comments
 FROM news AS n
 LEFT JOIN news_comments AS nc
-ON n.uid = nc.news_uid
+ON nc.news_uid = n.uid
 GROUP BY n.uid
 ORDER BY n.uid DESC LIMIT  ' . $page->start . ', ' . $app->post_page);
 
@@ -50,8 +50,8 @@ while ($news = $result->fetch_assoc()) {
 // Установить полученные новости
 $view->set('index', $rows, 'row');
 
-// Постраничная навигация
+// Установить постраничную навигацию
 $page->view($view, '/news');
 
-// Рендерить новости
+// Рендерить шаблон
 $view->render('index');

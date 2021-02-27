@@ -19,19 +19,16 @@ a {
   text-decoration: none;
 }
 
-.brand {
-    background: #2980b9;
-    color: #fff;
-    padding: 24px;
-    text-align: center;
-    border-bottom: 5px solid #215e86;
-    transition: height .7s;
+.logo {
+  background: #2980b9;
+  color: #fff;
+  padding: 24px;
+  text-align: center;
+  border-bottom: 5px solid #215e86;
 }
-.brand img {
-    vertical-align: middle
-}
-.brand .svg {
-    height: 56px
+
+.logo img {
+  vertical-align: middle;
 }
 
 .title {

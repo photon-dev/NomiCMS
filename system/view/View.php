@@ -153,8 +153,13 @@ class View extends Template
             'local'     => $user->logger ? $user->getUser()['local'] : $system['local'],
             'desc'      => $this->description ?? $seo['description'],
             'keywords'  => $this->keywords ?? $seo['keywords'],
-            'content'   => $response->getContent(),
-            'style'     => cssTime('custom/css/style')
+            'style'     => [
+                cssTime('reset.min'),
+                cssTime('custom/css/emoji'),
+                cssTime('custom/css/fontello'),
+                cssTime('custom/css/icons'),
+                cssTime('custom/css/style')
+            ]
         ];
 
         $header = (object) [];
@@ -166,6 +171,11 @@ class View extends Template
                 'level' => $user->getUser()['level']
             ];
         }
+
+        $main = (object) [
+            'nav' => $this->nav ?? false,
+            'content' => $response->getContent()
+        ];
 
         // Параметры footer
         $footer = [
@@ -182,6 +192,7 @@ class View extends Template
         // Установить данные
         $this->set('layout', $layout);
         $this->set('header', $header);
+        $this->set('main', $main);
         $this->set('footer', $footer);
         $this->setAll($all);
 

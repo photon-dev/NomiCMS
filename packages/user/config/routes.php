@@ -53,5 +53,10 @@ return [
         'url' => '/recovery',
         'package' => 'user',
         'src' => 'recovery'
+    ],
+    [
+        'url' => '/users',
+        'package' => 'user',
+        'src' => 'users'
     ]
 ];

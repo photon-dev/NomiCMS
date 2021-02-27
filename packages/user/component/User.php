@@ -69,8 +69,8 @@ class User
             $db = $this->container->get('db');
 
             // Обработать логин  и пароль
-            $login =  Misc::str($cookie->login, $db);
-            $password = Misc::str($cookie->password, $db);
+            $login =  Misc::str($cookie->login, $this->container);
+            $password = Misc::str($cookie->password, $this->container);
 
             // Текс запроса в базу данных
             $query = 'SELECT u.uid, u.login, u.level, us.shift_time, us.local, us.theme, us.post_page

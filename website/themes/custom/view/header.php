@@ -1,32 +1,32 @@
-    <div class="logo">
+    <div class="brand">
         <a href="/" title="Главная">
-        <img src="/themes/custom/img/logo.png" alt="*" /></a>
-    </div>
-
-    <div class="title">
-        <img src="/themes/custom/img/title.png" alt="*" />
-        <?php echo $title; ?>
+            <img class="svg" src="/themes/custom/img/nomicms.svg" alt="Nomicms">
+        </a>
     </div>
 
     <div class="panel flex">
-        <?php if ($user_logger): ?>
-        <?php if ($header->user['level'] >= 2): ?>
-            <a class="apanel" href="/panel" title="Панель управления">
-                <img src="/themes/custom/img/admin.png" alt="*" />
-            </a>
+    <?php if ($user_logger): ?>
+    <?php if ($header->user['level'] >= 2): ?>
+<a class="apanel" href="/panel" title="Панель управления">
+            <i class="icon-direction"></i>
+        </a>
         <?php endif; ?>
-            <a href="/user" title="Профиль">
-                <img src="/themes/custom/img/panel.png" alt="*" />&nbsp;Профиль
-            </a>
-            <a href="/user/dialogs" title="Диалоги">
-                <img src="/themes/custom/img/mail.png" alt="*" />&nbsp;Диалоги
-            </a>
-        <?php elseif (! $user_logger): ?>
+<a href="/user" title="Профиль">
+            <i class="icon-vcard"></i>
+            Профиль
+        </a>
+        <a href="/user/dialogs" title="Диалоги">
+            <i class="icon-comment"></i>
+            Диалоги
+        </a>
+    <?php elseif (! $user_logger): ?>
         <a href="/entry" title="Авторизация">
-            <img src="/themes/custom/img/login.png">&nbsp;Авторизация
+            <i class="icon-lock"></i>
+            Авторизация
         </a>
-        <a href="/signup" title="Регистрация"><img src="/themes/custom/img/reg.png">
-            &nbsp;Регистрация
+        <a href="/signup" title="Регистрация">
+            <i class="icon-user-add"></i>
+            Регистрация
         </a>
-        <?php endif; ?>
-    </div>
+    <?php endif; ?>
+</div>

@@ -17,7 +17,7 @@
     </div><hr />
     <div class="menu">
         <a href="/recovery" title="Восстановление доступа">
-            <img src="/themes/custom/img/settings.png" alt="*" />
+            <i class="icon-lock-open c-red"></i>
             Восстановление доступа
         </a>
     </div>

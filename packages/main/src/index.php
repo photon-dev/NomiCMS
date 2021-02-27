@@ -7,26 +7,37 @@
  * @link   http://nomicms.ru
  */
 
-$view->title = 'Главная страница';
-$view->desc = 'Описание главной страницы';
-$view->keywords = 'Ключевые слова';
+//$view->title = 'Главная страница';
+//$view->desc = 'Описание главной страницы';
+//$view->keywords = 'Ключевые слова';
 
+// Получить пользователя
 $user = $container->get('user');
 
+// Получить базу данных
+$db = $container->get('db');
+
+/* $view->nav(); */
+
 /*
-$query = 'SELECT user.*, us.shift_time, us.local, us.theme, us.post_page
-FROM user
-LEFT JOIN user_settings AS us ON us.user_uid = user.uid
-WHERE uid = "1"
-';
+$query = 'SELECT COUNT(n.uid) as count_news, COUNT(u.uid) as count_user
+FROM news AS n
+LEFT JOIN user AS u
+GROUP BY n.uid AND u.uid';
 */
 
-//$result = $db->query($query);
-//$user = $result->fetch_object();
+// Выполнить запрос, и получить количество
+$count = $db->query('SELECT
+(SELECT COUNT(*) FROM news) AS news,
+(SELECT COUNT(*) FROM news WHERE date_write > "' . (TIME - DAY) . '") AS new_news,
+(SELECT COUNT(*) FROM chat) AS chat_message,
+(SELECT COUNT(*) FROM chat WHERE date_write > "' . (TIME - DAY) . '") AS new_chat_message,
+(SELECT COUNT(*) FROM user) AS users,
+(SELECT COUNT(*) FROM user WHERE date_signup > "' . (TIME - DAY) . '") AS new_users
+FROM dual')->fetch_assoc();
 
 $post = [
-    'welcome' => 'Гость',
-    'logger' => $user->logger
+    'count' => $count
 ];
 
 $view->set('index', $post);

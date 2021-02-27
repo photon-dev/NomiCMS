@@ -34,12 +34,9 @@ class Misc
     // Обработать строку перед помещением в базу данных
     public static function str(string $str, ContainerInterface $container): string
     {
-        // Подключиться к базе данной
-        $db = $container->get('db');
-
         // Обработать строку
         $str = trim($str);
-        $str = $db->real_escape_string($str);
+        $str = $container->get('db')->real_escape_string($str);
         $str = htmlspecialchars($str, ENT_QUOTES);
 
         // Показать

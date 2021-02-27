@@ -2,6 +2,7 @@
 <div class="news">
     <div>
         <span class="news_title">
+            <i class="icon-megaphone c-red"></i>
             <?php echo $news['name'] ?>
             <span class="nt"><?php echo $news['date_write'] ?></span>
         </span>
@@ -11,11 +12,11 @@
 </div>
 <div class="menu">
     <a href="/news/comm/<?php echo $news['uid'] ?>">
-        <img src="/themes/custom/img/com.png" alt="*">Комментарии<span><?php echo $news['comments'] ?></span>
+        <i class="icon-comment"></i>
+        Комментарии<span><?php echo $news['comments'] ?></span>
     </a>
 </div>
 <hr>
 <?php endforeach; ?>
-<span class="emoji-sad"></span>
 
 <?php echo $this->template('pagination'); ?>
