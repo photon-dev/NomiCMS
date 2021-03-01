@@ -1,95 +1,96 @@
-/* http://nomicms.ru 2021*/
-@import url("https://fonts.googleapis.com/css?family=Nunito:400,600");
-
-@charset "UTF-8";
-
-:root {
-    --body_bg_color: #f5f5f5;
-    --body_text_color: #333;
-}
-
-html {
-    font-size: 62.5%
-}
-
-body {
-    background: var(--body_bg_color);
-    display: table;
-    width: 100%;
-    height: 100vh;
-    align-content: center;
-    margin: 0;
-    line-height: normal;
-    font-family: 'Nunito', sans-serif;
-    font-weight: 400;
-    font-size: 1.8em;
-    -webkit-font-smoothing: antialiased;
-    -webkit-overflow-scrolling: touch;
-    color: var(--body_text_color);
-}
-
-a {
-    color: #2980B9;
-    text-decoration:none
-}
-a:hover{text-decoration:underline}
+/*
+    The authors style
+    Photon - https://nomicms.ru/user/379
+    Tosyk - https://nomicms.ru/user/1
+*/
 
 .app {
-    display: table-cell;
-    vertical-align: middle;
+    position: relative;
+    width: 100%;
     margin: 0 auto;
-    text-align: center;
+    box-sizing: border-box;
 }
 
-.app-404{
-    font-size: 10em;
-    font-weight: bold;
-    text-shadow: .1rem .2rem .3rem rgba(0, 0, 0, .33);
-    animation: shadow 4s infinite ease-in-out;
+.app .app-sm, .app-md, .app-lg, .app-xl {
+    max-width: 100%;
+    position: inherit;
+    margin: inherit;
 }
 
-.app-error p {
-    margin: 5px 0;
-    font-size: 1.5em;
+.flex {
+    display: flex;
+	display: -webkit-flex;
 }
 
-.app-error a{
-    color: #2980B9;
-}
+.flex-grow { flex-grow: 0 }
+.flex-grow1 { flex-grow: 1 }
+.flex-grow2 { flex-grow: 2 }
+.flex-grow3 { flex-grow: 3 }
 
-@keyframes shadow {
-from {
-    color: #000000;
-    text-shadow: .1rem .2rem .3rem rgba(0, 0, 0, .33);
-}
-25% {
-    color: #fff;
-    text-shadow: .1rem .6rem .9rem rgba(0, 0, 0, .33);
-}
-75% {
-    color: #fff;
-    text-shadow: .1rem .6rem .9rem rgba(0, 0, 0, .33);
-}
-to {
-    color: #000000;
-    text-shadow: .1rem .2rem .3rem rgba(0, 0, 0, .33);
-}
-}
+.flex.row { flex-direction: row }
+.flex.row-rev { flex-direction: row-reverse }
+.flex.column { flex-direction: column }
+.flex.column-rev { flex-direction: column-reverse }
+.flex.inherit { flex-direction: inherit }
+.flex.initial { flex-direction: initial }
+.flex.unset { flex-direction: unset }
 
-@media only screen and (max-width: 1024px) {
-    body {
-        font-size: 1.5em;
+.flex.nowrap { flex-wrap: nowrap }
+.flex.wrap { flex-wrap: wrap }
+.flex.wrap-rev { flex-wrap: wrap-reverse }
+
+.just-start { justify-content: start }
+.just-end { justify-content: end }
+.just-flex-start { justify-content: flex-start }
+.just-flex-end { justify-content: flex-end }
+.just-center { justify-content: center }
+.just-between { justify-content: space-between }
+.just-around { justify-content: space-around }
+.just-evenly { justify-content: space-evenly }
+
+.align-start { align-items: flex-start }
+.align-end { align-items: flex-end }
+.align-center { align-items: center }
+.align-line { align-items: baseline }
+.align-stretch {align-items: stretch }
+
+.align-content-start {align-content: flex-start  }
+.align-content-end { align-content: flex-end }
+.align-content-center { align-content: center }
+.align-content-between { align-content: space-between }
+.align-content-around { align-content: space-around }
+.align-content-evenly { align-content: space-evenly }
+.align-content-stretch { align-content: stretch }
+
+
+.full { width: 100%}
+.grid-1-2 { width:50% }
+
+.grid-1-3 { width:33.33% }
+.grid-2-3 { width:66.66% }
+
+.grid-1-4 { width:25% }
+.grid-3-4 { width:75% }
+
+.grid-1-5 { width:20% }
+.grid-2-5 { width:40% }
+.grid-3-5 { width:60% }
+.grid-4-5 { width:80% }
+
+.grid-1-6 { width:16.66% }
+.grid-2-6 { width:33.33% }
+.grid-4-6 { width:66.66% }
+.grid-5-6 { width:83.33% }
+.grid-5-6 { width:83.33% }
+
+@media only screen and (min-width: 1200px) {
+    .app {
+        max-width: 1200px;
     }
-    .app-error p {
-        font-size: 1.2em;
-    }
 }
 
-@media only screen and (max-width: 600px) {
-    body {
-        font-size: 1.2em;
-    }
-    .app-error p {
-        font-size: 0.9em;
+@media only screen and (min-width: 1201px) {
+    .app {
+        max-width: 1200px;
     }
 }

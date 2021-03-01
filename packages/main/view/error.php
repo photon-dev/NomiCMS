@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name='viewport' content='width=device-width, maximum-scale=1.0, initial-scale=1.0, user-scalable=no'>
 	<link rel="icon" href="favicon.ico" sizes="16x16">
-	<link rel="stylesheet" href="/themes/app.min.css?v<?= $time ?>"/>
+	<link rel="stylesheet" href="/themes/apps.css?v<?= $time ?>"/>
 	<title>NomiCMS - 404, <?= $error ?></title>
 </head>
 <body>

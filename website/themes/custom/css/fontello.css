@@ -26,18 +26,12 @@ i[class^="icon-"]:before, i[class*=" icon-"]:before {
   font-weight: normal;
   speak: never;
   text-decoration: inherit;
-  font-size: 18px;
-  margin-right: 2px;
+  margin-right: .5rem;
   text-align: center;
-  /* opacity: .8; */
-
   font-variant: normal;
   text-transform: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  /* Uncomment for 3D effect */
-  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
 
 .icon-note:before { content: '\e800'; } /* '' */

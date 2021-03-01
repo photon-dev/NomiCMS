@@ -1,6 +1,6 @@
 i[class^="emoji-"]:before, i[class*=" emoji-"]:before {
-    margin-right: 2px;
-    font-size: 20px;
+    margin-right: .2rem;
+    font-size: 2rem;
     font-style: normal;
 }
 

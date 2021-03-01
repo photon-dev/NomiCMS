@@ -60,7 +60,7 @@ if (!function_exists('error'))
 {
     function error(string $error)
     {
-        $time = cssTime('app.min');
+        $time = cssTime('apps');
 
         require_once PACKS . 'main/view/error.php';
         die;

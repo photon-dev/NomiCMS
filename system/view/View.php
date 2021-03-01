@@ -134,27 +134,25 @@ class View extends Template
             return ;
         }
 
-        // Получить зависимость response
+        // Получить зависимости
         $response = $this->container->get('response');
-
         $config = $this->container->get('config');
-
-        // Загрузить настройки system
-        $system = $config::get('system');
-
-        // Загрузить настройки seo
-        $seo = $config::pull('system/seo');
-
-        // Получить пользователя
+        $db = $this->container->get('db');
         $user = $this->container->get('user');
+
+        // Загрузить настройки
+        $system = $config::get('system');
+        $seo = $config::pull('system/seo');
 
         // Параметры для макета
         $layout = (object) [
             'local'     => $user->logger ? $user->getUser()['local'] : $system['local'],
             'desc'      => $this->description ?? $seo['description'],
             'keywords'  => $this->keywords ?? $seo['keywords'],
+            'content' => $response->getContent(),
             'style'     => [
-                cssTime('reset.min'),
+                cssTime('reset'),
+                cssTime('app'),
                 cssTime('custom/css/emoji'),
                 cssTime('custom/css/fontello'),
                 cssTime('custom/css/icons'),
@@ -162,7 +160,9 @@ class View extends Template
             ]
         ];
 
-        $header = (object) [];
+        $header = (object) [
+            'nav' => $this->nav ?? false
+        ];
 
         if ($user->logger) {
             $header->user = [
@@ -172,15 +172,21 @@ class View extends Template
             ];
         }
 
-        $main = (object) [
-            'nav' => $this->nav ?? false,
-            'content' => $response->getContent()
-        ];
+        $count = $db->query('SELECT
+        (SELECT COUNT(*) FROM news) AS news,
+        (SELECT COUNT(*) FROM news WHERE date_write > "' . (TIME - DAY) . '") AS new_news,
+        (SELECT COUNT(*) FROM chat) AS chat_message,
+        (SELECT COUNT(*) FROM chat WHERE date_write > "' . (TIME - DAY) . '") AS new_chat_message,
+        (SELECT COUNT(*) FROM user) AS users,
+        (SELECT COUNT(*) FROM user WHERE date_signup > "' . (TIME - DAY) . '") AS new_users
+        FROM dual')->fetch_assoc();
+
+        $this->set('sidebar', ['count' => (object) $count]);
 
         // Параметры footer
         $footer = [
             'memory' => round((memory_get_usage() - NOMI_MEMORY) / 1024),
-            'timing' => round(microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'], 6)
+            'timing' => round(microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'], 4)
         ];
 
         // Параметры для всех страниц
@@ -189,10 +195,16 @@ class View extends Template
             'title' => $this->title ?? $seo['title']
         ];
 
+        if ($user->logger) {
+            $all['user'] = [
+                'uid' => $user->getUser()['uid'],
+                'login' => $user->getUser()['login']
+            ];
+        }
+
         // Установить данные
         $this->set('layout', $layout);
         $this->set('header', $header);
-        $this->set('main', $main);
         $this->set('footer', $footer);
         $this->setAll($all);
 

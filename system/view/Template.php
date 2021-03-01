@@ -57,6 +57,12 @@ class Template //extends Template
         $this->everyone = array_merge($this->everyone, $data);
     }
 
+    // Проверить одиночку
+    public function hasSome(string $template): bool
+    {
+        return isset($this->some[$template]);
+    }
+
     // Получить данные
     public function get(string $template)
     {

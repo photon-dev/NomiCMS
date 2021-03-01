@@ -40,7 +40,7 @@ return [
         'src' => 'leave'
     ],
     [
-        'url' => '/signup',
+        'url' => '/sign_up',
         'package' => 'user',
         'src' => 'signup'
     ],
