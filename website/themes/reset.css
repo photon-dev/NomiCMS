@@ -1,10 +1,23 @@
 *, *::before, *::after {
     box-sizing: border-box
 }
-
+/*
+i[class^="icon-"]:before, i[class*=" icon-"]:before {
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: normal;
+  speak: never;
+  text-decoration: inherit;
+  margin-right: .5rem;
+  text-align: center;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+*/
 html {
     font-family: sans-serif;
-    -webkit-text-align-last: 100%;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
