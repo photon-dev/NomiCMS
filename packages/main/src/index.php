@@ -42,4 +42,5 @@ $post = [
 
 $view->set('index', $post);
 
+// Рендерим шаблон
 $view->render('index');

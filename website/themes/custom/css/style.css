@@ -234,8 +234,84 @@ a:hover {
     background-color: #161b1f;
     width: calc(100% - 25rem);
     /* margin-left: 25rem;*/
-    padding: 1.2rem;
+    padding: 0 1.2rem;
     color: #fff;
+}
+
+.title {
+  color: #9ba1a8;
+  /*color: #4e5257;*/
+  padding: .6rem 1.2rem;
+  font-size: 1.5rem;
+}
+
+.title h1 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.navigation {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 1.5rem;
+}
+
+.title i.icon-home {
+    color: #4CAF50;
+}
+
+.title > a {
+  color: #70757b;
+  transition: color .2s;
+}
+
+.title > a:hover {
+  color: #8b9097;
+}
+
+.title > span > a {
+  background: #1b2329;
+  margin-left: 10px;
+  border-radius: 2px;
+}
+
+.rows {
+    background-color: #212a31;
+    border-radius: 0 .5rem .5rem 0;
+    /*padding: 1.2rem 0;*/
+}
+
+.rows > div.red {
+    border-left: 3px solid #f44336;
+    padding: 1.2rem;
+    font-size: 1.4rem;
+    word-break: break-word;
+
+}
+
+.rows .red > div.title {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 1.4rem;
+    margin-bottom: .5rem;
+}
+
+.rows .title > span.name {
+    flex-grow: 1;
+}
+
+.rows .title > span.count {
+    background-color: #161B1F;
+    padding: .2rem .5rem;
+    color: #999999;
+    font-size: 1rem;
+    border-radius: .3rem;
+}
+
+.rows .msg {
+    border-bottom: 1px solid #f44336;
 }
 
 /*----- Footer -----*/

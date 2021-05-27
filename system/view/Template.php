@@ -71,7 +71,7 @@ class Template //extends Template
         // Получить данные выбранного шаблона
         if (isset($this->some[$template])) {
             $data = array_merge($data, $this->some[$template]);
-
+            
             // Стереть данные
             unset($this->some[$template]);
         }

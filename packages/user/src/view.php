@@ -7,4 +7,19 @@
  * @link   http://nomicms.ru
  */
 
-echo "Привет. Твой id {$userId}";
+if (isset($userLogin)) {
+    $text = "Привет. Твой Login {$userLogin}";
+}
+
+
+if (isset($userId)) {
+    $text = "Привет. Твой id {$userId}";
+}
+
+
+
+// Добавить данные
+$view->set('user.view', $text, 'text');
+
+// Рендерить
+$view->render('user.view');

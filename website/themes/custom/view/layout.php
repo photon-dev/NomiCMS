@@ -33,6 +33,11 @@
 
         <!--- Главный --->
         <main class="main">
+
+            <!--- Боковая панель --->
+            <?php $this->template('nav'); ?>
+
+            <!--- Боковая панель --->
             <?php echo $layout->content; ?>
         </main>
     </div>
