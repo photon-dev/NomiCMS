@@ -9,7 +9,7 @@
 
 // Использовать
 use System\Container\Container;
-use System\App\NomiApp;
+use System\App\App;
 
 // Проверить текущаю версию php
 if (version_compare(PHP_VERSION, '7.2.2', 'lt')) {
@@ -58,7 +58,7 @@ define('TIME', time());
 unset($dependencies, $configure, $system);
 
 // Создать приложение
-$app = new NomiApp($container);
+$app = new App($container);
 
 // Настроить приложение
 $app->configure();
