@@ -3,9 +3,6 @@
 Реальный пример вы можете увидеть на [Официальном сайте](http://nomicms.ru/).
 
 # [NomiCMS](https://github.com/nomicms/NomiCMS)
-
-[![Software License][ico-license]](LICENSE.md)
-
 [![GitHub](https://img.shields.io/github/license/nomicms/NomiCMS?color=blue)](https://github.com/nomicms/NomiCMS/blob/master/LICENSE)
 [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/nomicms/NomiCMS)](https://github.com/nomicms/NomiCMS/releases)
 
