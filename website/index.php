@@ -18,7 +18,7 @@ define('NOMI_START', microtime(true));
 define('NOMI_MEMORY', memory_get_usage());
 
 // Загрузить bootstrap
-$app = require ROOT . 'system/bootstrap.php';
+$app = require ROOT . 'app/bootstrap.php';
 
 // Запустить приложение
 //echo $app;

@@ -13,8 +13,8 @@ CREATE TABLE IF NOT EXISTS `news` (
     `user_uid` int(10) unsigned NOT NULL,
     `name` varchar(255) NOT NULL,
     `message` text NOT NULL,
-    `date_write` int(10) NOT NULL,
-    `date_edit` int(10) DEFAULT NOT NULL
+    `date_write` int(10) unsigned NOT NULL,
+    `date_edit` int(10) unsigned NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_general_ci AUTO_INCREMENT=2 COMMENT='Новости';
 
 --

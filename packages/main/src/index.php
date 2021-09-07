@@ -17,8 +17,6 @@ $user = $container->get('user');
 // Получить базу данных
 $db = $container->get('db');
 
-$view->navbar();
-
 /*
 $query = 'SELECT COUNT(n.uid) as count_news, COUNT(u.uid) as count_user
 FROM news AS n
