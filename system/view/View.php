@@ -97,6 +97,21 @@ class View extends Template
         echo $this->load($file);
     }
 
+    public function navbar()
+    {
+        $route = $this->container->get('config')::get('route');
+        $data = explode('/', $route['url']);
+
+        $this->set('nav', [
+            'route' => $data
+        ]);
+
+        $name = $this->container->get('config')::load($route['package'] . '/config/package', PACKAGE)['name'];
+        //$settings = $this->container->get('config')::get($route['package']);
+        dd('sdsdsds');
+        dd($settings);
+    }
+
     // Рендерить шаблон
     public function render(string $template, bool $priority = false, bool $write = false): void
     {

@@ -1,5 +1,6 @@
 <div class="title">
     <h1><?php echo $title; ?></h1>
+    <?php dd($route); ?>
     <nav>
         <ol class="navigation">
             <li>

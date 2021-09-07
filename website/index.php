@@ -8,9 +8,9 @@
  */
 
 // Корневая директория
- if (! defined('ROOT')) {
-     define('ROOT', dirname(__DIR__) . '/');
- }
+if (! defined('ROOT')) {
+    define('ROOT', dirname(__DIR__) . '/');
+}
 
 // Генерации страницы
 define('NOMI_START', microtime(true));

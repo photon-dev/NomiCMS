@@ -18,7 +18,7 @@ return [
     'user' => 'root',
 
     // Пароль пользователя
-    'pass' => 'root',
+    'pass' => '',
 
     // База данных
     'base' => 'nomicms'

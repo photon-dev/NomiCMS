@@ -396,7 +396,7 @@ a:hover {
     .sidebar {
         position: fixed;
         transform: translate3d(-25rem, 0, 0);
-        height: calc(100% - 25rem);
+        min-height: calc(100% - 25rem);
         transition: all .5s;
     }
 
