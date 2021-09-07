@@ -18,7 +18,7 @@ use System\App\AppFactory;
 /**
  * Класс NomiApp
  */
-class NomiApp extends AppConfigure implements AppInterface
+class App extends AppConfigure implements AppInterface
 {
     // Контейнер
     protected $container;
