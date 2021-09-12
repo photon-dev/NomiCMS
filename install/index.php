@@ -1,9 +1,9 @@
 <?php
-define('R', $_SERVER['DOCUMENT_ROOT']);
-define('S', R.'/system');
+define('ROOT', $_SERVER['DOCUMENT_ROOT'] . '/');
+define('SYS', ROOT . 'system/');
 define('VER', 2.3);
 
-require_once(R.'/system/functions.php');
+require SYS . 'func.php';
 
 ?>
 <!DOCTYPE html>
@@ -19,8 +19,9 @@ require_once(R.'/system/functions.php');
 <script> function info() { document.getElementById("info").style.display = "block"} </script>
 <div class="logo"><img src="/design/styles/default/img/logo.png"></div>
 <?
-$sod = file_get_contents(S.'/db_config.php');
-if (file_exists(S."/db_config.php") && !empty($sod)) {
+$sod = file_get_contents(SYS . 'config/db.php');
+
+if (file_exists(SYS . 'config/db.php') && !empty($sod)) {
 	echo '<div class="error">Система уже установлена!</div><div class="menu"><a href="/"><img src="/design/styles/default/img/link.png"> Главная</a></div>';
 } else {
 
@@ -33,7 +34,7 @@ if(isset($_GET['go'])){
 		$demo = $_POST['demo'];
 
 		error_reporting(0);
-		$mysqli = new mysqli($dbhost, $dbuser, $dbpass, $base);
+		$mysqli = new mysqli($host, $user, $password, $base);
 		$mysqli->set_charset('utf8mb4');
 
 		if ($mysqli->connect_errno) {
@@ -44,11 +45,11 @@ if(isset($_GET['go'])){
 		}
 
 		if ($mysqli == TRUE) {
-			chmod(S, 0777);
+			chmod(SYS, 0777);
 			$content = "<?php\ndefine('SERVER', '$host');\ndefine('USER', '$user');\ndefine('PASS', '$password');\ndefine('BASE', '$base');\n?>";
 
-			file_put_contents(S."/config/db.php", $content);
-			chmod(S.'/config/db.php', 0664);
+			file_put_contents(SYS . "config/db.php", $content);
+			chmod(SYS . 'config/db.php', 0664);
 
 			$dumpdb = file_get_contents('table.sql');
 			$ext = explode('-- --------------------------------------------------------', $dumpdb);
@@ -76,12 +77,12 @@ if(isset($_GET['go'])){
 				}
 			}
 
-			chmod(S, 0744);
-			chmod(R.'/files/ava', 0777);
-			chmod(R.'/files/zc', 0777);
-			chmod(R.'/files/zc/screen', 0777);
-			chmod(R.'/files/lib', 0777);
-			chmod(R.'/files/mail', 0777);
+			chmod(SYS, 0744);
+			chmod(ROOT . 'files/ava', 0777);
+			chmod(ROOT . 'files/zc', 0777);
+			chmod(ROOT . 'files/zc/screen', 0777);
+			chmod(ROOT . 'files/lib', 0777);
+			chmod(ROOT . 'files/mail', 0777);
 		}
 
 		echo '<div class="success">Установка завершена!</div>' . ($demo ? '<div class="main">Вы установили демо-контент!<br>Используйте данные для входа:<br><span class="new">Логин: admin</span> <span class="new">Пароль: 1111</span></div><hr>' : NULL) . '<div class="menu"><a href="/"><img src="/design/styles/default/img/link.png"> Главная</a></div><div class="footer">NomiCMS / '.date('Y').'</div></body></html>';
