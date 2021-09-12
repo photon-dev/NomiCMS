@@ -1,8 +1,9 @@
 <?php
-define('R', $_SERVER['DOCUMENT_ROOT']);
-define('S', R.'/system');
+define('ROOT', $_SERVER['DOCUMENT_ROOT']);
+define('SYS', ROOT . '/system');
 
-require_once(R.'/system/kernel.php');
+require_once(ROOT . '/system/kernel.php');
+
 $tmp->header('error');
 
 $code = my_int($db->guard($_GET['code']));

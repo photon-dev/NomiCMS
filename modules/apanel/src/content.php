@@ -1,8 +1,9 @@
 <?php
-define('R', $_SERVER['DOCUMENT_ROOT']);
-define('S', R.'/system');
+define('ROOT', $_SERVER['DOCUMENT_ROOT']);
+define('SYS', ROOT . '/system');
 
-require_once(R.'/system/kernel.php');
+require_once(ROOT . '/system/kernel.php');
+
 $tmp->header('content');
 $tmp->title('title', Language::config('content'));
 User::panel();
@@ -66,7 +67,7 @@ if(isset($_GET['clear_user'])){
 			$wl = $db->fass_c("SELECT COUNT(*) as count FROM `wall` WHERE `kto` = '".$id."'");
 			$z = $db->fass_c("SELECT COUNT(*) as count FROM `zc_file` WHERE `kto` = '".$id."'");
 			$zc = $db->fass_c("SELECT COUNT(*) as count FROM `zc_comments` WHERE `kto` = '".$id."'");
-			
+
 			echo '<div class="main">
 '.Language::config('clear_content_us').': <a class="link_visual" target="_blank" href="/us'.$id.'">'.$u['login'].'</a><br>
 '.Language::config('blogs').' / ('.Language::config('comments').'): '.$b.' / '.$bc.'<br>

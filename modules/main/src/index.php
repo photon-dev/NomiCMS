@@ -1,5 +1,4 @@
 <?php
-
 $tmp->header('home');
 $tmp->title('title', Language::config('home'));
 User::panel();
@@ -29,7 +28,7 @@ echo '<a href="/forum">'.img('forum.png').' '.Language::config('forum').' <span>
 
 if($ft){
 	$ft2=$db->query("SELECT * FROM `forum_topic` ORDER BY `is_top_topic` = '0', `last_message_time` DESC LIMIT 5");
-	
+
 	while($f=$ft2->fetch_assoc()){
 		if($f['is_close_topic'] == 1){
 			$icon = img('forum_close.png');
@@ -44,7 +43,7 @@ if($ft){
 			$pg = ceil($fc / $num);
 			$st = '?page='.$pg;
 		}
-		
+
 		$st = (empty($st) ? null : $st);
 
 		echo '<div class="forum_topic flex"><a class="items topic" href="/forum/topic'.$f['id'].'">'.$icon.' '.$f['name'].'</a><a class="items" href="/forum/topic'.$f['id'].$st.'"><span>'.$fc.'</span></a></div>';
@@ -54,7 +53,7 @@ if($ft){
 $z=$db->fass_c("SELECT COUNT(*) as count FROM `zc_file`");
 $zn = $db->fass_c("SELECT COUNT(*) as count FROM `zc_file` where `time` > '".(time() - 86400)."'");
 
-echo '<a href="/zc">'.img('dload.png').' '.Language::config('zc').' <span>'.$z.'</span> '.(($zn != 0) ? '<span>+ '.$zn.'</span>' : NULL).'</a>'; 
+echo '<a href="/zc">'.img('dload.png').' '.Language::config('zc').' <span>'.$z.'</span> '.(($zn != 0) ? '<span>+ '.$zn.'</span>' : NULL).'</a>';
 
 if($z!=0){
 	$zc=$db->query("SELECT * FROM `zc_file` WHERE `hide` = 0 ORDER BY `pin` = '0', `time` DESC LIMIT 5");

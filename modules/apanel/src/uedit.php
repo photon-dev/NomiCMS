@@ -1,8 +1,9 @@
 <?php
-define('R', $_SERVER['DOCUMENT_ROOT']);
-define('S', R.'/system');
+define('ROOT', $_SERVER['DOCUMENT_ROOT']);
+define('SYS', ROOT . '/system');
 
-require_once(R.'/system/kernel.php');
+require_once(ROOT . '/system/kernel.php');
+
 $tmp->header('edit');
 $tmp->title('title', Language::config('edit_profile'));
 User::panel();
@@ -89,7 +90,7 @@ Ava:<br/>
 
 	$lang_dir = opendir(S .'/lang');
 		while ($lang = readdir($lang_dir)) {
-			if ($lang == '.' || $lang == '..') 
+			if ($lang == '.' || $lang == '..')
 				continue;
 	$langs = parse_ini_file(S .'/lang/'.$lang.'/lang.ini');
 	echo '<option value="'. $lang .'" '.($as['language'] == $lang ? 'selected="selected"':NULL).'>'. $langs['lang_name'] .'</option>';

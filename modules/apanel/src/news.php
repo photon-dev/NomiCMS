@@ -1,9 +1,8 @@
 <?php
+define('ROOT', $_SERVER['DOCUMENT_ROOT']);
+define('SYS', ROOT . '/system');
 
-define('R', $_SERVER['DOCUMENT_ROOT']);
-define('S', R.'/system');
-
-require_once(R.'/system/kernel.php');
+require_once(ROOT . '/system/kernel.php');
 
 $tmp->header('news');
 $tmp->title('title', Language::config('news'));
@@ -24,7 +23,7 @@ $n=$db->query("select * from `news` ORDER BY time DESC LIMIT ".$start.", ".$num.
 
 if(isset($_GET['del'])) {
 	$del = $db->guard($_GET['del']);
-	if(User::profile('level') >=3) 
+	if(User::profile('level') >=3)
 		$db->query("DELETE FROM `news` where `id` ='".$del."'");
 	header('location: /apanel/news');
 }
@@ -32,14 +31,14 @@ if(isset($_GET['del'])) {
 if(isset($_GET['edit'])){
 	$id_n = isset($_GET['edit']) ? my_int($_GET['edit']) : null;
 	$p = $db->fass("SELECT * FROM `news` where `id` = '".$id_n."' ");
-	
+
 	if (!$p) $tmp->show_error();
 
 	if (isset($_REQUEST['edit_news'])) {
 		$name = $db->guard($_POST['name']);
 		$message = $db->guard($_POST['message']);
-		
-		Security::verify_str();  
+
+		Security::verify_str();
 
 
 		if (empty($_POST['name']) || empty($_POST['message'])) $error .= Language::config('no_message');
@@ -66,8 +65,8 @@ if(isset($_GET['edit'])){
 if(isset($_REQUEST['submit'])) {
 	$name = $db->guard($_POST['name']);
 	$message = $db->guard($_POST['message']);
-			
-	Security::verify_str();  
+
+	Security::verify_str();
 
 	if (empty($_POST['name']) || empty($_POST['message'])) $error .= Language::config('no_message');
 
@@ -77,7 +76,7 @@ if(isset($_REQUEST['submit'])) {
 
 	}
 }
-	
+
 error($error);
 
 $tmp->div('main', '<form method="POST" action="">

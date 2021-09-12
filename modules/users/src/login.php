@@ -1,8 +1,8 @@
-<?
-define('R', $_SERVER['DOCUMENT_ROOT']);
-define('S', R.'/system');
+<?php
+define('ROOT', $_SERVER['DOCUMENT_ROOT']);
+define('SYS', ROOT . '/system');
 
-require_once(R.'/system/kernel.php');
+require_once(ROOT . '/system/kernel.php');
 
 if(User::aut()){
 	go_exit();
@@ -13,10 +13,10 @@ if (isset($_REQUEST['submit'])) {
 	Security::verify_str();
 
 	$login = $db->guard($_POST['login']);
-	
+
 	if(empty($_POST['login'])) $error .= Language::config('no_empty_login').'<br/>';
 	if(empty($_POST['password'])) $error .= Language::config('no_empty_pass').'<br/>';
-	
+
 	$password = encode($db->guard($_POST['password']));
 	$row = $db->fass("SELECT id FROM users WHERE login = '". $login ."' AND password  = '". $password ."';");
 

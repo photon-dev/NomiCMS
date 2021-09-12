@@ -1,8 +1,9 @@
 <?php
-define('R', $_SERVER['DOCUMENT_ROOT']);
-define('S', R.'/system');
+define('ROOT', $_SERVER['DOCUMENT_ROOT']);
+define('SYS', ROOT . '/system');
 
-require_once(R.'/system/kernel.php');
+require_once(ROOT . '/system/kernel.php');
+
 $tmp->header('my_settings');
 $tmp->title('title', Language::config('my_settings'));
 
@@ -53,7 +54,7 @@ echo '<form method="POST" action=""><div class="main">'.Language::config('langua
 
 $lang_dir = opendir(S .'/lang');
 	while ($lang = readdir($lang_dir)) {
-		if ($lang == '.' || $lang == '..') 
+		if ($lang == '.' || $lang == '..')
 			continue;
 		$langs = parse_ini_file(S .'/lang/'.$lang.'/lang.ini');
 		echo '<option value="'. $lang .'" '. ($a['language'] == $lang ? 'selected="selected"':NULL) .'>'. $langs['lang_name'] .'</option>'; //выбираем язык
@@ -65,7 +66,7 @@ echo '</select><br/>'.Language::config('num').': <br/>
 
 $themes_dir = opendir(R .'/design/styles');
 	while ($themes = readdir($themes_dir)) {
-		if ($themes == '.' || $themes == '..') 
+		if ($themes == '.' || $themes == '..')
 			continue;
 		$thems = parse_ini_file(R .'/design/styles/'.$themes.'/config.ini');
 

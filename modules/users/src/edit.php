@@ -1,8 +1,8 @@
 <?php
-define('R', $_SERVER['DOCUMENT_ROOT']);
-define('S', R.'/system');
+define('ROOT', $_SERVER['DOCUMENT_ROOT']);
+define('SYS', ROOT . '/system');
 
-require_once(R.'/system/kernel.php');
+require_once(ROOT . '/system/kernel.php');
 $tmp->header('edit_profile');
 $tmp->title('title', Language::config('edit_profile'));
 User::panel();
@@ -23,7 +23,7 @@ if (isset($_REQUEST['submit'])) {
     if (!empty($name) && !preg_match("#^([A-zА-я0-9\-\_\ ])+$#ui", $_POST['name']) || (!empty($fname) && !preg_match("#^([A-zА-я0-9\-\_\ ])+$#ui", $_POST['fname']))) {
         $error .= Language::config('sim_no_reg_name')."<br/>";
     }
-    
+
     if (!isset($error)) {
     	$db->query("UPDATE `users` set `name` = '".$db->escape($name)."', `first_name` = '".$db->escape($fname)."', `sex` = '".$db->escape($sex)."', `country` = '".$db->escape($strana)."', `city` = '".$db->escape($gorod)."', `about` = '".$db->escape($osebe)."', `tg` = '".$db->escape($tg)."' WHERE `id`='".User::ID()."' ");
         $tmp->div('success', Language::config('ok_save'));

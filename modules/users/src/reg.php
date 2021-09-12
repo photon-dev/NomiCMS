@@ -1,8 +1,8 @@
 <?php
-define('R', $_SERVER['DOCUMENT_ROOT']);
-define('S', R.'/system');
+define('ROOT', $_SERVER['DOCUMENT_ROOT']);
+define('SYS', ROOT . '/system');
 
-require_once(R.'/system/kernel.php');
+require_once(ROOT . '/system/kernel.php');
 
 if(User::aut()){
 	go_exit();
@@ -57,7 +57,7 @@ if(isset($_POST['submit'])) {
         if($last_id == 1) $db->query("UPDATE `users` set `level` ='4' where `id` = '".$last_id."' ");
 
         $db->query("INSERT INTO `user_settings` set `kto` = '".$last_id."', `theme` = '".User::settings('theme')."', `language` = '".User::settings('language')."', `num` = '".Core::config('num')."' ");
-        
+
         $_SESSION['id'] = $last_id;
         $_SESSION['login'] = $login;
         $_SESSION['password'] = $password;

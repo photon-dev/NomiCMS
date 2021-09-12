@@ -1,9 +1,8 @@
 <?php
+define('ROOT', $_SERVER['DOCUMENT_ROOT']);
+define('SYS', ROOT . '/system');
 
-define('R', $_SERVER['DOCUMENT_ROOT']);
-define('S', R.'/system');
-
-require_once(R.'/system/kernel.php');
+require_once(ROOT . '/system/kernel.php');
 
 $tmp->header('comments');
 
@@ -49,9 +48,9 @@ if(isset($_REQUEST['submit'])) {
 	Security::verify_str();
 
 	$message = $db->guard($_POST['messages']);
-	
+
 	if (empty($message) || mb_strlen($message, 'UTF-8')<2) $error .= Language::config('no_message');
-	
+
 	if(!isset($error)) {
 		if (User::ID() != $s['kto'])
 			User::new_notify($s['kto'], 'news_comm_add||'.$s['name'], '/news/comment'.$id);

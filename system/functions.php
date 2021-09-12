@@ -4,7 +4,7 @@ function encode($var) {
 }
 
 function error($var) {
-	if(!empty($var)) 
+	if(!empty($var))
 		echo '<div class="error">'.$var.'</div>';
 }
 
@@ -17,7 +17,7 @@ function out($var) {
 }
 
 function bbcode() {
-	require(R.'/modules/pages/bbcode.php');
+	require(ROOT . '/modules/main/src/bbcode.php');
 }
 
 function go_exit($url = '/') {
@@ -56,30 +56,30 @@ EMAIL;
 }
 
 
-function times($time) { 
+function times($time) {
 	switch (date('j n Y', $time)) {
-		case date('j n Y'): 
-			return 'Сегодня ' . date('H:i', $time) .''; 
+		case date('j n Y'):
+			return 'Сегодня ' . date('H:i', $time) .'';
 			break;
 
-		case date('j n Y', $_SERVER['REQUEST_TIME'] - 86400): 
-			return 'Вчера ' . date('H:i', $time).''; 
+		case date('j n Y', $_SERVER['REQUEST_TIME'] - 86400):
+			return 'Вчера ' . date('H:i', $time).'';
 			break;
-			
-		default: 
-			return strtr(date('j M Y в H:i', $time), array('Jan' => 'Янв', 
-				'Feb' => 'Фев', 
-				'Mar' => 'Марта', 
-				'Apr' => 'Апр', 
-				'May' => 'Мая', 
-				'Jun' => 'Июня', 
-				'Jul' => 'Июля', 
-				'Aug' => 'Авг', 
-				'Sep' => 'Сент', 
-				'Oct' => 'Окт', 
-				'Nov' => 'Ноября', 
-				'Dec' => 'Дек')); 
-				break; 
+
+		default:
+			return strtr(date('j M Y в H:i', $time), array('Jan' => 'Янв',
+				'Feb' => 'Фев',
+				'Mar' => 'Марта',
+				'Apr' => 'Апр',
+				'May' => 'Мая',
+				'Jun' => 'Июня',
+				'Jul' => 'Июля',
+				'Aug' => 'Авг',
+				'Sep' => 'Сент',
+				'Oct' => 'Окт',
+				'Nov' => 'Ноября',
+				'Dec' => 'Дек'));
+				break;
 	}
 }
 
@@ -93,10 +93,10 @@ function reply_user($name, $link, $id, $name_uid, $prelink=false) {
 			$ot=$db->fass("SELECT * FROM `".$name."` where `id` = '".$o."'");
 
 			if($ot['kto'] != User::ID() && !empty($ot)) {
-				
+
 				if(isset($_REQUEST['submit'])) {
 					$message = $db->guard($_POST['messages']);
-					
+
 					if(empty($message) || mb_strlen($_POST['messages'], 'UTF-8')<2) $error .= Language::config('no_message');
 
 					if(!isset($error)) {
@@ -112,7 +112,7 @@ function reply_user($name, $link, $id, $name_uid, $prelink=false) {
 				}
 
 				$tmp->div('messages', '<div>'.bb(smile($ot['message'])).'</div><hr>' );
-				
+
 				error($error);
 				bbcode();
 
@@ -160,13 +160,13 @@ function page($url) {
     global $page, $total;
     if($page != 1) $pervpage = '<a href="'.$url.'page=1">&lt;&lt;</a><a href="'.$url.'page='.($page-1).'">&lt;</a>';
     if($page != $total) $nextpage = '<a href="'.$url.'page='.($page+1).'">&gt;</a><a href="'.$url.'page='.$total.'">&gt;&gt;</a>';
-    
+
     if($page-2>0 && $page == $total) $page2left = '<a href="'.$url.'page='.($page-2).'">'.($page-2).'</a>';
     if($page-1>0) $page1left = '<a href="'.$url.'page='.($page-1).'">'.($page-1).'</a>';
-    
+
     if($page+2 <= $total) $page2right = '<a href="'.$url.'page='.($page+2).'">'.($page+2).'</a>';
     if($page+1 <= $total) $page1right = '<a href="'.$url.'page='.($page+1).'">'.($page+1).'</a>';
-    
+
     if($total > 1) {
         echo '<hr><div class="main"><div class="nav flex">'.$pervpage.$page2left.$page1left.'<a class="active">'.$page.'</a>'.$page1right.$page2right.$nextpage.'</div></div>';
     }
@@ -186,7 +186,7 @@ function bb($mes) {
     $mes = preg_replace('#\[blue\](.+?)\[\/blue\]#si', '<span style="color: #2196f3">\1</span>', $mes);
     $mes = preg_replace('~\[color=((?:#[a-fA-F0-9]{3,6})+)\](.+?)\[/color\]~s', '<span style="color: \1">\2</span>', $mes);
     $mes = preg_replace('#\[code\](.+?)\[\/code\]#si', '<code>\1</code>', $mes);
-	
+
 	$mes = preg_replace('#\[url=(https?://[a-z0-9-]+\.+\S[^\'"(><]+?)*\](.+?)\[/url\]#i', '<a class="link_visual" target="_blank" href="$1">$2</a>', $mes);
 
 	$mes = preg_replace("~(^|\s|-|:| |\()(http(s?)://|(www\.))((\S{25})(\S{5,})(\S{15})([^\<\s.,>)\];'\"!?]))~i", "\\1<a class=\"link_visual\" target=\"_blank\" href=\"http\\3://\\4\\5\">\\4\\6...\\8\\9</a>", $mes);
@@ -235,7 +235,7 @@ function smile($text, $show=false) {
 			':angel:' => '<img src="' . $smile_dir . 'angel.png" alt="*" />',
 			':crazy:' => '<img src="' . $smile_dir . 'crazy.png" alt="*" />',
 			':lol:' => '<img src="' . $smile_dir . 'lol.png" alt="*" />');
-	
+
 	if ($show) {
 		$smile_array = array_unique($smile_array, SORT_REGULAR);
 		foreach ($smile_array as $a => $i) { echo '<a onclick="tag(\''.$a.'\')">'.$i.'</a>'; }
@@ -252,7 +252,7 @@ function img($file) {
 
 function delete_file($filename) {
 	try {
-	    if (file_exists($filename)) { 
+	    if (file_exists($filename)) {
 	        if (@unlink($filename) !== true)
 	            throw new Exception('Ошибка удаления файла');
 	    }
@@ -266,10 +266,10 @@ function delete_file($filename) {
 function file_icon($path) {
 	$icon_dir = 'file_icon/';
 	$ext = strtolower(end(explode('.', $path)));
-	
+
 	if (in_array($ext, array('jpg', 'png', 'gif', 'jpeg', 'svg', 'ico', 'psd')))
 		return img($icon_dir . 'img.png');
-	
+
 	$ext_array = array(
 		'zip' => img($icon_dir . 'zip.png'),
 		'rar' => img($icon_dir . 'rar.png'),
@@ -333,7 +333,7 @@ function format_filesize($path, $decimals = 2) {
 function browser($browser) {
 
     if (empty($browser)) {
-		$browser = $_SERVER['HTTP_USER_AGENT']; 
+		$browser = $_SERVER['HTTP_USER_AGENT'];
 	}
 
     if (stripos($browser, 'Avant Browser') !== false) {
@@ -383,7 +383,7 @@ function browser($browser) {
       if (!empty($browser)) {
       	return $browser;
       }
-    } 
+    }
 	return 'Unknown';
 }
 

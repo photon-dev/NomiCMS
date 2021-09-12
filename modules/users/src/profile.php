@@ -1,9 +1,8 @@
 <?php
+define('ROOT', $_SERVER['DOCUMENT_ROOT']);
+define('SYS', ROOT . '/system');
 
-define('R', $_SERVER['DOCUMENT_ROOT']);
-define('S', R.'/system');
-
-require_once(R.'/system/kernel.php');
+require_once(ROOT . '/system/kernel.php');
 
 $tmp->header('user');
 $idu=my_int($db->guard($_GET['id']));
@@ -108,7 +107,7 @@ if (User::aut()) {
 	bbcode();
 
     $_POST['message'] = (empty($_POST['message']) ? null : $_POST['message']);
-	
+
 	$tmp->div('main', '
 <form method="POST" name="message" action="">'.Language::config('message').':<br/><textarea name="messages">'.out($_POST['message']).'</textarea><br/>
 <input type="hidden" name="S_Code" value="'.Security::rand_str().'">

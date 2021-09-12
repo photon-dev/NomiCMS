@@ -1,8 +1,9 @@
 <?php
-define('R', $_SERVER['DOCUMENT_ROOT']);
-define('S', R.'/system');
+define('ROOT', $_SERVER['DOCUMENT_ROOT']);
+define('SYS', ROOT . '/system');
 
-require_once(R.'/system/kernel.php');
+require_once(ROOT . '/system/kernel.php');
+
 $tmp->header('restore');
 $tmp->title('title' , Language::config('restore'));
 
@@ -18,10 +19,10 @@ switch ($act) {
     default:
         if(!empty($_POST['go'])) {
             Security::verify_str();
-                
+
             $login = $db->guard($_POST['login']);
             $arr = $db->fass("SELECT * FROM `users` WHERE `login` = '".$db->escape($login)."'");
-            
+
             if(mb_strlen($login) < 2 or mb_strlen($login) > 255){
                 $error .= Language::config('email_strln')."<br/>";
             } else if (!$arr){
@@ -41,7 +42,7 @@ switch ($act) {
 
         ?>
         <form method="POST" action="">
-        <div class="main"> 
+        <div class="main">
         <?=Language::config('restore_mes')?>: <br>
             <input type="login" required="" name="login" placeholder="<?=Language::config('restore_log')?>"><br>
             <input type="hidden" name="S_Code" value="<?=Security::rand_str()?>">

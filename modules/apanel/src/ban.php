@@ -1,8 +1,8 @@
 <?php
-define('R', $_SERVER['DOCUMENT_ROOT']);
-define('S', R.'/system');
+define('ROOT', $_SERVER['DOCUMENT_ROOT']);
+define('SYS', ROOT . '/system');
 
-require_once(R.'/system/kernel.php');
+require_once(ROOT . '/system/kernel.php');
 
 $tmp->header('add_ban');
 $tmp->title('title', Language::config('add_ban'));
@@ -19,7 +19,7 @@ if (User::level()>=2) {
 
 		if (isset($_REQUEST['submit'])) {
 
-	      Security::verify_str();  
+	      Security::verify_str();
 
 			$message = $db->guard($_POST['message']);
 			$time_end = $db->guard($_POST['time_end']);
@@ -49,7 +49,7 @@ if (User::level()>=2) {
 </select><br/>
 
 <input type="hidden" name="S_Code" value="'.Security::rand_str().'">
-<input type="submit" name="submit" value="'.Language::config('add_ban').'" /></form>'); 
+<input type="submit" name="submit" value="'.Language::config('add_ban').'" /></form>');
 
 	}
 } else {

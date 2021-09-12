@@ -1,19 +1,19 @@
 <?php
-define('R', $_SERVER['DOCUMENT_ROOT']);
-define('S', R.'/system');
+define('ROOT', $_SERVER['DOCUMENT_ROOT']);
+define('SYS', ROOT . '/system');
 
-require_once(R.'/system/kernel.php');
+require_once(ROOT . '/system/kernel.php');
 
 $id = my_int($db->guard($_GET['id']));
 
-$p=$db->fass("select * from `users` where `id` = '".$id."' "); 
+$p=$db->fass("select * from `users` where `id` = '".$id."' ");
 
 if(!$p) go_exit();
 
 if(User::aut()){
 	$del = $db->guard($_GET['delete']);
 	$c=$db->fass("SELECT * FROM `wall` where `id` ='".$del."'");
-	
+
 	if(!$c) go_exit();
 
 	if($c['kto'] == User::ID() || User::profile('level') >=2) {

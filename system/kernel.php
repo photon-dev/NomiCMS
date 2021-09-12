@@ -1,5 +1,4 @@
 <?php
-
 require SYS . '/db_config.php';
 require SYS . '/functions.php';
 

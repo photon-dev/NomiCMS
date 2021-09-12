@@ -1,7 +1,6 @@
 <?php
 define('ROOT', $_SERVER['DOCUMENT_ROOT']);
 define('SYS', ROOT . '/system');
-define('MODS', ROOT . '/modules');
 
 // Путь к конфиг файлу
 $dbConfig = SYS . '/db_config.php';
@@ -30,4 +29,4 @@ if (file_exists(R."/install/index.php")) {
 require SYS . '/kernel.php';
 
 // Подключить файл модуля по умолчанию
-require MODS . '/main/src/index.php';
+require ROOT . '/modules/main/src/index.php';

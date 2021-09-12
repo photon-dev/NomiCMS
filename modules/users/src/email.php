@@ -1,8 +1,8 @@
 <?php
-define('R', $_SERVER['DOCUMENT_ROOT']);
-define('S', R.'/system');
+define('ROOT', $_SERVER['DOCUMENT_ROOT']);
+define('SYS', ROOT . '/system');
 
-require_once(R.'/system/kernel.php');
+require_once(ROOT . '/system/kernel.php');
 $tmp->header('email');
 $tmp->title('title', Language::config('email_ttl'));
 User::panel();
@@ -42,7 +42,7 @@ switch ($act) {
 
 		?>
 		<form method="POST" action="">
-		<div class="main"> 
+		<div class="main">
 			<?
 			echo Language::config('email_w_1');
 			echo '<div class="cit"> <span style="color: #F44336">'.Language::config('email_w_2').'</span><br>'.Language::config('email_w_3').'</div>';
@@ -92,7 +92,7 @@ switch ($act) {
 		if(isset($_GET['code'])) {
 			$code = $db->guard($_GET['code']);
 			$arr = $db->fass("SELECT * FROM `users_emails` WHERE `code` = '".$code."'");
-			
+
 			if(empty($code)){
 				$error .= Language::config('email_nf')."<br/>";
 		    } else if(!$arr){

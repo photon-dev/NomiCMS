@@ -1,4 +1,3 @@
-
 <script>
 function tag(text1, text2) {
     text2 = text2 || '';

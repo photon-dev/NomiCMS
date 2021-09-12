@@ -1,8 +1,8 @@
 <?php
-define('R', $_SERVER['DOCUMENT_ROOT']);
-define('S', R.'/system');
+define('ROOT', $_SERVER['DOCUMENT_ROOT']);
+define('SYS', ROOT . '/system');
 
-require_once(R.'/system/kernel.php');
+require_once(ROOT . '/system/kernel.php');
 
 $tmp->header('journal');
 $tmp->title('title', Language::config('journal'));
@@ -34,7 +34,7 @@ echo '<div class="notify">';
 while($j=$journal->fetch_assoc()) {
 	$s = explode('||', $j['message']);
 	echo '<a href="'.$j['url'].'">'.img(($j['readln'] ? 'notify_i.png' : 'notify_n.png')).' <span class="times">'.times($j['time']).'</span> '.nick_new($j['kto'], true).' <div> '.($s[1] ? Language::config($s[0]).': '.$s[1] : Language::config($s[0])).' </div></a>';
-	
+
 	$db->query("UPDATE `journal` set `readln` = '1' where `id` = '".$j['id']."'");
 }
 

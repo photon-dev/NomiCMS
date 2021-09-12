@@ -1,9 +1,8 @@
 <?php
+define('ROOT', $_SERVER['DOCUMENT_ROOT']);
+define('SYS', ROOT . '/system');
 
-define('R', $_SERVER['DOCUMENT_ROOT']);
-define('S', R.'/system');
-
-require_once(R.'/system/kernel.php');
+require_once(ROOT . '/system/kernel.php');
 
 $tmp->header('admin_chat');
 
@@ -31,18 +30,18 @@ if (User::level()>=3) {
 	if(isset($_GET['otv'])){
 		$o=$db->guard($_GET['otv']);
 		$ot=$db->fass("SELECT * FROM `admin_chat` where `id` = '".$o."'");
-		
+
 		if($ot['kto'] != User::ID() && !empty($ot)){
 
 			if(isset($_REQUEST['submit'])) {
 				$message = $db->guard($_POST['messages']);
-				
+
 				if(empty($message) || mb_strlen($_POST['messages'], 'UTF-8')<2) $error .= Language::config('no_message');
 
 				if(!isset($error)) {
 					$db->query("INSERT INTO `admin_chat` set `kto` = '".User::ID()."', `message` = '[rep]".nickname($ot['kto'])."[/rep] ".$message."', `time` = '".time()."' ");
 					$lid = $db->insert_id();
-					
+
 					User::new_notify($ot['kto'], 'rep_admin_chat', '/apanel/admin_chat/'.$lid);
 
 					$db->query("UPDATE `users` set `money` = money + 5 where `id` = '".User::ID()."'");
@@ -51,7 +50,7 @@ if (User::level()>=3) {
 			}
 
 			$tmp->div('messages', '<div>'.bb(smile($ot['message'])).'</div><hr>' );
-			
+
 			bbcode();
 			error($error);
 
@@ -96,7 +95,7 @@ if (User::level()>=3) {
 		}
 		echo '</div>';
 
-	page('?');	
+	page('?');
 	}
 
 } else {

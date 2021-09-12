@@ -1,9 +1,8 @@
 <?php
+define('ROOT', $_SERVER['DOCUMENT_ROOT']);
+define('SYS', ROOT . '/system');
 
-define('R', $_SERVER['DOCUMENT_ROOT']);
-define('S', R.'/system');
-
-require_once(R.'/system/kernel.php');
+require_once(ROOT . '/system/kernel.php');
 
 $tmp->header('ads');
 $tmp->title('title', Language::config('ads'));
@@ -17,7 +16,7 @@ if (isset($_REQUEST['submit'])) {
 	$local = $db->guard($_POST['local']);
 	$time_end = $db->guard($_POST['time_end']);
 
-	Security::verify_str();  
+	Security::verify_str();
 
     if(empty($name)) $error .= Language::config('no_empty').'!<br/>';
 	if(empty($link)) $error .= Language::config('no_empty').'!<br/>';

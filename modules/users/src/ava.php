@@ -1,8 +1,8 @@
 <?php
-define('R', $_SERVER['DOCUMENT_ROOT']);
-define('S', R.'/system');
+define('ROOT', $_SERVER['DOCUMENT_ROOT']);
+define('SYS', ROOT . '/system');
 
-require_once(R.'/system/kernel.php');
+require_once(ROOT . '/system/kernel.php');
 
 $tmp->header('downl_ava');
 $tmp->title('title', Language::config('downl_ava'));
@@ -17,7 +17,7 @@ if (!empty($_POST['send'])) {
 	$whitelist = array('.jpg', '.jpeg', '.gif', '.png'); # Допустимые расширения
 	$dir = R.'/files/ava'; // Папка, в которую будут загружаться файлы
 	$name = $_FILES['file']['name']; # Название файла
-	$ext = strtolower(strrchr($name, '.')); # Расширение файла 
+	$ext = strtolower(strrchr($name, '.')); # Расширение файла
 	$size = $_FILES['file']['size']; # Вес файла
 
 	if ($size > (1048576 * $maxsize)) $error .= Language::config('max_size').' [Max. '.$maxsize.'mb.]<br />';
@@ -26,7 +26,7 @@ if (!empty($_POST['send'])) {
 	if(!isset($error)) {
 		$avatar =  rand(1,999).'_NOMICMS_'.rand(1,999). $ext;
 		copy($_FILES['file']['tmp_name'], $dir . '/' . $avatar ); # Копируем файл в папку
-		
+
 		if (img_resize($dir.'/'.$avatar, $dir.'/'.'16_'.$avatar, 16, 16)) {
 			$db->query("update `users` set `ava` = '".$db->escape($avatar)."' WHERE `id`='".$db->escape(User::ID())."' ");
 			header('location: /ava');
