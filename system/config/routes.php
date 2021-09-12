@@ -2,13 +2,13 @@
 
 return array(
     // Маршруты главного модуля
-    [
-        'url' => '/',
+    array(
+        'url' => '',
         'src' => 'index'
-    ],
-    [
+    ),
+    array(
         'url' => '/online',
         'module' => 'users',
-        'src' => 
-    ]
+        'src' => 'online'
+    )
 );

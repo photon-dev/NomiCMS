@@ -32,9 +32,9 @@ require SYS . '/kernel.php';
 $routes = require_once SYS . '/config/routes.php';
 $router = new Routing($routes);
 
-$route = $router->run();
+//$route = $router->run();
 
-var_dump($route);
+var_dump($router);
 
 // Подключить файл модуля по умолчанию
 //require ROOT . '/modules/main/src/index.php';

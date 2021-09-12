@@ -4,55 +4,140 @@
  */
 class Routing
 {
-    // Маршруты
-    public $routes = array();
+    // Текущий маршрут
+    protected $route = [];
 
-    // Неудача, откладка ощибок
-    public $failure = false;
+    // Найти маршрут
+    protected $found = false;
 
-    public function __construct($routes = [])
+    // Конструктор
+    public function __construct(array $routes = [])
     {
-        if (is_array($routes))
-            $this->routes = $routes;
+        // Если url-адрес равен '/'
+        if ($this->getCurrentUri() == '/') {
+
+            // Поиск маршрута по умолчанию
+            if ($key = array_search('/', array_column($routes, 'url'))) {
+
+                // Сохранить маршрут
+                $this->route = $routes[$key];
+                // Сообщить что маршрут найден
+                $this->found = true;
+            } else {
+                die('<b>Маршрут по умолчанию не найден.</b><br />Проверьте правильность настройки маршрутизации...');
+            }
+        }
+
+        if ($this->found === false) {
+            $this->parse($routes);
+        }
     }
 
-    public function run()
+    // Обработка строки браузера
+    protected function parseUrl(string $url)
     {
-        $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $data = [
+            '{num}' => '(\d+)',      // Цифры
+            '{any}' => '([^/]+)',    // Все символы без знака '/'
+            '{all}' => '(.*)',       //Все символы
+            '{str}' => '(\w+)',      //Буквенно-цифровые символы
+            '{slug}' => '([\w\-_]+)' //Символы формата URL для SEO. (Буквенно-цифровые символы, _ и -)
+        ];
 
-        foreach ($this->routes as $route)
-        {
-            if (preg_match('#^' . $route['url'] . '$#u', $uri, $match))
-            {
-                return array(
-                    'module' => $route['module'] ?? 'index',
-                    'src' => $route['src'] ?? 'index',
-                    'get' => $route['get'] ?? false,
-                    'match' => $match
-                );
+        $keys = array_keys($data);
+        $values = array_values($data);
+
+        return str_replace($keys, $values, $url);
+    }
+
+    // Получить url-адрес из строки браузера
+    protected function getCurrentUri(string $uri = '')
+    {
+        // Если url не указан получаем его
+        if (empty($uri)) {
+            $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        }
+
+        // Удалить все что находиться после ?
+        if (false !== $pos = strpos($uri, '?')) {
+            $uri = substr($uri, 0, $pos);
+        }
+
+        return rawurldecode($uri);
+    }
+
+    // Разобрать маршруты
+    protected function parse(array $routes)
+    {
+        // Получить url-адрес
+        $uri = $this->getCurrentUri();
+
+        // Разбор маршрутов
+        foreach ($routes as $route) {
+
+            // Проверить если первом вхождении подстроки
+            // Ищем символ {
+            if (strpos($route['url'], '{') !== false) {
+                $route['url'] = $this->parseUrl($route['url']);
+            }
+
+            // Если маршрут найден
+            if (preg_match('#^' . $route['url'] . '$#', $uri, $matches)) {
+
+                // Получить указаный url
+                $currentUrl = $matches[0];
+                array_shift($matches);
+
+                // Если совпадения, и параметры найдены
+                if (isset($matches) && isset($route['params'])) {
+                    $params = $this->match($matches, $route['params']);
+                }
+
+                // Созранить информацию о маршруте
+                $this->route = [
+                    'url'       => $currentUrl,
+                    'package'   => $route['package'],
+                    'src'       => $route['src'],
+                    'params'    => $params ?? false
+                ];
+
+                // Установить что найден
+                $this->found = true;
                 break;
             }
         }
     }
 
-    public function match($get, $match)
+    // Проверить совпадения
+    protected function match(array $matches, array $params)
     {
-        $vars = [];
+        // Совместить параметры с совпадениями
+        foreach ($matches as $key => $value) {
+            $params[$params[$key]] = $value;
 
-        foreach ($match as $key => $value)
-            $vars[$get[$key]] = $value;
+            unset($params[$key]);
+        }
 
-        return $vars;
+        // Показать параметры
+        return $params;
     }
 
-    public function __destruct()
+    // Получить найден ли маршрут
+    public function getFound()
     {
-        if ($this->failure)
-        {
-            //ob_start();
-            //header('Location: /error/404');
-            //header('Location: /');
-            exit;
+        return $this->found;
+    }
+
+    // Получить полную информацию о маршруте
+    public function getRoute()
+    {
+        // Если маршрут найден
+        if ($this->found) {
+
+            // Показать маршрут
+            return $this->route;
         }
+
+        return [];
     }
 }
