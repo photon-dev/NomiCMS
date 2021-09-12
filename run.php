@@ -35,16 +35,13 @@ if (file_exists(R."/install/index.php")) {
 }
 */
 
-$routes = require SYS . 'config/routes.php';
-$routes = $routes();
-
 // Получить маршруты
-//$routes = require_once SYS . '/config/routes.php';
-//$router = new Routing($routes);
+$routes = require_once SYS . 'config/routes.php';
+$router = new Routing($routes());
 
 //$route = $router->run();
 
-//var_dump($routes);
+var_dump($router);
 
 // Подключить файл модуля по умолчанию
 //require ROOT . '/modules/main/src/index.php';

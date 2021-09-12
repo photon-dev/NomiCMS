@@ -1,9 +1,12 @@
 <?php
 
-// Подключить константы
+// Константы
 require ROOT . 'system/const.php';
 
+// Файл конфигурации c базой данных
 require SYS . 'config/db.php';
+
+// Файл функций
 require SYS . '/func.php';
 
 // Функция автозагрузки
