@@ -28,5 +28,13 @@ if (file_exists(R."/install/index.php")) {
 // Подключить ядро
 require SYS . '/kernel.php';
 
+// Получить маршруты
+$routes = require_once SYS . '/config/routes.php';
+$router = new Routing($routes);
+
+$route = $router->run();
+
+var_dump($route);
+
 // Подключить файл модуля по умолчанию
-require ROOT . '/modules/main/src/index.php';
+//require ROOT . '/modules/main/src/index.php';

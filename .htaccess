@@ -7,7 +7,7 @@ php_value date.timezone "Europe/Moscow"
 
 RewriteEngine On
 
-	#Разные реврайты#
+#Разные реврайты#
 RewriteRule ^login?$ modules/users/src/login.php [L]
 RewriteRule ^reg?$ modules/users/src/reg.php [L]
 RewriteRule ^online?$ modules/users/src/online.php [L]
@@ -20,7 +20,7 @@ RewriteRule ^news/comment([0-9]*)/?$ modules/news/src/comment.php?id=$1 [L,QSA]
 RewriteRule ^news/comment([0-9]*)/otv([0-9]*)/?$ modules/news/src/comment.php?id=$1&otv=$2 [L,QSA]
 RewriteRule ^news/comment([0-9]*)/del([0-9]*)/?$ modules/news/src/comment.php?id=$1&del&cid=$2 [L,QSA]
 
-	#Реврайты для профиль и всё что с ним связаное#
+#Реврайты для профиль и всё что с ним связаное#
 RewriteRule ^chat/?$ modules/chat/src/index.php [L]
 RewriteRule ^chat/del([0-9]*)/?$ modules/chat/src/index.php?del=$1 [L,QSA]
 RewriteRule ^chat/otv([0-9]*)/?$ modules/chat/src/index.php?otv=$1 [L,QSA]
