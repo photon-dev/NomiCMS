@@ -1,7 +1,6 @@
 <?php
 // Добавление зависимостей в контейнер
 return function () {
-
     // Инициализировать класс Json
     $json = Json::create(TEMP, 'config/routes');
 

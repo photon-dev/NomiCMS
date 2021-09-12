@@ -26,14 +26,14 @@ if (file_exists(S."/db_config.php") && !empty($sod)) {
 
 if(isset($_GET['go'])){
 	if(isset($_POST['ok'])){
-		$dbhost = $_POST['dbhost'];
-		$dbuser = $_POST['dbuser'];
-		$dbpass = $_POST['dbpass'];
-		$dbname = $_POST['dbname'];
+		$host = $_POST['dbhost'];
+		$user = $_POST['dbuser'];
+		$password = $_POST['dbpass'];
+		$base = $_POST['dbname'];
 		$demo = $_POST['demo'];
 
 		error_reporting(0);
-		$mysqli = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
+		$mysqli = new mysqli($dbhost, $dbuser, $dbpass, $base);
 		$mysqli->set_charset('utf8mb4');
 
 		if ($mysqli->connect_errno) {
@@ -45,10 +45,10 @@ if(isset($_GET['go'])){
 
 		if ($mysqli == TRUE) {
 			chmod(S, 0777);
-			$content = "<?php\ndefine('server', '$dbhost');\ndefine('user', '$dbuser');\ndefine('pass', '$dbpass');\ndefine('db', '$dbname');\n?>";
+			$content = "<?php\ndefine('SERVER', '$host');\ndefine('USER', '$user');\ndefine('PASS', '$password');\ndefine('BASE', '$base');\n?>";
 
-			file_put_contents(S."/db_config.php", $content);
-			chmod(S.'/db_config.php', 0664);
+			file_put_contents(S."/config/db.php", $content);
+			chmod(S.'/config/db.php', 0664);
 
 			$dumpdb = file_get_contents('table.sql');
 			$ext = explode('-- --------------------------------------------------------', $dumpdb);

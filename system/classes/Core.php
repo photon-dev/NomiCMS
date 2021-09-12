@@ -3,7 +3,7 @@
  * Класс Core
  */
 Class Core {
-	private static $config = array();
+	protected static $config = array();
 
 	public static function config($var)
 	{

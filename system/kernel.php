@@ -1,13 +1,25 @@
 <?php
-require SYS . '/db_config.php';
-require SYS . '/functions.php';
 
-spl_autoload_register(function($class){
-$file = __DIR__ . "/classes/{$class}.php";
-if (file_exists($file)) require_once "$file";
-	else die(error("Ошибка загрузки {$class} класса!"));
+// Подключить константы
+require ROOT . 'system/const.php';
+
+require SYS . 'config/db.php';
+require SYS . '/func.php';
+
+// Функция автозагрузки
+spl_autoload_register(function(string $class)
+{
+	$path = SYS . "/classes/{$class}.php";
+
+	if (! file_exists($path)) {
+		error("Ошибка загрузки {$class} класса!");
+		die();
+	}
+
+	require_once $path;
 });
 
+// Вывод ощибок на экран
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
@@ -16,7 +28,6 @@ session_start();
 
 $db = new DB();
 $tmp = new Tmp();
-
 
 $ip = Core::real_IP();
 $browser = browser($_SERVER['HTTP_USER_AGENT']);
@@ -47,6 +58,3 @@ $num = (User::settings('num') == null ? Core::config('num') : User::settings('nu
 // Фикс для двух частых warning*ов //
 $page = (empty($_GET['page']) ? null : intval($_GET['page']));
 $error = (empty($error) ? null : $error);
-
-
-?>
