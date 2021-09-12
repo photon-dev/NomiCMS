@@ -38,10 +38,27 @@ if (file_exists(R."/install/index.php")) {
 // Получить маршруты
 $routes = require_once SYS . 'config/routes.php';
 $router = new Routing($routes());
+unset($routes);
 
-//$route = $router->run();
+// Запустить маршрутизатор
+if ($router->run()) {
+	// Получить текущий маршрут
+	$route = $router->getRoute();
 
-var_dump($router);
+	$path = MODS . $route['module'] . '/src/' . $route['src'];
+	if (file_exists($path . '.php')) {
+
+		require $path . '.php';
+
+	} else {
+		echo "Source файл {$route['src']} модуля {$route['module']} не обнаружен";
+	}
+
+} else {
+	echo 'Маршрут не найден';
+}
+
+//var_dump($router->getRoutes());
 
 // Подключить файл модуля по умолчанию
 //require ROOT . '/modules/main/src/index.php';

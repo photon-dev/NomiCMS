@@ -4,15 +4,21 @@
  */
 class Routing
 {
+    // Все маршруты
+    protected $routes = [];
+
     // Текущий маршрут
     protected $route = [];
 
     // Найти маршрут
-    protected $found = false;
+    public $found = false;
 
     // Конструктор
     public function __construct(array $routes = [])
     {
+        $this->routes = $routes;
+
+        /*
         // Если url-адрес равен '/'
         if ($this->getCurrentUri() == '/') {
 
@@ -27,10 +33,10 @@ class Routing
                 die('<b>Маршрут по умолчанию не найден.</b><br />Проверьте правильность настройки маршрутизации...');
             }
         }
-
-        if ($this->found === false) {
-            $this->parse($routes);
-        }
+        */
+        //if ($this->found === false) {
+            //$this->parse($routes);
+        //}
     }
 
     // Обработка строки браузера
@@ -67,13 +73,13 @@ class Routing
     }
 
     // Разобрать маршруты
-    protected function parse(array $routes)
+    public function run()
     {
         // Получить url-адрес
         $uri = $this->getCurrentUri();
 
         // Разбор маршрутов
-        foreach ($routes as $route) {
+        foreach ($this->routes as $route) {
 
             // Проверить если первом вхождении подстроки
             // Ищем символ {
@@ -96,13 +102,15 @@ class Routing
                 // Созранить информацию о маршруте
                 $this->route = [
                     'url'       => $currentUrl,
-                    'package'   => $route['package'],
-                    'src'       => $route['src'],
+                    'module'   => $route['module'] ?? 'main',
+                    'src'       => $route['src'] ?? 'index',
                     'params'    => $params ?? false
                 ];
 
                 // Установить что найден
                 $this->found = true;
+
+                return true;
                 break;
             }
         }
@@ -140,4 +148,11 @@ class Routing
 
         return [];
     }
+
+    public function getRoutes()
+    {
+        return $this->routes;
+    }
+
+    public function __dectruct(){}
 }

@@ -5,25 +5,25 @@
 return [
     // Faq
     [
-        'url' => '/faq',
-        'module' => 'faq',
+        'url' => '/pages',
+        'module' => 'pages',
         'src' => 'index'
     ],
     // Реклама
     [
-        'url' => '/faq/ads',
-        'module' => 'faq',
+        'url' => '/pages/ads',
+        'module' => 'pages',
         'src' => 'ads'
     ],
     // ББ-коды
     [
-        'url' => '/faq/bbcodes',
-        'module' => 'faq',
-        'src' => 'bb_codes'
+        'url' => '/pages/bb_codes',
+        'module' => 'pages',
+        'src' => 'bbcodes'
     ],
     // Смайлы
     [
-        'url' => '/faq/smiles',
+        'url' => '/pages/smile',
         'module' => 'main',
         'src' => 'smiles'
     ]

@@ -3,7 +3,6 @@ $tmp->header('home');
 $tmp->title('title', Language::config('home'));
 User::panel();
 
-
 $nc = $db->n_r("SELECT id FROM `news` LIMIT 1");
 if($nc){
 	$n = $db->fass("select * from `news` ORDER BY time DESC LIMIT 1");
