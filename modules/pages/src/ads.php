@@ -1,9 +1,4 @@
 <?php
-define('ROOT', $_SERVER['DOCUMENT_ROOT']);
-define('SYS', ROOT . '/system');
-
-require_once(ROOT . '/system/kernel.php');
-
 $tmp->header('ads');
 $tmp->title('title', Language::config('shop_ads'));
 User::panel();
