@@ -1,7 +1,10 @@
 <?php
+/**
+ * Класс Core
+ */
 Class Core {
 	private static $config = array();
-	
+
 	public static function config($var)
 	{
 		global $db;
@@ -44,7 +47,7 @@ Class Core {
 
 			$smtp = new ApiMail(...explode('#', $enable_smtp));
 			$smtp->send_mail($email, $title, $template, $text);
-			
+
 			if (!$smtp->get_status())
 				error(Language::config('error_send_email'));
 		}
@@ -52,4 +55,3 @@ Class Core {
 	}
 
 }
-?>

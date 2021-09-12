@@ -1,6 +1,7 @@
 <?php
 define('R', $_SERVER['DOCUMENT_ROOT']);
 define('S', R.'/system');
+define('VER', 2.3);
 
 require_once(R.'/system/functions.php');
 
@@ -8,7 +9,7 @@ require_once(R.'/system/functions.php');
 <!DOCTYPE html>
 <html lang="ru-RU">
 <head>
-<title>Installing NomiCMS </title>
+<title>Installing NomiCMS <?php echo VER; ?></title>
 <meta name="viewport" content="width=device-width" />
 <link href="/design/styles/default/style.css" rel="stylesheet" type="text/css" />
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
@@ -69,8 +70,8 @@ if(isset($_GET['go'])){
 				    	echo "<div class='error'>[DEMO] Не удалось выполнить запрос: (" . $mysqli->errno . ") " . $mysqli->error . "</div>";
 					}
 				}
-				
-				foreach(array('forum', 'lib', 'zc') as $i) { 
+
+				foreach(array('forum', 'lib', 'zc') as $i) {
 					file_put_contents(R."/files/$i/000_NOMICMS_000.rar", NULL);
 				}
 			}

@@ -1,20 +1,35 @@
 <?php
-define('R', $_SERVER['DOCUMENT_ROOT']);
-define('S', R.'/system');
+define('ROOT', $_SERVER['DOCUMENT_ROOT']);
+define('R', ROOT);
+define('SYS', ROOT . '/system');
+define('S', ROOT . '/system');
+define('MODS', ROOT . '/modules');
 
-$sod = file_get_contents(S.'/db_config.php');
+// Путь к конфиг файлу
+$dbConfig = SYS . '/db_config.php';
 
-if (file_exists(S."/db_config.php") && !empty($sod)) {
-
-	if (file_exists(R."/install/index.php")) {
-		echo 'Удалите папку install';
-		exit();
-	}
-
-	require_once(R.'/system/kernel.php');
-	require_once(R.'/modules/index.php');
-} else {
+/**
+ * Ели файл конфиг найден и он пуст, либо не найден
+ * Перенаправить к установке
+ */
+if (file_exists($dbConfig) && empty(file_get_contents($dbConfig)) || ! file_exists($dbConfig)) {
 	header('location: /install/');
 }
+// Удалить переменную
+unset($dbConfig);
 
-?>
+/**
+ * Если система уже установлена, сообщить об этом
+ */
+/*
+if (file_exists(R."/install/index.php")) {
+	echo 'Удалите папку install';
+	exit();
+}
+*/
+
+// Подключить ядро
+require SYS . '/kernel.php';
+
+// Подключить файл модуля по умолчанию
+require MODS . '/main/src/index.php';

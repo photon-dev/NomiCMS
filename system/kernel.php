@@ -1,4 +1,7 @@
 <?php
+
+require SYS . '/db_config.php';
+require SYS . '/functions.php';
 require_once(R.'/system/db_config.php');
 require_once(R.'/system/functions.php');
 
