@@ -1,6 +1,4 @@
 <?php
-define('R', $_SERVER['DOCUMENT_ROOT']);
-
 require_once(R.'/system/db_config.php');
 require_once(R.'/system/functions.php');
 
@@ -35,7 +33,7 @@ if (User::aut()) {
 } else {
 
 	if ($db->n_r("select id from `guests` where `ip` = '".$ip."' limit 1")) {
-		$db->query("update `guests` set `browser` = '".$browser."', `time` = '".time()."' where `ip` = '".$ip."' ");	
+		$db->query("update `guests` set `browser` = '".$browser."', `time` = '".time()."' where `ip` = '".$ip."' ");
 	} else {
 		$db->query("insert into `guests` set `ip` = '".$ip."', `browser` = '".$browser."', `time` = '".time()."' ");
 	}
@@ -44,7 +42,7 @@ if (User::aut()) {
 
 $num = (User::settings('num') == null ? Core::config('num') : User::settings('num'));
 // Фикс для двух частых warning*ов //
-$page = (empty($_GET['page']) ? null : intval($_GET['page']));	
+$page = (empty($_GET['page']) ? null : intval($_GET['page']));
 $error = (empty($error) ? null : $error);
 
 

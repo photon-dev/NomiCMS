@@ -1,6 +1,6 @@
 ﻿<?php
 Class Tmp {
-	
+
 	public function header($title)
 	{
 		global $db, $gens;
@@ -28,7 +28,7 @@ Class Tmp {
 			self::ads(1);
 		}
 	}
-	
+
 	public static function div($name, $content)
 	{
 		echo '<div class="'.$name.'">'.$content.'</div>';
@@ -84,7 +84,7 @@ Class Tmp {
 		}
 	}
 
-	public function footer()
+	public static function footer()
 	{
 		global $gens, $db;
 		$theme = User::settings('theme');
