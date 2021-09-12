@@ -1,14 +1,14 @@
 <?php
 Class Language {
 	private static $lang = array();
-	
+
 	public static function config($var)
 	{
 		if (empty(self::$lang)) {
 			$lng = User::settings('language');
-			
-			if (file_exists(S.'/lang/'.$lng.'/lang.ini')) {
-				self::$lang = parse_ini_file(S.'/lang/'.$lng.'/lang.ini');
+
+			if (file_exists(SYS . '/lang/'.$lng.'/lang.ini')) {
+				self::$lang = parse_ini_file(SYS . '/lang/'.$lng.'/lang.ini');
 				return self::$lang[$var];
 			}
 		} else {

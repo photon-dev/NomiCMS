@@ -1,5 +1,5 @@
 <?php
-define('server', 'localhost');
-define('user', 'root');
-define('pass', '');
-define('db', 'old');
+define('SERVER', 'localhost');
+define('USER', 'root');
+define('PASS', '');
+define('BASE', 'old');

@@ -1,8 +1,6 @@
 <?php
 define('ROOT', $_SERVER['DOCUMENT_ROOT']);
-define('R', ROOT);
 define('SYS', ROOT . '/system');
-define('S', ROOT . '/system');
 define('MODS', ROOT . '/modules');
 
 // Путь к конфиг файлу

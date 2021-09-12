@@ -1,19 +1,18 @@
 <?php
 Class DB {
-	
+
 	public $db = NULL;
-	
+
 	public function __construct()
 	{
-		require_once(R.'/system/db_config.php');
-		$this->db=new mysqli(server, user, pass, db);
+		$this->db=new mysqli(SERVER, USER, PASS, BASE);
 
 		if($this->db->connect_errno)
 		{
 			echo 'Connect failed: Error connecting to MySQL database';
 			exit();
 		}
-		$this->db->set_charset('utf8mb4'); 
+		$this->db->set_charset('utf8mb4');
 	}
 
 	public function query($var)
@@ -53,6 +52,6 @@ Class DB {
 		$result=$this->query($var)->fetch_assoc();
 		return $result['count'];
 	}
-	
+
 }
 ?>

@@ -2,14 +2,15 @@
 
 require SYS . '/db_config.php';
 require SYS . '/functions.php';
-require_once(R.'/system/db_config.php');
-require_once(R.'/system/functions.php');
 
 spl_autoload_register(function($class){
 $file = __DIR__ . "/classes/{$class}.php";
 if (file_exists($file)) require_once "$file";
 	else die(error("Ошибка загрузки {$class} класса!"));
 });
+
+error_reporting(E_ALL);
+ini_set('display_errors', 'On');
 
 ob_start();
 session_start();

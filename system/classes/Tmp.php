@@ -7,8 +7,8 @@ Class Tmp {
 		$gens = microtime(true);
 		$theme = User::settings('theme');
 
-		if (file_exists(R.'/design/styles/'.$theme.'/header.php')) {
-			require_once(R.'/design/styles/'.$theme.'/header.php');
+		if (file_exists(ROOT . '/design/styles/'.$theme.'/header.php')) {
+			require_once(ROOT . '/design/styles/'.$theme.'/header.php');
 		} else {
 ?>
 <!DOCTYPE html>
@@ -88,8 +88,8 @@ Class Tmp {
 	{
 		global $gens, $db;
 		$theme = User::settings('theme');
-		if (file_exists(R.'/design/styles/'.$theme.'/footer.php')) {
-			require_once(R.'/design/styles/'.$theme.'/footer.php');
+		if (file_exists(ROOT . '/design/styles/'.$theme.'/footer.php')) {
+			require_once(ROOT . '/design/styles/'.$theme.'/footer.php');
 		} else {
 			$o=$db->fass_c("SELECT COUNT(*) as count FROM `users` WHERE `date_last_entry` > '".(time() - 360)."'");
 			$g=$db->fass_c("SELECT COUNT(*) as count FROM `guests` WHERE `time` > '".(time() - 600)."'");
