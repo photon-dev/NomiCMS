@@ -1,8 +1,4 @@
 <?php
-define('ROOT', $_SERVER['DOCUMENT_ROOT']);
-define('SYS', ROOT . '/system');
-
-require_once(ROOT . '/system/kernel.php');
 
 $tmp->header('online');
 $tmp->title('title', Language::config('online') . (User::level() == 4 ? '<span><a href="/online?guests">'.img('guests.png').'</a></span>' : NULL));

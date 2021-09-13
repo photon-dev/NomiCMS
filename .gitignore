@@ -1,4 +1,3 @@
-
 files/ava/*
 !files/ava/.htaccess
 !files/ava/no_ava.png

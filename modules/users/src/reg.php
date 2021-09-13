@@ -1,8 +1,4 @@
 <?php
-define('ROOT', $_SERVER['DOCUMENT_ROOT']);
-define('SYS', ROOT . '/system');
-
-require_once(ROOT . '/system/kernel.php');
 
 if(User::aut()){
 	go_exit();

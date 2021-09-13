@@ -1,8 +1,5 @@
 <?php
-define('ROOT', $_SERVER['DOCUMENT_ROOT']);
-define('SYS', ROOT . '/system');
 
-require_once(ROOT . '/system/kernel.php');
 $tmp->header('email');
 $tmp->title('title', Language::config('email_ttl'));
 User::panel();
