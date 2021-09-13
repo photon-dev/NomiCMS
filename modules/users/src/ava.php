@@ -11,7 +11,7 @@ if(!User::aut()){
 if (!empty($_POST['send'])) {
 	$maxsize = 2;
 	$whitelist = array('.jpg', '.jpeg', '.gif', '.png'); # Допустимые расширения
-	$dir = R.'/files/ava'; // Папка, в которую будут загружаться файлы
+	$dir = ROOT . '/files/ava'; // Папка, в которую будут загружаться файлы
 	$name = $_FILES['file']['name']; # Название файла
 	$ext = strtolower(strrchr($name, '.')); # Расширение файла
 	$size = $_FILES['file']['size']; # Вес файла

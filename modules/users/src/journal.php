@@ -27,7 +27,7 @@ $journal = $db->query("SELECT * FROM `journal` where `komy` = '".User::ID()."' O
 
 echo '<div class="notify">';
 
-while($j=$journal->fetch_assoc()) {
+while($j = $journal->fetch_assoc()) {
 	$s = explode('||', $j['message']);
 	echo '<a href="'.$j['url'].'">'.img(($j['readln'] ? 'notify_i.png' : 'notify_n.png')).' <span class="times">'.times($j['time']).'</span> '.nick_new($j['kto'], true).' <div> '.($s[1] ? Language::config($s[0]).': '.$s[1] : Language::config($s[0])).' </div></a>';
 

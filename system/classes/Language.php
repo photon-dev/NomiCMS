@@ -7,8 +7,8 @@ Class Language {
 		if (empty(self::$lang)) {
 			$lng = User::settings('language');
 
-			if (file_exists(SYS . '/lang/'.$lng.'/lang.ini')) {
-				self::$lang = parse_ini_file(SYS . '/lang/'.$lng.'/lang.ini');
+			if (file_exists(SYS . 'local/'.$lng.'/lang.ini')) {
+				self::$lang = parse_ini_file(SYS . 'local/'.$lng.'/lang.ini');
 				return self::$lang[$var];
 			}
 		} else {

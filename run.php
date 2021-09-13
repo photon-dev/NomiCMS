@@ -48,6 +48,12 @@ if ($router->run()) {
 	$path = MODS . $route['module'] . '/src/' . $route['src'];
 	if (file_exists($path . '.php')) {
 
+        // Если есть GET данные то распаковать их
+        if ($route['params']) {
+            extract($route['params']);
+        }
+
+        // Подключить файл модуля
 		require $path . '.php';
 
 	} else {

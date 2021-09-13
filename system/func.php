@@ -17,7 +17,7 @@ function out($var) {
 }
 
 function bbcode() {
-	require(ROOT . '/modules/main/src/bbcode.php');
+	require(ROOT . '/modules/main/view/bbcode.php');
 }
 
 function go_exit($url = '/') {

@@ -3,28 +3,96 @@
  * Маршруты модуля users
  */
 return [
-    // Faq
+    // Авторизация
     [
-        'url' => '/pages',
-        'module' => 'pages',
-        'src' => 'index'
+        'url' => '/login',
+        'module' => 'users',
+        'src' => 'login'
     ],
-    // Реклама
+    // Регистрация
     [
-        'url' => '/pages/ads',
-        'module' => 'pages',
-        'src' => 'ads'
+        'url' => '/reg',
+        'module' => 'users',
+        'src' => 'reg'
     ],
-    // ББ-коды
+    // Пользователи онлайн
     [
-        'url' => '/pages/bb_codes',
-        'module' => 'pages',
-        'src' => 'bbcodes'
+        'url' => '/online',
+        'module' => 'users',
+        'src' => 'online'
     ],
-    // Смайлы
+    // Выход из профиля
     [
-        'url' => '/pages/smile',
-        'module' => 'pages',
-        'src' => 'smiles'
+        'url' => '/exit',
+        'module' => 'users',
+        'src' => 'exit'
+    ],
+    // Восстановление
+    [
+        'url' => '/restore',
+        'module' => 'users',
+        'src' => 'restore'
+    ],
+    // Восстановление mail
+    [
+        'url' => '/email_manager',
+        'module' => 'users',
+        'src' => 'email'
+    ],
+    [
+        'url' => '/panel',
+        'module' => 'users',
+        'src' => 'panel'
+    ],
+    [
+        'url' => '/us{num}',
+        'module' => 'users',
+        'src' => 'profile',
+        'params' => [
+            'userId'
+        ]
+    ],
+    [
+        'url' => '/us{num}/otv{num}',
+        'module' => 'users',
+        'src' => 'profile',
+        'params' => [
+            'userId',
+            'otvId'
+        ]
+    ],
+    [
+        'url' => '/us{num}/delete{num}',
+        'module' => 'users',
+        'src' => 'delete',
+        'params' => [
+            'userId',
+            'wallId'
+        ]
+    ],
+    [
+        'url' => '/settings',
+        'module' => 'users',
+        'src' => 'settings'
+    ],
+    [
+        'url' => '/ava',
+        'module' => 'users',
+        'src' => 'ava'
+    ],
+    [
+        'url' => '/people',
+        'module' => 'users',
+        'src' => 'people'
+    ],
+    [
+        'url' => '/journal',
+        'module' => 'users',
+        'src' => 'journal'
+    ],
+    [
+        'url' => '/edit',
+        'module' => 'users',
+        'src' => 'edit'
     ]
 ];

@@ -1,7 +1,10 @@
 <?php
 
+$userId = $userId ?? 0;
+//$otvId = $otvId ?? 0;
+
 $tmp->header('user');
-$idu=my_int($db->guard($_GET['id']));
+$idu=my_int($db->guard($userId));
 $u=$db->fass("select * from `users` where `id` = '".$idu."'");
 
 if (!$u) $tmp->show_error();

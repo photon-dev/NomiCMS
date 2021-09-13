@@ -1,6 +1,6 @@
 <?php
 Class User {
-	
+
 	private static $id = false;
 	private static $settings = array();
 	private static $profile = array();
@@ -28,21 +28,22 @@ Class User {
 			} else {
 				return false;
 			}
-			
+
 		} else {
 			return false;
 		}
-		
+
 	}
-	
+
 	public static function ID()
 	{
 		return self::$id;
 	}
-	
-	public static function settings($var, $uid=null)
+
+	public static function settings($var, $uid = null)
 	{
 		global $db;
+
 		if (self::aut()) {
 
 			if (!empty($uid)) {
@@ -60,7 +61,7 @@ Class User {
 			return Core::config($var);
 		}
 	}
-	
+
 	public static function profile($var)
 	{
 		global $db;
@@ -71,9 +72,9 @@ Class User {
 			} else {
 				return self::$profile[$var];
 			}
-		}	
+		}
 	}
-	
+
 	public static function level()
 	{
 		return self::profile('level');
@@ -82,7 +83,7 @@ Class User {
 	public static function banned($uid, $only_check=false)
 	{
 		global $db;
-		$ban=$db->fass("select * from `ban` where `komy` = '".$uid."' and `time_end` > '".time()."' LIMIT 1");	
+		$ban=$db->fass("select * from `ban` where `komy` = '".$uid."' and `time_end` > '".time()."' LIMIT 1");
 		if ($only_check) return $ban;
 		if ($ban) {
 			Tmp::div('error', Language::config('user_baned'));
@@ -95,7 +96,7 @@ Class User {
 		global $db;
 		$db->query("INSERT INTO `journal` set `kto` = '".self::ID()."', `komy` = '".$komy."', `message` = '".$mess."', `url`= '".$url."', `time` = '".time()."', `readln` = '0' ");
 	}
-	
+
 	public static function panel()
 	{
 		global $db;
@@ -106,7 +107,7 @@ Class User {
 
 			echo '<div class="panel flex">';
 			if (self::level() >= 2) echo '<a class="apanel" href="/apanel">'.img('admin.png').'</a>';
-			
+
 			echo '<a href="/panel">'.img('panel.png').($journal || $friends ? NULL : ' &nbsp;'.Language::config('panel')).'</a>';
 			echo '<a href="/dialogs">'.img('mail.png').($journal || $friends ? NULL : ' &nbsp;'.Language::config('dialogs')).' '.($mes > 0 ? '<span>+'.$mes.'</span>' : NULL).'</a>';
 
@@ -124,7 +125,7 @@ Class User {
 			}
 		}
 	}
-	
+
 
 }
 ?>
