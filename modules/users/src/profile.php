@@ -63,7 +63,7 @@ echo '<a href="/forum/utopic'.$idu.'">'.img('forum.png').' '.Language::config('t
 
 if (User::profile('level') >=3) {
 	if (User::ID() != $u['id']) {
-		echo '<a href="/apanel/ban'.$u['id'].'">'.img('add_ban.png').' '.Language::config('add_ban').'</a><a href="/apanel/uedit'.$u['id'].'">'.img('edit_profile.png').' '.Language::config('edit_profile').'</a>';
+		echo '<a href="/apanel/ban/'.$u['id'].'">'.img('add_ban.png').' '.Language::config('add_ban').'</a><a href="/apanel/uedit'.$u['id'].'">'.img('edit_profile.png').' '.Language::config('edit_profile').'</a>';
 	}
 }
 

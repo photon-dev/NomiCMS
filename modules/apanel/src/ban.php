@@ -2,6 +2,8 @@
 
 $userId = $userId = false;
 
+var_dump($userId);
+
 $tmp->header('add_ban');
 $tmp->title('title', Language::config('add_ban'));
 

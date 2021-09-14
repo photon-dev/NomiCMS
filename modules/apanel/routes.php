@@ -37,4 +37,27 @@ return [
         'module' => 'apanel',
         'src' => 'content'
     ],
+    // Управление банами
+    [
+        'url' => '/apanel/ban/{num}',
+        'module' => 'apanel',
+        'src' => 'ban',
+        'params' => [
+            'userId'
+        ]
+    ],
+    [
+        'url' => '/apanel/ban_list',
+        'module' => 'apanel',
+        'src' => 'ban_list'
+    ],
+    [
+        'url' => '/apanel/ban_list/{num}/{str}',
+        'module' => 'apanel',
+        'src' => 'ban_list',
+        'params' => [
+            'userId',
+            'action'
+        ]
+    ],
 ];
