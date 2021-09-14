@@ -1,18 +1,18 @@
 <?php
 /**
- * Маршруты модуля achat
+ * Маршруты модуля admin_chat
  */
 return [
     // Главная
     [
         'url' => '/apanel/chat',
-        'module' => 'apanel',
+        'module' => 'achat',
         'src' => 'index'
     ],
     // Обзор поста админ-чата
     [
         'url' => '/apanel/chat/{num}',
-        'module' => 'apanel',
+        'module' => 'achat',
         'src' => 'news',
         'params' => [
             'postId'
@@ -21,10 +21,10 @@ return [
     // Действия с постами
     [
         'url' => '/apanel/chat/{num}/{str}',
-        'module' => 'apanel',
-        'src' => 'news',
+        'module' => 'achat',
+        'src' => 'post',
         'params' => [
-            'newsId',
+            'postId',
             'action'
         ]
     ]

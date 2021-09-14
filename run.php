@@ -38,7 +38,7 @@ if (file_exists(R."/install/index.php")) {
 // Получить маршруты
 $routes = require_once SYS . 'config/routes.php';
 $router = new Routing($routes());
-unset($routes);
+//unset($routes);
 
 // Запустить маршрутизатор
 if ($router->run()) {
