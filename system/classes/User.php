@@ -87,7 +87,7 @@ Class User {
 		if ($only_check) return $ban;
 		if ($ban) {
 			Tmp::div('error', Language::config('user_baned'));
-			Tmp::div('main', Language::config('kto_add_ban').': '.nick_new($ban['kto']).'<br>'.Language::config('prich').': '.$ban['message'].'<br> '.Language::config('osvob').': '.times($ban['time_end']));
+			Tmp::div('main', Language::config('kto_issue_ban').': '.nick_new($ban['kto']).'<br>'.Language::config('prich').': '.$ban['message'].'<br> '.Language::config('osvob').': '.times($ban['time_end']));
 		}
 	}
 

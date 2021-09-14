@@ -44,7 +44,7 @@ return [
         'src' => 'ban',
         'params' => [
             'userId'
-        ]
+    ]
     ],
     [
         'url' => '/apanel/ban_list',

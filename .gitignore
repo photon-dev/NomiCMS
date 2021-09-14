@@ -19,5 +19,8 @@ files/zc/*
 files/zc/screen/*
 !files/zc/screen/.htaccess
 
+modules/users_ban/*
+htaccess.txt
+
 info.txt
 robots.txt

@@ -1,5 +1,8 @@
 <?php
 
+$userId = $userId ?? false;
+$action = $action ?? false;
+
 $tmp->header('ban');
 $tmp->title('title', Language::config('ban'));
 User::panel();
@@ -17,10 +20,12 @@ $start=$page*$num-$num;
 
 $n=$db->query("select * from `ban` ORDER BY time DESC LIMIT ".$start.", ".$num."");
 
-if(isset($_GET['del'])) {
-	$del = $db->guard($_GET['del']);
+if($action == 'del') {
+	$del = $db->guard($userId);
+
 	if(User::profile('level') >=3)
 		$db->query("DELETE FROM `ban` where `id` ='".$del."'");
+
 	header('location: /apanel/ban_list');
 }
 
@@ -28,7 +33,7 @@ if(!$posts) {
 	$tmp->div('main', Language::config('no_ban'));
 } else {
 	while($ban=$n->fetch_assoc()) {
-   		echo '<hr><div class="main">'.nick_new($ban['kto']).'забанил &nbsp;'.nick_new($ban['komy']).' '.((User::profile('level') >=3) ? ' <a class="de" href="/apanel/ban_list/del'.$ban['id'].'">'.img('delete.png').'</a>' : NULL).'<br>Бан выдан: '.times($ban['time']).'<br>Истекает: '.((time() >= $ban['time_end']) ? '-' : times($ban['time_end'])).'<br>Причина: '.bb(smile($ban['message'])).'</div>';
+   		echo '<hr><div class="main">'.nick_new($ban['kto']).'забанил &nbsp;'.nick_new($ban['komy']).' '.((User::profile('level') >=3) ? ' <a class="de" href="/apanel/ban_list/'.$ban['id'].'/del">'.img('delete.png').'</a>' : NULL).'<br>Бан выдан: '.times($ban['time']).'<br>Истекает: '.((time() >= $ban['time_end']) ? '-' : times($ban['time_end'])).'<br>Причина: '.bb(smile($ban['message'])).'</div>';
 	}
 }
 

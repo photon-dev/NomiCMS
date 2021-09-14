@@ -1,11 +1,9 @@
 <?php
 
-$userId = $userId = false;
+$userId = $userId ?? false;
 
-var_dump($userId);
-
-$tmp->header('add_ban');
-$tmp->title('title', Language::config('add_ban'));
+$tmp->header('issue_ban');
+$tmp->title('title', Language::config('issue_ban'));
 
 $id = my_int($userId);
 User::panel();
@@ -49,7 +47,7 @@ if (User::level()>=2) {
 </select><br/>
 
 <input type="hidden" name="S_Code" value="'.Security::rand_str().'">
-<input type="submit" name="submit" value="'.Language::config('add_ban').'" /></form>');
+<input type="submit" name="submit" value="'.Language::config('issue_ban').'" /></form>');
 
 	}
 } else {

@@ -1,7 +1,6 @@
 <?php
 
 $userId = $userId ?? 0;
-//$otvId = $otvId ?? 0;
 
 $tmp->header('user');
 $idu=my_int($db->guard($userId));
@@ -63,7 +62,7 @@ echo '<a href="/forum/utopic'.$idu.'">'.img('forum.png').' '.Language::config('t
 
 if (User::profile('level') >=3) {
 	if (User::ID() != $u['id']) {
-		echo '<a href="/apanel/ban/'.$u['id'].'">'.img('add_ban.png').' '.Language::config('add_ban').'</a><a href="/apanel/uedit'.$u['id'].'">'.img('edit_profile.png').' '.Language::config('edit_profile').'</a>';
+		echo '<a href="/apanel/ban/'.$u['id'].'">'.img('add_ban.png').' '.Language::config('issue_ban').'</a><a href="/apanel/uedit'.$u['id'].'">'.img('edit_profile.png').' '.Language::config('edit_profile').'</a>';
 	}
 }
 
