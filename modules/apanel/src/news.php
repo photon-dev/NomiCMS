@@ -1,8 +1,7 @@
 <?php
-define('ROOT', $_SERVER['DOCUMENT_ROOT']);
-define('SYS', ROOT . '/system');
 
-require_once(ROOT . '/system/kernel.php');
+$newsId = $newsId ?? false;
+$action = $action ?? false;
 
 $tmp->header('news');
 $tmp->title('title', Language::config('news'));
@@ -21,15 +20,15 @@ $start=$page*$num-$num;
 
 $n=$db->query("select * from `news` ORDER BY time DESC LIMIT ".$start.", ".$num."");
 
-if(isset($_GET['del'])) {
-	$del = $db->guard($_GET['del']);
+if($action == 'del') {
+	$del = $db->guard($newsId);
 	if(User::profile('level') >=3)
 		$db->query("DELETE FROM `news` where `id` ='".$del."'");
 	header('location: /apanel/news');
 }
 
-if(isset($_GET['edit'])){
-	$id_n = isset($_GET['edit']) ? my_int($_GET['edit']) : null;
+if($action == 'edit'){
+	$id_n = my_int($newsId);
 	$p = $db->fass("SELECT * FROM `news` where `id` = '".$id_n."' ");
 
 	if (!$p) $tmp->show_error();
@@ -91,7 +90,7 @@ if(!$posts){
 	$tmp->div('main', Language::config('no_news'));
 } else {
 	while($news=$n->fetch_assoc()) {
-		echo '<hr><div class="news"><div>'.nick_new($news['kto']).'<span> '.((User::level() >=3) ? '<a class="mkey" href="./news/edit'.$news['id'].'">'.img('ed.png').'</a>' : NULL) .'</span>'.((User::profile('level') >=3) ? ' <a class="de" href="/apanel/news/del'.$news['id'].'">'.img('delete.png').'</a>' : NULL).'<span class="times">'. times($news['time']).'</span><br><span class="news_title">'. $news['name'].'</span>' .bb(smile($news['message'])).'</div></div>';
+		echo '<hr><div class="news"><div>'.nick_new($news['kto']).'<span> '.((User::level() >=3) ? '<a class="mkey" href="./news/'.$news['id'].'/edit">'.img('ed.png').'</a>' : NULL) .'</span>'.((User::profile('level') >=3) ? ' <a class="de" href="/apanel/news/'.$news['id'].'/del">'.img('delete.png').'</a>' : NULL).'<span class="times">'. times($news['time']).'</span><br><span class="news_title">'. $news['name'].'</span>' .bb(smile($news['message'])).'</div></div>';
 	}
 
 }

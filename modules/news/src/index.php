@@ -1,8 +1,4 @@
 <?php
-define('ROOT', $_SERVER['DOCUMENT_ROOT']);
-define('SYS', ROOT . '/system');
-
-require_once(ROOT . '/system/kernel.php');
 
 $tmp->header('news');
 $tmp->title('title', Language::config('news'));
@@ -26,7 +22,7 @@ $news= $db->query("SELECT * FROM `news` ORDER BY id DESC LIMIT ".$start.", ".$nu
 
 while($n=$news->fetch_assoc()) {
 	$count=$db->fass_c("SELECT COUNT(*) as count FROM `news_comments` where `news` = '".$n['id']."'");
-	echo '<hr><div class="news"><div><span class="news_title">'.bb(smile($n['name'])).' <span class="nt">'.times($n['time']).'</span></span>'.bb(smile($n['message'])).'<br/></div></div><div class="menu"><a href="/news/comment'.$n['id'].'">'.img('com.png').' '.Language::config('comments').' <span>'.$count.'</span></a></div>';
+	echo '<hr><div class="news"><div><span class="news_title">'.bb(smile($n['name'])).' <span class="nt">'.times($n['time']).'</span></span>'.bb(smile($n['message'])).'<br/></div></div><div class="menu"><a href="/news/'.$n['id'].'/comments">'.img('com.png').' '.Language::config('comments').' <span>'.$count.'</span></a></div>';
 }
 
 page('?');

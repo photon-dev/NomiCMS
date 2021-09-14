@@ -33,17 +33,41 @@ return [
         'module' => 'users',
         'src' => 'restore'
     ],
-    // Восстановление mail
+    // Активация email
     [
         'url' => '/email_manager',
         'module' => 'users',
         'src' => 'email'
     ],
     [
+        'url' => '/email',
+        'module' => 'users',
+        'src' => 'mail'
+    ],
+    [
+        'url' => '/email/{str}',
+        'module' => 'users',
+        'src' => 'mail',
+        'params' => [
+            'action'
+        ]
+    ],
+    [
+        'url' => '/email/{str}/{str}',
+        'module' => 'users',
+        'src' => 'mail',
+        'params' => [
+            'action',
+            'code'
+        ]
+    ],
+    // Кабинет
+    [
         'url' => '/panel',
         'module' => 'users',
         'src' => 'panel'
     ],
+    // Пользователь
     [
         'url' => '/us{num}',
         'module' => 'users',
@@ -70,11 +94,13 @@ return [
             'wallId'
         ]
     ],
+    // Настройки пользователя
     [
         'url' => '/settings',
         'module' => 'users',
         'src' => 'settings'
     ],
+    // Загрузка аватара
     [
         'url' => '/ava',
         'module' => 'users',

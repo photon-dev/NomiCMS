@@ -1,13 +1,11 @@
 <?php
-define('ROOT', $_SERVER['DOCUMENT_ROOT']);
-define('SYS', ROOT . '/system');
 
-require_once(ROOT . '/system/kernel.php');
+$userId = $userId = false;
 
 $tmp->header('add_ban');
 $tmp->title('title', Language::config('add_ban'));
 
-$id = my_int($_GET['id']);
+$id = my_int($userId);
 User::panel();
 
 if (User::level()>=2) {

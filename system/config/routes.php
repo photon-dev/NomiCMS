@@ -2,15 +2,15 @@
 // Добавление зависимостей в контейнер
 return function () {
     // Инициализировать класс Json
-    $json = Json::create(TEMP, 'config/routes');
+    //$json = Json::create(TEMP, 'config/routes');
 
     // Проверяем создан ли кэш маршрутов
     // Если нет тогда кодом ниже парсим новый кэш
-    if ($json->has()) {
-        $routes = $json->open(true);
+    //if ($json->has()) {
+        //$routes = $json->open(true);
 
-        return $routes;
-    }
+        //return $routes;
+    //}
 
     // Список маршрутов
     $routes = [];
@@ -39,7 +39,7 @@ return function () {
     }
 
     // Создать кэш
-    $json->create($routes);
+    //$json->create($routes);
 
     return $routes;
 };

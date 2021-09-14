@@ -1,8 +1,4 @@
 <?php
-define('ROOT', $_SERVER['DOCUMENT_ROOT']);
-define('SYS', ROOT . '/system');
-
-require_once(ROOT . '/system/kernel.php');
 
 $tmp->header('settings');
 $tmp->title('title', Language::config('settings'));
@@ -76,11 +72,11 @@ $a=$db->fass("select * from `settings` ");
 echo '<div class="main"><form method="POST" action="">
 '.Language::config('language').': <br/><select name="language" size="1">';
 
-$lang_dir = opendir(S .'/lang');
+$lang_dir = opendir(SYS .'/local');
 	while ($lang = readdir($lang_dir)) {
 		if ($lang == '.' || $lang == '..')
 			continue;
-	$langs = parse_ini_file(S .'/lang/'.$lang.'/lang.ini');
+	$langs = parse_ini_file(SYS .'/local/'.$lang.'/lang.ini');
 	echo '<option value="'. $lang .'" '.($a['language'] == $lang ? 'selected="selected"':NULL).'>'. $langs['lang_name'] .'</option>'; //выбираем язык
 }
 
@@ -88,11 +84,11 @@ echo '</select><br/>'.Language::config('num').':<br/>
 <input type="number" name="num" value="'.out($a['num']).'" style="width: 50px" /><br/>
 '.Language::config('theme').': <br/><select name="theme" size="1">';
 
-$themes_dir = opendir(R .'/design/styles');
+$themes_dir = opendir(ROOT .'/design/styles');
 	while ($themes = readdir($themes_dir)) {
 		if ($themes == '.' || $themes == '..')
 			continue;
-	$thems = parse_ini_file(R .'/design/styles/'.$themes.'/config.ini');
+	$thems = parse_ini_file(ROOT .'/design/styles/'.$themes.'/config.ini');
 	echo '<option value="'. $themes .'" '. ($a['theme'] == $themes ? 'selected="selected"':NULL) .'>'. $thems['name'] .'</option>'; //выбираем тему
 }
 
@@ -110,7 +106,7 @@ Description: <br/>
 <input type="hidden" name="S_Code" value="'.Security::rand_str().'">
 <input type="submit" name="submit" value="'.Language::config('save').'" /></form></div>';
 
-if (file_exists(R.'/__API-SMTP__'))
+if (file_exists(ROOT . '/__API-SMTP__'))
 	$tmp->div('menu', '<hr><a href="?smtp">'.img('send_mail.png').' '.Language::config('settings_smtp').' </a>');
 
 $tmp->back('apanel');

@@ -1,12 +1,14 @@
 <?php
 
+$action = $action ?? NULL;
+
 $tmp->header('email');
 $tmp->title('title', Language::config('email_ttl'));
 User::panel();
 
 
 if(!User::aut() or User::profile('email') != null and User::profile('email_c') == 1){
-	go_exit();
+	//go_exit();
 }
 
 $act = (empty($_GET['act']) ? null : htmlspecialchars($_GET['act']));
