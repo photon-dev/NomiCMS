@@ -5,10 +5,11 @@
   "homepage": "http://nomicms.ru",
   "license": "MIT License",
   "keywords": [
-    "nomicms",
-    "mysql",
+    "johncms",
+    "cms",
     "php",
-    "cms"
+    "mobile",
+    "web"
   ],
   "repository": {
     "type": "git",

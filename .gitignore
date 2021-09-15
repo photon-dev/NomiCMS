@@ -1,5 +1,5 @@
 # Root dir ignores
-# database/*
+database/*
 
 # System dir ignores
 system/Apps/*

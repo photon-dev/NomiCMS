@@ -134,8 +134,8 @@ class Autoload
 
 // Установить список дополнительных файлов
 Autoload::setListFiles([
-    'app/consts',
-    'app/heplers'
+    'system/consts',
+    'system/heplers'
 ]);
 
 // Иницилизировать загрузчик
