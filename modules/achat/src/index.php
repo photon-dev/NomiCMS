@@ -1,15 +1,16 @@
 <?php
 
+// Доступ только модераторам, и выше
 if (User::level() < 2) {
-	 go_exit();
+	go_exit();
 }
 
+// Проверка на id_поста
 $postId = $postId ?? false;
-
-$tmp->header('admin_chat');
 
 $posts = $db->fass_c("SELECT COUNT(*) as count FROM `admin_chat`");
 
+$tmp->header('admin_chat');
 $tmp->title('title', Language::config('admin_chat'). ' ('.$posts.')');
 User::panel();
 

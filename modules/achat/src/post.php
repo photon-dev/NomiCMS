@@ -8,27 +8,20 @@ $go = (User::level() < 2) ? '/' : '/apanel/chat';
 
 // Удалить сообщение
 if ($action == 'del' && User::level() >= 3) {
-    $id = $db->guard($postId);
+    $postId = $db->guard($postId);
+    $db->query("DELETE FROM `admin_chat` where `id` ='" . $postId . "'");
 
-    $result = $db->query('SELECT * FROM admin_chat where id = "' . $id. '"');
-
-    if ($result->num_rows > 0) {
-        $db->query("DELETE FROM `admin_chat` where `id` ='".$id."'");
-
-        go_exit('/apanel/chat');
-    }
-
-    //go_exit('/apanel/chat');
-    exit;
+    go_exit('/apanel/chat');
 }
 
-// Удалить сообщение, только для
-if ($action == 'reply' && User::level() >= 2) {
+// Ответить сообщение
+if ($action == 'reply') {
     $tmp->header('admin_chat');
     $tmp->title('title', Language::config('admin_chat'));
+    User::panel();
 
-    $o = $db->guard($postId);
-    $ot = $db->fass("SELECT * FROM `admin_chat` where `id` = '".$o."'");
+    $postId = $db->guard($postId);
+    $ot = $db->fass("SELECT * FROM `admin_chat` where `id` = '" . $postId . "'");
 
     if($ot['kto'] != User::ID() && !empty($ot)) {
 
@@ -38,17 +31,17 @@ if ($action == 'reply' && User::level() >= 2) {
             if(empty($message) || mb_strlen($_POST['messages'], 'UTF-8')<2) $error .= Language::config('no_message');
 
             if(!isset($error)) {
-                $db->query("INSERT INTO `admin_chat` set `kto` = '".User::ID()."', `message` = '[rep]".nickname($ot['kto'])."[/rep] ".$message."', `time` = '".time()."' ");
+                $db->query("INSERT INTO `admin_chat` set `kto` = '" . User::ID() . "', `message` = '[rep]" . nickname($ot['kto']) . "[/rep] " . $message . "', `time` = '" . time() . "' ");
                 $lid = $db->insert_id();
 
-                User::new_notify($ot['kto'], 'rep_admin_chat', '/apanel/chat/'.$lid);
+                User::new_notify($ot['kto'], 'rep_admin_chat', '/apanel/chat/' . $lid);
 
                 $db->query("UPDATE `users` set `money` = money + 5 where `id` = '".User::ID()."'");
                 header('location: /apanel/chat');
             }
         }
 
-        $tmp->div('messages', '<div><br />'.bb(smile($ot['message'])).'</div><hr>' );
+        $tmp->div('messages', '<div>' . Language::config('message') . ':<br />' . bb(smile($ot['message'])) . '</div><hr>' );
 
         bbcode();
         error($error);
