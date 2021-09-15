@@ -4,18 +4,26 @@
 $postId = $postId ?? false;
 $action = $action ?? false;
 
+$go = (User::level() < 2) ? '/' : '/apanel/chat';
+
 // Удалить сообщение
 if ($action == 'del' && User::level() >= 3) {
     $id = $db->guard($postId);
 
-    $db->query("DELETE FROM `admin_chat` where `id` ='".$id."'");
+    $result = $db->query('SELECT * FROM admin_chat where id = "' . $id. '"');
 
-    header('location: /apanel/chat');
+    if ($result->num_rows > 0) {
+        $db->query("DELETE FROM `admin_chat` where `id` ='".$id."'");
+
+        go_exit('/apanel/chat');
+    }
+
+    //go_exit('/apanel/chat');
     exit;
 }
 
 // Удалить сообщение, только для
-if ($action == 'otv' && User::level() >= 3) {
+if ($action == 'reply' && User::level() >= 2) {
     $tmp->header('admin_chat');
     $tmp->title('title', Language::config('admin_chat'));
 
@@ -33,7 +41,7 @@ if ($action == 'otv' && User::level() >= 3) {
                 $db->query("INSERT INTO `admin_chat` set `kto` = '".User::ID()."', `message` = '[rep]".nickname($ot['kto'])."[/rep] ".$message."', `time` = '".time()."' ");
                 $lid = $db->insert_id();
 
-                User::new_notify($ot['kto'], 'rep_admin_chat', '/apanel/admin_chat/'.$lid);
+                User::new_notify($ot['kto'], 'rep_admin_chat', '/apanel/chat/'.$lid);
 
                 $db->query("UPDATE `users` set `money` = money + 5 where `id` = '".User::ID()."'");
                 header('location: /apanel/chat');
@@ -54,4 +62,4 @@ if ($action == 'otv' && User::level() >= 3) {
     $tmp->footer();
 }
 
-go_exit();
+go_exit($go);

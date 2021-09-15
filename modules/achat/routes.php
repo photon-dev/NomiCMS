@@ -13,7 +13,7 @@ return [
     [
         'url' => '/apanel/chat/{num}',
         'module' => 'achat',
-        'src' => 'news',
+        'src' => 'index',
         'params' => [
             'postId'
         ]

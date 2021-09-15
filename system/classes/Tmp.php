@@ -18,12 +18,12 @@ Class Tmp {
 <meta name="viewport" content="width=device-width" />
 <? echo (Core::config('description') ? '<meta name="description" content="'.Core::config('description').'" />' : NULL); ?>
 <? echo (Core::config('keywords') ? '<meta name="keywords" content="'.Core::config('keywords').'" />' : NULL); ?>
-<link rel="stylesheet" href="/design/styles/<? echo $theme; ?>/style.css" />
+<link rel="stylesheet" href="/design/styles/<? echo $theme; ?>/style.css?2.3" />
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600" rel="stylesheet">
 <link rel="shortcut icon" href="/design/styles/<? echo $theme; ?>/favicon.ico" type="image/x-icon" />
 </head>
 <body>
-<div class="logo"><a href="/"><? echo img('logo.png') ?></a></div>
+<div class="logo"><a href="/" title="Главная старница"><? echo img('nomicms.svg') ?></a></div>
 <?
 			self::ads(1);
 		}

@@ -39,7 +39,8 @@ function smile() {
 <a onclick="tag('[url=http://]', '[/url]')"><img src="/design/images/bb/l.png" alt="*"></a>
 <a onclick="tag('[img]', '[/img]')"><img src="/design/images/bb/img.png" alt="*"></a>
 <a onclick="tag('[cit]', '[/cit]')"><img src="/design/images/bb/q.png" alt="*"></a>
+<a onclick="tag('[youtube]', '[/youtube]')"><img src="/design/images/bb/yt.png" alt="*"></a>
 </div>
 <div id="smile"><hr>
-<? smile(none, true); ?>
+<? smile('', true); ?>
 </div>

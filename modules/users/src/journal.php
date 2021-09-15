@@ -5,13 +5,13 @@ $tmp->title('title', Language::config('journal'));
 
 User::panel();
 
-if(!User::aut()){
+if(!User::aut()) {
 	go_exit();
 }
 
 $posts=$db->fass_c("SELECT COUNT(*) as count FROM `journal` where `komy` = '".User::ID()."'");
 
-if($posts==0){
+if($posts == 0) {
    $tmp->div('main', Language::config('no_journal'));
    $tmp->footer();
 }

@@ -173,7 +173,10 @@ function page($url) {
 }
 
 function bb($mes) {
+
     $mes = stripslashes($mes);
+	$mes = Bbcode::code($mes);
+	/*
 	$mes = preg_replace('#\[b\](.+?)\[/b\]#si', '<b>\1</b>', $mes);
     $mes = preg_replace('#\[i\](.+?)\[\/i\]#si', '<i>\1</i>', $mes);
     $mes = preg_replace('#\[u\](.+?)\[\/u\]#si', '<u>\1</u>', $mes);
@@ -191,11 +194,11 @@ function bb($mes) {
 
 	$mes = preg_replace("~(^|\s|-|:| |\()(http(s?)://|(www\.))((\S{25})(\S{5,})(\S{15})([^\<\s.,>)\];'\"!?]))~i", "\\1<a class=\"link_visual\" target=\"_blank\" href=\"http\\3://\\4\\5\">\\4\\6...\\8\\9</a>", $mes);
     $mes = preg_replace("~(^|\s|-|:|\(| |\xAB)(http(s?)://|(www\.))((\S+)([^\<\s.,>)\];'\"!?]))~i", "\\1<a class=\"link_visual\" target=\"_blank\" href=\"http\\3://\\4\\5\">\\4\\5</a>", $mes);
-
+	*/
     return nl2br($mes);
 }
 
-function smile($text, $show=false) {
+function smile($text, $show = false) {
 	$smile_dir = '/design/smile/'; // папка со смайликами
 	$smile_array = array(
 			':-)' => '<img src="' . $smile_dir . 'smile.png" alt="*" />',
