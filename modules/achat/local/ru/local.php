@@ -5,5 +5,5 @@ return [
     'message'       => 'Сообщение',
     'placeholder'   => 'Введите сообщение',
     'send'          => 'Отправить',
-    'no_messages'   => 'Чат пуст'
+    'no_messages'   => 'Нет сообщений'
 ];

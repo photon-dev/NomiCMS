@@ -9,7 +9,7 @@ return [
         'module' => 'achat',
         'src' => 'index'
     ],
-    // Обзор поста админ-чата
+    // Обзор поста
     [
         'url' => '/apanel/chat/{num}',
         'module' => 'achat',
