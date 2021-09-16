@@ -1,5 +1,5 @@
 --
--- Удаление таблицы `news`
+-- Удаление таблицы `news_comments`
 --
 
 DROP TABLE IF EXISTS `news_comments`;
@@ -8,7 +8,6 @@ DROP TABLE IF EXISTS `news_comments`;
 -- Структура таблицы `news_comments`
 --
 
-DROP TABLE IF EXISTS `news_comments`;
 CREATE TABLE IF NOT EXISTS `news_comments` (
     `uid` int(10) unsigned NOT NULL,
     `news_uid` int(10) unsigned NOT NULL,

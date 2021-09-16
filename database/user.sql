@@ -11,22 +11,24 @@ DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE IF NOT EXISTS `user` (
     `uid` int(10) unsigned NOT NULL,
-    `login` varchar(32) NOT NULL,
-    `password` varchar(60) NOT NULL,
-    `level` enum('1','2','3','4') NOT NULL DEFAULT '1',
-    `email` varchar(128) NOT NULL DEFAULT '',
-    `activ` enum('off','wait','on') NOT NULL DEFAULT 'off',
-    `ip` int(10) NOT NULL,
-    `date_signup` int(10) NOT NULL,
-    `date_entry` int(10) NOT NULL,
-    `money` mediumint(8) unsigned NOT NULL DEFAULT '100',
+    `login` varchar(32) NOT NULL, -- Логин
+    `password` varchar(60) NOT NULL, -- Пароль
+    `level` enum('1','2','3','4') NOT NULL DEFAULT '1', -- Уровень пользователя
+    `name` varchar(32) NOT NULL  DEFAULT '', -- Имя
+    `first_name` varchar(64) NOT NULL DEFAULT '', -- Фамилия
+    `gender` enum('male','female') NOT NULL DEFAULT 'male', -- Пол
+    `country` varchar(64) NOT NULL DEFAULT '', -- Страна
+    `city` varchar(32) NOT NULL DEFAULT '', -- Город
+    `about` varchar(256) NOT NULL DEFAULT '', -- Обо мне
+    `coins` mediumint(8) unsigned NOT NULL DEFAULT '100', -- Монеты
     `avatar` varchar(128) NOT NULL DEFAULT 'none.jpg',
-    `name` varchar(32) NOT NULL DEFAULT '',
-    `surname` varchar(64) NOT NULL DEFAULT '',
-    `sex` enum('male','female') NOT NULL DEFAULT 'male',
-    `country` varchar(255) NOT NULL DEFAULT '',
-    `city` varchar(255) NOT NULL DEFAULT '',
-    `about` varchar(255) NOT NULL DEFAULT ''
+    `tg` varchar(32) NOT NULL DEFAULT '', -- Телеграмм
+    `ip` int(10) NOT NULL,
+    `email` varchar(128) NOT NULL DEFAULT '',
+    `email_c` enum('off','wait','on') NOT NULL DEFAULT 'off',
+    `browser` varchar(255) NOT NULL DEFAULT '',
+    `date_signup` int(10) NOT NULL,
+    `date_entry` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_general_ci AUTO_INCREMENT=3 COMMENT='Пользователь';
 
 --

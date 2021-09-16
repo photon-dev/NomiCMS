@@ -19,7 +19,7 @@ use Packages\User\Component\User;
 class Themes
 {
     // Полный путь
-    protected $path = WEBSITE . 'themes/';
+    protected $path = WEB . 'themes/';
 
     // Тема оформления
     protected $theme = 'custom';

@@ -108,8 +108,8 @@ class View extends Template
 
         $name = $this->container->get('config')::load($route['package'] . '/config/package', PACKAGE)['name'];
         //$settings = $this->container->get('config')::get($route['package']);
-        dd('sdsdsds');
-        dd($settings);
+        // dd('sdsdsds');
+        //dd($settings);
     }
 
     // Рендерить шаблон

@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS `news`;
 CREATE TABLE IF NOT EXISTS `news` (
     `uid` int(10) unsigned NOT NULL,
     `user_uid` int(10) unsigned NOT NULL,
-    `name` varchar(255) NOT NULL,
+    `name` varchar(256) NOT NULL,
     `message` text NOT NULL,
     `date_write` int(10) NOT NULL,
     `date_edit` int(10) DEFAULT NOT NULL
@@ -22,8 +22,9 @@ CREATE TABLE IF NOT EXISTS `news` (
 --
 
 ALTER TABLE `news`
-  ADD PRIMARY KEY (`uid`),
-  ADD KEY `user_uid` (`user_uid`);
+    MODIFY `uid` AUTO_INCREMENT,
+    ADD PRIMARY KEY (`uid`),
+    ADD KEY `user_uid` (`user_uid`);
 
 --
 -- Дамп данных таблицы `news`
