@@ -1,16 +1,8 @@
-<div class="title">
-    <h1><?php echo $title; ?></h1>
-    <?php dd($route); ?>
-    <nav>
-        <ol class="navigation">
-            <li>
-                <a href="/" title="Главная">
-                    <i class="icon-home"></i>
-                </a>
-            </li>
-            <li class="active">
-                / Главная
-            </li>
-        <ol/>
-    </nav>
+<div class="panel flex">
+    <a href="/entry" title="Авторизация">
+        <i class="icon-lock"></i>Авторизация
+    </a>
+    <a href="/sign_up" title="Регистрация">
+        <i class="icon-lock-open-alt"></i>Регистрация
+    </a>
 </div>

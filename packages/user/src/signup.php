@@ -7,4 +7,10 @@
  * @link   http://nomicms.ru
  */
 
-return 'Регистрация';
+ // Если уже авторизован
+ if ($container->get('user')->logger) {
+     go_die($container, '/');
+ }
+
+ // Установить имя страницы
+ $view->title = 'Регистрация';

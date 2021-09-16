@@ -12,6 +12,7 @@ web/files/avatars/*
 web/files/forum/*
 web/files/lib/*
 web/files/dias/*
+web/styles/*
 
 # Other files ignores
 web/themes/custom/template/basic2.php

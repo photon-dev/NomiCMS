@@ -20,27 +20,16 @@
     <link rel="icon" href="/themes/custom/favicon.ico" sizes="16x16">
     <meta name="theme-color" content="#070E14">
 </head>
-<body id="app" class="app flex column just-between">
+<body id="app" class="app app-sm">
 
     <!--- Шапка --->
 <?php $this->template('header'); ?>
 
-    <!--- Контент --->
-    <div class="content flex just-flex-end">
+<!--- Боковая панель --->
+<?php $this->template('nav'); ?>
 
-        <!--- Боковая панель --->
-<?php $this->template('sidebar'); ?>
-
-        <!--- Главный --->
-        <main class="main">
-
-            <!--- Боковая панель --->
-            <?php $this->template('nav'); ?>
-
-            <!--- Боковая панель --->
-            <?php echo $layout->content; ?>
-        </main>
-    </div>
+    <!--- Боковая панель --->
+    <?php echo $layout->content; ?>
 
     <!--- Ноги --->
 <?php $this->template('footer'); ?>
