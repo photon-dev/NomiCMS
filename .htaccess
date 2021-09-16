@@ -11,9 +11,10 @@
     #RewriteCond %{HTTPS} !on
     #RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
-    RewriteCond %{REQUEST_URI} !^website
-    RewriteRule ^(.*)$ website/$1 [L]
+    RewriteCond %{REQUEST_URI} !^web
+    RewriteRule ^(.*)$ web/$1 [L]
 
+    RewriteRule ^app/ - [NC,F,L]
     RewriteRule ^config/ - [NC,F,L]
     RewriteRule ^database/ - [NC,F,L]
     RewriteRule ^packages/ - [NC,F,L]

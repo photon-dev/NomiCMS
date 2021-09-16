@@ -16,7 +16,7 @@ DirectoryIndex index.php
     # Handle Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ index.php [L]
+    RewriteRule ^ run.php [L]
 </IfModule>
 
 ErrorDocument 400 /error/400

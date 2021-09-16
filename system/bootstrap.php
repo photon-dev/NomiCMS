@@ -12,9 +12,9 @@ use System\Container\Container;
 use System\App\NomiApp;
 
 // Проверить текущаю версию php
-if (version_compare(PHP_VERSION, '7.2.2', 'lt')) {
+if (version_compare(PHP_VERSION, '7.0', 'lt')) {
     die(
-        'Требуется PHP 7.2.2++. <br /> Текущая версия: '
+        'Требуется PHP 7.0++. <br /> Текущая версия: '
         . phpversion()
     );
 }

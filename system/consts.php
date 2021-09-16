@@ -23,10 +23,10 @@ const SYS = ROOT . 'system/';
 const TEMP = ROOT . 'temp/';
 
 // Ваш сайт - в нем содержаться ваши файлы, графика, шрифты и т.д.
-const WEBSITE = ROOT . 'website/';
+const WEB = ROOT . 'web/';
 
 // Темы оформления
-const THEMES = WEBSITE . 'themes/';
+const THEMES = WEB . 'themes/';
 
 // Пакет, тема
 const PACKAGE = 1;
