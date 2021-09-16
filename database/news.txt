@@ -1,5 +1,5 @@
 [b]Добрый день[/b]
-Мы рады вам сообщить о выходе новой версия Nomicms.
+[blue]Мы рады вам сообщить о выходе новой версия Nomicms.[/blue]
 
 [red]Что нового:[/red]
 [red]new[/red] Ядро.
@@ -12,4 +12,4 @@
 [red]new[/red] Шаблонизатор, и многое другое.
 
 Скачать ее можно в перейдя по ссылке
-[url=http://nomicms.ru/build/v3.0]Скачать[/url] | [https://github.com/nomicms/NomiCMS/archive/v3.0.zip]Скачать c github[/url]
+[url=http://nomicms.ru/build/v3.0]Скачать[/url] | [url=https://github.com/nomicms/NomiCMS/archive/v3.0.zip]Скачать c github[/url]
