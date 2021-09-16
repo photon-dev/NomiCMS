@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS `news` (
     `name` varchar(256) NOT NULL,
     `message` text NOT NULL,
     `date_write` int(10) NOT NULL,
-    `date_edit` int(10) DEFAULT NOT NULL
+    `date_edit` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_general_ci AUTO_INCREMENT=2 COMMENT='Новости';
 
 --
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `news` (
 --
 
 ALTER TABLE `news`
-    MODIFY `uid` AUTO_INCREMENT,
+    MODIFY `uid` int(10) unsigned NOT NULL AUTO_INCREMENT,
     ADD PRIMARY KEY (`uid`),
     ADD KEY `user_uid` (`user_uid`);
 

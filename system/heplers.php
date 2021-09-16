@@ -71,7 +71,7 @@ if (!function_exists('cssTime'))
 {
     function cssTime(string $css)
     {
-        $path = WEBSITE . 'themes/' . $css . '.css';
+        $path = WEB . 'themes/' . $css . '.css';
 
         if (! file_exists($path)) {
             return '';
