@@ -35,11 +35,9 @@ $count = $db->query('SELECT
 (SELECT COUNT(*) FROM user WHERE date_signup > "' . (TIME - DAY) . '") AS new_users
 FROM dual')->fetch_assoc();
 
-$post = [
+$view->set('index', [
     'count' => $count
-];
-
-$view->set('index', $post);
+]);
 
 // Рендерим шаблон
 $view->render('index');

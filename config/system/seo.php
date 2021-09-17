@@ -15,18 +15,17 @@ return [
     'title' => 'Nomicms - система управления сайтом',
 
     // Описание главной страницы
-    'description' => 'Система управления содержимым, создай сайт на Nomicms.',
+    'description' => 'Система управления сайтом, создай сайт на Nomicms.',
 
     // Ключевые слова главной страницы
-    'keywords' => 'Nomicms, cms, php7, php8, сайт, создать сайт',
+    'keywords' => 'Nomicms, cms, php7, php8, mysqli, сайт, создать, web, css3, html5',
 
     // Автор
     'author' => 'Tosyk, Photon-dev',
 
     // Емаил
-    'reply_to' => 'support@nomicms.ru',
+    'reply_to' => 'help@nomicms.ru',
 
     // Компирайт
     'copy' => '2021 Nomicms'
-
 ];
