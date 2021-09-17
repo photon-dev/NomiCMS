@@ -36,15 +36,15 @@ return function (ContainerInterface $container) {
         if ($package == '.' || $package == '..') continue;
 
         // Путь к маршрутам каждого установленного пакета
-        $path = 'packages/' . $package . '/config/routes';
+        $path = $package . '/routes';
 
         // Если файл с маршрутами не найден в пакете то пропускаем
-        if (! file_exists(ROOT . $path . '.php')) {
+        if (! file_exists(PACKS . $path . '.php')) {
             continue;
         }
 
         // Загрузить маршруты
-        $list = config($path);
+        $list = config($path, PACKS);
 
         // Добавить маршрут в общий список
         $routes = array_merge($routes, $list);

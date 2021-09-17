@@ -8,7 +8,7 @@
  */
 
 /**
- * Список требуемых служб
+ * Список требуемых di
  */
 return [
     // Config
@@ -40,6 +40,9 @@ return [
 
      // View
      System\View\View::class,
+
+     // View
+     System\Html\Seo::class,
 
      // Themes
      Packages\Themes\Component\Themes::class,

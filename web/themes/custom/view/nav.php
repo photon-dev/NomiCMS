@@ -3,7 +3,7 @@
         <li>
             <i class="icon-star-empty c-blue"></i>
         </li>
-        <?php foreach ($links as $link): ?>
+        <?php foreach ($list as $link): ?>
         <li>
             <?php if ($link['url']): ?>
             <a href="<?php echo $link['url'] ?>" title="<?php echo $link['name'] ?>">

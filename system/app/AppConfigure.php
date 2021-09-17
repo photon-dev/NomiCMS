@@ -42,9 +42,9 @@ class AppConfigure
 
             // Сохранить маршрут
             $this->container->get('config')::add('route', $this->route);
-
+            
             // Загрузить настройки пакета
-            $this->settings = $this->container->get('config')::pull($this->route['package'] . '/config/settings', PACKAGE);
+            $this->settings = $this->container->get('config')::pull($this->route['package'] . '/settings', PACKAGE);
 
             // Установить как запущено
             $this->found = true;

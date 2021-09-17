@@ -7,9 +7,10 @@
  * @link   http://nomicms.ru
  */
 
-$view->showed = true;
-
+// Получить сессии
 $session = $container->get('session');
+
+$view->showed = true;
 
 $captcha = (object) [
     'width' => '120',

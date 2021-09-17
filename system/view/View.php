@@ -33,6 +33,9 @@ class View extends Template
     // Статус
     public $status = false;
 
+    // Ссылки навигации
+    public $nav = false;
+
     // Конструктор
     public function __construct(ContainerInterface $container, Themes $themes)
     {
@@ -91,26 +94,10 @@ class View extends Template
         return ob_get_clean();
     }
 
-    // Подключить шаблон прям в шаблон
+    // Подключить шаблон в шаблоне
     protected function template(string $file): void
     {
         echo $this->load($file);
-    }
-
-    // Подключить навигацию
-    public function navbar(array $list = [])
-    {
-        if (! array_key_exists(0, $list)) {
-            $links = [
-                [
-                    'url' => false,
-                    'name' => 'Движки'
-
-                ]
-            ];
-        }
-
-        $this->set('nav', $links, 'links');
     }
 
     // Рендерить шаблон
@@ -140,6 +127,22 @@ class View extends Template
         } else {
             $response->write($content);
         }
+    }
+
+    // Подключить навигацию
+    public function navbar(array $list = [])
+    {
+        if (! array_key_exists(0, $list)) {
+            $list = [
+                [
+                    'url' => false,
+                    'name' => 'Главная'
+
+                ]
+            ];
+        }
+
+        $this->set('nav', $list, 'list');
     }
 
     // Вывести на экран все содержимое
@@ -176,8 +179,9 @@ class View extends Template
         ];
 
         $header = (object) [
-            'nav' => ($config::get('route')['url'] == '/') ? true : false
+            'nav' => ($config::get('route')['url'] == '/') ? false : true
         ];
+
         if ($user->logger) {
             $header->user = [
                 'uid' => $user->getUser()['uid'],
