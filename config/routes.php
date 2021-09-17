@@ -14,15 +14,15 @@ use System\Container\ContainerInterface;
 return function (ContainerInterface $container) {
 
     // Достаем обьект Json из контейнер
-    $json = $container->get('json')::create(TEMP, 'config/routes');
+    //$json = $container->get('json')::create(TEMP, 'config/routes');
 
     // Проверяем создан ли кэш маршрутов
     // Если нет тогда кодом ниже парсим новый кэш
-    if ($json->has()) {
-        $routes = $json->open(true);
+    //if ($json->has()) {
+        //$routes = $json->open(true);
 
-        return $routes;
-    }
+        //return $routes;
+    //}
 
     // Список маршрутов
     $routes = [];
@@ -51,7 +51,7 @@ return function (ContainerInterface $container) {
     }
 
     // Создать кэш
-    $json->create($routes);
+    //$json->create($routes);
 
     return $routes;
 };

@@ -132,4 +132,10 @@ class NomiApp extends AppConfigure implements AppInterface
 
         return 'v3.0.1601b';
     }
+
+
+    public function getStatus()
+    {
+        return 'beta';
+    }
 }

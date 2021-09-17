@@ -97,19 +97,20 @@ class View extends Template
         echo $this->load($file);
     }
 
-    public function navbar()
+    // Подключить навигацию
+    public function navbar(array $list = [])
     {
-        $route = $this->container->get('config')::get('route');
-        $data = explode('/', $route['url']);
+        if (! array_key_exists(0, $list)) {
+            $links = [
+                [
+                    'url' => false,
+                    'name' => 'Движки'
 
-        $this->set('nav', [
-            'route' => $data
-        ]);
+                ]
+            ];
+        }
 
-        $name = $this->container->get('config')::load($route['package'] . '/config/package', PACKAGE)['name'];
-        //$settings = $this->container->get('config')::get($route['package']);
-        // dd('sdsdsds');
-        //dd($settings);
+        $this->set('nav', $links, 'links');
     }
 
     // Рендерить шаблон
@@ -152,7 +153,6 @@ class View extends Template
         // Получить зависимости
         $response = $this->container->get('response');
         $config = $this->container->get('config');
-        $db = $this->container->get('db');
         $user = $this->container->get('user');
 
         // Загрузить настройки
@@ -176,27 +176,14 @@ class View extends Template
         ];
 
         $header = (object) [
-            'nav' => $this->nav ?? false
+            'nav' => ($config::get('route')['url'] == '/') ? true : false
         ];
-
         if ($user->logger) {
             $header->user = [
                 'uid' => $user->getUser()['uid'],
-                'login' => $user->getUser()['login'],
                 'level' => $user->getUser()['level']
             ];
         }
-
-        $count = $db->query('SELECT
-        (SELECT COUNT(*) FROM news) AS news,
-        (SELECT COUNT(*) FROM news WHERE date_write > "' . (TIME - DAY) . '") AS new_news,
-        (SELECT COUNT(*) FROM chat) AS chat_message,
-        (SELECT COUNT(*) FROM chat WHERE date_write > "' . (TIME - DAY) . '") AS new_chat_message,
-        (SELECT COUNT(*) FROM user) AS users,
-        (SELECT COUNT(*) FROM user WHERE date_signup > "' . (TIME - DAY) . '") AS new_users
-        FROM dual')->fetch_assoc();
-
-        $this->set('sidebar', ['count' => (object) $count]);
 
         // Параметры footer
         $footer = [
@@ -212,8 +199,9 @@ class View extends Template
 
         if ($user->logger) {
             $all['user'] = [
-                'uid' => $user->getUser()['uid'],
-                'login' => $user->getUser()['login']
+                'user_uid' => $user->getUser()['uid'],
+                'login' => $user->getUser()['login'],
+                'level' => $user->getUser()['level']
             ];
         }
 

@@ -10,6 +10,17 @@
 $user = $container->get('user');
 
 // Если не авторизован
-if (! $user->logger || $user->getUser()['level'] <= 2) {
+if ($user->getUser()['level'] < 2) {
     go_die($container, '/');
 }
+
+// Имя страницы
+$view->title = 'Панель управления';
+
+$view->set('index', [
+    'version' => $app->getVersion(),
+    'status' => $app->getStatus()
+]);
+
+// Рендерить шаблон
+$view->render('index');

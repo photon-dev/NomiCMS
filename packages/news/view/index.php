@@ -1,20 +1,17 @@
 <?php foreach ($row as $news): ?>
-<div class="rows">
-    <div class="red">
-        <div class="title">
+<div class="news">
+    <div>
+        <span class="news_title">
             <i class="icon-megaphone c-red"></i>
-            <span class="name"><?php echo $news['name'] ?></span>
-            <span class="count"><?php echo $news['date_write'] ?></span>
-        </div>
-        <div class="msg">
-            <?php echo $news['message'] ?>
-        </div>
-    <div class="other">
-        <a href="/news" title="Ознакомиться">
-    </div>
+            <?php echo $news['name'] ?>
+            <span class="nt">
+                <?php echo $news['date_write'] ?>
+            </span>
+        </span>
+        <?php echo $news['message'] ?>
     </div>
 </div>
-
+<hr>
 <div class="menu">
     <a href="/news/comm/<?php echo $news['uid'] ?>">
         <i class="icon-comment"></i>

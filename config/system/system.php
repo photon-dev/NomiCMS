@@ -46,5 +46,8 @@ return [
     'local' => 'ru',
 
     // Пунктов на страницу
-    'post_page' => 7
+    'post_page' => 7,
+
+    // Тема оформления
+    'theme' => 'custom'
 ];

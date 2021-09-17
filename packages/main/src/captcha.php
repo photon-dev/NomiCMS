@@ -16,7 +16,7 @@ $captcha = (object) [
     'height' => '60',
     'count' => '4',
     'size' => '18',
-    'font' => WEBSITE . 'fonts/Reef.otf',
+    'font' => WEB . 'fonts/Reef.otf',
     'letters' => [
         'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
     ]
@@ -29,7 +29,7 @@ $alpha = imagecolorallocatealpha($image, 0, 0, 0, 127);
 imagefill($image, 0, 0, $alpha);
 
 // Нанесение "помех"
-for($i = 0; $i < $captcha->count * 4; $i++)
+for($i = 0; $i < $captcha->count * 2; $i++)
 {
     $color = imagecolorallocatealpha($image, rand(0, 255), rand(0, 255), rand(0, 255), 90);
     $letter = $captcha->letters[rand(0, sizeof($captcha->letters)-1)];

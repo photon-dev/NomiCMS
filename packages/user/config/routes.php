@@ -12,6 +12,11 @@
  */
 return [
     [
+        'url' => '/user',
+        'package' => 'user',
+        'src' => 'panel'
+    ],
+    [
         'url' => '/user/id{num}',
         'package' => 'user',
         'src' => 'view',
@@ -28,22 +33,17 @@ return [
         ]
     ],
     [
-        'url' => '/user/dialogs',
+        'url' => '/dialogs',
         'package' => 'user',
         'src' => 'dialogs'
     ],
     [
-        'url' => '/user',
-        'package' => 'user',
-        'src' => 'profile'
-    ],
-    [
-        'url' => '/user/settings',
+        'url' => '/settings',
         'package' => 'user',
         'src' => 'settings'
     ],
     [
-        'url' => '/user/leave',
+        'url' => '/leave',
         'package' => 'user',
         'src' => 'leave'
     ],

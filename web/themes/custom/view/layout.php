@@ -17,23 +17,17 @@
     <link rel="stylesheet" href="/themes/custom/css/fontello.css?<?php echo $layout->style[3]; ?>"/>
     <link rel="stylesheet" href="/themes/custom/css/icons.css?<?php echo $layout->style[4]; ?>"/>
     <link rel="stylesheet" href="/themes/custom/css/style.css?<?php echo $layout->style[5]; ?>"/>
-    <link rel="icon" href="/themes/custom/favicon.ico" sizes="16x16">
+    <link rel="shortcut icon" href="/favicon.ico" sizes="16x16" type="image/x-icon">
     <meta name="theme-color" content="#070E14">
 </head>
-<body id="app" class="app app-sm">
-
+<body id="app" class="app">
     <!--- Шапка --->
 <?php $this->template('header'); ?>
 
-<!--- Боковая панель --->
-<?php $this->template('nav'); ?>
-
-    <!--- Боковая панель --->
-    <?php echo $layout->content; ?>
+<!--- Контент --->
+<?php echo $layout->content; ?>
 
     <!--- Ноги --->
 <?php $this->template('footer'); ?>
-
-<script src="/themes/custom/js/app.js"></script>
 </doby>
 </html>

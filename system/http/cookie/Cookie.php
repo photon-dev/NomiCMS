@@ -31,8 +31,10 @@ class Cookie
         // Опции
         $options = $cookie[1];
 
+        dd($cookie);
+
         // Установить
-        $this->set($name, $value, $options);
+        $this->set($name, $value, [$options]);
     }
 
     // Получить куки
@@ -46,7 +48,7 @@ class Cookie
     }
 
     // Удалить куки
-    public function delete(string $name, array $options = ['path' => '/'])
+    public function delete(string $name, array $options = [])
     {
         $this->set($name, '', $options);
     }

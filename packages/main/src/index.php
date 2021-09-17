@@ -7,16 +7,15 @@
  * @link   http://nomicms.ru
  */
 
+ // Получить зависимости
+ $user = $container->get('user');
+ $db = $container->get('db');
+
 //$view->title = 'Главная страница';
 //$view->desc = 'Описание главной страницы';
 //$view->keywords = 'Ключевые слова';
 
-// Получить пользователя
-$user = $container->get('user');
-
-// Получить базу данных
-$db = $container->get('db');
-
+// Имя, описание, ключевые слова для главной можно не указывать
 $view->navbar();
 
 /*

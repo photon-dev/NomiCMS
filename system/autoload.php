@@ -37,7 +37,7 @@ class Autoload
     }
 
     // Установить список дополнительных файлов
-    public static function setListFiles(array $list = []): void
+    public static function setListFiles(array $list = [])
     {
         self::$files = $list;
     }

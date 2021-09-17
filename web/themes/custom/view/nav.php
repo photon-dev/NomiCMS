@@ -1,8 +1,18 @@
-<div class="panel flex">
-    <a href="/entry" title="Авторизация">
-        <i class="icon-lock"></i>Авторизация
-    </a>
-    <a href="/sign_up" title="Регистрация">
-        <i class="icon-lock-open-alt"></i>Регистрация
-    </a>
-</div>
+<nav>
+    <ol class="navbar flex wrap">
+        <li>
+            <i class="icon-star-empty c-blue"></i>
+        </li>
+        <?php foreach ($links as $link): ?>
+        <li>
+            <?php if ($link['url']): ?>
+            <a href="<?php echo $link['url'] ?>" title="<?php echo $link['name'] ?>">
+                <?php echo $link['name'] ?>
+            </a>
+            <?php else: ?>
+            <?php echo $link['name']; ?>
+            <?php endif; ?>
+        </li>
+        <?php endforeach; ?>
+    </ol>
+</nav>

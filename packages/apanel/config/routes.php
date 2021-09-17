@@ -12,17 +12,17 @@
  */
 return [
     [
-        'url' => '/panel',
+        'url' => '/apanel',
         'package' => 'apanel',
         'src' => 'index'
     ],
     [
-        'url' => '/panel/system',
+        'url' => '/apanel/system',
         'package' => 'apanel',
         'src' => 'system'
     ],
     [
-        'url' => '/panel/system/{str}',
+        'url' => '/apanel/system/{str}',
         'package' => 'apanel',
         'src' => 'system',
         'params' => [
