@@ -18,6 +18,8 @@ if ($container->get('user')->logger) {
 // Установить имя страницы
 $view->title = 'Авторизация';
 
+$view->navbar();
+
 // Подключить request
 $request = $container->get('request')->post;
 

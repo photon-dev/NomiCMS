@@ -136,7 +136,7 @@ class View extends Template
             $list = [
                 [
                     'url' => false,
-                    'name' => 'Главная'
+                    'name' => $this->title
 
                 ]
             ];
