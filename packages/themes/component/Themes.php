@@ -33,7 +33,7 @@ class Themes
             $this->theme = $user->getUser()['theme'];
         } else {
             // Загрузить настройки тем оформлений
-            $settings = $config::load('themes/config/settings', PACKAGE);
+            $settings = $config::load('themes/settings', PACKAGE);
             $this->theme = $settings['theme'];
         }
     }
