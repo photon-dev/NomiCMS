@@ -8,10 +8,9 @@
         <i class="icon-star-empty c-blue"></i>
         <?php echo $title; ?>
     <?php else: ?>
-        <!--- Навигация --->
+    <!--- Навигация --->
         <?php $this->template('nav'); ?>
     <?php endif; ?>
-
 </div>
 <!--- Панель --->
 <?php $this->template('panel'); ?>

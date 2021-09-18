@@ -10,14 +10,12 @@
 namespace System\View;
 
 // Использовать
-use System\Container\ContainerInterface;
-use System\View\Template;
-use Exception;
+//use System\View\TemplateInteface;
 
 /**
  * Класс Template
  */
-class Template //extends Template
+class Template //implements TemplateInteface
 {
     // Для всех
     public $everyone = [];
@@ -25,25 +23,29 @@ class Template //extends Template
     // Для выбранного
     protected $some = [];
 
-    // Установить данные для выбранного
-    public function set(...$set)
+    private $not = false;
+
+    // Установить данные
+    public function set(...$set): bool
     {
-        // Имя шаблона
+        // Имя, данные, ключ
         $template = $set[0];
+        $data = $set[1];
+        $key = $set[2] ?? $template;
 
-        // Слить
-        $merge = $set[2] ?? $template;
-
-        // Если данные евляються обьектом или старокой
-        if (is_object($set[1]) || is_string($set[1])) {
-            $this->some[$template] = [$merge => $set[1]];
-            return true;
+        // Если данные евляються обьектом или строкой
+        if (is_object($data) || is_string($data)) {
+            $data = [$key => $data];
+            $this->not = true;
         }
 
-        if (isset($set[2])) {
-            $data = [$merge => $set[1]];
-        } else {
-            $data = $set[1];
+        // Если указаный шаблон найден
+        if ($this->hasSome($template)) {
+            $data = array_merge($this->some[$template], $data);
+        }
+
+        if (isset($set[2]) && ! $this->hasSome($template) && ! $this->not) {
+            $data = [$key => $data];
         }
 
         $this->some[$template] = $data;
@@ -57,6 +59,14 @@ class Template //extends Template
         $this->everyone = array_merge($this->everyone, $data);
     }
 
+    // Получить имя шаблона
+    private static function getKey(string $str): string
+    {
+        $pos = strrpos($str, '/');
+
+        return substr($str, $pos + 1);
+    }
+
     // Проверить одиночку
     public function hasSome(string $template): bool
     {
@@ -66,12 +76,15 @@ class Template //extends Template
     // Получить данные
     public function get(string $template)
     {
+        // Получить ключ
+        $template = (strpos($template, '/')) ? $this->getKey($template) : $template;
+
         $data = [];
 
         // Получить данные выбранного шаблона
-        if (isset($this->some[$template])) {
+        if ($this->hasSome($template)) {
             $data = array_merge($data, $this->some[$template]);
-            
+
             // Стереть данные
             unset($this->some[$template]);
         }

@@ -1,3 +1,4 @@
+<?php if ($list): ?>
 <nav>
     <ol class="navbar flex wrap">
         <li>
@@ -16,3 +17,4 @@
         <?php endforeach; ?>
     </ol>
 </nav>
+<?php endif; ?>

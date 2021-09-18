@@ -16,7 +16,21 @@
 //$view->keywords = 'Ключевые слова';
 
 // Имя, описание, ключевые слова для главной можно не указывать
-$view->navbar();
+$view->nav = [
+    [
+        'url' => '/forum',
+        'name' => 'Форум'
+    ],
+    [
+        'url' => '/forum/1',
+        'name' => 'NomiCMS'
+    ],
+    [
+        'url' => false,
+        'name' => 'Обсуждение v3.4'
+    ]
+];
+//$view->navbar();
 
 /*
 $query = 'SELECT COUNT(n.uid) as count_news, COUNT(u.uid) as count_user

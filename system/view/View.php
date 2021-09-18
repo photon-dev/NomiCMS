@@ -52,7 +52,7 @@ class View extends Template
     }
 
     // Получить путь к шаблонам
-    protected function getPath(bool $priority)
+    protected function getPath(bool $priority): string
     {
         // Приоритет загрузки
         if ($priority) {
@@ -68,7 +68,7 @@ class View extends Template
     }
 
     // Загрузить шаблон
-    protected function load(string $file, bool $priority = true)
+    protected function load(string $file, bool $priority = true): string
     {
         // Получить путь к шаблону
         $path = $this->getPath($priority);
@@ -129,6 +129,7 @@ class View extends Template
         }
     }
 
+    /*
     // Подключить навигацию
     public function navbar(array $list = [])
     {
@@ -144,6 +145,7 @@ class View extends Template
 
         $this->set('nav', $list, 'list');
     }
+    */
 
     // Вывести на экран все содержимое
     public function put(): void
@@ -179,7 +181,7 @@ class View extends Template
         ];
 
         $header = (object) [
-            'nav' => ($config::get('route')['url'] == '/') ? false : true
+            'nav' => $this->nav
         ];
 
         if ($user->logger) {
@@ -208,6 +210,8 @@ class View extends Template
                 'level' => $user->getUser()['level']
             ];
         }
+
+        $this->set('nav', $this->nav, 'list');
 
         // Установить данные
         $this->set('layout', $layout);
