@@ -36,6 +36,8 @@ class View extends Template
     // Ссылки навигации
     public $nav = false;
 
+    public $title, $desc, $keywords = '';
+
     // Конструктор
     public function __construct(ContainerInterface $container, Themes $themes)
     {
@@ -47,6 +49,12 @@ class View extends Template
             // Сохранить тему
             $this->themes = $themes;
         }
+
+        $seo = $container->get('config')::pull('system/seo');
+
+        $this->title = $seo['title'];
+        $this->desc = $seo['description'];
+        $this->keywords = $seo['keywords'];
 
         ob_start();
     }
@@ -129,26 +137,8 @@ class View extends Template
         }
     }
 
-    /*
-    // Подключить навигацию
-    public function navbar(array $list = [])
-    {
-        if (! array_key_exists(0, $list)) {
-            $list = [
-                [
-                    'url' => false,
-                    'name' => $this->title
-
-                ]
-            ];
-        }
-
-        $this->set('nav', $list, 'list');
-    }
-    */
-
     // Вывести на экран все содержимое
-    public function put(): void
+    public function put()
     {
         // Если надо скрыть контент
         if ($this->showed) {
@@ -157,18 +147,13 @@ class View extends Template
 
         // Получить зависимости
         $response = $this->container->get('response');
-        $config = $this->container->get('config');
         $user = $this->container->get('user');
-
-        // Загрузить настройки
-        $system = $config::get('system');
-        $seo = $config::pull('system/seo');
 
         // Параметры для макета
         $layout = (object) [
-            'local'     => $user->logger ? $user->getUser()['local'] : $system['local'],
-            'desc'      => $this->description ?? $seo['description'],
-            'keywords'  => $this->keywords ?? $seo['keywords'],
+            'local'     => $this->container->get('config')::get('system')['local'],
+            'desc'      => $this->desc,
+            'keywords'  => $this->keywords,
             'content' => $response->getContent(),
             'style'     => [
                 cssTime('reset'),
@@ -193,6 +178,7 @@ class View extends Template
 
         // Параметры footer
         $footer = [
+            'copyright' => $this->container->get('config')::get('seo')['copy'],
             'memory' => round((memory_get_usage() - NOMI_MEMORY) / 1024),
             'timing' => round(microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'], 4)
         ];
@@ -200,7 +186,7 @@ class View extends Template
         // Параметры для всех страниц
         $all = [
             'user_logger' => $user->logger,
-            'title' => $this->title ?? $seo['title']
+            'title' => $this->title
         ];
 
         if ($user->logger) {

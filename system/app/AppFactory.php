@@ -38,10 +38,9 @@ class AppFactory
         // Собрать все содержимое, и отправить
         return function () use ($app, $container): ResponseInterface {
 
-            // Получить response
+            // Получить зависимости
             $response = $container->get('response');
-
-            // Получить шаблонизатор
+            $user = $container->get('user');
             $view = $container->get('view');
 
             // Установить заголовки

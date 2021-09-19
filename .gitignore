@@ -15,4 +15,4 @@ web/files/dias/*
 web/styles/*
 
 # Other files ignores
-web/themes/custom/template/basic2.php
+database/news.txt

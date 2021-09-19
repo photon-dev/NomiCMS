@@ -7,11 +7,9 @@
  * @link   http://nomicms.ru
  */
 
-namespace System\Http\Cookie;
+namespace System\Http\Server;
 
 /**
  * Класс Server
  */
-class Server
-{
-}
+class Server{}

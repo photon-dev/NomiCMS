@@ -43,20 +43,12 @@ a {
   color: #6D7278;
   /*color: #4e5257;*/
   padding: 14px;
-  font-size: 16px;
-}
-
-.title h1 {
-    font-size: 22px;
-    line-height: normal;
-    letter-spacing: normal;
-    font-weight: normal;
-    margin: 0;
+  font-size: 15px;
 }
 
 .title a {
-  color: #A4ABB4;
-  transition: color .2s;
+    color: #A4ABB4;
+    transition: color .2s;
 }
 
 .title a:hover {
@@ -104,6 +96,11 @@ a {
   font-size: 12px;
   padding: 18px;
   border-left: 2px solid #2980b9;
+}
+
+.footer .copy {
+    font-size: 10px;
+    color: #3a3f43;
 }
 
 .panel a, .forum_topic a:first-child, .bm > a, .adm_menu > a, .friends_menu a, .nav a {

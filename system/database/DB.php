@@ -14,9 +14,12 @@ use System\Container\ContainerInterface;
 use System\Config\Config;
 use mysqli;
 
-// Класс Database
+/**
+ * Класс Database
+ */
 class DB extends mysqli
 {
+    // Конструктор
     public function __construct(Config $config)
     {
         // Получить настройки базы данной
@@ -33,9 +36,11 @@ class DB extends mysqli
             die;
         }
 
+        // Установить кодировку
         $this->set_charset('utf8mb4');
     }
 
+    // При завершение работы класса, закрыть соединение базой
     public function __destruct()
     {
         if (!$this->connect_errno) {

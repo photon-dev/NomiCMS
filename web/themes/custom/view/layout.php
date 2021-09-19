@@ -22,7 +22,7 @@
 </head>
 <body id="app" class="app">
     <!--- Шапка --->
-<?php $this->template('header'); ?>
+    <?php $this->template('header'); ?>
 
 <!--- Контент --->
 <?php echo $layout->content; ?>

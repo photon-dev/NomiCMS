@@ -19,8 +19,6 @@ $view->title = 'Новости';
 $view->description = 'Список новостей сайта';
 $view->keywords = 'Новости, news';
 
-$view->navbar();
-
 // Получить количество новостей
 $count = $db->query('SELECT COUNT(*) FROM news')->fetch_row();
 

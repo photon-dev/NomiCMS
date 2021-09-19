@@ -3,14 +3,16 @@
         <img class="svg" src="/themes/custom/assets/nomicms.svg" alt="Nomicms">
     </a>
 </header>
-<div class="title">
+
+<div class="title flex">
+    <i class="icon-star-empty c-blue"></i>
     <?php if (! $header->nav): ?>
-        <i class="icon-star-empty c-blue"></i>
-        <?php echo $title; ?>
+    <?php echo $title; ?>
     <?php else: ?>
-    <!--- Навигация --->
-        <?php $this->template('nav'); ?>
+<!--- Навигация --->
+    <?php $this->template('nav'); ?>
     <?php endif; ?>
 </div>
+
 <!--- Панель --->
 <?php $this->template('panel'); ?>
