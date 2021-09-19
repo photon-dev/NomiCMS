@@ -7,13 +7,18 @@
  * @link   http://nomicms.ru
  */
 
-$user = $container->get('user');
-
  // Если уже авторизован
 if (! $user->logger) {
     go_die($container, '/');
 }
 
-$profile = $user->getUser();
+// Имя, описание, ключевые слова
+$view->title = 'Кабинет';
+$view->desc= 'Кабинет пользователя c ником - ' . $user->getUser()['login'];
+$view->keywords = 'Пользователь, кабинет, user';
 
-$view->title = 'Привет ' . $profile['login'];
+// Подключиться к базе
+//$db = $container->get('db');
+
+// Рендерить
+$view->render('panel');

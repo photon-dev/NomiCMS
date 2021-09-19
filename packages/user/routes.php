@@ -25,14 +25,6 @@ return [
         ]
     ],
     [
-        'url' => '/user/{str}',
-        'package' => 'user',
-        'src' => 'view',
-        'params' => [
-            'userLogin'
-        ]
-    ],
-    [
         'url' => '/dialogs',
         'package' => 'user',
         'src' => 'dialogs'

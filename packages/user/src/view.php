@@ -9,22 +9,17 @@
 
 $user = $container->get('user');
 
-  // Если уже авторизован
+  // Если не авторизован
 if (! $user->logger) {
     go_die($container, '/');
 }
 
+$userId = $userId ?? false;
+
 // Имя, описание, ключевые слова
-$view->title = $userLogin;
-$view->description = 'Профиль пользователя ' . $userLogin;
+$view->title = $userId;
+$view->desc= 'Профиль пользователя ' . $userId;
 $view->keywords = '';
-
-$view->navbar();
-
-if (isset($userLogin)) {
-    $text = "Привет. Твой Login {$userLogin}";
-}
-
 
 if (isset($userId)) {
     $text = "Привет. Твой id {$userId}";
