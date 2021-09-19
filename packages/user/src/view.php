@@ -21,9 +21,8 @@ $view->title = $userId;
 $view->desc= 'Профиль пользователя ' . $userId;
 $view->keywords = '';
 
-if (isset($userId)) {
-    $text = "Привет. Твой id {$userId}";
-}
+
+$text = "Привет. Твой id {$userId}";
 
 
 // Добавить данные

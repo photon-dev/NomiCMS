@@ -25,12 +25,17 @@ return [
         ]
     ],
     [
-        'url' => '/dialogs',
+        'url' => '/user/dialogs',
         'package' => 'user',
         'src' => 'dialogs'
     ],
     [
-        'url' => '/settings',
+        'url' => '/user/alerts',
+        'package' => 'user',
+        'src' => 'alerts'
+    ],
+    [
+        'url' => '/user/settings',
         'package' => 'user',
         'src' => 'settings'
     ],
