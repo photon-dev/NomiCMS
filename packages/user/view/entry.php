@@ -9,9 +9,6 @@
             <input type="text" name="login" value="<?php echo $entry->login ?>"/><br />
             Пароль:<br />
             <input type="password" name="password" value="<?php echo $entry->password ?>"/><br />
-            Введите код с картинки:<br />
-            <img src="/captcha" alt="Captcha" /><br />
-            <input type="text" name="code" value="<?php echo $entry->code; ?>"/><br />
             <button>Войти</button>
         </form>
     </div><hr />

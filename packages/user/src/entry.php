@@ -25,61 +25,53 @@ $request = $container->get('request')->post;
 $post = (object) [
     'error' => false,
     'login' => false,
-    'password' => false,
-    'code' => false
+    'password' => false
 ];
 
 // Данные для шаблона entry
 $error = false;
 
 // Если присутствует post данные
-if ($request->has('login') && $request->has('password') && $request->has('code')) {
+if ($request->has('login') && $request->has('password')) {
 
     $post->login = $request->login;
     $post->password = $request->password;
-    $post->code = $request->code;
 
     if (! $post->login) $error[] = 'Вы не ввели логин';
     if (! $post->password) $error[] = 'Вы не ввели пароль';
-    if (! $post->code) $error[] = 'Вы не ввели код с картинки';
 
     // Если нет ошибок
     if (! $error) {
         // Подключить сессии, и получить код
         $code = $container->get('session')->captcha;
 
-        // Если проверочный код совпал с введенным
-        if ($post->code == $code) {
+        // Подключить базу данных
+        $db = $container->get('db');
 
-            // Подключить базу данных
-            $db = $container->get('db');
+        // Обработать логин  и пароль
+        $post->login =  Misc::str($post->login, $container);
+        $post->password = Misc::str($post->password, $container);
 
-            // Обработать логин  и пароль
-            $post->login =  Misc::str($post->login, $container);
-            $post->password = Misc::str($post->password, $container);
+        // Выполнить запрос
+        $query = $db->query('SELECT password FROM user WHERE login = "' . $post->login . '" LIMIT 1');
 
-            // Выполнить запрос
-            $query = $db->query('SELECT password FROM user WHERE login = "' . $post->login . '" LIMIT 1');
+        // Если пользователь найден
+        if ($row = $query->fetch_object())
+        {
+            // Если пароли совпадают
+            if (Password::has($post->password, $row->password)) {
+                // Подключить куки
+                $cookie = $container->get('cookie');
 
-            // Если пользователь найден
-            if ($row = $query->fetch_object())
-            {
-                // Если пароли совпадают
-                if (Password::has($post->password, $row->password)) {
-                    // Подключить куки
-                    $cookie = $container->get('cookie');
+                // Установить куки
+                $cookie->login($post->login , ['expires' => TIME + YEAR]);
+                $cookie->password($row->password, ['expires' => TIME + YEAR]);
 
-                    // Установить куки
-                    $cookie->login($post->login , ['expires' => TIME + YEAR]);
-                    $cookie->password($row->password, ['expires' => TIME + YEAR]);
-                    
-                    go_die($container, '/');
-                } else
-                    $error[] = 'Неверный логин или пароль';
+                go_die($container, '/');
             } else
                 $error[] = 'Неверный логин или пароль';
         } else
-            $error[] = 'Код с картнки введен не верно';
+            $error[] = 'Неверный логин или пароль';
     }
     $post->error = $error ? true : false;
 }
