@@ -8,7 +8,7 @@
  */
 
 // Если авторизован
-if (! $container->get('user')->logger) {
+if (! $user->logger) {
     go_die($container, '/');
 }
 

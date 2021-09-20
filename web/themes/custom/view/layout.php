@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/themes/app.css?<?php echo $layout->style[1]; ?>"/>
     <link rel="stylesheet" href="/themes/custom/css/emoji.css?<?php echo $layout->style[2]; ?>"/>
     <!---<link rel="stylesheet" href="/themes/custom/css/animation.css"/>--->
-    <link rel="stylesheet" href="/themes/custom/css/fontello.css?<?php echo $layout->style[3]; ?>"/>
+    <link rel="stylesheet" href="/themes/fontello.css?<?php echo $layout->style[3]; ?>"/>
     <link rel="stylesheet" href="/themes/custom/css/icons.css?<?php echo $layout->style[4]; ?>"/>
     <link rel="stylesheet" href="/themes/custom/css/style.css?<?php echo $layout->style[5]; ?>"/>
     <link rel="shortcut icon" href="/favicon.ico" sizes="16x16" type="image/x-icon">

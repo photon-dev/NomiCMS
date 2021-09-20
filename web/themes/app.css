@@ -11,15 +11,12 @@
 }
 
 .flex {
-    display: -webkit-flex;
-    display: -webkit-box;
-    display: -moz-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -ms-flex;
-    display: -o-flex;
     display: flex;
 }
+
+.flex-wrap { flex-wrap: wrap}
+.flex-nwrap { flex-wrap: nowrap}
+.flex-wrap-reverse { flex-wrap: wrap-reverse}
 
 .flex-grow { flex-grow: 0 }
 .flex-grow1 { flex-grow: 1 }

@@ -73,7 +73,7 @@ class User
             $password = Misc::str($cookie->password, $this->container);
 
             // Текс запроса в базу данных
-            $query = 'SELECT u.uid, u.login, u.level, u.coin, us.shift_time, us.local, us.theme, us.post_page
+            $query = 'SELECT u.uid, u.login, u.level, u.coins, us.shift_time, us.local, us.theme, us.post_page
             FROM user AS u
             LEFT JOIN user_settings AS us ON us.user_uid = u.uid
             WHERE login = "' . $login . '" AND password = "' . $password . '" LIMIT 1';

@@ -12,7 +12,10 @@ web/files/avatars/*
 web/files/forum/*
 web/files/lib/*
 web/files/dias/*
+web/fontellos/*
 web/styles/*
 
 # Other files ignores
 database/news.txt
+web/themes/app.old.css
+web/themes/apps.css

@@ -17,16 +17,31 @@ return [
         'src' => 'index'
     ],
     [
-        'url' => '/apanel/system',
+        'url' => '/apanel/about',
         'package' => 'apanel',
-        'src' => 'system'
+        'src' => 'about'
     ],
     [
-        'url' => '/apanel/system/{str}',
+        'url' => '/apanel/settings',
         'package' => 'apanel',
-        'src' => 'system',
+        'src' => 'settings'
+    ],
+    [
+        'url' => '/apanel/packages',
+        'package' => 'apanel',
+        'src' => 'packages'
+    ],
+    [
+        'url' => '/apanel/package/{str}',
+        'package' => 'apanel',
+        'src' => 'package',
         'params' => [
-            'action'
+            'package'
         ]
+    ],
+    [
+        'url' => '/apanel/seo',
+        'package' => 'apanel',
+        'src' => 'seo'
     ],
 ];

@@ -13,8 +13,8 @@
 return [
 	'system' => true,
 	'enable' => true,
-	'name' => 'Пользователи',
-	'dir' => 'user',
+	'name' => 'Темы оформления',
+	'dir' => 'themes',
 	'authors' => [
 		[
 			'name' => 'Tosyk',

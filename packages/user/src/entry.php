@@ -72,6 +72,7 @@ if ($request->has('login') && $request->has('password') && $request->has('code')
                     // Установить куки
                     $cookie->login($post->login , ['expires' => TIME + YEAR]);
                     $cookie->password($row->password, ['expires' => TIME + YEAR]);
+                    
                     go_die($container, '/');
                 } else
                     $error[] = 'Неверный логин или пароль';

@@ -36,6 +36,10 @@ class View extends Template
     // Ссылки навигации
     public $nav = false;
 
+    // Доп. css стили
+    public $css = false;
+
+    // Данные seo
     public $title, $desc, $keywords = '';
 
     // Конструктор
@@ -159,7 +163,7 @@ class View extends Template
                 cssTime('reset'),
                 cssTime('app'),
                 cssTime('custom/css/emoji'),
-                cssTime('custom/css/fontello'),
+                cssTime('fontello'),
                 cssTime('custom/css/icons'),
                 cssTime('custom/css/style')
             ]

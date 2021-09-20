@@ -7,10 +7,8 @@
  * @link   http://nomicms.ru
  */
 
-$user = $container->get('user');
-
-// Если не авторизован
-if ($user->getUser()['level'] < 2) {
+// Если не авторизован, либо не модератор или выше
+if (! $user->logger || $user->getUser()['level'] < 2) {
     go_die($container, '/');
 }
 
@@ -18,6 +16,9 @@ if ($user->getUser()['level'] < 2) {
 $view->title = 'Панель управления';
 
 $view->set('index', [
+    'user' => [
+        'level' => $user->getUser()['level']
+    ],
     'version' => $app->getVersion(),
     'status' => $app->getStatus()
 ]);

@@ -15,14 +15,10 @@ return [
     'name' => 'Светлая',
 
     // Папка
-    'dir' => 'light',
+    'dir' => 'custom',
 
     // Авторы
-    'author' => [
-        'name' => 'Photon',
-		'email' => 'photon.dev@yandex.ru',
-		'site' => 'http://nomicms.ru/us379'
-    ],
+    'author' => [],
 
     // Версия
     'ver' => '1.0'

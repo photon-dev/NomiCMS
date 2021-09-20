@@ -12,7 +12,7 @@
      go_die($container, '/');
  }
 
-$view->title = 'Настройки о системы';
+$view->title = 'Настройки SEO';
 
 // Настроить навигацию
 $view->nav = [

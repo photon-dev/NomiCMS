@@ -12,14 +12,14 @@
  */
 return [
     // Выдать предупреждение
-    'warning_users' => 3,
+    'warning_users' => 2,
 
     // Забанить
-    'ban_users' => 4,
+    'ban_users' => 3,
 
     // Редактировать профиль
-    'edit_users' => 4,
+    'edit_users' => 3,
 
     // Удалить пользователя
-    'del_users' => 5
+    'del_users' => 4
 ];

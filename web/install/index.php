@@ -8,7 +8,7 @@
  */
 
 // Использовать
-use Website\Install\Core\Install;
+use Web\Install\Core\Install;
 
 // Генерации страницы, Память
 define('NOMI_START', microtime(true));
