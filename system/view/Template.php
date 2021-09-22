@@ -10,87 +10,97 @@
 namespace System\View;
 
 // Использовать
-//use System\View\TemplateInteface;
+use System\View\TemplateInteface;
+use System\View\TemplateNotFound;
 
 /**
  * Класс Template
  */
-class Template //implements TemplateInteface
+class Template implements TemplateInteface
 {
     // Для всех
-    public $everyone = [];
+    public $all = [];
 
     // Для выбранного
-    protected $some = [];
+    public $some = [];
 
-    private $not = false;
+    // Для главного
+    public $main = [];
 
     // Установить данные
-    public function set(...$set): bool
+    public function set(string $key, $data, string $flag = ''): TemplateInteface
     {
-        // Имя, данные, ключ
-        $template = $set[0];
-        $data = $set[1];
-        $key = $set[2] ?? $template;
+        // Запомнить данные по ключу
+        $data = [$key => $data];
 
-        // Если данные евляються обьектом или строкой
-        if (is_object($data) || is_string($data)) {
-            $data = [$key => $data];
-            $this->not = true;
+        // Если true, тогда поместить данные в $some
+        if (! empty($flag)) {
+
+            // Если для выбранный шаблон уже указан, смешать все данные
+            if ($this->has($flag)) {
+                $data = array_merge($this->some[$flag], $data);
+            }
+
+            // Сохранить по флагу
+            $this->some[$flag] = $data;
+            return $this;
         }
 
-        // Если указаный шаблон найден
-        if ($this->hasSome($template)) {
-            $data = array_merge($this->some[$template], $data);
-        }
-
-        if (isset($set[2]) && ! $this->hasSome($template) && ! $this->not) {
-            $data = [$key => $data];
-        }
-
-        $this->some[$template] = $data;
-
-        return true;
+        // Установить для главного
+        $this->main = $data;
+        return $this;
     }
 
     // Установить данные для всех
-    public function setAll($data): void
+    public function setAll($data, string $key = ''): TemplateInteface
     {
-        $this->everyone = array_merge($this->everyone, $data);
+        if (! is_array($data) && ! empty($key)) {
+            $data = [$key => $data];
+        }
+
+        $this->all = array_merge($this->all, $data);
+
+        return $this;
     }
 
     // Получить имя шаблона
-    private static function getKey(string $str): string
+    private function getKey(string $key): string
     {
-        $pos = strrpos($str, '/');
-
-        return substr($str, $pos + 1);
+        $pos = strrpos($key, '/');
+        return substr($key, 0, $pos);
     }
 
     // Проверить одиночку
-    public function hasSome(string $template): bool
+    public function has(string $key): bool
     {
-        return isset($this->some[$template]);
+        return isset($this->some[$key]);
     }
 
     // Получить данные
     public function get(string $template)
     {
-        // Получить ключ
-        $template = (strpos($template, '/')) ? $this->getKey($template) : $template;
-
+        // Данные
         $data = [];
 
+        // Получить первое вхождение
+        if (strpos($template, '/')) {
+            $template = $this->getKey($template);
+        }
+
         // Получить данные выбранного шаблона
-        if ($this->hasSome($template)) {
+        if ($this->has($template)) {
+
             $data = array_merge($data, $this->some[$template]);
 
+        } else {
+            $data = array_merge($data, $this->main);
+
             // Стереть данные
-            unset($this->some[$template]);
+            $this->main = [];
         }
 
         // Слить с данными для всех
-        $data = array_merge($data, $this->everyone);
+        $data = array_merge($data, $this->all);
 
         // Показать
         return $data;

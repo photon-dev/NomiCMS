@@ -10,6 +10,7 @@
 // Использовать
 use System\Handler\Handler;
 use System\Container\ContainerInterface;
+use System\View\Views;
 
 // Форматирует вывод массивов и обьектов в строку
 // Создано на момент разработки и тестирования
@@ -23,19 +24,36 @@ if (!function_exists('dd')) {
     }
 }
 
-// Функция загрузки файлов с настройками
+// Функция загрузки файлов
+if (!function_exists('load')) {
+    function load(string $file, string $path)
+    {
+        if (! file_exists($path . $file . '.php')) {
+            dd($path . $file);
+            error("Файл {$file}.php не найден");
+        }
+
+        return require $path . $file . '.php';
+    }
+}
+
+// Функция загрузки пакет-файлов
+if (!function_exists('package')) {
+    function package(string $package) {
+
+        return load($package, PACKS);
+    }
+}
+
+// Функция загрузки файлов с настройкамиг
 if (!function_exists('config')) {
     function config(string $file, string $path = '')
     {
         if (empty($path)) {
-            $path = ROOT;
+            $path = CONFIG;
         }
 
-        if (!file_exists($path . $file . '.php')) {
-            die("Файл {$file}.php не найден");
-        }
-
-        return require $path . $file . '.php';
+        return load($file, $path);
     }
 }
 

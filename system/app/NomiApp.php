@@ -23,6 +23,9 @@ class NomiApp extends AppConfigure implements AppInterface
     // Контейнер
     protected $container;
 
+    // Пакет
+    public $package = '';
+
     // Системные настройки
     protected $system = [];
 
@@ -74,6 +77,9 @@ class NomiApp extends AppConfigure implements AppInterface
 
         // Установить количество пунктов
         $this->post_page = $user->logger ? $user->getUser()['post_page'] : $this->system['post_page'];
+
+        // Установить пакет
+        $this->package = $this->route['package'];
 
         /**
          * В данной месте будут выполняться все возможные Event (Эвенты)

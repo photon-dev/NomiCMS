@@ -5,6 +5,6 @@
         Генерация: <?php echo $timing; ?> сек
     </div>
     <div class="copy">
-        &#169; <?php echo $copyright; ?>
+        &#169; <?php echo $copy; ?>
     </div>
 </div>

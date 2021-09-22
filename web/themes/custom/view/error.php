@@ -1,7 +1,8 @@
 <?php if ($errors): ?>
     <div class="error">
 <?php foreach ($errors as $error): ?>
-        <?php echo $error; ?><br />
+        <i class="icon-cancel-circled"></i>
+        <?php echo $error; ?>
 <?php endforeach; ?>
     </div>
 <?php endif; ?>

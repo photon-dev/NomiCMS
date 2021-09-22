@@ -7,8 +7,8 @@
  * @link   http://nomicms.ru
  */
 
- // Подключиться к базе
- $db = $container->get('db');
+// Подключиться к базе
+$db = $container->get('db');
 
 // Настроить навигацию
 $view->nav = false;
@@ -24,7 +24,7 @@ $count = $db->query('SELECT
 FROM dual')->fetch_assoc();
 
 // Установить данные для шаблона index
-$view->set('index', ['count' => $count]);
+$view->set('count', $count);
 
 // Рендерим шаблон
 $view->render('index');

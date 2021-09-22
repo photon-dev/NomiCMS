@@ -28,7 +28,7 @@ class AppConfigure
     public function __construct()
     {
         // Загрузить доступные маршруты
-        $routes = config('config/routes');
+        $routes = config('routes');
 
         // Получить маршрутизатор
         $router = $this->container->get('router', [
@@ -42,7 +42,7 @@ class AppConfigure
 
             // Сохранить маршрут
             $this->container->get('config')::add('route', $this->route);
-            
+
             // Загрузить настройки пакета
             $this->settings = $this->container->get('config')::pull($this->route['package'] . '/settings', PACKAGE);
 
@@ -58,9 +58,15 @@ class AppConfigure
     }
 
     // Получить путь к исходному файлу
+    public function getPath(): string
+    {
+        return $this->route['package'] . '/src/';
+    }
+
+    // Получить путь к исходному файлу
     public function getPathSource(): string
     {
-        return $this->route['package'] . '/src/' . $this->route['src'] . '.php';
+        return $this->getPath() . $this->route['src'] . '.php';
     }
 
     // Существует ли пакет

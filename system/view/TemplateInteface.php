@@ -14,9 +14,16 @@ namespace System\View;
  */
 interface TemplateInteface
 {
-    // Установить
-    public function set(...$set): bool;
+    // Установить для выбранного шаблона
+    public function set(string $key, $data, string $flag = ''): self;
 
-    // Получить для всех
-    public function setAll($data): void;
+    // Установить для всех шаблонов
+    public function setAll($data, string $key = ''): self;
+
+    // Проверить
+    public function has(string $key): bool;
+
+    // Рендерить
+    public function get(string $template);
+
 }

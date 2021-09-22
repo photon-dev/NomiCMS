@@ -11,7 +11,7 @@ use System\Text\Misc;
 use System\Text\Password;
 
 // Если уже авторизован
-if ($container->get('user')->logger) {
+if ($user->logger) {
     go_die($container, '/');
 }
 
@@ -77,7 +77,7 @@ if ($request->has('login') && $request->has('password')) {
 }
 
 // Добавить данные
-$view->set('errors', $error, 'errors');
+$view->set('error', $error, 'errors');
 $view->set('entry', $post);
 
 // Рендерить

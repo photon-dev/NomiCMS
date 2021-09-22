@@ -14,7 +14,7 @@ use System\Container\ContainerInterface;
 use System\View\Template;
 use System\View\Exception\TemplateNotFound;
 use Packages\Themes\Component\Themes;
-use System\Http\ResponseInterface;
+use System\Http\Response\Response;
 
 /**
  * Класс View
@@ -24,8 +24,11 @@ class View extends Template
     // Контейнер зависимостей
     protected $container;
 
-    // Хранилище
+    // Тема
     protected $themes;
+
+    // Ответ
+    protected $response;
 
     // Скрыть контент
     public $showed = false;
@@ -43,7 +46,7 @@ class View extends Template
     public $title, $desc, $keywords = '';
 
     // Конструктор
-    public function __construct(ContainerInterface $container, Themes $themes)
+    public function __construct(ContainerInterface $container, Themes $themes, Response $response)
     {
         // Сохранить контейнер
         $this->container = $container;
@@ -59,6 +62,8 @@ class View extends Template
         $this->title = $seo['title'];
         $this->desc = $seo['description'];
         $this->keywords = $seo['keywords'];
+
+        $this->response = $response;
 
         ob_start();
     }
@@ -112,33 +117,34 @@ class View extends Template
         echo $this->load($file);
     }
 
-    // Рендерить шаблон
-    public function render(string $template, bool $priority = false, bool $write = false): void
+    protected function layout(string $template, bool $priority): void
     {
-        // Если статус true ничего не показывать
         if ($this->status) {
-            return ;
+            die('Не возможно повторно использовать шаблон layout');
         }
 
-        // Если указан layout тогда считать что шаблонизатор запущен
-        // Костыль от повторного подключения шаблона layout.php
-        if ($template == 'layout') {
-            $this->status = true;
-        }
-
-        // Подключить response
-        $response = $this->container->get('response');
+        $this->status = true;
 
         // Загрузить шаблон
         $content = $this->load($template, $priority);
 
-        // Сохранить в тело ответа
-        if ($write) {
-            $response->body($content);
-        // Либо в контент
-        } else {
-            $response->write($content);
+        $this->response->body($content);
+    }
+
+    // Рендерить шаблон
+    public function render(string $template, string $key = '', bool $priority = false): void
+    {
+        // Если указан layout, сообщить об этом
+        if ($template == 'layout') {
+            die('Не представляеться возможным. Использование шаблона layout в функции View->render()');
         }
+
+        $path = $this->getPath(true);
+
+        // Загрузить шаблон
+        $content = $this->load($template, $priority);
+
+        $this->response->write($content);
     }
 
     // Вывести на экран все содержимое
@@ -149,16 +155,16 @@ class View extends Template
             return ;
         }
 
-        // Получить зависимости
-        $response = $this->container->get('response');
+        // Получить данные пользователя
         $user = $this->container->get('user');
+        $config = $this->container->get('config');
 
         // Параметры для макета
         $layout = (object) [
-            'local'     => $this->container->get('config')::get('system')['local'],
+            'local'     => $config::get('system')['local'],
             'desc'      => $this->desc,
             'keywords'  => $this->keywords,
-            'content' => $response->getContent(),
+            'content' => $this->response->getContent(),
             'style'     => [
                 cssTime('reset'),
                 cssTime('app'),
@@ -180,13 +186,6 @@ class View extends Template
             ];
         }
 
-        // Параметры footer
-        $footer = [
-            'copyright' => $this->container->get('config')::get('seo')['copy'],
-            'memory' => round((memory_get_usage() - NOMI_MEMORY) / 1024),
-            'timing' => round(microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'], 4)
-        ];
-
         // Параметры для всех страниц
         $all = [
             'user_logger' => $user->logger,
@@ -201,16 +200,20 @@ class View extends Template
             ];
         }
 
-        $this->set('nav', $this->nav, 'list');
-
         // Установить данные
-        $this->set('layout', $layout);
-        $this->set('header', $header);
-        $this->set('footer', $footer);
+        $this->set('layout', $layout, 'layout');
+        $this->set('header', $header, 'header');
+        $this->set('nav', $this->nav, 'nav');
         $this->setAll($all);
 
+        // footer
+        $this->set('copy', $config::get('seo')['copy'], 'footer')
+            ->set('memory', round((memory_get_usage() - NOMI_MEMORY) / 1024), 'footer')
+            ->set('timing', round(microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'], 4), 'footer');
+            //->set('timing', round(microtime(true) - NOMI_START, 4), 'footer');
+
         // Рендерить макет
-        $this->render('layout', true, true);
+        $this->layout('layout', true);
     }
 
 }

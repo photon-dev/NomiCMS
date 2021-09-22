@@ -1,6 +1,6 @@
 <?php
     if ($entry->error) {
-        echo $this->template('errors');
+        echo $this->template('error');
     }
 ?>
     <div class="main">

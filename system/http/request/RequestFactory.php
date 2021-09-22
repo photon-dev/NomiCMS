@@ -39,6 +39,12 @@ class RequestFactory
         return false;
     }
 
+    // Проверка на пустоту
+    public function em(string $name): bool
+    {
+        return empty($name);
+    }
+
     // Получить все данные
     public function getData(): array
     {
