@@ -42,7 +42,7 @@ class RequestFactory
     // Проверка на пустоту
     public function em(string $name): bool
     {
-        return empty($name);
+        return empty($this->data[$name]);
     }
 
     // Получить все данные

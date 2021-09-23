@@ -19,13 +19,13 @@ use System\View\TemplateNotFound;
 class Template implements TemplateInteface
 {
     // Для всех
-    public $all = [];
+    private $all = [];
 
     // Для выбранного
-    public $some = [];
+    private $some = [];
 
     // Для главного
-    public $main = [];
+    private $main = [];
 
     // Установить данные
     public function set(string $key, $data, string $flag = ''): TemplateInteface
@@ -47,7 +47,8 @@ class Template implements TemplateInteface
         }
 
         // Установить для главного
-        $this->main = $data;
+        $this->main = array_merge($this->main, $data);
+
         return $this;
     }
 
@@ -89,9 +90,7 @@ class Template implements TemplateInteface
 
         // Получить данные выбранного шаблона
         if ($this->has($template)) {
-
             $data = array_merge($data, $this->some[$template]);
-
         } else {
             $data = array_merge($data, $this->main);
 
