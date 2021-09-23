@@ -57,7 +57,7 @@ class Container extends ContainerParse implements ContainerInterface
             throw new DependencyNotFound("Имя зависимости для анонимной функции должно быть указано");
         }
 
-        // Если зависимость не найден и переопределение выключено, сообщить об этом
+        // Если зависимость не найдена
         if ($this->has($name)) {
             throw new DependencyNotFound("Зависимость {$name} уже установлена");
         }
