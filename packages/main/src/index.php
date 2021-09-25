@@ -10,6 +10,8 @@
 // Подключиться к базе
 $db = $container->get('db');
 
+$view->title = 'Главная';
+
 // Настроить навигацию
 $view->nav = false;
 

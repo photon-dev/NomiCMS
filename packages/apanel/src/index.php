@@ -13,15 +13,11 @@ if (! $user->logger || $user->getUser()['level'] < 2) {
 }
 
 // Имя страницы
-$view->title = 'Панель управления';
+$view->title = 'Панель управления ' . $app->getVersion();
 
-$view->set('index', [
-    'user' => [
-        'level' => $user->getUser()['level']
-    ],
-    'version' => $app->getVersion(),
-    'status' => $app->getStatus()
-]);
+$view->set('user', [
+    'level' => $user->getUser()['level']
+])->set('version', $app->getVersion())->set('status', $app->getStatus());
 
 // Рендерить шаблон
 $view->render('index');

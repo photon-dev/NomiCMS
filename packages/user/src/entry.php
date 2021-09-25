@@ -77,7 +77,7 @@ if ($request->has('login') && $request->has('password')) {
 }
 
 // Добавить данные
-$view->set('error', $error, 'errors');
+$view->set('errors', $error, 'error');
 $view->set('entry', $post);
 
 // Рендерить

@@ -24,7 +24,7 @@ return [
     'author' => 'Tosyk, Photon-dev',
 
     // Емаил
-    'reply_to' => 'help@nomicms.ru',
+    'replyTo' => 'help@nomicms.ru',
 
     // Компирайт
     'copy' => '2021 Nomicms'

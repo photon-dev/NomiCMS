@@ -23,5 +23,6 @@ $view->nav = [
     ]
 ];
 
+
 // Рендерить шаблон
 $view->render('index');

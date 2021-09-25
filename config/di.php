@@ -41,12 +41,6 @@ return [
      // View
      System\View\View::class,
 
-     // Новый шаблонизатор, тестирование
-     System\View\Views::class,
-
-     // View
-     System\Html\Seo::class,
-
      // Themes
      Packages\Themes\Component\Themes::class,
 

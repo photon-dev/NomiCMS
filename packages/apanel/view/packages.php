@@ -10,7 +10,7 @@
                 </span>
             </span>
         </div>
-        <a href="" title="">Настройки</a>
+        <a href="/apanel/package/<?php echo $package['dir']; ?>" title="">Настройки</a>
     </div>
 <?php endforeach; ?>
 </div>

@@ -8,9 +8,7 @@
  */
 
 // Использовать
-use System\Handler\Handler;
 use System\Container\ContainerInterface;
-use System\View\Views;
 
 // Форматирует вывод массивов и обьектов в строку
 // Создано на момент разработки и тестирования
@@ -57,23 +55,7 @@ if (!function_exists('config')) {
     }
 }
 
-if (!function_exists('handler'))
-{
-    function handler(string $error, bool $preend = false)
-    {
-        // Запустить обработчик
-        $err = new Handler;
-        $err->set($error);
-
-        // Показать ошибки
-        $errors = $err->view($preend);
-        $time = cssTime('app.min');
-
-        require_once PACKS . 'main/view/error.php';
-        die;
-    }
-}
-
+// Функция вывода ощибки на экран
 if (!function_exists('error'))
 {
     function error(string $error)
@@ -85,6 +67,7 @@ if (!function_exists('error'))
     }
 }
 
+// Получить время создание css файла
 if (!function_exists('cssTime'))
 {
     function cssTime(string $css)
@@ -111,5 +94,12 @@ if (!function_exists('go_die')) {
         // Перейти
         header('location: ' . $url);
         die;
+    }
+}
+
+if (! function_exists('getHomeBack')) {
+    function getHomeBack(string $url): bool
+    {
+        return ($url == '/') ? false : true;
     }
 }

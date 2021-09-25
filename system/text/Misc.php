@@ -22,7 +22,7 @@ use System\Session\Session;
 class Misc
 {
     // Обработать число
-    public static function abs(int $int)
+    public static function abs(int $int): int
     {
         // Обработать
         $int = abs(intval($int));
@@ -57,7 +57,7 @@ class Misc
     }
 
     // Получить рандомную строку
-    public static function random(int $preend = 1, int $length = 32)
+    public static function random(int $amount = 1, int $length = 32): string
     {
         // Пустая строка
         $output = '';
@@ -69,7 +69,7 @@ class Misc
 
         // Обработк,а создание
         for ($i = 0; $i < $length; $i++) {
-            switch (mt_rand(1, $preend)) {
+            switch (mt_rand(1, $amount)) {
                 // Содание рандомной цифры
                 case 1:
                     $output .= $numbers[mt_rand(0, strlen($numbers) - 1)];
@@ -92,10 +92,12 @@ class Misc
         return $output;
     }
 
-    // Получить изменные окончания слов
-    // Пример
-    // День, дня, дней
-    public static function nums(string $num, string $one, string $two, string $more)
+    /**
+     * Получить изменные окончания слов
+     * Пример:
+     * День, дня, дней
+     */
+    public static function nums(string $num, string $one, string $two, string $more): string
     {
         $l2 = substr($num, strlen($num) - 2, 2);
 
@@ -123,8 +125,8 @@ class Misc
         }
     }
 
-    // sdds
-    public static function code(Session $session, int $count = 16)
+    // Получить код
+    public static function code(Session $session, int $count = 16): string
     {
         $code = self::random_b($count);
         $session->code = $code;

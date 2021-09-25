@@ -12,6 +12,7 @@ namespace System\View;
 // Использовать
 use System\Container\ContainerInterface;
 use System\View\Template;
+use System\View\TemplateInteface;
 use System\View\Exception\TemplateNotFound;
 use Packages\Themes\Component\Themes;
 use System\Http\Response\Response;
@@ -19,7 +20,7 @@ use System\Http\Response\Response;
 /**
  * Класс View
  */
-class View extends Template
+class View extends Template implements TemplateInteface
 {
     // Контейнер зависимостей
     protected $container;
@@ -68,7 +69,7 @@ class View extends Template
         ob_start();
     }
 
-    // Получить путь к шаблонам
+    // Получить путь к папке где храняться шаблоны
     protected function getPath(bool $priority): string
     {
         // Приоритет загрузки
@@ -147,6 +148,34 @@ class View extends Template
         $this->response->write($content);
     }
 
+    private function getBackLink()
+    {
+        $url = $this->container->get('config')::get('route')['url'];
+
+        $list = explode('/', $url, -1);
+        $key = count($list) - 1;
+
+        if ($key >= 1) {
+            return $list[$key];
+        }
+
+        return false;
+    }
+
+    public function footer(string $back = '/')
+    {
+
+        $footer = (object) [
+            'back' => $this->getBackLink(),
+            'copy' => $config::get('seo')['copy'],
+            'memory' => round((memory_get_usage() - NOMI_MEMORY) / 1024),
+            'timing' => round(microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'], 4)
+        ];
+
+        // Установить данные для шаблона footer
+        $this->set('foo', $footer, 'footer');
+    }
+
     // Вывести на экран все содержимое
     public function put()
     {
@@ -175,6 +204,9 @@ class View extends Template
             ]
         ];
 
+        // Установить данные для шаблона layout
+        $this->set('doc', $layout, 'layout');
+
         $header = (object) [
             'nav' => $this->nav
         ];
@@ -200,18 +232,18 @@ class View extends Template
             ];
         }
 
+        $footer = (object) [
+            'back' => $this->getBackLink(),
+            'copy' => $config::get('seo')['copy'],
+            'memory' => round((memory_get_usage() - NOMI_MEMORY) / 1024),
+            'timing' => round(microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'], 4)
+        ];
+
         // Установить данные
-        $this->set('layout', $layout, 'layout');
         $this->set('header', $header, 'header');
         $this->set('nav', $this->nav, 'nav');
+        $this->set('foo', $footer, 'footer');
         $this->setAll($all);
-
-        // footer
-        $this->set('copy', $config::get('seo')['copy'], 'footer')
-            ->set('memory', round((memory_get_usage() - NOMI_MEMORY) / 1024), 'footer')
-            ->set('timing', round(microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'], 4), 'footer');
-            //->set('timing', round(microtime(true) - NOMI_START, 4), 'footer');
-
         // Рендерить макет
         $this->layout('layout', true);
     }

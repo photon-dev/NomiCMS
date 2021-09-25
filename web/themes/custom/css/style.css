@@ -61,33 +61,52 @@ a {
   border-radius: 2px;
 }
 
-.title .navbar {}
-
-.title .navbar > li {
-    padding-right: 5px;
+.nav {
+    background: #212a31;
+    color: #6D7278;
+    padding: 14px;
+    font-size: 15px;
 }
 
-.title .navbar li:before {
-    float: left;
-    padding-right: 5px;
-    content: '/';
+.nav > div > a {
+    background: #1b2329;
+    margin-left: 10px;
+    border-radius: 2px;
 }
 
-.title .navbar li:first-child {
-    padding-right: 5px;
+.nav a {
+    color: #A4ABB4;
+    transition: color .2s
+}
+.nav a:hover { color: #6D7278 }
+
+.nav li { padding-left: 5px }
+.nav li:first-child { padding-left: 0 }
+.nav li:last-child { padding-left: 0 }
+
+.nav li:before {
+    float: right;
+    padding-left: 5px;
+    content: '/'
 }
 
-.title .navbar li:nth-child(2):before
+.nav li:first-child:before {
+    float: none;
+    padding-left: 0;
+    content: ''
+}
+
+.nav li:nth-child(1):before
 {
     float: none;
-    padding-right: 0;
-    content: '';
+    padding-left: 0;
+    content: ''
 }
 
-.title .navbar li:first-child:before {
+.nav li:last-child:before {
     float: none;
     padding-right: 0;
-    content: '';
+    content: ''
 }
 
 .footer {
@@ -103,7 +122,7 @@ a {
     color: #3a3f43;
 }
 
-.panel a, .forum_topic a:first-child, .bm > a, .adm_menu > a, .friends_menu a, .nav a {
+.panel a, .forum_topic a:first-child, .bm > a, .adm_menu > a, .friends_menu a, .pagination a {
     flex: 1;
     -webkit-box-flex: 1;
     -webkit-flex: 1;
@@ -754,11 +773,11 @@ div .attach {
   margin-right: 5px;
 }
 
-.nav {
+.pagination {
   font-size: 11px;
 }
 
-.nav a {
+.pagination a {
   display: block;
   text-align: center;
   padding: 10px;
@@ -766,15 +785,15 @@ div .attach {
   transition: background .2s;
 }
 
-.nav a:hover {
+.pagination a:hover {
   background: #27323a;
 }
 
-.nav a.active {
+.pagination a.active {
   background: #1a2127;
 }
 
-.nav a:last-child {
+.pagination a:last-child {
   border: 0;
 }
 
@@ -838,6 +857,20 @@ div .attach {
 
 .highlight {
   border-bottom: 1px dashed #4CAF50;
+}
+
+.back {
+    background: #212a31
+}
+
+.back a {
+    display: block;
+    padding: 12px 16px;
+    transition: background 2s;
+}
+
+.back a:hover {
+    background: $fff;
 }
 
 /* костыль для [type=file] */
@@ -1046,7 +1079,7 @@ audio, video {
 
 @media (min-width: 1600px) {
   body { font-size: 19px; max-width: 540px; }
-  .title { font-size: 18px; }
+  .title, .navbar { font-size: 18px }
   .news > div > span > a, .nt, .rep, .menu a > span { font-size: 12px; }
   .user, .blog_title, .blog, .friends_btn, #select_file > label { font-size: 15px; }
   .level { font-size: 10px; }

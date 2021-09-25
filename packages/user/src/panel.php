@@ -32,14 +32,11 @@ $count = $db->query('SELECT
 FROM dual')->fetch_assoc();;
 
 // Установить данные для шаблона index
-$view->set('panel', [
-    'user' => [
-        'uid' => $us['uid'],
-        'login' => $us['login'],
-        'coins' => $us['coins']
-    ],
-    'count' => $count
-]);
+$view->set('user', [
+    'uid' => $us['uid'],
+    'login' => $us['login'],
+    'coins' => $us['coins']
+])->set('count', $count);
 
 // Рендерить
 $view->render('panel');

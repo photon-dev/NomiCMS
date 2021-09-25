@@ -11,7 +11,7 @@
             <input type="password" name="password" value="<?php echo $entry->password ?>"/><br />
             <button>Войти</button>
         </form>
-    </div><hr />
+    </div>
     <div class="menu">
         <a href="/recovery" title="Восстановление доступа">
             <i class="icon-lock-open c-red"></i>

@@ -9,6 +9,8 @@
 
 namespace System\View;
 
+use System\View\Seo;
+
 /**
  * Интерфейс TemplateInteface
  */

@@ -21,9 +21,8 @@ CREATE TABLE IF NOT EXISTS `user` (
     `city` varchar(32) NOT NULL DEFAULT '', -- Город
     `about` varchar(256) NOT NULL DEFAULT '', -- Обо мне
     `coins` mediumint(8) unsigned NOT NULL DEFAULT '100', -- Монеты
-    `avatar` varchar(128) NOT NULL DEFAULT 'none.jpg',
-    `tg` varchar(32) NOT NULL DEFAULT '', -- Телеграмм
-    `ip` int(10) NOT NULL,
+    `avatar` varchar(128) NOT NULL DEFAULT 'none.jpg', -- Аватар
+    `ip` int(10) NOT NULL, -- Ip адрес
     `email` varchar(128) NOT NULL DEFAULT '',
     `email_c` enum('off','wait','on') NOT NULL DEFAULT 'off',
     `browser` varchar(255) NOT NULL DEFAULT '',

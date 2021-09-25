@@ -21,32 +21,30 @@ $view->title = 'Регистрация - Выбор логина';
 
 // Данные для шаблона entry
 $error = false;
-$login = false;
 $success = false;
 
 // Если присутствуют post данные
 if ($request->has('login')) {
-    $login = Misc::str($request->login, $container);
 
-    if (! $login) $error[] = 'Вы не ввели логин';
+    if ($request->em('login')) $error[] = 'Вы не ввели логин';
 
-    if ($db->query('SELECT password FROM user WHERE login = "' . $login . '"')->num_rows >= 1) $error[] = 'Логин занят';
+    if (! $request->em('login') && $db->query('SELECT password FROM user WHERE login = "' . Misc::str($request->login, $container) . '"')
+        ->num_rows != 0)
+            $error[] = "Логин <b>{$request->login}</b> занят";
 
     // Если нет ощибок
     if (! $error) {
         $success[] = "Логин <b>{$request->login}</b> доступен";
-        dd('ok');
     }
 }
 
 // Добавить данные
-$view->set('error', $error, 'errors')
+$view->set('errors', $error, 'error')
     ->set('success', $success, 'success');
 
-$view->set('signup', [
-    'login' => $login,
-    'error' => $error
-]);
+$view->set('login', $request->login)
+    ->set('error', $error)
+    ->set('success', $success);
 
 // Рендерить
 $view->render('signup/step_0');

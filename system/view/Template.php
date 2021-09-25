@@ -16,7 +16,7 @@ use System\View\TemplateNotFound;
 /**
  * Класс Template
  */
-class Template implements TemplateInteface
+class Template
 {
     // Для всех
     private $all = [];
@@ -93,7 +93,6 @@ class Template implements TemplateInteface
             $data = array_merge($data, $this->some[$template]);
         } else {
             $data = array_merge($data, $this->main);
-
             // Стереть данные
             $this->main = [];
         }
