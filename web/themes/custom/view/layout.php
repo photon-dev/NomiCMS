@@ -22,12 +22,12 @@
 </head>
 <body id="app" class="app">
     <!--- Шапка --->
-    <?php $this->template('header'); ?>
+    <?php $view->template('header'); ?>
 
 <!--- Контент --->
 <?php echo $doc->content; ?>
 
     <!--- Ноги --->
-<?php $this->template('footer'); ?>
+<?php $view->template('footer'); ?>
 </doby>
 </html>

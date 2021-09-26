@@ -86,7 +86,7 @@ class View extends Template implements TemplateInteface
     }
 
     // Загрузить шаблон
-    protected function load(string $file, bool $priority = true): string
+    protected function load(string $file, bool $priority = true): object
     {
         // Получить путь к шаблону
         $path = $this->getPath($priority);
@@ -96,48 +96,47 @@ class View extends Template implements TemplateInteface
         }
 
         // Если шаблон не найден сообщить об этом
-        if (file_exists($path . $file . '.php') === false) {
-            throw new TemplateNotFound("Шаблон {$file} $path не найден");
+        if (! file_exists($path . $file . '.php')) {
+            throw new TemplateNotFound("Шаблон {$file} по пути {$path} не найден");
         }
 
-        // Извлечь переменные
-        extract($this->get($file));
+        return function ($view) use($path, $file) {
+            extract($this->get($file));
 
-        ob_start();
+            ob_start();
 
-        // Подключить шаблон
-        require $path . $file . '.php';
+            // Подключить шаблон
+            require $path . $file . '.php';
 
-        // Показать содержимое
-        return ob_get_clean();
+            // Показать содержимое
+            return ob_get_clean();
+        };
     }
 
     // Подключить шаблон в шаблоне
     protected function template(string $file): void
     {
-        echo $this->load($file);
+        $file = $this->load($file);
+
+        echo $file($this);
     }
 
     protected function layout(string $template, bool $priority): void
     {
-        if ($this->status) {
-            die('Не возможно повторно использовать шаблон layout');
-        }
-
-        $this->status = true;
-
         // Загрузить шаблон
         $content = $this->load($template, $priority);
 
-        $this->response->body($content);
+        $this->response->body(
+            $content($this)
+        );
     }
 
     // Рендерить шаблон
-    public function render(string $template, string $key = '', bool $priority = false): void
+    public function render(string $template, bool $priority = false): void
     {
         // Если указан layout, сообщить об этом
         if ($template == 'layout') {
-            die('Не представляеться возможным. Использование шаблона layout в функции View->render()');
+            throw new TemplateNotFound("Не представляеться возможным. Использование шаблона 'layout' в методе render");
         }
 
         $path = $this->getPath(true);
@@ -145,7 +144,9 @@ class View extends Template implements TemplateInteface
         // Загрузить шаблон
         $content = $this->load($template, $priority);
 
-        $this->response->write($content);
+        $this->response->write(
+            $content($this)
+        );
     }
 
     private function getBackLink()

@@ -4,7 +4,7 @@
     }
 ?>
     <div class="main">
-        <form action="/entry" method="POST">
+        <form method="POST" action="/entry">
             Логин:<br />
             <input type="text" name="login" value="<?php echo $entry->login ?>"/><br />
             Пароль:<br />

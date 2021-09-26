@@ -88,6 +88,6 @@ class Pagination
             'url' => $url,
             'page' => $this->page,
             'pages' => ($this->pages > 0) ? $this->pages : false
-        ]);
+        ], 'pagination');
     }
 }

@@ -11,11 +11,11 @@ web/files/downloads/*
 web/files/avatars/*
 web/files/forum/*
 web/files/lib/*
-web/files/dias/*
-web/fontellos/*
+web/fontello/*
 web/styles/*
 
 # Other files ignores
 database/news.txt
 web/themes/app.old.css
 web/themes/apps.css
+web/fontello.zip

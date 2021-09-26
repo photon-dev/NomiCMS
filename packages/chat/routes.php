@@ -17,6 +17,14 @@ return [
         'src' => 'index'
     ],
     [
+        'url' => '/chat/page/{num}',
+        'package' => 'chat',
+        'src' => 'index',
+        'params' => [
+            'pageId'
+        ]
+    ],
+    [
         'url' => '/chat/reply/{str}',
         'package' => 'chat',
         'src' => 'reply',
