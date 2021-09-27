@@ -1,3 +1,39 @@
+@font-face {
+  font-family: 'fontello';
+  src: url('/fonts/fontello/fontello.eot?57052028');
+  src: url('/fonts/fontello/fontello.eot?57052028#iefix') format('embedded-opentype'),
+       url('/fonts/fontello/fontello.woff2?57052028') format('woff2'),
+       url('/fonts/fontello/fontello.woff?57052028') format('woff'),
+       url('/fonts/fontello/fontello.ttf?57052028') format('truetype'),
+       url('/fonts/fontello/fontello.svg?57052028#fontello') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'fontello';
+    src: url('../font/fontello.svg?57052028#fontello') format('svg');
+  }
+}
+*/
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: normal;
+  speak: never;
+  text-decoration: inherit;
+  margin-right: .3rem;
+  text-align: center;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 /* http://nomicms.ru 2021*/
 @import url("https://fonts.googleapis.com/css?family=Nunito:400,600");
 

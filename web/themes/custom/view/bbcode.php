@@ -46,18 +46,20 @@ function smile() {
     .bbcode i[class^="icon-"]:before, i[class*=" icon-"]:before {
         margin: 0;
     }
+
+    .bbcode i.red{}
 </style>
-<hr /><div class='bbcode'>
+<div class='bbcode'>
 <a onclick="smile()"><i class="icon-smile"></i></a>
 <a onclick="tag('[b]', '[/b]')"><i class="icon-bold"></i></a>
 <a onclick="tag('[i]', '[/i]')"><i class="icon-italic"></i></a>
 <a onclick="tag('[u]', '[/u]')"><i class="icon-underline"></i></a>
-<a onclick="tag('[s]', '[/s]')"><i class="icon-strike"></i></a>
-<a onclick="tag('[url=http://]', '[/url]')"><i class="icon-link"></i></a>
-<a onclick="tag('[img]', '[/img]')"><i class="icon-picture"></i></a>
+<a onclick="tag('[color=#]', '[/color]')"><i class="icon-palette"></i></a>
+<a onclick="tag('[url=http://]', '[/url]')"><i class="icon-link-1"></i></a>
+<a onclick="tag('[img]', '[/img]')"><i class="icon-picture-1"></i></a>
 <a onclick="tag('[cit]', '[/cit]')"><i class="icon-quote-right"></i></a>
 <a onclick="tag('[code]', '[/code]')"><i class="icon-code"></i></a>
-<a onclick="tag('[youtube]', '[/youtube]')"><i class="icon-youtube"></i></a>
+<a onclick="tag('[youtube]', '[/youtube]')"><i class="icon-youtube-2"></i></a>
 </div>
 <div id="smile"><hr>
 <? //smile('', true); ?>

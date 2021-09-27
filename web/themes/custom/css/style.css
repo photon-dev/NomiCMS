@@ -663,6 +663,7 @@ div .attach {
 .bbcode {
   background: #212a31;
   padding: 15px 15px 0px 15px;
+  border-top: 1px solid #1a2127;
 }
 
 #smile {
@@ -945,7 +946,7 @@ input[type=checkbox]:checked + label:before {
 }
 
 code {
-  color: #29b934;
+    color: #29b934;
 }
 
 ul {

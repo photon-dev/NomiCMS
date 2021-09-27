@@ -12,8 +12,8 @@ namespace System\Text;
 // Использовать
 use System\Container\ContainerInterface;
 use System\Database\DB;
-//use System\Text\Smiles;
 use System\Text\Bbcode;
+use System\Text\Emoji;
 use System\Session\Session;
 
 /**
@@ -48,9 +48,8 @@ class Misc
     {
         $text = nl2br($text);
         //$text = htmlspecialchars($text, ENT_QUOTES);
-        //$text = self::bbcode($text);
+        $text = Emoji::emo($text);
         $text = Bbcode::code($text);
-        //$text = smiles($text);
 
         // Показать
         return $text;
