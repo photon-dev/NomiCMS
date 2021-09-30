@@ -14,7 +14,6 @@
 // Получить зависимости
 $db = $container->get('db');
 
-//$messages = $db->query('SELECT COUNT(*) as count FROM chat')->fetch_assoc()['count'];
 $msgCount = $db->query('SELECT COUNT(*) FROM chat')->fetch_row()[0];
 
 // Заголовок страницы
@@ -44,8 +43,8 @@ $result = $db->query('SELECT c.*, u.login, u.level
 FROM chat AS c
 LEFT JOIN user AS u
 ON u.uid = c.user_uid
-GROUP BY c.date_write
-ORDER BY c.date_write DESC LIMIT  ' . $page->start . ', ' . $app->post_page);
+GROUP BY c.uid
+ORDER BY c.uid DESC LIMIT  ' . $page->start . ', ' . $app->post_page);
 
 // Обработать
 while ($post = $result->fetch_object()) {
@@ -55,9 +54,7 @@ while ($post = $result->fetch_object()) {
 }
 
 // Установить данные
-//$view->set('chat', );
 $view->set('chat', $chat);
-//$view->set('user_level', $user->level);
 
 // Рендерить шаблоны posts
 $view->render('posts');

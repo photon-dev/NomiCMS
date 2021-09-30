@@ -14,7 +14,8 @@ return [
 	'system' => true,
 	'enable' => true,
 	'name' => 'Информация',
-	'dir' => 'info'
+	'dir' => 'info',
+	'authors' => [
 		[
 			'name' => 'Tosyk',
 			'email' => 'admin@nomicms.ru',

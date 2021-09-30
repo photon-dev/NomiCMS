@@ -1,9 +1,10 @@
 AddDefaultCharset utf-8
 DirectoryIndex index.php
+Options -Indexes
 
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
-        Options -MultiViews -Indexes
+        # Options -MultiViews -Indexes
     </IfModule>
 
     RewriteEngine On

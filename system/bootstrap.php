@@ -12,9 +12,9 @@ use System\Container\Container;
 use System\App\NomiApp;
 
 // Проверить текущаю версию php
-if (version_compare(PHP_VERSION, '7.0', 'lt')) {
+if (PHP_VERSION_ID < 70329) {
     die(
-        'Требуется PHP 7.0++. <br /> Текущая версия: '
+        'Требуется PHP 7.3.29++<br />Текущая версия: '
         . phpversion()
     );
 }
@@ -25,7 +25,7 @@ if (! file_exists(ROOT . 'system/autoload.php')) {
 }
 
 // Подключить загрузчик
-require ROOT . 'system/autoload.php';
+require ROOT . 'system/autoload.php';;
 
 // Создать контейнер
 $container = new Container;
@@ -36,8 +36,7 @@ $dependencies($container);
 
 // Конфигурирование
 $configure = config('configure');
-$system = $configure($container);
-
+$system = $configure($container) or die('Не удалось установить среду окружения.');
 
 // Установить временную зону
 if ($system['timezone'] != date_default_timezone_get()) {

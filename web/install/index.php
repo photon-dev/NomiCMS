@@ -8,21 +8,22 @@
  */
 
 // Использовать
-use Web\Install\Core\Install;
-
-// Генерации страницы, Память
-define('NOMI_START', microtime(true));
-define('NOMI_MEMORY', memory_get_usage());
+//use Web\Install\Core\Install;
 
 // Корневая директория
-define('ROOT', dirname(__DIR__, 2) . '/');
-
-// Если не найден загрузчик, сообщить
-if (!file_exists(ROOT . 'system/autoload.php')) {
-    die('Не удалось запустить авто-загрузчик');
+if (! defined('ROOT')) {
+    define('ROOT', dirname(__DIR__, 2) . '/');
 }
 
+// Генерации страницы
+define('NOMI_START', microtime(true));
+// Используемая память
+define('NOMI_MEMORY', memory_get_usage());
+
 // Загрузить bootstrap
-require ROOT . 'system/autoload.php';
+//$app = require ROOT . 'system/bootstrap.php';
+
+// Запустить приложение
+//$app->run();
 
 echo 'Вас приветствует установщик Nomicms v3.0.1601b';

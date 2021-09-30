@@ -79,7 +79,9 @@ class NomiApp extends AppConfigure implements AppInterface
         $this->post_page = $user->logger ? $user->getUser()['post_page'] : $this->system['post_page'];
 
         // Установить пакет
-        $this->package = $this->route['package'];
+        if ($this->found) {
+            $this->package = $this->route['package'];
+        }
 
         /**
          * В данной месте будут выполняться все возможные Event (Эвенты)

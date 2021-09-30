@@ -1,15 +1,15 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # Redirect Trailing Slashes If Not A Folder...
-    #RewriteCond %{REQUEST_FILENAME} !-d
-    #RewriteCond %{REQUEST_URI} (.+)/$
-    #RewriteRule ^ %1 [L,R=301]
-
     #RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
     #RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
     #RewriteCond %{HTTPS} !on
     #RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
 
     RewriteCond %{REQUEST_URI} !^web
     RewriteRule ^(.*)$ web/$1 [L]

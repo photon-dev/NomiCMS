@@ -31,10 +31,8 @@ class Cookie
         // Опции
         $options = $cookie[1];
 
-        dd($cookie);
-
         // Установить
-        $this->set($name, $value, [$options]);
+        $this->set($name, $value, $options);
     }
 
     // Получить куки

@@ -97,6 +97,7 @@ if (!function_exists('go_die')) {
     }
 }
 
+// Получить обратную ссылку
 if (! function_exists('getHomeBack')) {
     function getHomeBack(string $url): bool
     {

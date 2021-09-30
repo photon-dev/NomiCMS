@@ -22,6 +22,37 @@ class Valid
             return $res[0];
         }
 
-        return false;
+        return ;
+    }
+
+    // Проверить пароль
+    public static function pass(string $pass): bool
+    {
+        if (! preg_match("#^[a-zа-яё0-9\-\_\ ]{6,32}$#ui", $pass)) {
+            return ;
+        }
+
+        return true;
+    }
+
+    // Проверить логин
+    public static function nick(string $nick): bool
+    {
+        if (! preg_match("#^[a-zа-яё][a-zа-яё0-9\-\_\ ]{2,20}$#ui", $nick)) {
+            return ;
+        }
+
+        //
+        if (preg_match("#[a-z]+#ui", $nick) && preg_match("#[а-яё]+#ui", $nick)) {
+            return ;
+        }
+
+        // Если в нике присутствуют запрещенные символы
+        if (preg_match("#(^\ )|(\ $)#ui", $nick)) {
+            return ;
+        }
+
+
+        return true;
     }
 }

@@ -44,15 +44,9 @@ class User
 
     protected function logon()
     {
-        if ($this->logger) {
-            return ;
-        }
-
         // Подключить сессии, cookie
         $session = $this->container->get('session');
         $cookie = $this->container->get('cookie');
-
-        //$sessionLogin = $session->user['login'] ?? false;
 
         // Если активна сессия
         if ($session->user) {

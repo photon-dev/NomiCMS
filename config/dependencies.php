@@ -9,18 +9,38 @@
 
 // Использовать
 use System\Container\ContainerInterface;
+//use Exception;
 
 /**
- * Добавление служб в контейнер
+ * Добавление зависимостей в контейнер
  */
 return function (ContainerInterface $container) {
 
-    // Загрузить список служб
-    $services = config('di');
+    // Загрузить список зависимостей
+    $dies = config('dies');
 
-    // Установить
-    foreach ($services as $service) {
-        $container->set($service);
+    // Перебрать массив
+    foreach ($dies as $dependency) {
+
+        // Если $dependency массив получить имя, зависимость
+        if (is_array($dependency)) {
+
+            // Если имя зависимости не определёно
+            if (! isset($dependency[0])) {
+                throw new Exception('Не удалось установить имя зависимости, из списка dies');
+            }
+
+            // Если сама зависимость не определёна
+            if (! isset($dependency[1])) {
+                throw new Exception('Не удалось установить зависимость, из списка dies');
+            }
+
+            // Установить зависимость по имени
+            $container->set($dependency[1], $dependency[0]);
+        } else {
+            // Установить зависимость
+            $container->set($dependency);
+        }
     }
 
     return null;

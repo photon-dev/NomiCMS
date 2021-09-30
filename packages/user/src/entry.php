@@ -12,73 +12,65 @@ use System\Text\Password;
 
 // Если уже авторизован
 if ($user->logger) {
-    go_die($container, '/');
+    go_die($container);
 }
 
 // Установить имя страницы
 $view->title = 'Авторизация';
 
-// Подключить request
+// Подключить зависимости
 $request = $container->get('request')->post;
-
-// Данные для шаблона entry
-$post = (object) [
-    'error' => false,
-    'login' => false,
-    'password' => false
-];
-
-// Данные для шаблона entry
-$error = false;
+$error = $container->get('error');
 
 // Если присутствует post данные
-if ($request->has('login') && $request->has('password')) {
+if ($request->has('submit')) {
 
-    $post->login = $request->login;
-    $post->password = $request->password;
-
-    if (! $post->login) $error[] = 'Вы не ввели логин';
-    if (! $post->password) $error[] = 'Вы не ввели пароль';
+    if ($request->em('login')) $error->set('Вы не ввели логин');
+    if ($request->em('password')) $error->set('Вы не ввели пароль');
 
     // Если нет ошибок
-    if (! $error) {
-        // Подключить сессии, и получить код
-        $code = $container->get('session')->captcha;
+    if (! $error->getErrors()) {
+        // Обработать логин  и пароль
+        $login =  Misc::str($request->login, $container);
+        $password = Misc::str($request->password, $container);
+
+        dd($login);
 
         // Подключить базу данных
         $db = $container->get('db');
-
-        // Обработать логин  и пароль
-        $post->login =  Misc::str($post->login, $container);
-        $post->password = Misc::str($post->password, $container);
-
         // Выполнить запрос
-        $query = $db->query('SELECT password FROM user WHERE login = "' . $post->login . '" LIMIT 1');
+        $query = $db->query('SELECT password FROM user WHERE login = "' . $login . '" LIMIT 1');
 
-        // Если пользователь найден
+        // Если пользователь найден, получить хэш пароля
         if ($row = $query->fetch_object())
         {
             // Если пароли совпадают
-            if (Password::has($post->password, $row->password)) {
+            if (Password::has($password, $row->password)) {
                 // Подключить куки
                 $cookie = $container->get('cookie');
 
                 // Установить куки
-                $cookie->login($post->login , ['expires' => TIME + YEAR]);
+                $cookie->login($login, ['expires' => TIME + YEAR]);
                 $cookie->password($row->password, ['expires' => TIME + YEAR]);
 
-                go_die($container, '/');
+                // Завершить работу скрипта и перейти
+                go_die($container);
             } else
-                $error[] = 'Неверный логин или пароль';
+                $error->set('Неверный логин или пароль');
         } else
-            $error[] = 'Неверный логин или пароль';
+            $error->set('Неверный логин или пароль');
     }
-    $post->error = $error ? true : false;
 }
 
-// Добавить данные
-$view->set('errors', $error, 'error');
-$view->set('entry', $post);
+// Установить данные для шаблона error
+$view->set('errors', $error->getErrors(), 'error');
+
+// Установить данные для главного шаблона
+$view->set('entry', (object) [
+    'error' => $error->show(),
+    'login' => $request->login,
+    'password' => $request->password
+]);
 
 // Рендерить
 $view->render('entry');

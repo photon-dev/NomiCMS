@@ -6,10 +6,10 @@
     <div class="main">
         <form method="POST" action="/entry">
             Логин:<br />
-            <input type="text" name="login" value="<?php echo $entry->login ?>"/><br />
+            <input type="text" name="login" maxlength="20" value="<?php echo $entry->login ?>"/><br />
             Пароль:<br />
-            <input type="password" name="password" value="<?php echo $entry->password ?>"/><br />
-            <button>Войти</button>
+            <input type="password" name="password" maxlength="32" value="<?php echo $entry->password ?>"/><br />
+            <button name="submit">Войти</button>
         </form>
     </div>
     <div class="menu">

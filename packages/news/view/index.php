@@ -1,4 +1,4 @@
-<?php foreach ($row as $news): ?>
+<?php foreach ($rows as $news): ?>
 <div class="news">
     <div>
         <span class="news_title">

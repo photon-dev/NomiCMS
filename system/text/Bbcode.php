@@ -48,7 +48,7 @@ class Bbcode
         '/\[img\](.*?)\[\/img\]/s',
         '/\[audio\](.*?)\.(.*?)\[\/audio\]/s',
         '/\[video\](.*?)\.(.*?)\[\/video\]/s',
-        '/\[youtube\](.*?)\[\/youtube\]/s'
+        '/\[youtube\](.*youtu(?:\.be\/|be\.com\/.*(?:vi?\/?=?|embed\/)))(.*?)\[\/youtube\]/s'
     ];
 
     // Замены паттерам
@@ -81,14 +81,19 @@ class Bbcode
         '<a href="$1" title="Перейти к изображению"><img class="attach" src="$1" alt="Image"></a>',
         '<audio controls><source src="$1.$2" type="audio/$2"></audio>',
         '<video class="video" controls><source src="$1.$2" type="video/$2"></video>',
-        '<iframe class="youtube" src="https://www.youtube-nocookie.com/embed/$1" frameborder="0" allowfullscreen></iframe>'
+        '<iframe class="youtube" src="https://www.youtube.com/embed/$2" frameborder="0" allowfullscreen></iframe>'
     ];
 
-    public static function code(string $text)
+    public static function parse(string $text)
     {
         $text = preg_replace(self::$pattern, self::$replace, $text);
 
         return $text;
+    }
+
+    public static function code(array $match)
+    {
+        return '<code class="prettyprint linenums pre-scrollable">' . $match[1] . '</pre>';
     }
 
     public static function view(TemplateInteface $view)

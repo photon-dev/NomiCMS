@@ -23,12 +23,6 @@ class RequestFactory
         $this->data = $data;
     }
 
-    // Проверить
-    public function has(string $name): bool
-    {
-        return isset($this->data[$name]);
-    }
-
     // Получить
     public function __get(string $name)
     {
@@ -37,6 +31,12 @@ class RequestFactory
         }
 
         return false;
+    }
+
+    // Проверить
+    public function has(string $name): bool
+    {
+        return isset($this->data[$name]);
     }
 
     // Проверка на пустоту

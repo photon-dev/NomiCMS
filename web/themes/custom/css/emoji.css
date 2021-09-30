@@ -1,40 +1,53 @@
 i[class^="emoji-"]::before, i[class*=" emoji-"]::before {
-    /*
-    margin-right: .2rem;
-    font-size: 18px;
-    */
+    font-size: 16px;
     font-style: normal;
 }
 
-.emoji-sad::before { content: '\1F614' } /* Грусть */
-.emoji-grin::before { content: '\1F600' } /* Ухмылка */
-.emoji-biggrin::before { content: '\1F601' } /* Большая ухмылка */
-.emoji-joy::before { content: '\1F602' } /* Радость */
-.emoji-joy2::before { content: '\1F605' } /* Радость 2 */
-.emoji-joy3::before { content: '\1F606' } /* Радость 3 */
-.emoji-horns::before { content: '\1F608' } /* Улыбка, с рогами */
-.emoji-wink::before { content: '\1F609' } /* Подмигивать */
-.emoji-smile::before { content: '\1F60A' } /* Улыбка */
-.emoji-smile2::before { content: '\1F603' } /* Улыбка 2 */
-.emoji-smile3::before { content: '\1F604' } /* Улыбка 3 */
-.emoji-smile-angel::before { content: '\1F607' } /* Ангел */
-.emoji-yum::before { content: '\1F60B' } /* Ням, ням */
-.emoji-relax::before { content: '\1F60C' } /* Расслабленный */
-.emoji-love::before { content: '\1F60D' } /* Влюблен */
-.emoji-glass::before { content: '\1F60E' } /* В очках */
-.emoji-yeah::before { content: '\1F60F' } /* Мда */
-.emoji-neutral::before { content: '\1F610' } /* Нетральный */
-.emoji-nothing::before { content: '\1F611' } /* Ничего */
-.emoji-disc::before { content: '\1F612' } /* Недоволен */
-.emoji-cold::before { content: '\1F613' } /* Радость */
-.emoji-pensive::before { content: '\1F614' } /* Задумчевый */
-.emoji-сonfused::before { content: '\1F615' } /* Смущённый */
-.emoji-shame::before { content: '\1F616' } /* Стыд */
-.emoji-kiss::before { content: '\1F617' } /* Поцелуй */
-.emoji-kiss2::before { content: '\1F618' } /* Поцелуй 2 */
-.emoji-kiss3::before { content: '\1F619' } /* Поцелуй 3 */
-.emoji-kiss4::before { content: '\1F61A' } /* Поцелуй 4 */
-.emoji-tab::before { content: '\1F61B' } /* Язык */
+
+/***** Улыбающиеся лица *****/
+.emoji-smile::before { content: '\1F642' }
+.emoji-smile2::before { content: '\1F60A' }
+.emoji-smile3::before { content: '\1F600' }
+.emoji-smile4::before { content: '\1F603' }
+.emoji-smile5::before { content: '\1F604' }
+.emoji-smileup::before { content: '\1F643' }
+.emoji-smileangel::before { content: '\1F607' }
+.emoji-wink::before { content: '\1F609' }
+ /* Большая улыбка */
+.emoji-grin::before { content: '\1F601' }
+.emoji-grin2::before { content: '\1F92D' }
+.emoji-biggrin::before { content: '\1F605' }
+.emoji-biggrin2::before { content: '\1F606' }
+ /* Смех */
+ .emoji-lol::before { content: '\1F602' }
+ .emoji-lol2::before { content: '\1F923' }
+ .emoji-lol3::before { content: '\1F605' }
+
+/***** Влюбленное лицо *****/
+.emoji-kissyes::before { content: '\1F617' }
+.emoji-kissyes2::before { content: '\1F61A' }
+.emoji-kissyes3::before { content: '\1F619' }
+.emoji-kisslove::before { content: '\1F618' }
+.emoji-love::before { content: '\1F60D' }
+.emoji-love2::before { content: '\1F970' }
+.emoji-lovestar::before { content: '\1F929' }
+
+/***** Лицо с рукой *****/
+.emoji-think::before { content: '\1F914' }
+.emoji-hugs::before { content: '\1F917' }
+.emoji-qui::before { content: '\1F92B' }
+
+/* Язык */
+.emoji-tab::before { content: '\1F61B' }
+.emoji-tab2::before { content: '\1F61D' }
+.emoji-tab3::before { content: '\1F61C' }
+.emoji-tab4::before { content: '\1F92A' }
+.emoji-tab5::before { content: '\1F60B' }
+.emoji-tab6::before { content: '\1F911' }
+
+.emoji-sad::before { content: '\1F614' }
+
+/***** Другие *****/
 .emoji-virus::before { content: '\1F9A0' } /* Вирус */
 .emoji-fire::before { content: '\1F525' } /* Огонь */
 .emoji-sssr::before { content: '\262D' } /* СССР */

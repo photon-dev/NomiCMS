@@ -48,7 +48,7 @@ while ($news = $result->fetch_assoc()) {
 }
 
 // Установить полученные новости
-$view->set('index', $rows, 'row');
+$view->set('rows', $rows);
 
 // Установить постраничную навигацию
 $page->view($view, '/news');

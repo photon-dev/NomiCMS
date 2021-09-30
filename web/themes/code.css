@@ -1,0 +1,13 @@
+.code {
+    word-wrap: normal;
+    background-color: #f7f7f9;
+    display: block;
+    font-size: 15px;
+    margin: 0;
+    overflow: auto;
+    padding: 0;
+    -moz-tab-size: 2;
+    -o-tab-size: 2;
+    tab-size: 2;
+    white-space: pre;
+}

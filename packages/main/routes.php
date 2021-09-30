@@ -18,21 +18,6 @@ return [
         'params' => false
     ],
     [
-        'url' => '/pages',
-        'package' => 'main',
-        'src' => 'pages'
-    ],
-    [
-        'url' => '/pages/bbcode',
-        'package' => 'main',
-        'src' => 'bbcode'
-    ],
-    [
-        'url' => '/pages/smiles',
-        'package' => 'main',
-        'src' => 'smiles'
-    ],
-    [
         'url' => '/error',
         'package' => 'main',
         'src' => 'error'

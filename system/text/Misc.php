@@ -48,8 +48,8 @@ class Misc
     {
         $text = nl2br($text);
         //$text = htmlspecialchars($text, ENT_QUOTES);
-        $text = Emoji::emo($text);
-        $text = Bbcode::code($text);
+        $text = Emoji::parse($text);
+        $text = Bbcode::parse($text);
 
         // Показать
         return $text;

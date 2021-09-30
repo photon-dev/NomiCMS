@@ -71,8 +71,13 @@ a {
 a:hover{text-decoration:underline}
 
 .app {
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    /* justify-content: center;
     display: table-cell;
-    vertical-align: middle;
+    vertical-align: middle;*/
     margin: 0 auto;
     text-align: center;
 }

@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE IF NOT EXISTS `user` (
     `uid` int(10) unsigned NOT NULL,
-    `login` varchar(32) NOT NULL, -- Логин
+    `login` varchar(20) NOT NULL, -- Логин
     `password` varchar(60) NOT NULL, -- Пароль
     `level` enum('1','2','3','4') NOT NULL DEFAULT '1', -- Уровень пользователя
     `name` varchar(32) NOT NULL  DEFAULT '', -- Имя

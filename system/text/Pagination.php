@@ -83,11 +83,10 @@ class Pagination
     public function view(View $view, string $url = '/')
     {
         $url .= '/page/';
+        $pages = ($this->pages > 0) ? $this->pages : false;
 
-        $view->set('pagination', [
-            'url' => $url,
-            'page' => $this->page,
-            'pages' => ($this->pages > 0) ? $this->pages : false
-        ], 'pagination');
+        $view->set('url', $url)
+            ->set('page', $this->page, 'pagination')
+            ->set('pages', $pages, 'pagination');
     }
 }
