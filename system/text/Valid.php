@@ -14,45 +14,57 @@ namespace System\Text;
  */
 class Valid
 {
-    // Получить коректный icq
-    public static function icq(int $icq)
+    // Проверить имя
+    public static function name(string $name)
     {
-        // Проверить и получить
-        if (preg_match('#[0-9]{5,9}#', $icq, $res)) {
-            return $res[0];
+        // Если не содержит допустимые символы
+        if (! preg_match("/^[a-zа-яё\-\_\ ]$/ui", $name)) {
+            return true;
         }
 
         return ;
     }
 
     // Проверить пароль
-    public static function pass(string $pass): bool
+    public static function pass(string $pass)
     {
-        if (! preg_match("#^[a-zа-яё0-9\-\_\ ]{6,32}$#ui", $pass)) {
-            return ;
+        // Если содержит не допустимые символы
+        if (! preg_match("/^[a-zа-яё0-9\-\_\ ]+$/ui", $pass)) {
+            return true;
         }
 
-        return true;
+        return ;
     }
 
     // Проверить логин
-    public static function nick(string $nick): bool
+    public static function login(string $login)
     {
-        if (! preg_match("#^[a-zа-яё][a-zа-яё0-9\-\_\ ]{2,20}$#ui", $nick)) {
-            return ;
+        // Если содержит не допустимые символы
+        if (! preg_match("/^[a-zа-яё][a-zа-яё0-9\-\_\ ]+$/ui", $login)) {
+            return true;
         }
 
-        //
-        if (preg_match("#[a-z]+#ui", $nick) && preg_match("#[а-яё]+#ui", $nick)) {
-            return ;
+        // Если содержит и русские и англиское буквы
+        if (preg_match("/[a-z]+/ui", $login) && preg_match("/[а-яё]+/ui", $login)) {
+            return true;
         }
 
-        // Если в нике присутствуют запрещенные символы
-        if (preg_match("#(^\ )|(\ $)#ui", $nick)) {
-            return ;
+        // Если в начале или в конце пробел
+        if (preg_match("/(^\ )|(\ $)/ui", $login)) {
+            return true;
         }
 
 
-        return true;
+        return ;
+    }
+
+    // Проверить email
+    public static function email(string $email)
+    {
+        if (! preg_match('/^[a-z0-9\-\._]+\@([a-z0-9-_]+\.)+([a-z0-9]{2,4})\.?$/ui', $email)) {
+            return true;
+        }
+
+        return ;
     }
 }

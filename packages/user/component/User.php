@@ -74,7 +74,7 @@ class User
 
             // Выполнить запрос в базу данных
             $user = $db->query($query)->fetch_assoc();
-
+            
             // Записать данные в сессию
             $session->user($user);
 

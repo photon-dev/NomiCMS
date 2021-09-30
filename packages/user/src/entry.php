@@ -7,10 +7,11 @@
  * @link   http://nomicms.ru
  */
 
-use System\Text\Misc;
-use System\Text\Password;
+use System\Text\{
+    Misc, Password
+};
 
-// Если уже авторизован
+// Если авторизован
 if ($user->logger) {
     go_die($container);
 }
@@ -22,23 +23,20 @@ $view->title = 'Авторизация';
 $request = $container->get('request')->post;
 $error = $container->get('error');
 
-// Если присутствует post данные
+// Если присутствует post submit
 if ($request->has('submit')) {
 
     if ($request->em('login')) $error->set('Вы не ввели логин');
     if ($request->em('password')) $error->set('Вы не ввели пароль');
 
     // Если нет ошибок
-    if (! $error->getErrors()) {
-        // Обработать логин  и пароль
+    if (! $error->show()) {
+        // Обработать данные
         $login =  Misc::str($request->login, $container);
         $password = Misc::str($request->password, $container);
 
-        dd($login);
-
-        // Подключить базу данных
+        // Подключить базу данных, выполнить запрос
         $db = $container->get('db');
-        // Выполнить запрос
         $query = $db->query('SELECT password FROM user WHERE login = "' . $login . '" LIMIT 1');
 
         // Если пользователь найден, получить хэш пароля
@@ -53,8 +51,8 @@ if ($request->has('submit')) {
                 $cookie->login($login, ['expires' => TIME + YEAR]);
                 $cookie->password($row->password, ['expires' => TIME + YEAR]);
 
-                // Завершить работу скрипта и перейти
-                go_die($container);
+                // Перейти в кабинет
+                go_die($container, '/user');
             } else
                 $error->set('Неверный логин или пароль');
         } else

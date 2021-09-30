@@ -18,7 +18,7 @@ class Session
     public function __construc(){}
 
     // Установить сессию
-    protected function set(string $name, $value, bool $overwrite = true)
+    public function set(string $name, $value, bool $overwrite = true)
     {
         // Если перезапись указана
         if ($overwrite) {
@@ -69,7 +69,7 @@ class Session
     }
 
     // Проверка на пустоту
-    public function empty(string $name): bool
+    public function em(string $name): bool
     {
         return empty($name);
     }

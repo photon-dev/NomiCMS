@@ -7,55 +7,65 @@
  * @link   http://nomicms.ru
  */
 
- // Если уже авторизован
+ use System\Text\{
+     Misc, Valid, Password
+ };
+
+ // Если авторизован
  if ($user->logger) {
      go_die($container, '/');
  }
 
-// Получить зависимости
-$sess = $container->get('session');
+// Получить зависимость request
 $request = $container->get('request')->post;
-$db = $container->get('db');
+$error = $container->get('error');
 
-// Если шаг регистрации не установлен
-if (! $sess->signup_step)
-{
-    $signup_step = 0;
+// Если присутствует post submit
+if ($request->has('submit')) {
+
+    if ($request->em('login')) $error->set('Вы не ввели логин');
+    if ($request->em('password')) $error->set('Вы не ввели пароль');
+    if (! $request->em('password') && $request->em('password2')) $error->set('Вы не ввели повторение пароля');
+
+    // Если пароли не совпали
+    if (! $request->em('password') &&
+        ! $request->em('password2') &&
+        $request->password != $request->password2
+    ) $error->set('Пароли не совпадают');
+
+    if ($request->em('gender')) $error->set('Вы не выбрали пол');
+
+    // Если проверочный код, не введен, не совпал
+    /*
+    if ($request->em('code')) $error->set('Вы не ввели проверочный код');
+    if (! $request->em('code') &&
+        $request->code != $container->get('session')->captcha
+    ) $error->set('Проверочный код введен не верно');
+    */
+    // Если нет ошибок
+    if (! $error->show()) {
+        // Обработать данные
+        $login =  Misc::str($request->login, $container);
+        $password = Misc::str($request->password, $container);
+        $name = Misc::str($request->name, $container);
+
+        if ($request->gender != 'male') {
+            dd('Пол не мужской');
+        }
+
+    }
 }
 
-// Установить шаг
-$sess->signup_step = 0;
-$sess->signup((object) [
-    'login' => false,
-]);
+$success = $success ?? false;
 
-switch ($sess->signup_step) {
-    // Завершение регистрации
-    case 3:
+// Установить данные для шаблона error, success
+$view->set('errors', $error->getErrors(), 'error');
 
-        require 'signup/step_3.php';
+// Установить данные для главного шаблона
+$view->set('error', $error->show())
+    ->set('login', $request->login)
+    ->set('password', $request->password)
+    ->set('password2', $request->password2);
 
-        break;
-    // Ввод другой информации
-    case 2:
-        // code...
-
-        require 'signup/step_2.php';
-
-        break;
-
-    // Ввод пароля
-    case 1:
-        // code...
-
-        require 'signup/step_1.php';
-
-        break;
-
-    // Выбор логина
-    default:
-
-        require 'signup/step_0.php';
-
-        break;
-}
+// Рендерить
+$view->render('signup');

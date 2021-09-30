@@ -919,7 +919,7 @@ input[type=checkbox] {
 
 input[type=checkbox] + label {
   display: inline-block;
-  margin-bottom: 6px;
+  margin-bottom: 5px;
   padding: 3px 0px;
 }
 
@@ -950,23 +950,19 @@ code {
 }
 
 ul {
-    /*
   padding-left: 0;
   font-size: 14px;
   list-style: none;
   background: #212a31;
   color: white;
   margin: 0;
-  */
 }
 
 ul > li {
-  /*
   background: #273038;
   border-left: 2px solid #2980b9;
   padding-left: 14px !important;
   padding: 4px;
-  */
 }
 
 hr {
@@ -981,10 +977,10 @@ input {
   border: 0;
   color: #4e606d;
   padding: 8px 12px;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
   background: #172027;
   border-bottom: 1px solid #2d3840;
-  margin-top: 2px;
+  margin-top: 5px;
   transition: background .2s;
   border-radius: 4px;
 }

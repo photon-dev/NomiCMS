@@ -7,43 +7,65 @@
  * @link   http://nomicms.ru
  */
 
-use System\Text\Misc;
-
-// Если логин выбран перейти на следущий шаг
-if ($request->has('next_step') && $sess->signup->login) {
-    //go_die($container, '/');
-    //$sess->signup_step++;
-    dd($request->has('next_step'));
-}
+use System\Text\{
+    Misc, Valid
+};
 
 // Заголовок
 $view->title = 'Регистрация - Выбор логина';
 
-// Данные для шаблона entry
-$error = false;
-$success = false;
+// Получить зависимость ошибок
+$error = $container->get('error');
 
-// Если присутствуют post данные
-if ($request->has('login')) {
+// Если запрос post submit найден
+if ($request->has('submit')) {
+    // Если логин не введен
+    if ($request->em('login')) $error->set('Вы не ввели логин');
+    // Если длина логина не допустима
+    if (! $request->em('login') && strlen($request->login) < 3 || strlen($request->login) > 20) $error->set('Неверная длина логина. Допустимо от 3 до 15 символов');
+    // Если логин не валиден
+    if (! $request->em('login') && Valid::login($request->login)) $error->set('В логине присутствуют запрещенные символы');
 
-    if ($request->em('login')) $error[] = 'Вы не ввели логин';
+    // Если нет ошибок
+    if (! $error->getErrors()) {
+        // Обработать логин
+        $login = Misc::str($request->login, $container);
 
-    if (! $request->em('login') && $db->query('SELECT password FROM user WHERE login = "' . Misc::str($request->login, $container) . '"')
-        ->num_rows != 0)
-            $error[] = "Логин <b>{$request->login}</b> занят";
+        // Запрос
+        $query = 'SELECT login
+            FROM user
+            WHERE login = "' . $login . '"
+            LIMIT 1
+        ';
+        // Подключить базу данных, и выполнить запрос
+        $query = $container->get('db')->query($query)->num_rows;
 
-    // Если нет ощибок
-    if (! $error) {
-        $success[] = "Логин <b>{$request->login}</b> доступен";
+        // Если логин не найден
+        if ($query == 0) {
+            // Установить сессию, и совместить данные
+            $sess->signup(array_merge($sess->signup, ['login' => $login]));
+
+            $success = "Логин <b>{$request->login}</b> доступен";
+        } else
+            $error->set("Логин <b>{$request->login}</b> занят");
     }
 }
 
-// Добавить данные
-$view->set('errors', $error, 'error')
-    ->set('success', $success, 'success');
+$success = $success ?? false;
 
-$view->set('login', $request->login)
-    ->set('error', $error)
+if (isset($sess->signup['login'])) {
+    $login = $login ?? $sess->signup['login'];
+} else {
+    $login = $login ?? $request->login;
+}
+
+// Установить данные для шаблона error, success
+$view->set('errors', $error->getErrors(), 'error');
+$view->set('text', $success, 'success');
+
+// Установить данные для главного шаблона
+$view->set('login', $login)
+    ->set('error', $error->show())
     ->set('success', $success);
 
 // Рендерить
