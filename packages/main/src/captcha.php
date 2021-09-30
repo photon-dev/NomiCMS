@@ -43,11 +43,11 @@ for($i = 0; $i < $captcha->count * 2; $i++)
 // Нанесение символов
 for($i = 0; $i < $captcha->count; $i++)
 {
-    $color = imagecolorallocatealpha($image, rand(50, 220), rand(50, 220), rand(50, 220), rand(20,40));
+    $color = imagecolorallocatealpha($image, rand(50, 220), rand(50, 220), rand(50, 220), rand(20, 40));
     $letter = $captcha->letters[rand(0, sizeof($captcha->letters)-1)];
-    $size = rand($captcha->size*2.1-2, $captcha->size*2.1+2);
-    $width = ($i+1)*$captcha->size + rand(4, 7);
-    $height = (($captcha->height*2)/3) + rand(0, 5);
+    $size = rand($captcha->size*2.1-1, $captcha->size*2.1+1);
+    $width = ($i+1) * $captcha->size + rand(2, 4);
+    $height = (($captcha->height*2)/3) + rand(0, 4);
     $code[] = $letter;
     imagettftext($image, $size, rand(0, 15), $width, $height, $color, $captcha->font, $letter);
 }

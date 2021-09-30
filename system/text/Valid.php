@@ -26,7 +26,7 @@ class Valid
     }
 
     // Проверить пароль
-    public static function pass(string $pass)
+    public static function password(string $pass)
     {
         // Если содержит не допустимые символы
         if (! preg_match("/^[a-zа-яё0-9\-\_\ ]+$/ui", $pass)) {
