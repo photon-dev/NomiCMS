@@ -14,19 +14,26 @@ namespace System\Text;
  */
 class Password
 {
-    public static function create(string $pass, array $options = ['cost' => 10])
+    // Создать хэш паролей
+    public static function create(string $pass, array $options = ['cost' => 10]): string
     {
         return password_hash($pass, PASSWORD_DEFAULT, $options);
     }
 
     // Получить информацию о заданном хеше
-    public static function info(string $hash)
+    public static function info(string $hash): array
     {
         return password_get_info($hash);
     }
 
+    //  Получить доступные идентификаторы алгоритма
+    public static function algos(): array
+    {
+        return password_algos();
+    }
+
     // Проверить пароль
-    public static function has(string $pass, string $hash)
+    public static function has(string $pass, string $hash): bool
     {
         return password_verify($pass, $hash);
     }

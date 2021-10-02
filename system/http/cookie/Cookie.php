@@ -58,7 +58,7 @@ class Cookie
     }
 
     // Проверка на пустоту
-    public function empty(string $name): bool
+    public function em(string $name): bool
     {
         return empty($name);
     }

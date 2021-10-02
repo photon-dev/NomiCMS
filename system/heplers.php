@@ -89,7 +89,7 @@ if (!function_exists('go_die')) {
         // Получить шаблонизатор
         $view = $container->get('view');
         // Скрыть контент
-        $view->showed = true;
+        $view->show = true;
 
         // Перейти
         header('location: ' . $url);

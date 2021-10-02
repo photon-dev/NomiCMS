@@ -10,14 +10,17 @@
 namespace Packages\Themes\Component;
 
 // Использовать
-use System\Config\Config;
-use Packages\User\Component\User;
+use System\Container\ContainerInterface;
+use Exception;
 
 /**
  * Класс Themes
  */
 class Themes
 {
+    // Контейнер зависимостей
+    protected $container;
+
     // Полный путь
     protected $path = WEB . 'themes/';
 
@@ -25,46 +28,71 @@ class Themes
     protected $theme = 'custom';
 
     // Конструктор
-    public function __construct(Config $config, User $user)
+    public function __construct(ContainerInterface $container)
     {
-        // Если пользователь авторизован
-        // В другом случае, тема системная
-        if ($user->logger) {
-            $this->theme = $user->getUser()['theme'];
-        } else {
-            // Загрузить настройки тем оформлений
-            $settings = $config::load('themes/settings', PACKAGE);
-            $this->theme = $settings['theme'];
+        // Сохранить контейнер
+        $this->container = $container;
+
+        // Получить тему
+        $this->theme = $this->getTheme();
+
+        // Проверить наличие тем
+        if ($message = $this->has()) {
+            echo $message;
+            die;
         }
     }
 
+    protected function getTheme(): string
+    {
+        // Получить зависимость user
+        $user = $this->container->get('user');
+
+        // Если пользователь авторизован
+        if ($user->logger) {
+            // Установить тему пользователя
+            return $user->getUser()['theme'];
+        }
+
+        // Получить зависимость user
+        $config = $this->container->get('config')::load('themes/settings', PACKAGE);
+
+        // Установить тему по умолчанию
+        return $config['theme'];
+    }
+
     // Проверить папки, файлы нужны для работы с темой
-    public function hasPaths(): bool
+    public function has(): bool
     {
         // Если папка темы не найдена
         if (! is_dir($this->path . $this->theme . DS)) {
-            die("Тема {$this->theme} не найдена");
-            return false;
+            return "Тема {$this->theme} не найдена";
         }
 
         // Если config темы не найден
         if (! file_exists($this->path . $this->theme . DS . 'theme.php')) {
-            die("Файл конфигурации темы {$this->theme} не найдена");
-            return false;
+            return "Файл конфигурации темы {$this->theme} не найдена";
         }
 
         // Если системная тема не найдена
         if (! is_dir($this->path . 'custom/')) {
-            die('Традиционная тема не найдена');
-            return false;
+            return 'Традиционная тема не найдена';
         }
 
-        return true;
+        return false;
     }
 
     // Получить путь к теме
-    public function getPath(): string
+    public function getPath(bool $priority = true): string
     {
-        return $this->path . $this->theme . '/view/';
+        if ($priority) {
+            return $this->path . $this->theme . '/view/';
+        }
+
+        // Получить имя пакета
+        $package = $this->container->get('config')::get('route')['package'];
+
+        // Показать
+        return PACKS . $package  . '/view/';
     }
 }

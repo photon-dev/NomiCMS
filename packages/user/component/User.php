@@ -21,18 +21,21 @@ class User
     // Контейнер
     protected $container;
 
+    // Тип авторизации
+    protected $via = '';
+
     // Данные пользователя
     protected $user = [];
 
     // Авторизован
     public $logger = false;
 
-    // Проверка на бан
+    // Бан
     public $banned = false;
 
     public function __construct(ContainerInterface $container)
     {
-        // Сохранить контейнер
+        // Установить контейнер
         $this->container = $container;
 
         // Если пользователь не авторизован
@@ -42,46 +45,46 @@ class User
         }
     }
 
-    protected function logon()
+    protected function entry(string $login, string $password)
     {
-        // Подключить сессии, cookie
-        $session = $this->container->get('session');
-        $cookie = $this->container->get('cookie');
+        // Подключить базу данных
+        $db = $this->container->get('db');
 
-        // Если активна сессия
-        if ($session->user) {
+        // Обработать логин  и пароль
+        $login =  Misc::str($login, $this->container);
+        $password = Misc::str($password, $this->container);
 
-            // Сохранить пользователя
-            $this->user = $session->user;
-
-            return true;
-        }
-
-        // Если у в куках есть данные о пользователе
-        if ($cookie->login && $cookie->password) {
-            // Подключить базу данных
-            $db = $this->container->get('db');
-
-            // Обработать логин  и пароль
-            $login =  Misc::str($cookie->login, $this->container);
-            $password = Misc::str($cookie->password, $this->container);
-
-            // Текс запроса в базу данных
-            $query = 'SELECT u.uid, u.login, u.level, u.coins, us.shift_time, us.local, us.theme, us.post_page
+        // Выполнить запрос
+        $result = $db->query('SELECT u.uid, u.login, u.level, u.coins, us.shift_time, us.local, us.theme, us.post_page
             FROM user AS u
             LEFT JOIN user_settings AS us ON us.user_uid = u.uid
-            WHERE login = "' . $login . '" AND password = "' . $password . '" LIMIT 1';
+            WHERE login = "' . $login . '" AND password = "' . $password . '"LIMIT 1'
+        );
 
-            // Выполнить запрос в базу данных
-            $user = $db->query($query)->fetch_assoc();
-            
-            // Записать данные в сессию
-            $session->user($user);
-
+        // Если пользователь найден
+        if ($user = $result->fetch_assoc()) {
             // Сохранить пользователя
             $this->user = $user;
 
             return true;
+        }
+
+        return false;
+    }
+
+    protected function logon()
+    {
+        // Подключить сессии, cookie
+        $sess = $this->container->get('session');
+        $cookie = $this->container->get('cookie');
+
+        if ($sess->login && $sess->password) {
+            return $this->entry($sess->login, $sess->password);
+        }
+
+        // Если у в куках есть данные о пользователе
+        if ($cookie->login && $cookie->password) {
+            return $this->entry($cookie->login, $cookie->password);
         }
 
         return false;
@@ -96,5 +99,4 @@ class User
 
         return [];
     }
-
 }

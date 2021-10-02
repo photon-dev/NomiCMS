@@ -57,7 +57,7 @@ class AppFactory
             require PACKS . $app->getPathSource();
 
             // Если выключено скрытите
-            if (! $view->showed) {
+            if (! $view->show) {
                 // Вывести на экран все содержимое
                 $view->put();
             }

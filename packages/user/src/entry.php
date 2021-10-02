@@ -37,19 +37,29 @@ if ($request->has('submit')) {
 
         // Подключить базу данных, выполнить запрос
         $db = $container->get('db');
-        $query = $db->query('SELECT password FROM user WHERE login = "' . $login . '" LIMIT 1');
+        $query = $db->query('SELECT uid, password FROM user WHERE login = "' . $login . '" LIMIT 1');
 
         // Если пользователь найден, получить хэш пароля
         if ($row = $query->fetch_object())
         {
             // Если пароли совпадают
             if (Password::has($password, $row->password)) {
-                // Подключить куки
-                $cookie = $container->get('cookie');
+                // Подключить сессии
+                $session = $container->get('session');
 
-                // Установить куки
-                $cookie->login($login, ['expires' => TIME + YEAR]);
-                $cookie->password($row->password, ['expires' => TIME + YEAR]);
+                // Установить сессии
+                $session->login = $login;
+                $session->password = $row->password;
+
+                // Если надо запомнить авторизацию
+                if ($request->remember_me && $request->remember_me == 'yes') {
+                    // Подключить куки
+                    $cookie = $container->get('cookie');
+
+                    // Установить куки
+                    $cookie->login($login, ['expires' => TIME + YEAR]);
+                    $cookie->password($row->password, ['expires' => TIME + YEAR]);
+                }
 
                 // Перейти в кабинет
                 go_die($container, '/user');

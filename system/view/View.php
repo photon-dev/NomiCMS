@@ -32,7 +32,7 @@ class View extends Template implements TemplateInteface
     protected $response;
 
     // Скрыть контент
-    public $showed = false;
+    public $show = false;
 
     // Статус
     public $status = false;
@@ -47,16 +47,10 @@ class View extends Template implements TemplateInteface
     public $title, $desc, $keywords = '';
 
     // Конструктор
-    public function __construct(ContainerInterface $container, Themes $themes, Response $response)
+    public function __construct(ContainerInterface $container, Response $response)
     {
         // Сохранить контейнер
         $this->container = $container;
-
-        // Если путь к теме указан верный
-        if ($themes->hasPaths()) {
-            // Сохранить тему
-            $this->themes = $themes;
-        }
 
         $seo = $container->get('config')::pull('system/seo');
 
@@ -69,27 +63,11 @@ class View extends Template implements TemplateInteface
         ob_start();
     }
 
-    // Получить путь к папке где храняться шаблоны
-    protected function getPath(bool $priority): string
-    {
-        // Приоритет загрузки
-        if ($priority) {
-            // Показать
-            return $this->themes->getPath();
-        }
-
-        // Получить имя пакета
-        $package = $this->container->get('config')::get('route')['package'];
-
-        // Показать
-        return PACKS . $package  . '/view/';
-    }
-
     // Загрузить шаблон
     protected function load(string $file, bool $priority = true): object
     {
         // Получить путь к шаблону
-        $path = $this->getPath($priority);
+        $path = $this->container->get('themes')->getPath($priority);
 
         if (is_dir($path) === false) {
             throw new TemplateNotFound("Папка с шаблонами не найдена, проверьте ее по адресу: {$path}");
@@ -139,8 +117,6 @@ class View extends Template implements TemplateInteface
             throw new TemplateNotFound("Не представляеться возможным. Использование шаблона 'layout' в методе render");
         }
 
-        $path = $this->getPath(true);
-
         // Загрузить шаблон
         $content = $this->load($template, $priority);
 
@@ -181,7 +157,7 @@ class View extends Template implements TemplateInteface
     public function put()
     {
         // Если надо скрыть контент
-        if ($this->showed) {
+        if ($this->show) {
             return ;
         }
 
