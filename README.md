@@ -12,7 +12,7 @@
 - Адаптивность под мобильные устройства
 
 ## :gear: Системные требования:
-- PHP: 7.2
+- PHP: 7.4
 - Apache 2.4
 - MySQL: 5.6 MySQL Native Driver (mysqlnd)
 - Поддержка функционала .htaccess
