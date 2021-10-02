@@ -1,4 +1,4 @@
-# <img alt="Icon" src="http://nomicms.ru/design/images/nomicms.jpg"> [NomiCMS](https://github.com/nomicms/NomiCMS)
+# [NomiCMS](https://github.com/nomicms/NomiCMS)
 
 Реальный пример вы можете увидеть на [Официальном сайте](http://nomicms.ru/).
 
