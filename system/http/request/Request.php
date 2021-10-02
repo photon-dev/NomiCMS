@@ -30,11 +30,8 @@ class Request
             throw new RequestException("Метод {$name} не определён");
         }
 
-        // Создать фабрику запроса
-        $factory = new RequestFactory($method[$name]);
-
-        // Отправить данные
-        return $factory;
+        // Создать фабрику запроса, отправить данные
+        return new RequestFactory($method[$name]);
     }
 
     // Получить список доступных методов

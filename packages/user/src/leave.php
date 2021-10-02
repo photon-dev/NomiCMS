@@ -8,27 +8,26 @@
  */
 
 // Если авторизован
-if (! $user->logger) {
-    go_die($container, '/');
-}
+if ($user->logger) {
+    // Подключить сессии, cookie
+    $session = $container->get('session');
+    $cookie = $container->get('cookie');
 
-// Скрыть контент
-$view->showed = true;
+        // Если у в куках есть данные
+        if ($cookie->login && $cookie->password) {
+            // Удалить куки
+            $cookie->delete('login');
+            $cookie->delete('password');
+        }
 
-// Подключить сессии, cookie
-$session = $container->get('session');
-$cookie = $container->get('cookie');
-
-    // Если у в куках есть данные о пользователе
-    if ($cookie->login && $cookie->password) {
-
-        // Удалить куки
-        $cookie->delete('login');
-        $cookie->delete('password');
+        // Если у в сессиях есть данные
+        if ($session->login && $session->password) {
+            // Удалить сессии
+            unset($session->login, $session->password);
+        }
 
         // Уничтожить сессии
-        unset($session->user);
         session_destroy();
-    }
+}
 
 go_die($container, '/');

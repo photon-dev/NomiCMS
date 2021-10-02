@@ -18,11 +18,13 @@ class Session
     public function __construc(){}
 
     // Установить сессию
-    public function set(string $name, $value, bool $overwrite = true)
+    protected function set(string $name, $value, bool $overwrite = true): bool
     {
         // Если перезапись указана
         if ($overwrite) {
-            return $_SESSION[$name] = $value;
+            $_SESSION[$name] = $value;
+
+            return true;
         }
 
         // Если сессия не найдена, и перезапись отключена
@@ -33,23 +35,21 @@ class Session
         return false;
     }
 
-    // Установить сессию через метод
-    public function __call(string $name, array $session): void
+    // Установить сессию
+    public function __set(string $name, $value): void
     {
-        // Ценность
+        $this->set($name, $value);
+    }
+
+    // Установить сессию через метод
+    public function __call(string $name, array $session): bool
+    {
+        // Ценность, перезаписать
         $value = $session[0];
-        // Перезапись
         $overwrite =  isset($session[1]) ? $session[1] : true;
 
         // Установить
-        $this->set($name, $value, $overwrite);
-    }
-
-    // Установить сессию
-    // Пример: $session->имя сессии = 'Данные для сохранения';
-    public function __set(string $name, string $value): void
-    {
-        $this->set($name, $value);
+        return $this->set($name, $value, $overwrite);
     }
 
     // Получить сессию
@@ -62,7 +62,7 @@ class Session
         return false;
     }
 
-    // Проверка сессию
+    // Проверить сессию
     public function has(string $name): bool
     {
         return isset($_SESSION[$name]);
