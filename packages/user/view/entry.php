@@ -9,6 +9,8 @@
             <input type="text" name="login" maxlength="20" value="<?php echo $entry->login ?>"/><br />
             Пароль:<br />
             <input type="password" name="password" maxlength="32" value="<?php echo $entry->password ?>"/><br />
+            <input id="open_s" type="checkbox" name="remember_me" value="yes"/>
+            <label for="open_s">Запомнить меня</label><br />
             <button name="submit">Войти</button>
         </form>
     </div>
