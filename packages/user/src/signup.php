@@ -91,7 +91,7 @@ if ($request->has('submit')) {
         $db->query('INSERT INTO user_soc (user_uid) VALUES ("' . $next_uid . '");');
 
         // Если превый зарегистрированый получит разработчика
-        if ($next_uid = 1) {
+        if ($next_uid == 1) {
             $db->query('UPDATE user SET level = "4" WHERE uid = "' . $next_uid . '"');
         }
 
