@@ -85,15 +85,15 @@ if ($request->has('submit')) {
         // Получить следущий индификатор
         $next_uid = $db->insert_id;
 
+        // Cоздать настройки пользователя
+        $db->query('INSERT INTO user_settings (user_uid) VALUES ("' . $next_uid . '");');
+        // Cоздать социальные ссылки
+        $db->query('INSERT INTO user_soc (user_uid) VALUES ("' . $next_uid . '");');
+
         // Если превый зарегистрированый получит разработчика
         if ($next_uid = 1) {
             $db->query('UPDATE user SET level = "4" WHERE uid = "' . $next_uid . '"');
         }
-
-        // Выполнить запрос, создать настройки пользователя
-        $db->query('INSERT INTO user_settings (user_uid) VALUES ("' . $next_uid . '");');
-        // Выполнить запрос, создать социальные ссылки
-        $db->query('INSERT INTO user_soc (user_uid) VALUES ("' . $next_uid . '");');
 
         // Установить cookie
         $container->get('cookie')->login($login, ['expires' => TIME + YEAR]);
