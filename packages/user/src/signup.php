@@ -87,7 +87,7 @@ if ($request->has('submit')) {
 
         // Если превый зарегистрированый получит разработчика
         if ($next_uid = 1) {
-            $s = $db->query('UPDATE user SET level = "4" WHERE uid = "' . $next_uid . '"');
+            $db->query('UPDATE user SET level = "4" WHERE uid = "' . $next_uid . '"');
         }
 
         // Выполнить запрос, создать настройки пользователя
