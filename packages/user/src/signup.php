@@ -7,15 +7,17 @@
  * @link   http://nomicms.ru
  */
 
- use System\Text\{
-     Misc, Valid, Password
- };
- use System\Http\Ipus;
+use System\Text\{
+    Misc, Valid, Password
+};
+use System\Http\Ipus;
 
- // Если авторизован
- if ($user->logger) {
-     go_die($container, '/');
- }
+// Если авторизован
+if ($user->logger) {
+    go_die($container, '/');
+}
+
+$view->title = 'Регистрация';
 
 // Получить request, error
 $request = $container->get('request')->post;

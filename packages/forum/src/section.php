@@ -7,4 +7,8 @@
  * @link   http://nomicms.ru
  */
 
-echo '<br />Раздел ' . $forumId;
+$forumId =  $forumId ?? false;
+
+$view->title = 'Форум - ' .  $forumId;
+
+//$view->render('section');

@@ -60,7 +60,6 @@ class Template
         }
 
         $this->all = array_merge($this->all, $data);
-
         return $this;
     }
 
@@ -93,6 +92,7 @@ class Template
             $data = array_merge($data, $this->some[$template]);
         } else {
             $data = array_merge($data, $this->main);
+
             // Стереть данные
             $this->main = [];
         }

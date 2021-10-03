@@ -7,4 +7,6 @@
  * @link   http://nomicms.ru
  */
 
-echo 'Форум';
+$view->title = 'Форум';
+
+$view->render('index');

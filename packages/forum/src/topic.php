@@ -7,6 +7,8 @@
  * @link   http://nomicms.ru
  */
 
-echo '<br />Раздел ' . $forumId;
-echo '<br />Подраздел ' . $forumSubId;
-echo '<br />Тема ' . $topicId;
+$forumId =  $forumId ?? false;
+$forumSubId = $forumSubId ?? false;
+$topicId = $topicId ?? false;
+
+$view->title = 'Форум - Тема - ' . $topicId;

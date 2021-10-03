@@ -19,7 +19,7 @@ if ($user->logger) {
 // Установить имя страницы
 $view->title = 'Авторизация';
 
-// Подключить зависимости
+// Подключить request, error
 $request = $container->get('request')->post;
 $error = $container->get('error');
 

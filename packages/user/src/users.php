@@ -7,7 +7,7 @@
  * @link   http://nomicms.ru
  */
 
-$forumId =  $forumId ?? false;
-$forumSubId = $forumSubId ?? false;
+$view->title = 'Пользователи';
 
-$view->title = 'Форум - ' .  $forumId . ' - ' . $forumforumSubId;
+
+$view->render('users');

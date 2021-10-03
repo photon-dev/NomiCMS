@@ -7,4 +7,14 @@
  * @link   http://nomicms.ru
  */
 
-return 'Настройки пользователя';
+$view->title = 'Настройки';
+
+// Настроить навигацию
+$view->nav = [
+    [
+        'url' => '/user',
+        'name' => 'Кабинет'
+    ]
+];
+
+$view->render('settings');

@@ -7,33 +7,26 @@
  * @link   http://nomicms.ru
  */
 
- // Использовать
- use System\Text\DateTime;
- use System\Text\Misc;
+// Использовать
+use System\Text\{
+    DateTime, Misc
+};
 
-// Получить зависимости
+// Получить db, request, error
 $db = $container->get('db');
+$request = $container->get('request')->post;
+$error = $container->get('error');
 
-$msgCount = $db->query('SELECT COUNT(*) FROM chat')->fetch_row()[0];
+$count = $db->query('SELECT COUNT(*) FROM chat')->fetch_row()[0];
 
 // Заголовок страницы
-$view->title = "Мини-чат ({$msgCount})";
+$view->title = "Мини-чат ({$count})";
 $view->desc = 'Мини-чат - это чат для мнгновенного обмена сообщения между пользователями. Для общения требуться регистрация.';
 $view->keywords = 'Чат, Общение, chat, message';
 
-// Посты
-$chat = (object) [
-    'code' => mt_rand(101, 999),
-    'posts' => false
-];
-
-if (! $msgCount) {
-    dd('Сообщения не найдены');
-}
-
 // Получить пагинацию
 $page = $container->get('pagination', [
-    'count' => $msgCount,
+    'count' => $count,
     'limit' => $app->post_page,
     'page' => $pageId ?? ''
 ]);
@@ -47,14 +40,20 @@ GROUP BY c.uid
 ORDER BY c.uid DESC LIMIT  ' . $page->start . ', ' . $app->post_page);
 
 // Обработать
-while ($post = $result->fetch_object()) {
-    $post->date_write = DateTime::times($post->date_write);
-    $post->message = Misc::output($post->message);
-    $chat->posts[] = $post;
+while ($chat = $result->fetch_object()) {
+    $chat->date_write = DateTime::times($chat->date_write);
+    $chat->message = Misc::output($chat->message);
+    $posts[] = $chat;
 }
 
-// Установить данные
-$view->set('chat', $chat);
+// Установить данные для шаблона error
+$view->set('errors', $error->getErrors(), 'error');
+
+// Установить данные для главного шаблона
+$view->set('error', $error->show())
+    ->set('posts', $posts ?? false)
+    ->set('code', mt_rand(101, 999))
+    ->set('logger', $user->logger);
 
 // Рендерить шаблоны posts
 $view->render('posts');
