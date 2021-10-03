@@ -18,7 +18,7 @@ class Valid
     public static function name(string $name)
     {
         // Если не содержит допустимые символы
-        if (! preg_match("/^[a-zа-яё\-\_\ ]$/ui", $name)) {
+        if (! preg_match("/^[a-zа-яё\-\_\ ]+$/ui", $name)) {
             return true;
         }
 
@@ -29,7 +29,7 @@ class Valid
     public static function password(string $pass)
     {
         // Если содержит не допустимые символы
-        if (! preg_match("/^[a-zа-яё0-9\-\_\ ]+$/ui", $pass)) {
+        if (! preg_match("/^[a-zа-яё0-9\-\_\*\.\@\#\$\!\?]+$/ui", $pass)) {
             return true;
         }
 

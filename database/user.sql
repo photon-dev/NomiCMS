@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `user` (
     `browser` varchar(255) NOT NULL DEFAULT '',
     `date_signup` int(10) NOT NULL,
     `date_entry` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_general_ci AUTO_INCREMENT=3 COMMENT='Пользователь';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_general_ci AUTO_INCREMENT=1 COMMENT='Пользователь';
 
 --
 -- Индексы таблицы `user`
@@ -40,11 +40,3 @@ ALTER TABLE `user`
     ADD KEY `login` (`login`),
     ADD KEY `password` (`password`),
     ADD KEY `ip` (`ip`);
-
---
--- Дамп данных таблицы `user`
---
-
-INSERT INTO `user` (`uid`, `login`, `password`, `level`, `ip`, `date_signup`, `date_entry`) VALUES
-(1, 'Photon', '$2y$10$AhPC/.083r11/N8x.66C7ujprrfrG4hDcozwciSvHYGV8UCc0B44G', '4', 2130706433, 1613315595, 1613315595),
-(2, 'Tester', '$2y$10$3L5mXG3WJqM5hqK3olb1xO2aMtF1lq2fmHjFlRp1MrcdvWp6EI9Ry', '1', 2130706433, 1613315595, 1613315595);

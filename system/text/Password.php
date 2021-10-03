@@ -17,7 +17,7 @@ class Password
     // Создать хэш паролей
     public static function create(string $pass, array $options = ['cost' => 10]): string
     {
-        return password_hash($pass, PASSWORD_DEFAULT, $options);
+        return password_hash($pass, PASSWORD_BCRYPT, $options);
     }
 
     // Получить информацию о заданном хеше

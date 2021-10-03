@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `user_alerts` (
     `url` varchar(255) NOT NULL,
     `read` enum('yes','no') NOT NULL DEFAULT 'no',
     `date_write` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_general_ci AUTO_INCREMENT=2 COMMENT='Оповещения';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_general_ci AUTO_INCREMENT=1 COMMENT='Оповещения';
 
 --
 -- Индексы таблицы `user_alerts`
@@ -29,10 +29,3 @@ ALTER TABLE `user_alerts`
     ADD FOREIGN KEY (`to_whom`) REFERENCES `user` (`uid`),
     ADD KEY `who` (`who`),
     ADD KEY `to_whom` (`to_whom`);
-
---
--- Дамп данных таблицы `user_alerts`
---
-
-INSERT INTO `user_alerts` (`uid`, `who`, `to_whom`, `message`, `url`, `date_write`) VALUES
-(1, 2, 1, 'Ответил на ваш комментраий', '/news/1/comment/7453', 1613296024);

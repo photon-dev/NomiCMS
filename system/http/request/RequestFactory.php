@@ -30,7 +30,7 @@ class RequestFactory
             return $this->data[$name];
         }
 
-        return false;
+        return '';
     }
 
     // Проверить

@@ -21,9 +21,6 @@ class User
     // Контейнер
     protected $container;
 
-    // Тип авторизации
-    protected $via = '';
-
     // Данные пользователя
     protected $user = [];
 
@@ -84,7 +81,16 @@ class User
 
         // Если у в куках есть данные о пользователе
         if ($cookie->login && $cookie->password) {
-            return $this->entry($cookie->login, $cookie->password);
+
+            // Если пользователь найден
+            if ($this->entry($cookie->login, $cookie->password)) {
+
+                $sess->login = $cookie->login;
+                $sess->password = $cookie->password;
+
+                return true;
+            }
+            return false;
         }
 
         return false;

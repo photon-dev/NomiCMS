@@ -16,7 +16,7 @@
             <input type="text" name="password" value="<?php echo $password; ?>"/><br />
             Повторите пароль: *<br />
             <input type="text" name="password2" value="<?php echo $password2; ?>"/><br />
-            Имя: [5-32]<br />
+            Имя: [2-32]<br />
             <input type="text" name="name" value="<?php echo $name; ?>"/><br />
             Пол: *<br />
             <select name="gender">

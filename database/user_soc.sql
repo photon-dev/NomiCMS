@@ -24,11 +24,3 @@ CREATE TABLE IF NOT EXISTS `user_soc` (
 ALTER TABLE `user_soc`
     ADD PRIMARY KEY (`user_uid`),
     ADD FOREIGN KEY (`user_uid`) REFERENCES `user` (`uid`);
-
---
--- Дамп данных таблицы `user_soc`
---
-
-INSERT INTO `user_soc` (`user_uid`,`tg`) VALUES
-(1, 'photon_dev'),
-(2, 'nomicms');

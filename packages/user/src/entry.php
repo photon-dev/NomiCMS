@@ -35,30 +35,30 @@ if ($request->has('submit')) {
         $login =  Misc::str($request->login, $container);
         $password = Misc::str($request->password, $container);
 
-        // Подключить базу данных, выполнить запрос
+        // Подключить db, выполнить запрос
         $db = $container->get('db');
-        $query = $db->query('SELECT uid, password FROM user WHERE login = "' . $login . '" LIMIT 1');
+        $query = $db->query('SELECT password FROM user WHERE login = "' . $login . '" LIMIT 1');
 
-        // Если пользователь найден, получить хэш пароля
-        if ($row = $query->fetch_object())
+        // Если пользователь найден
+        if ($row = $query->fetch_assoc())
         {
             // Если пароли совпадают
-            if (Password::has($password, $row->password)) {
+            if (Password::has($password, $row['password'])) {
                 // Подключить сессии
                 $session = $container->get('session');
 
                 // Установить сессии
                 $session->login = $login;
-                $session->password = $row->password;
+                $session->password = $row['password'];
 
                 // Если надо запомнить авторизацию
                 if ($request->remember_me && $request->remember_me == 'yes') {
-                    // Подключить куки
+                    // Получить cookie
                     $cookie = $container->get('cookie');
 
-                    // Установить куки
+                    // Установить cookie
                     $cookie->login($login, ['expires' => TIME + YEAR]);
-                    $cookie->password($row->password, ['expires' => TIME + YEAR]);
+                    $cookie->password($row['password'], ['expires' => TIME + YEAR]);
                 }
 
                 // Перейти в кабинет

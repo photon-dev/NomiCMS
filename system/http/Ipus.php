@@ -29,13 +29,17 @@ class Ipus
 	}
 
 	// Обработать ip-адрес через long2ip
-	public static function ipLong(string $ip): int
+	public static function to(string $ip = ''): int
 	{
+		if (empty($ip)) {
+			return ip2long(self::getIp());
+		}
+
 		return ip2long($ip);
 	}
 
 	// Обработать ip-адрес через ip2long
-	public static function longIp(int $ip): string
+	public static function up(int $ip): string
 	{
 		return long2ip($ip);
 	}

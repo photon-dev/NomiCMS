@@ -23,11 +23,3 @@ CREATE TABLE IF NOT EXISTS `user_settings` (
 ALTER TABLE `user_settings`
     ADD PRIMARY KEY (`user_uid`),
     ADD FOREIGN KEY (`user_uid`) REFERENCES `user` (`uid`);
-
---
--- Дамп данных таблицы `user_settings`
---
-
-INSERT INTO `user_settings` (`user_uid`) VALUES
-(1),
-(2);

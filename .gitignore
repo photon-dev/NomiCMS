@@ -16,6 +16,7 @@ web/styles/*
 
 # Other files ignores
 database/news.txt
+database/sql.sql
 web/themes/app.old.css
 web/themes/apps.css
 web/fontello.zip
