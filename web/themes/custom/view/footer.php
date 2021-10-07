@@ -1,6 +1,6 @@
 <?php if ($foo->back): ?>
 <div class="back">
-    <a href="/<?php echo $foo->back; ?>" title="Назад">
+    <a href="<?php echo $foo->back; ?>" title="Назад">
         <i class="icon-ccw c-gray"></i>
         Назад
     </a>

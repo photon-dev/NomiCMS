@@ -85,7 +85,7 @@ class Pagination
         $url .= '/page/';
         $pages = ($this->pages > 0) ? $this->pages : false;
 
-        $view->set('url', $url)
+        $view->set('url', $url, 'pagination')
             ->set('page', $this->page, 'pagination')
             ->set('pages', $pages, 'pagination');
     }

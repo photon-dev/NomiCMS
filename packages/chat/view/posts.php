@@ -1,6 +1,6 @@
 <?php if ($logger): ?>
 <div class="menu">
-    <a href="/chat?<?php echo $code; ?>" title="Обновить">
+    <a href="?<?php echo $code; ?>" title="Обновить">
         <i class="icon-arrows-cw c-red"></i>
         Обновить
     </a>
@@ -8,15 +8,18 @@
 
 <?php echo $view->template('bbcode'); ?>
 <div class="main">
-    <form method="POST" name="message" action="?<?php echo $code; ?>">
+    <form action="/chat/add?<?php echo $code; ?>" method="POST" name="form">
         Сообщение:<br />
-        <textarea name="messages" placeholder="Мах 256" maxlength="256"></textarea><br />
+        <textarea name="message" placeholder="Мах 256" maxlength="256"></textarea><br />
         <button name="submit">Отправить</button>
     </form>
 </div>
 <?php else: ?>
 <div class="main">
-    Писать сообщения могут только зарегистрированые пользователи
+    <span class="c-red">
+        <i class="icon-info"></i>
+        Писать сообщения могут только зарегистрированые пользователи
+    </span>
 </div>
 <?php endif; ?>
 <?php if ($posts): ?>
@@ -43,3 +46,5 @@
     Нет сообщений
 </div>
 <?php endif; ?>
+
+<?php echo $this->template('pagination'); ?>

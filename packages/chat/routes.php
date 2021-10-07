@@ -25,6 +25,11 @@ return [
         ]
     ],
     [
+        'url' => '/chat/add',
+        'package' => 'chat',
+        'src' => 'add'
+    ],
+    [
         'url' => '/chat/reply/{str}',
         'package' => 'chat',
         'src' => 'reply',

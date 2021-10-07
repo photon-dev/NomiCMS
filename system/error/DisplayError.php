@@ -29,6 +29,16 @@ class DisplayError
         $this->show = true;
     }
 
+    // Получить статус нет ощибок
+    public function none(string $text): bool
+    {
+        if (! $this->show) {
+            return true;
+        }
+
+        return false;
+    }
+
     // Получить show
     public function show(): bool
     {

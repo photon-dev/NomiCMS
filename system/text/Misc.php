@@ -124,17 +124,8 @@ class Misc
         }
     }
 
-    // Получить код
-    public static function code(Session $session, int $count = 16): string
-    {
-        $code = self::random_b($count);
-        $session->code = $code;
-
-        return $code;
-    }
-
     // Получить рандомное число в байтах
-    public static function random_b(int $count = 9): string
+    public static function rand(int $count = 9): string
     {
         // Получить строку
         $bytes = random_bytes($count);

@@ -65,10 +65,10 @@ a {
     background: #212a31;
     color: #6D7278;
     padding: 14px;
-    font-size: 15px;
+    font-size: 11px;
 }
 
-.nav > div > a {
+.nav > a {
     background: #1b2329;
     margin-left: 10px;
     border-radius: 2px;
@@ -122,7 +122,7 @@ a {
     color: #3a3f43;
 }
 
-.panel a, .forum_topic a:first-child, .bm > a, .adm_menu > a, .friends_menu a, .pagination a {
+.panel a, .forum_topic a:first-child, .bm > a, .adm_menu > a, .friends_menu a {
     flex: 1;
     -webkit-box-flex: 1;
     -webkit-flex: 1;
@@ -617,6 +617,7 @@ a.topic {
   font-size: 12px;
   padding: 10px;
   word-break: break-word;
+  border-bottom: 1px solid #1a2127;
 }
 
 div .attach {
@@ -775,14 +776,15 @@ div .attach {
 }
 
 .pagination {
-  font-size: 11px;
+    background: #212a31;
+    border-bottom: 1px solid #1a2127;
+    font-size: 11px;
 }
 
 .pagination a {
   display: block;
   text-align: center;
-  padding: 10px;
-  border-right: 1px solid #1a2127;
+  padding: 12px;
   transition: background .2s;
 }
 
@@ -795,7 +797,18 @@ div .attach {
 }
 
 .pagination a:last-child {
-  border: 0;
+}
+
+.pagination li {
+    flex-grow: 1;
+    border-right: 1px solid #1a2127;
+}
+
+.pagination li:last-child {
+    border: 0;
+}
+.pagination a.active > li {
+    flex-grow: 2;
 }
 
 .ignore {

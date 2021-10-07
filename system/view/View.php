@@ -129,11 +129,17 @@ class View extends Template implements TemplateInteface
     {
         $url = $this->container->get('config')::get('route')['url'];
 
-        $list = explode('/', $url, -1);
+        $list = explode('/', $url);
         $key = count($list) - 1;
 
         if ($key >= 1) {
-            return $list[$key];
+            $back = str_replace('/' . $list[$key], '', $url);
+
+            if ($list[$key - 1] == 'page') {
+                $back = str_replace('/page', '', $back);
+            }
+
+            return $back;
         }
 
         return false;
