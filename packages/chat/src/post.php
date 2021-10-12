@@ -8,7 +8,7 @@
  */
 
 // Использовать
-use System\Text\Misc;
+use Nomicms\Component\Text\Misc;
 
 // Если не авторизован
 //if (! $user->logger || $user->getUser()['level'] < 2) {

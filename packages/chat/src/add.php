@@ -8,7 +8,7 @@
  */
 
 // Использовать
-use System\Text\Misc;
+use Nomicms\Component\Text\Misc;
 
 // Если авторизован
 if (! $user->logger) {

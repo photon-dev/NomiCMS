@@ -1,23 +1,30 @@
+AddDefaultCharset utf-8
+DirectoryIndex index.php
+
 <IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
     RewriteEngine On
 
-    #RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
-    #RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
-    #RewriteCond %{HTTPS} !on
-    #RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
-
     # Redirect Trailing Slashes If Not A Folder...
+    #RewriteCond %{REQUEST_FILENAME} !-d
+    #RewriteCond %{REQUEST_URI} (.+)/$
+    #RewriteRule ^ %1 [L,R=301]
+
+    # Handle Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_URI} (.+)/$
-    RewriteRule ^ %1 [L,R=301]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
 
-    RewriteCond %{REQUEST_URI} !^web
-    RewriteRule ^(.*)$ web/$1 [L]
-
-    RewriteRule ^app/ - [NC,F,L]
-    RewriteRule ^config/ - [NC,F,L]
-    RewriteRule ^database/ - [NC,F,L]
-    RewriteRule ^packages/ - [NC,F,L]
-    RewriteRule ^system/ - [NC,F,L]
-    RewriteRule ^temp/ - [NC,F,L]
+    RewriteRule ^nomicms/ - [NC,F,L]
 </IfModule>
+
+ErrorDocument 400 /error/400
+ErrorDocument 401 /error/401
+ErrorDocument 402 /error/402
+ErrorDocument 403 /error/403
+ErrorDocument 404 /error/404
+ErrorDocument 500 /error/500
+ErrorDocument 502 /error/502

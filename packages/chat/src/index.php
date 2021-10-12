@@ -8,7 +8,7 @@
  */
 
 // Использовать
-use System\Text\{
+use Nomicms\Component\Text\{
     DateTime, Misc
 };
 

@@ -7,10 +7,10 @@
  * @link   http://nomicms.ru
  */
 
-use System\Text\{
+use Nomicms\Component\Text\{
     Misc, Valid, Password
 };
-use System\Http\Ipus;
+use Nomicms\Component\Http\Ipus;
 
 // Если авторизован
 if ($user->logger) {

@@ -7,7 +7,7 @@
  * @link   http://nomicms.ru
  */
 
-use System\Http\Session\Sess;
+use Nomicms\Component\Http\Session\Sess;
 
 // Подключиться к базе
 $db = $container->get('db');

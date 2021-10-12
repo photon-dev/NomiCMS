@@ -10,7 +10,7 @@
 namespace Packages\Themes\Component;
 
 // Использовать
-use System\Container\ContainerInterface;
+use Nomicms\Component\Container\ContainerInterface;
 use Exception;
 
 /**
@@ -22,7 +22,7 @@ class Themes
     protected $container;
 
     // Полный путь
-    protected $path = WEB . 'themes/';
+    protected $path = THEMES;
 
     // Тема оформления
     protected $theme = 'custom';
@@ -93,6 +93,6 @@ class Themes
         $package = $this->container->get('config')::get('route')['package'];
 
         // Показать
-        return PACKS . $package  . '/view/';
+        return PACKAGES . $package  . '/view/';
     }
 }

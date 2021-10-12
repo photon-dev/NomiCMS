@@ -7,7 +7,7 @@
  * @link   http://nomicms.ru
  */
 
-use System\Text\Misc;
+use Nomicms\Component\Text\Misc;
 
   // Если не авторизован
 if (! $user->logger) {

@@ -10,9 +10,9 @@
 namespace Packages\User\Component;
 
 // Использовать
-use System\Container\ContainerInterface;
-use System\Text\Misc;
-use System\View\View;
+use Nomicms\Component\Container\ContainerInterface;
+use Nomicms\Component\Text\Misc;
+use Nomicms\Component\View\View;
 
 /**
  * Класс User

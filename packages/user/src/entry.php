@@ -7,7 +7,7 @@
  * @link   http://nomicms.ru
  */
 
-use System\Text\{
+use Nomicms\Component\Text\{
     Misc, Password
 };
 

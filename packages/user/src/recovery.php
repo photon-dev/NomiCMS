@@ -7,7 +7,7 @@
  * @link   http://nomicms.ru
  */
 
-use System\Text\Misc;
+use Nomicms\Component\Text\Misc;
 
 // Если уже авторизован
 if ($container->get('user')->logger) {

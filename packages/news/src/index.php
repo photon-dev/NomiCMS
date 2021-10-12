@@ -8,8 +8,8 @@
  */
 
 // Использовать
-use System\Text\DateTime;
-use System\Text\Misc;
+use Nomicms\Component\Text\DateTime;
+use Nomicms\Component\Text\Misc;
 
 // Подключиться к базе данной
 $db = $container->get('db');

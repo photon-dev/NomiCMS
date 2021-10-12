@@ -1,5 +1,5 @@
 # Root dir ignores
-app/*
+setur/*
 
 # System dir ignores
 system/apps/*
@@ -7,17 +7,9 @@ system/cache/*
 system/system/*
 
 # Website dir ignores
-web/files/downloads/*
-web/files/avatars/*
-web/files/forum/*
-web/files/lib/*
-web/fontello/*
-web/styles/*
+uploads/downloads/*
+uploads/avatars/*
+uploads/forum/*
+uploads/lib/*
 
 # Other files ignores
-database/news.txt
-database/sql.sql
-web/themes/app.old.css
-web/themes/apps.css
-web/fontello.zip
-nomicms.rar
