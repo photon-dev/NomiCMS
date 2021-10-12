@@ -13,3 +13,4 @@ uploads/forum/*
 uploads/lib/*
 
 # Other files ignores
+test_smile.txt
