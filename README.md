@@ -5,12 +5,6 @@
 [![GitHub](https://img.shields.io/github/license/nomicms/NomiCMS?color=blue)](https://github.com/nomicms/NomiCMS/blob/master/LICENSE)
 [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/nomicms/NomiCMS)](https://github.com/nomicms/NomiCMS/releases)
 
-## Достоинства:
-- Установка за 15 минут
-- Высокая скорость работы
-- Модульность
-- Адаптивность под мобильные устройства
-
 ## :gear: Системные требования:
 - PHP: 7.4
 - Apache 2.4
