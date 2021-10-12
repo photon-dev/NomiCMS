@@ -8,7 +8,6 @@
  */
 
 // Использовать
-use System\Core\Secure;
 use System\Text\{
     DateTime, Misc
 };
@@ -31,7 +30,7 @@ $view->keywords = 'Чат, Общение, chat, message';
 // Получить пагинацию
 $page = $container->get('pagination', [
     'count' => $count,
-    'limit' => 3,//$app->post_page,
+    'limit' => $app->post_page,
     'page' => $pageId
 ]);
 
@@ -41,7 +40,7 @@ FROM chat AS c
 LEFT JOIN user AS u
 ON u.uid = c.user_uid
 GROUP BY c.uid
-ORDER BY c.uid DESC LIMIT  ' . $page->start . ', ' . 3);
+ORDER BY c.uid DESC LIMIT  ' . $page->start . ', ' . $app->post_page);
 
 // Обработать
 while ($chat = $result->fetch_object()) {
@@ -58,8 +57,7 @@ $view->set('errors', $error->getErrors(), 'error');
 // Установить данные для главного шаблона
 $view->set('error', $error->show())
     ->set('posts', $posts ?? false)
-    ->set('code', $rand)
-    ->set('logger', $user->logger);
+    ->set('code', $rand);
 
 // Установить постраничную навигацию
 $page->view($view, '/chat');

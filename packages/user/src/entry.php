@@ -23,7 +23,7 @@ $view->title = 'Авторизация';
 $request = $container->get('request')->post;
 $error = $container->get('error');
 
-// Если присутствует post submit
+// Post submit
 if ($request->has('submit')) {
 
     if ($request->em('login')) $error->set('Вы не ввели логин');

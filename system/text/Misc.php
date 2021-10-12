@@ -47,7 +47,7 @@ class Misc
     public static function output(string $text): string
     {
         $text = nl2br($text);
-        //$text = htmlspecialchars($text, ENT_QUOTES);
+        $text = htmlspecialchars_decode($text, ENT_QUOTES);
         $text = Emoji::parse($text);
         $text = Bbcode::parse($text);
 

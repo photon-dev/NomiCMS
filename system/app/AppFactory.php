@@ -38,17 +38,17 @@ class AppFactory
         // Собрать все содержимое, и отправить
         return function () use ($app, $container): ResponseInterface {
 
-            // Получить зависимости
+            // Получить response, user, view
             $response = $container->get('response');
-            $user = $container->get('user');
             $view = $container->get('view');
+            $user = $container->get('user');
 
-            // Установить заголовки
+            // Установить headers
             header('Cache-Control: no-store, no-cache, must-revalidate', true);
             header('Expires: ' . date('r'), true);
             header('Content-Type: text/html; charset=utf-8', true);
 
-            // Если есть GET данные то распаковать их
+            // Получить, извлечь параметры
             if ($app->getParams()) {
                 extract($app->getParams());
             }

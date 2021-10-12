@@ -30,11 +30,19 @@ return [
         'src' => 'add'
     ],
     [
+        'url' => '/chat/del/{num}',
+        'package' => 'chat',
+        'src' => 'del',
+        'params' => [
+            'postId'
+        ]
+    ],
+    [
         'url' => '/chat/reply/{str}',
         'package' => 'chat',
         'src' => 'reply',
         'params' => [
-            'userName'
+            'userLogin'
         ]
     ],
     [

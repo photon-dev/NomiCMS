@@ -12,6 +12,7 @@ namespace Packages\User\Component;
 // Использовать
 use System\Container\ContainerInterface;
 use System\Text\Misc;
+use System\View\View;
 
 /**
  * Класс User
@@ -30,16 +31,37 @@ class User
     // Бан
     public $banned = false;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInterface $container, View $view)
     {
         // Установить контейнер
         $this->container = $container;
 
-        // Если пользователь не авторизован
+        // Не авторизован
         if (! $this->logger) {
             // Войти в систему
             $this->logger = $this->logon();
         }
+
+        // Установить для всех шаблонов
+        $view->setAll((object) $this->set(), 'user');
+    }
+
+    // Установить данные для всех шаблонов
+    protected function set(): array
+    {
+        // Авторизован
+        if ($this->logger) {
+            return [
+                'logger' => $this->logger,
+                'uid' => $this->user['uid'],
+                'login' => $this->user['login'],
+                'level' => $this->user['level']
+            ];
+        }
+
+        return [
+            'logger' => false
+        ];
     }
 
     protected function entry(string $login, string $password)
@@ -66,7 +88,7 @@ class User
             return true;
         }
 
-        return false;
+        return ;
     }
 
     protected function logon()
@@ -90,10 +112,11 @@ class User
 
                 return true;
             }
-            return false;
+
+            return ;
         }
 
-        return false;
+        return ;
     }
 
     // Получить данные пользователя

@@ -132,31 +132,13 @@ class View extends Template implements TemplateInteface
         $list = explode('/', $url);
         $key = count($list) - 1;
 
-        if ($key >= 1) {
+        if ($key >= 1 && $list[$key - 1] != 'page') {
             $back = str_replace('/' . $list[$key], '', $url);
-
-            if ($list[$key - 1] == 'page') {
-                $back = str_replace('/page', '', $back);
-            }
 
             return $back;
         }
 
         return false;
-    }
-
-    public function footer(string $back = '/')
-    {
-
-        $footer = (object) [
-            'back' => $this->getBackLink(),
-            'copy' => $config::get('seo')['copy'],
-            'memory' => round((memory_get_usage() - NOMI_MEMORY) / 1024),
-            'timing' => round(microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'], 4)
-        ];
-
-        // Установить данные для шаблона footer
-        $this->set('foo', $footer, 'footer');
     }
 
     // Вывести на экран все содержимое
@@ -167,7 +149,7 @@ class View extends Template implements TemplateInteface
             return ;
         }
 
-        // Получить данные пользователя
+        // Получить user, config
         $user = $this->container->get('user');
         $config = $this->container->get('config');
 
@@ -176,7 +158,7 @@ class View extends Template implements TemplateInteface
             'local'     => $config::get('system')['local'],
             'desc'      => $this->desc,
             'keywords'  => $this->keywords,
-            'content' => $this->response->getContent(),
+            'content'   => $this->response->getContent(),
             'style'     => [
                 cssTime('reset'),
                 cssTime('app'),
@@ -201,20 +183,6 @@ class View extends Template implements TemplateInteface
             ];
         }
 
-        // Параметры для всех страниц
-        $all = [
-            'user_logger' => $user->logger,
-            'title' => $this->title
-        ];
-
-        if ($user->logger) {
-            $all['user'] = [
-                'user_uid' => $user->getUser()['uid'],
-                'login' => $user->getUser()['login'],
-                'level' => $user->getUser()['level']
-            ];
-        }
-
         $footer = (object) [
             'back' => $this->getBackLink(),
             'copy' => $config::get('seo')['copy'],
@@ -226,7 +194,11 @@ class View extends Template implements TemplateInteface
         $this->set('header', $header, 'header');
         $this->set('nav', $this->nav, 'nav');
         $this->set('foo', $footer, 'footer');
-        $this->setAll($all);
+
+        $this->setAll([
+            'title' => $this->title
+        ]);
+
         // Рендерить макет
         $this->layout('layout', true);
     }

@@ -55,7 +55,7 @@ class Template
     // Установить данные для всех
     public function setAll($data, string $key = ''): TemplateInteface
     {
-        if (! is_array($data) && ! empty($key)) {
+        if (! empty($key)) {
             $data = [$key => $data];
         }
 

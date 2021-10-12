@@ -7,10 +7,8 @@
  * @link   http://nomicms.ru
  */
 
-$user = $container->get('user');
-
 // Если не авторизован
-if ($user->getUser()['level'] < 2) {
+if (! $user->logger || $user->getUser()['level'] < 2) {
     go_die($container, '/');
 }
 

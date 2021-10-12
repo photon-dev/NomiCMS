@@ -1,6 +1,6 @@
 <div class="panel flex">
-    <?php if ($user_logger): ?>
-        <?php if ($user['level'] >= 2):?>
+    <?php if ($user->logger): ?>
+        <?php if ($user->level >= 2):?>
         <a class="apanel" href="/apanel" title="Панель управления">
             <i class="icon-shield"></i>
         </a>

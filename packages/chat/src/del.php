@@ -18,22 +18,21 @@ if (! $user->logger) {
 
 // Индификатор сообщения
 $postId = $postId ?? false;
+$postId = Misc::abs($postId, $container);
 
-// Действие
-$action = $action ?? false;
-
-// Получить db
+// Получить db, id пользователя
 $db = $container->get('db');
+$post = $db->query('SELECT user_uid FROM chat WHERE uid = "' . $postId . '" LIMIT 1');
 
-$db->query();
+if (! $post->num_rows) {
+    error('Сообщение не найдено');
+}
+$userId = $post->fetch_assoc();
 
 // Удалить сообщение
-if ($action == 'del' && $user->getUser()['level'] > 2) {
-    $postId = Misc::abs($postId, $container);
+if ($userId['user_uid'] == $user->getUser()['uid'] || $user->getUser()['level'] > 2) {
 
-    // Выполнить запрос
+    // Удалить сообщение
     $db->query('DELETE FROM chat WHERE uid = "' . $postId . '"');
-
-    dd('del');
-    //go_die($container, '/chat');
+    go_die($container, '/chat');
 }

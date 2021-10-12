@@ -1,11 +1,11 @@
 <div class="main">
-    Добро пожаловать <span class="c-yellow"><?php echo $user['login']; ?></span>, в кабинет<br />
-    Твой баланс: <span class="c-yellow"><?php echo $user['coins']; ?></span>
+    Добро пожаловать <span class="c-yellow"><?php echo $panel['login']; ?></span>, в кабинет<br />
+    Твой баланс: <span class="c-yellow"><?php echo $panel['coins']; ?></span>
     <i class="icon-rouble c-yellow"></i>
 </div>
 <div class="menu">
     <div class="fmenu">
-        <a href="/user/id<?php echo $user['uid']; ?>" title="Моя страница">
+        <a href="/user/id<?php echo $panel['uid']; ?>" title="Моя страница">
             <i class="icon-user-circle c-red"></i>
             Моя страница
         </a>
@@ -17,7 +17,7 @@
             <span>+ <?php echo $count['new_alerts']; ?></span>
             <?php endif; ?>
         </a>
-        <a href="/friends/<?php echo $user['uid']; ?>" title="Друзья">
+        <a href="/friends/<?php echo $panel['uid']; ?>" title="Друзья">
             <i class="icon-user-o c-red"></i>
             Друзья
             <span><?php echo $count['friends']; ?></span>
