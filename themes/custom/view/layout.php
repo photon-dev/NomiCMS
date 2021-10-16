@@ -16,7 +16,8 @@
     <!---<link rel="stylesheet" href="/themes/custom/css/animation.css"/>--->
     <link rel="stylesheet" href="/themes/fontello.css?<?php echo $doc->style[3]; ?>"/>
     <link rel="stylesheet" href="/themes/custom/css/icons.css?<?php echo $doc->style[4]; ?>"/>
-    <link rel="stylesheet" href="/themes/custom/css/style.css?<?php echo $doc->style[5]; ?>"/>
+    <link rel="stylesheet" href="/themes/custom/css/css.css?<?php echo $doc->style[5]; ?>"/>
+    <link rel="stylesheet" href="/themes/custom/css/style.css?<?php echo $doc->style[6]; ?>"/>
     <link rel="shortcut icon" href="/favicon.ico" sizes="16x16" type="image/x-icon">
     <meta name="theme-color" content="#070E14">
 </head>

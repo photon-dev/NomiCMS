@@ -34,10 +34,10 @@ function smile() {
         line-height: 1.8;
     }
     .bbcode i {
-        color: #686868;
+        color: #5A5A5A;
         padding: 0px 4px;
         cursor: pointer;
-        border: 2px solid #686868;
+        border: 2px solid #5A5A5A;
         border-radius: 2px;
         transition: color .3s, border .3s;
     }

@@ -7,6 +7,11 @@
  * @link   http://nomicms.ru
  */
 
+namespace Nomicms\Component;
+
+// Использовать
+use Nomicms\Component\Autoload;
+
 /**
  * Класс Авто-загрузки
  */

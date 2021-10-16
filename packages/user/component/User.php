@@ -119,6 +119,69 @@ class User
         return ;
     }
 
+    // Получить аватар пользователя
+    public function getAvatar(string $avatar = ''): string
+    {
+        // Уровень пользователя не найден
+        if (empty($avatar)) {
+            $avatar = $this->user['avatar'];
+        }
+
+        return '<img src="/uploads/avatars/' . $avatar . '" alt="Alt">';
+    }
+
+    // Получить имя уровня
+    public function getLevel(string $userlevel = ''): string
+    {
+        // Уровень пользователя не введён
+        if (! empty($userLevel)) {
+            $userlevel = $this->user['level'];
+        }
+
+        switch ($userlevel) {
+            case '2':
+                $level = 'mod';
+                break;
+            case '3':
+                $level = 'adm';
+                break;
+            case '4':
+                $level = 'dev';
+                break;
+            default:
+                $level = 'user';
+                break;
+        }
+
+        return $level;
+    }
+
+    // Получить имя уровня
+    public function getLevelName(string $userlevel = ''): string
+    {
+        // Уровень пользователя не введён
+        if (! empty($userLevel)) {
+            $userlevel = $this->user['level'];
+        }
+
+        switch ($userlevel) {
+            case '2':
+                $level = 'Модератор';
+                break;
+            case '3':
+                $level = 'Администратор';
+                break;
+            case '4':
+                $level = 'Разработчик';
+                break;
+            default:
+                $level = 'Пользователь';
+                break;
+        }
+
+        return $level;
+    }
+
     // Получить данные пользователя
     public function getUser(): array
     {

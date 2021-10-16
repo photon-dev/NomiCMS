@@ -23,13 +23,13 @@
 .flex-grow2 { flex-grow: 2 }
 .flex-grow3 { flex-grow: 3 }
 
-.flex.row { flex-direction: row }
-.flex.row-rev { flex-direction: row-reverse }
-.flex.column { flex-direction: column }
-.flex.column-rev { flex-direction: column-reverse }
-.flex.inherit { flex-direction: inherit }
-.flex.initial { flex-direction: initial }
-.flex.unset { flex-direction: unset }
+.flex.flex-row { flex-direction: row }
+.flex.flex-row-rev { flex-direction: row-reverse }
+.flex.flex-column { flex-direction: column }
+.flex.flex-column-rev { flex-direction: column-reverse }
+.flex.flex-inherit { flex-direction: inherit }
+.flex.flex-initial { flex-direction: initial }
+.flex.flex-unset { flex-direction: unset }
 
 .flex.nowrap { flex-wrap: nowrap }
 .flex.wrap { flex-wrap: wrap }
@@ -47,7 +47,7 @@
 .align-start { align-items: flex-start }
 .align-end { align-items: flex-end }
 .align-center { align-items: center }
-.align-line { align-items: baseline }
+.align-base { align-items: baseline }
 .align-stretch {align-items: stretch }
 
 .align-content-start {align-content: flex-start  }

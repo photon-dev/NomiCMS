@@ -33,8 +33,8 @@ if ($request->has('submit')) {
     // Cообщение не введно
     if ($request->em('message')) {
         $error->set('Введите сообщение');
-    } elseif (strlen($request->message) > 256) {
-        $error->set('Неверная длина сообщения. Допустимо макс 256 символов');
+    } elseif (strlen($request->message) > 1024) {
+        $error->set('Неверная длина сообщения. Допустимо макс 1024 символов');
     }
 
     $chat = $db->query('SELECT date_write FROM chat WHERE user_uid = "' . $user_uid . '" ORDER BY date_write DESC LIMIT 1')->fetch_assoc();

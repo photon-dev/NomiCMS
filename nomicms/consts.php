@@ -10,14 +10,11 @@
 // Разделитель коталогов
 const DS = '/';
 
-// Системная директория
-const CMS = ROOT . 'nomicms/';
-
 // nomicms/app директория
-const APP = CMS . 'app/';
+const APP = SYS . 'app/';
 
 // nomicms/config директория
-const CONFIG = CMS . 'config/';
+const CONFIG = SYS . 'config/';
 
 // Packages директория
 const PACKAGES = ROOT . 'packages/';

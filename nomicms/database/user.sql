@@ -17,9 +17,10 @@ CREATE TABLE IF NOT EXISTS `user` (
     `name` varchar(32) NOT NULL  DEFAULT '', -- Имя
     `first_name` varchar(64) NOT NULL DEFAULT '', -- Фамилия
     `gender` enum('male','female') NOT NULL DEFAULT 'male', -- Пол
+    `status` varchar(256) NOT NULL DEFAULT '', -- Статус
     `country` varchar(64) NOT NULL DEFAULT '', -- Страна
     `city` varchar(32) NOT NULL DEFAULT '', -- Город
-    `about` varchar(256) NOT NULL DEFAULT '', -- Обо мне
+    `about` varchar(512) NOT NULL DEFAULT '', -- Обо мне
     `coins` mediumint(8) unsigned NOT NULL DEFAULT '100', -- Монеты
     `avatar` varchar(128) NOT NULL DEFAULT 'none.jpg', -- Аватар
     `ip` int(10) NOT NULL, -- Ip адрес

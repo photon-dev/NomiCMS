@@ -1,5 +1,5 @@
 i[class^="emoji-"]::before, i[class*=" emoji-"]::before {
-    font-size: 16px;
+    /* font-size: 16px;*/
     font-style: normal;
 }
 

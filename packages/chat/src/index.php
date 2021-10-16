@@ -7,11 +7,6 @@
  * @link   http://nomicms.ru
  */
 
-// Использовать
-use Nomicms\Component\Text\{
-    DateTime, Misc
-};
-
 $pageId = $pageId ?? false;
 
 // Получить db, request, error
@@ -35,18 +30,15 @@ $page = $container->get('pagination', [
 ]);
 
 // Сделать выборку из базы данных
-$result = $db->query('SELECT c.*, u.login, u.level
+$result = $db->query('SELECT c.*, u.login, u.level, u.avatar, u.status
 FROM chat AS c
 LEFT JOIN user AS u
 ON u.uid = c.user_uid
 GROUP BY c.uid
 ORDER BY c.uid DESC LIMIT  ' . $page->start . ', ' . $app->post_page);
 
-// Обработать
-while ($chat = $result->fetch_object()) {
-    $chat->date_write = DateTime::times($chat->date_write);
-    $chat->message = Misc::output($chat->message);
-    $posts[] = $chat;
+if ($result) {
+    $chat = $result->fetch_all(MYSQLI_ASSOC);
 }
 
 $rand = mt_rand(101, 999);
@@ -56,7 +48,7 @@ $view->set('errors', $error->getErrors(), 'error');
 
 // Установить данные для главного шаблона
 $view->set('error', $error->show())
-    ->set('posts', $posts ?? false)
+    ->set('posts', $chat ?? false)
     ->set('code', $rand);
 
 // Установить постраничную навигацию

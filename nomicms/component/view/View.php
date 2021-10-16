@@ -79,6 +79,7 @@ class View extends Template implements TemplateInteface
         }
 
         return function ($view) use($path, $file) {
+
             extract($this->get($file));
 
             ob_start();
@@ -165,6 +166,7 @@ class View extends Template implements TemplateInteface
                 cssTime('custom/css/emoji'),
                 cssTime('fontello'),
                 cssTime('custom/css/icons'),
+                cssTime('custom/css/css'),
                 cssTime('custom/css/style')
             ]
         ];

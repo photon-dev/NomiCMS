@@ -12,6 +12,11 @@ if (! defined('ROOT')) {
     define('ROOT', __DIR__ . '/');
 }
 
+// Системная директория
+if (! defined('SYS')) {
+    define('SYS', ROOT . 'nomicms/');
+}
+
 // Powered By NomiCMS
 header('X-Powered-By: NomiCMS');
 

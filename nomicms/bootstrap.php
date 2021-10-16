@@ -20,12 +20,12 @@ if (PHP_VERSION_ID < 70329) {
 }
 
 // Файл автоматической загрузки не найден
-if (! file_exists(ROOT . 'nomicms/autoload.php')) {
+if (! file_exists(SYS . 'component/Autoload.php')) {
     die('Не удалось запустить авто-загрузчик');
 }
 
 // Подключить загрузчик
-require ROOT . 'nomicms/autoload.php';;
+require SYS . 'component/Autoload.php';;
 
 // Создать контейнер
 $container = new Container;
