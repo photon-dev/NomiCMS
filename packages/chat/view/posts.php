@@ -53,9 +53,25 @@ if ($user->logger): ?>
                 <?php echo DateTime::times($post['date_write']); ?>
             </div>
         </div>
-    <div class="message">
-        <?php echo Misc::output($post['message']); ?>
-    </div>
+        <div class="message">
+            <?php echo Misc::output($post['message']); ?>
+        </div>
+        <?php if ($user->logger): ?>
+        <div class="navbar flex just-flex-end">
+            <a href="/chat/like/<?php echo $post['uid']; ?>" title="">
+                <i class="icon-thumbs-up-alt c-gray"></i>
+                Мне нравиться
+            </a>
+            <?php if ($user->uid == $post['user_uid']): ?>
+            <a href="/chat/edit/<?php echo $post['uid']; ?>" title="">
+                <i class="icon-pencil c-yellow"></i>
+            </a>
+            <?php endif; ?>
+            <a href="/chat/del/<?php echo $post['uid']; ?>" title="">
+                <i class="icon-trash-empty c-red"></i>
+            </a>
+        </div>
+        <?php endif; ?>
     <!---
     <div class="message flex flex-column">
         <div class="user flex just-between align-start">
