@@ -41,40 +41,38 @@
     font-weight: bold;
 }
 
-.row > .row_user > .avatar {
-}
-
 .row > .row_user > .avatar img {
     border-radius: 50%;
     width: 48px;
     height: 48px;
     vertical-align: top;
-    /* margin-right: 8px;*/
 }
 
 .row > .message {
     margin-top: 8px;
 }
 
-.post > .message > .user img {
-    border-radius: 50%;
-    width: 48px;
-    height: 48px;
-    vertical-align: top;
-    /* margin-right: 8px;*/
-}
-
-.post > .message > .text {}
-
-.post > .message > .ttt {
+.row > .navbar {
     margin-top: 8px;
 }
 
-.post > .message > .ttt > a {
+.row > .navbar > a {
+    background: #27313a;
+    padding: 4px 10px;
+    border-radius: 2px;
     margin-left: 8px;
 }
 
-.post > .message > .ttt > a:first-child {
+.row > .navbar > a > i {
+    margin-right: 0;
+    color: #516677;
+}
+
+.row > .navbar > a:first-child {
     margin-left: 0;
     margin-right: auto;
+}
+
+.row > .navbar > a:last-child > i {
+    color: #c74242
 }
