@@ -25,5 +25,4 @@ ALTER TABLE `chat`
 --
 
 INSERT INTO `chat` (`uid`, `user_uid`, `message`, `date_write`) VALUES
-(1, 1, '[b]Тестирование ютуба[/b]\r\n\r\n[youtube]https://youtu.be/8PCfDOB7KbQ[/youtube]', 1632578817),
-(2, 1, '[b]Тестирование смайлов[/b]\r\n\r\n:smile: :smile2: :smile3
+(1, 1, '[b]Тестирование ютуба[/b]\r\n\r\n[youtube]https://youtu.be/8PCfDOB7KbQ[/youtube]', 1632578817);
