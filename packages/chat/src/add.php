@@ -37,17 +37,18 @@ if ($request->has('submit')) {
         $error->set('Неверная длина сообщения. Допустимо макс 1024 символов');
     }
 
-    $chat = $db->query('SELECT date_write FROM chat WHERE user_uid = "' . $user_uid . '" ORDER BY date_write DESC LIMIT 1')->fetch_assoc();
-    if (($chat['date_write'] + 30) > TIME) {
-        $error->set('Запрещено писать чаще 30 сек');
-    }
+    // if (! $error->show()) {
+    //     $chat = $db->query('SELECT date_write FROM chat WHERE user_uid = "' . $user_uid . '" ORDER BY date_write DESC LIMIT 1')->fetch_assoc();
+    //     if ($chat != NULL && ($chat['date_write'] + 30) > TIME) {
+    //         $error->set('Запрещено писать чаще 30 сек');
+    //     }
+    // }
 
     if (! $error->show()) {
 
         $message =  Misc::str($request->message, $container);
-
         // Выполнить запрос, создать сообщение
-        $db->query('INSERT INTO chat set user_uid = "' . $user_uid . '", message = "' . $message . '", date_write = "' . TIME . '"');
+        $sql = $db->query('INSERT INTO `chat` set user_uid = "' . $user_uid . '", message = "' . $message . '", date_write = "' . TIME . '"');
 
         // Добавить монету
         $db->query('UPDATE user SET coins = coins + 1 WHERE uid = "' . $user_uid . '"');
