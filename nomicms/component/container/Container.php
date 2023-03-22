@@ -31,48 +31,47 @@ class Container extends ContainerParse implements ContainerInterface
     protected $used = [];
 
     // Отражение класса
-    protected $reflector;
+    protected Reflection $reflector;
 
     // Отражение анонимной функции
-    protected $anon;
+    protected Anon $anon;
 
     // Конструктор
-    public function __construct(array $config = [], Reflector $reflector = null, ReflectionClosure $anon = null)
+    public function __construct(Reflector $reflector = null, ReflectionClosure $anon = null)
     {
         // Установить отражения
         $this->reflector = $reflector ?: new Reflection($this);
         $this->anon = $anon ?: new Anon($this);
     }
 
-    // Установить службу
+    // Установить
     public function set($dependency, $name = ''): self
     {
         // Если это не анонимная функция
         if (! ($dependency instanceof Closure) && empty($name)) {
-            // Получить имя зависимости
             $name = $this->getName($dependency);
 
-        // Противном случае если имя не указано выдать ошибку
+        // Если имя не указано
         } elseif (empty($name)) {
             throw new DependencyNotFound("Имя зависимости для анонимной функции должно быть указано");
         }
 
-        // Если зависимость не найдена
+        // Если зависимость не найден
         if ($this->has($name)) {
             throw new DependencyNotFound("Зависимость {$name} уже установлена");
         }
 
-        // Сохранить зависимость
+        // Сохранить
         $this->installed[$name] = $dependency;
 
         return $this;
     }
 
-    // Получить зависимость
+    // Получить
     public function get(string $name, array $params = [])
     {
-        // Если зависимость уже используеться возращаем ее
-        if (isset($this->used[$name]) && array_key_exists($name, $this->used)) {
+        // Если зависимость уже используеться
+        if ($this->hasUsed($name)) {
             return $this->used[$name];
         }
 
@@ -95,7 +94,7 @@ class Container extends ContainerParse implements ContainerInterface
     // Собрать зависимость
     protected function build($dependency, array $params)
     {
-        // Если зависимость анонимная функция, получить ее
+        // Если зависимость анонимная функция
         if ($dependency instanceof Closure) {
             $anon = $this->anon;
 
@@ -110,19 +109,47 @@ class Container extends ContainerParse implements ContainerInterface
         return  $reflector($dependency, $params);
     }
 
-    // Поиск в установленных зависимостях
+    // Проверить в установленных
     public function has(string $name = ''): bool
     {
-        return (!empty($name) && isset($this->installed[$name]) && array_key_exists($name, $this->installed));
+        return  !empty($name) &&
+                isset($this->installed[$name]) &&
+                array_key_exists($name, $this->installed);
     }
 
-    // Получить список установленных зависимостях
+    // Проверить в используемых
+    public function hasUsed(string $name = ''): bool
+    {
+        return  !empty($name) &&
+                isset($this->used[$name]) &&
+                array_key_exists($name, $this->used);
+    }
+
+    // Удалить
+    public function remove(string $name): bool
+    {
+        // Если зависимость используеться
+        if ($this->hasUsed($name)) {
+            unset($this->used[$name]);
+            return true;
+        }
+
+        // Если зависимость установлена
+        if ($this->has($name)) {
+            unset($this->installed[$name]);
+            return true;
+        }
+
+        return false;
+    }
+
+    // Получить список установленных
     public function getInstalled(): array
     {
         return $this->installed;
     }
 
-    // Получить список используемых зависимостях
+    // Получить список используемых
     public function getUsed(): array
     {
         return $this->used;

@@ -21,15 +21,14 @@ use Nomicms\Component\Container\Exception\DependencyNotFound;
 class Anon  extends Dependencies
 {
     // Контейнер
-    protected $container;
+    protected ContainerInterface $container;
 
-    // Отражение анонимной функции
-    protected $reflector;
+    // Отражение
+    protected ReflectionFunction $reflector;
 
     // Конструтор
     public function __construct(ContainerInterface $container)
     {
-        // Установить контейнер
         $this->container = $container;
     }
 
@@ -52,6 +51,4 @@ class Anon  extends Dependencies
         // Получить функцию
         return call_user_func_array($dependency, $dependences);
     }
-
-
 }

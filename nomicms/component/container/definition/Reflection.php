@@ -21,25 +21,24 @@ use Nomicms\Component\Container\Exception\DependencyNotFound;
 class Reflection extends Dependencies
 {
     // Контейнер
-    protected $container;
+    protected ContainerInterface $container;
 
     // Отражение
-    protected $reflector;
+    protected ReflectionClass $reflector;
 
     // Конструтор
     public function __construct(ContainerInterface $container)
     {
-        // Установить контейнер
         $this->container = $container;
     }
 
-    // Создать отражение функции
+    // Создать отражение
     public function __invoke($dependency, array $params)
     {
         // Создать отражение
         $reflector = new ReflectionClass($dependency);
 
-        if ($reflector->isInstantiable() === false) {
+        if (! $reflector->isInstantiable()) {
             throw new DependencyNotFound("Не возможжно создать экземпляр зависимости: {$dependency}");
         }
 

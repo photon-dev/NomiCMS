@@ -14,18 +14,24 @@ namespace Nomicms\Component\Container;
  */
 interface ContainerInterface
 {
-    // Установить службу
+    // Установить
     public function set($service);
 
-    // Получить службу
+    // Получить
     public function get(string $name, array $params = []);
 
-     // Проверить существует служба
-    public function has(string $name);
+    // Проверить в установленных
+    public function has(string $name): bool;
 
-    // Получить список установленных служб
-    public function getInstalled();
+    // Проверить в используемых
+    public function hasUsed(string $name): bool;
 
-    // Получить список используемых служб
-    public function getUsed();
+    // Удалить
+    public function remove(string $name): bool;
+
+    // Получить список установленных
+    public function getInstalled(): array;
+
+    // Получить список используемых
+    public function getUsed(): array;
 }

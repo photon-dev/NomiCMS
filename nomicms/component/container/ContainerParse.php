@@ -15,7 +15,6 @@ namespace Nomicms\Component\Container;
 class ContainerParse
 {
     // Получить имя зависимости
-    // mb_strtolower преобразует строку в нижний регистр
     public function getName(string $name): string
     {
         // Получить позицию последнего вхождения
@@ -24,5 +23,4 @@ class ContainerParse
 
         return mb_strtolower($name);
     }
-
 }

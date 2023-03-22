@@ -12,6 +12,7 @@ namespace Nomicms\Component\Container\Definition;
 // Использовать
 use Nomicms\Component\Container\Exception\DependencyNotFound;
 use ReflectionNamedType;
+use Closure;
 
 /**
  * Класс получения зависимостей
@@ -21,11 +22,11 @@ use ReflectionNamedType;
  */
 class Dependencies
 {
-    // Пользовательские параметры
+    // Параметры
     private $userParams = [];
 
-    // Установить пользовательские параметры
-    protected function setUserParams(array $userParams): void
+    // Установить параметры
+    protected function setUserParams(array $userParams = []): void
     {
         $this->userParams = $userParams;
     }
@@ -36,65 +37,91 @@ class Dependencies
         // Список зависимостей
         $dependences = [];
 
-        // Разобрать зависимости параметры
+        // Разобрать параметры зависимости
         foreach ($params as $param) {
-
-            // Если тип евляеться определением имён типов
+            // Тип евляеться определением
             if ($param->getType() instanceof ReflectionNamedType) {
-
                 // Получить тип
                 $type = $param->getType();
 
-                // Если тип евляеться встроенным
+                // Тип евляеться встроенным
                 if ($type->isBuiltin()) {
 
-                    // Если имя указано в пользовательских параметрах
-                    if (isset($this->userParams[$param->name])) {
+                    // Тип указан в параметрах
+                    if ($this->has($param->name)) {
 
-                        // Получить зависимость изходя из параметров
-                        $dependency = $this->userParams[$param->name];
+                        $dependences[] = $this->getDependences($param->name);
 
-                        // Если зависимость это анонимная функция
-                        if ($dependency instanceof Closure) {
+                    // Тип указан в параметрах по позиции
+                    } elseif ($this->has($param->getPosition())) {
 
-                            $dependences[] = $dependency();
+                        $dependences[] = $this->userParams[$param->getPosition()];
 
-                        // В противном случае просто добавить
-                        } else {
-                            $dependences[] = $dependency;
-                        }
-
-                    // В противном случае, но указан по умолчанию
+                    // Тип не указан в параметрах но установлено по умолчанию
                     } elseif ($param->isDefaultValueAvailable()) {
 
                         $dependences[] = $param->getDefaultValue();
 
-                    // в противном случае, вызвать ошибку
-                    } else {
-                        throw new DependencyNotFound("Не возможно получить параметр {$param->name} в {$this->reflector->getName()}");
-                    }
-
-                // В противном случае, вызвыть поиск по имени типа
+                    // Тип не указан в параметрах
+                    } else
+                        throw new DependencyNotFound("Тип {$param->name} в {$this->reflector->getName()} не передан в конструктор");
+                // Тип не встроеный
                 } else {
                     $dependences[] = $this->getSearch($type->getName());
                 }
 
+            // Тип не являеться определением, и указан в параметрах
+            } elseif ($this->has($param->name)) {
 
-            // В противном случае, вызвать поиск по имени.
-            } else {
-                $dependences[] =  $this->getSearch($param->name);
-            }
+                $dependences[] = $this->getDependences($param->name);
 
+            // Тип не являеться определением, установлен по умолчанию
+            } elseif ($param->isDefaultValueAvailable()) {
+
+                $dependences[] = $param->getDefaultValue();
+
+            // Тип не являеться определением, не установлен по умолчанию
+            } else
+                throw new DependencyNotFound("Тип {$param->name} в {$this->reflector->getName()} не должен быть пустым");
         }
 
         return $dependences;
     }
 
+    // Получить
+    private function getDependences(string $name)
+    {
+        $dependency = $this->userParams[$name];
+
+        return $this->getClosure($dependency);
+    }
+
+    private function has(string|int $name)
+    {
+        return isset($this->userParams[$name]);
+    }
+
+    // Получить анонимную функцию
+    private function getClosure($di)
+    {
+        return  $di instanceof Closure
+                ? $di()
+                : $di;
+    }
+
+    // Проверить контейнер
+    private function hasContainer(string $name): bool
+    {
+        // Container
+        return  'Nomicms\Component\Container\ContainerInterface' == $name ||
+                'Nomicms\Component\Container\Container' == $name;
+    }
+
     // Поиск в контейнере зависимости
-    protected function getSearch(string $name)
+    private function getSearch(string $name)
     {
         // Если ищем сам контейнер
-        if ('Nomicms\Component\Container\ContainerInterface' == $name) {
+        if ($this->hasContainer($name)) {
             return $this->container;
         }
 
@@ -103,7 +130,7 @@ class Dependencies
             $name = $this->container->getName($name);
         }
 
-        // Получить зависимость
+        // Отдать
         return $this->container->get($name);
     }
 }
