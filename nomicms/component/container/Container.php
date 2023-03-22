@@ -1,15 +1,21 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
+/**
+ * NomiCMS - Content Management System
+ *
+ * @author Tosyk, Photon
+ * @package nomicms/NomiCMS
+ * @link   http://nomicms.ru
+ */
 
-namespace Coh\Container;
+namespace Nomicms\Component\Container;
 
 // Использовать
-use Coh\Container\ContainerParse;
-use Coh\Container\ContainerInterface;
-use Coh\Container\Definition\Reflection;
-use Coh\Container\Definition\Anon;
+use Nomicms\Component\Container\ContainerParse;
+use Nomicms\Component\Container\ContainerInterface;
+use Nomicms\Component\Container\Definition\Reflection;
+use Nomicms\Component\Container\Definition\Anon;
 use Closure;
-use Coh\Container\Exception\DependencyNotFound;
+use Nomicms\Component\Container\Exception\DependencyNotFound;
 
 // Контейнер зависимостей
 class Container extends ContainerParse implements ContainerInterface

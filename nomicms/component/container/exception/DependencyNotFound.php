@@ -12,9 +12,7 @@ namespace Nomicms\Component\Container\Exception;
 // Использовать
 use Exception;
 
-/**
- * Сервис не найден
- */
+// DependencyNotFound
 class DependencyNotFound extends Exception
 {
 }
