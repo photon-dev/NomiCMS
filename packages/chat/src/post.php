@@ -37,3 +37,5 @@ if ($action == 'del' && $user->getUser()['level'] > 2) {
     dd('del');
     //go_die($container, '/chat');
 }
+
+//$view->put();

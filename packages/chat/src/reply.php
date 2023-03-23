@@ -7,4 +7,7 @@
  * @link   http://nomicms.ru
  */
 
-return "Ответ пользователю: <b>{$userName}</b>";
+$view->title 'Ответ пользователю: ' . $userName;
+
+
+$view->put();

@@ -65,4 +65,4 @@ $view->set('error', $error->show())
     ->set('message', $request->message);
 
 // Рендерить add
-$view->render('add');
+$view->render('add')->put();

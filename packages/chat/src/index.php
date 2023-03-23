@@ -55,4 +55,4 @@ $view->set('error', $error->show())
 $page->view($view, '/chat');
 
 // Рендерить шаблоны posts
-$view->render('posts');
+$view->render('posts')->put();

@@ -30,5 +30,3 @@ $view->set('count', $count);
 
 // Рендерить шаблон, вывод
 $view->render('index')->put();
-
-//d();
