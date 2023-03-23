@@ -27,7 +27,7 @@ $view->nav = [
 $packages = [];
 
 // Сканировать пакеты
-$scandir = scandir(PACKS);
+$scandir = scandir(PACKAGES);
 foreach ($scandir as $package) {
     // Пропустить подьемы на уровни выше, ниже
     if ($package == '.' || $package == '..') continue;
@@ -39,12 +39,12 @@ foreach ($scandir as $package) {
     $path = $package . '/package';
 
     // Если файл package не найден, то пропускаем
-    if (! file_exists(PACKS . $path . '.php')) {
+    if (! file_exists(PACKAGES . $path . '.php')) {
         continue;
     }
 
     // Загрузить маршруты
-    $config = config($path, PACKS);
+    $config = config($path, PACKAGES);
 
     $packages[] = $config;
 
@@ -54,4 +54,4 @@ foreach ($scandir as $package) {
 
 $view->set('packages', $packages, 'packages');
 
-$view->render('packages');
+$view->render('packages')->put();

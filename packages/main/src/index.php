@@ -28,5 +28,7 @@ FROM dual')->fetch_assoc();
 // Установить данные для шаблона index
 $view->set('count', $count);
 
-// Рендерим шаблон
-$view->render('index');
+// Рендерить шаблон, вывод
+$view->render('index')->put();
+
+//d();

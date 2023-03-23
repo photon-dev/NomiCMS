@@ -7,7 +7,8 @@
  * @link   http://nomicms.ru
  */
 
-$view->title = 'Пользователи';
+$view->title = 'Редактировать профиль';
 
+dd($user->getUser());
 
-$view->render('users')->put();
+$view->render('user.edit')->put();

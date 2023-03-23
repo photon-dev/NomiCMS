@@ -17,3 +17,5 @@ if ($container->get('user')->logger) {
 
 // Установить имя страницы
 $view->title = 'Восстановление доступа';
+
+$view->put();

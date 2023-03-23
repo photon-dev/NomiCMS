@@ -39,11 +39,14 @@ class User
         // Не авторизован
         if (! $this->logger) {
             // Войти в систему
-            $this->logger = $this->logon();
+            $this->logger = $this->checkAccess();
         }
 
         // Установить для всех шаблонов
-        $view->setAll((object) $this->set(), 'user');
+        $view->setAll(
+            (object) $this->set(),
+            'user'
+        );
     }
 
     // Установить данные для всех шаблонов
@@ -54,7 +57,6 @@ class User
             return [
                 'logger' => $this->logger,
                 'uid' => $this->user['uid'],
-                'login' => $this->user['login'],
                 'level' => $this->user['level']
             ];
         }
@@ -64,59 +66,61 @@ class User
         ];
     }
 
-    protected function entry(string $login, string $password)
+    // Авторизация
+    protected function entry(string $token): bool
     {
-        // Подключить базу данных
-        $db = $this->container->get('db');
+        // Обработать токен
+        $token = Misc::str($token, $this->container);
 
-        // Обработать логин  и пароль
-        $login =  Misc::str($login, $this->container);
-        $password = Misc::str($password, $this->container);
-
-        // Выполнить запрос
-        $result = $db->query('SELECT u.uid, u.login, u.level, u.coins, us.shift_time, us.local, us.theme, us.post_page
+        // Запрос
+        $query = 'SELECT u.uid, u.login, u.level, u.coins, us.shift_time, us.local, us.theme, us.post_page
             FROM user AS u
             LEFT JOIN user_settings AS us ON us.user_uid = u.uid
-            WHERE login = "' . $login . '" AND password = "' . $password . '"LIMIT 1'
-        );
+            WHERE token = "' . $token . '"LIMIT 1
+        ';
 
-        // Если пользователь найден
+        // Выполнить запрос
+        $result = $this->container->get('db')->query($query);
+
+        // Удачно
         if ($user = $result->fetch_assoc()) {
             // Сохранить пользователя
             $this->user = $user;
 
+            // Завершить запрос
+            $result->free();
             return true;
         }
 
-        return ;
+        return false;
     }
 
-    protected function logon()
+    // Проверить доступ
+    protected function checkAccess()
     {
-        // Подключить сессии, cookie
-        $sess = $this->container->get('session');
+        // Подключить cookie, session
+        $session = $this->container->get('session');
         $cookie = $this->container->get('cookie');
 
-        if ($sess->login && $sess->password) {
-            return $this->entry($sess->login, $sess->password);
+        // Авторизация по сессии
+        if ($session->token) {
+            return $this->entry($session->token);
         }
 
-        // Если у в куках есть данные о пользователе
-        if ($cookie->login && $cookie->password) {
+        // Авторизация по кукам
+        if ($cookie->token) {
 
-            // Если пользователь найден
-            if ($this->entry($cookie->login, $cookie->password)) {
-
-                $sess->login = $cookie->login;
-                $sess->password = $cookie->password;
+            if ($this->entry($cookie->token)) {
+                $session->token = $cookie->token;
 
                 return true;
             }
 
-            return ;
+            return false;
         }
 
-        return ;
+        // Ничего не найдено
+        return false;
     }
 
     // Получить аватар пользователя

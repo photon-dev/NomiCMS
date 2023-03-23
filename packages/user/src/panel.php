@@ -39,4 +39,4 @@ $view->set('panel', [
 ])->set('count', $count);
 
 // Рендерить
-$view->render('panel');
+$view->render('panel')->put();

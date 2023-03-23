@@ -35,21 +35,20 @@ if ($request->has('submit')) {
         $login =  Misc::str($request->login, $container);
         $password = Misc::str($request->password, $container);
 
-        // Подключить db, выполнить запрос
-        $db = $container->get('db');
-        $query = $db->query('SELECT password FROM user WHERE login = "' . $login . '" LIMIT 1');
+        // Выполнить запрос
+        $query = $container->get('db')->query('SELECT algo, token FROM user WHERE login = "' . $login . '" LIMIT 1');
 
         // Если пользователь найден
-        if ($row = $query->fetch_assoc())
-        {
+        if ($row = $query->fetch_assoc()) {
+
             // Если пароли совпадают
-            if (Password::has($password, $row['password'])) {
+            if (Password::has($password, $row['algo'].$row['token'])) {
                 // Подключить сессии
                 $session = $container->get('session');
 
                 // Установить сессии
-                $session->login = $login;
-                $session->password = $row['password'];
+                //$session->login = $login;
+                $session->token = $row['token'];
 
                 // Если надо запомнить авторизацию
                 if ($request->remember_me && $request->remember_me == 'yes') {
@@ -57,8 +56,8 @@ if ($request->has('submit')) {
                     $cookie = $container->get('cookie');
 
                     // Установить cookie
-                    $cookie->login($login, ['expires' => TIME + YEAR]);
-                    $cookie->password($row['password'], ['expires' => TIME + YEAR]);
+                    $container->get('cookie')
+                        ->token($row['token'], ['expires' => TIME + YEAR]);
                 }
 
                 // Перейти в кабинет
@@ -81,4 +80,4 @@ $view->set('entry', (object) [
 ]);
 
 // Рендерить
-$view->render('entry');
+$view->render('entry')->put();

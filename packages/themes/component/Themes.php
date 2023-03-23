@@ -82,7 +82,7 @@ class Themes
         return false;
     }
 
-    // Получить путь к теме
+    // Получить путь
     public function getPath(bool $priority = true): string
     {
         if ($priority) {

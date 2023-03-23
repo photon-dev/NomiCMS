@@ -17,4 +17,4 @@ $view->nav = [
     ]
 ];
 
-$view->render('settings');
+$view->render('settings')->put();

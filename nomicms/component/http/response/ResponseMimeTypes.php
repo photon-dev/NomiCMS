@@ -9,9 +9,7 @@
 
 namespace Nomicms\Component\Http\Response;
 
-/**
- * Класс ResponseMimeTypes
- */
+// ResponseMimeTypes
 class ResponseMimeTypes
 {
     public static $mimeTypes = [
@@ -39,10 +37,11 @@ class ResponseMimeTypes
         'svgz' => 'image/svg+xml',
         'swf' => 'application/x-shockwave-flash',
 
-        // Архивов
+        // Archives
         'zip' => 'application/zip',
+        'rar' => 'application/vnd.rar',
 
-        // Аудио
+        // Audio
         'midi' => 'audio/midi',
         'mp4a' => 'audio/mp4',
         'mp3' => 'audio/mpeg',
@@ -50,7 +49,7 @@ class ResponseMimeTypes
         'aac' => 'audio/aac',
         'wav' => 'audio/vnd.wave',
 
-        // Видео
+        // Video
         'avi' => 'video/x-msvideo',
         'ogv' => 'video/ogg',
         'webm' => 'video/webm',
@@ -62,7 +61,7 @@ class ResponseMimeTypes
         '3gpp' => 'video/3gpp',
         '3gpp2' => 'video/3gpp2',
 
-        // Изображения
+        // Image
         'svg' => 'image/svg+xml',
         'png' => 'image/png',
         'ico' => 'image/x-icon',

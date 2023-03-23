@@ -20,4 +20,4 @@ $view->set('user', [
 ])->set('version', $app->getVersion())->set('status', $app->getStatus());
 
 // Рендерить шаблон
-$view->render('index');
+$view->render('index')->put();

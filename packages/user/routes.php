@@ -35,6 +35,12 @@ return [
         'src' => 'alerts'
     ],
     [
+
+        'url' => '/user/edit',
+        'package' => 'user',
+        'src' => 'user.edit'
+    ],
+    [
         'url' => '/user/settings',
         'package' => 'user',
         'src' => 'settings'

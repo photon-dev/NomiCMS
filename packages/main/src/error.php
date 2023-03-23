@@ -41,4 +41,4 @@ switch ($errorId) {
 
 $view->set('error', $error);
 
-$view->render('error.view');
+$view->render('error.view')->put();

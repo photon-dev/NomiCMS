@@ -111,7 +111,7 @@ class View extends Template implements TemplateInteface
     }
 
     // Рендерить шаблон
-    public function render(string $template, bool $priority = false): void
+    public function render(string $template, bool $priority = false): self
     {
         // Если указан layout, сообщить об этом
         if ($template == 'layout') {
@@ -124,6 +124,8 @@ class View extends Template implements TemplateInteface
         $this->response->write(
             $content($this)
         );
+
+        return $this;
     }
 
     private function getBackLink()
@@ -203,6 +205,7 @@ class View extends Template implements TemplateInteface
 
         // Рендерить макет
         $this->layout('layout', true);
+        $this->response->setStatus(200);
     }
 
 }

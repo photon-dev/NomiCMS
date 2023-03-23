@@ -7,11 +7,6 @@
  * @link   http://nomicms.ru
  */
 
-// Получить сессии
-$session = $container->get('session');
-
-$view->showed = true;
-
 $captcha = (object) [
     'width' => '120',
     'height' => '60',
@@ -52,13 +47,12 @@ for($i = 0; $i < $captcha->count; $i++)
     imagettftext($image, $size, rand(0, 15), $width, $height, $color, $captcha->font, $letter);
 }
 
-header('Cache-Control: no-store, no-cache, must-revalidate');
-header('Cache-Control: post-check=0, pre-check=0', false);
-header('Pragma: no-cache');
+$container->get('session')
+    ->captcha = implode('', $code);
 
-header('Content-type: image/png');
-imagepng($image);
-
-$session->captcha = implode('', $code);
+$response->setHeader('Pragma', 'no-cache')
+    ->setStatus(200)
+        ->setContentType('png')
+            ->body(imagepng($image));
 
 imagedestroy($image);

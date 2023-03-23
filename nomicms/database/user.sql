@@ -12,7 +12,8 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
     `uid` int(10) unsigned NOT NULL,
     `login` varchar(20) NOT NULL, -- Логин
-    `password` varchar(60) NOT NULL, -- Пароль
+    `algo` varchar(7) NOT NULL, -- Алгоритм шифрования токена
+    `token` varchar(60) NOT NULL, -- Токен
     `level` enum('1','2','3','4') NOT NULL DEFAULT '1', -- Уровень пользователя
     `name` varchar(32) NOT NULL  DEFAULT '', -- Имя
     `first_name` varchar(64) NOT NULL DEFAULT '', -- Фамилия
@@ -39,5 +40,5 @@ ALTER TABLE `user`
     MODIFY `uid` int(10) unsigned NOT NULL AUTO_INCREMENT,
     ADD PRIMARY KEY (`uid`),
     ADD KEY `login` (`login`),
-    ADD KEY `password` (`password`),
+    ADD KEY `token` (`token`),
     ADD KEY `ip` (`ip`);

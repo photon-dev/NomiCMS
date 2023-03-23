@@ -12,16 +12,24 @@ namespace Nomicms\Component\Http\Response;
 // Использовать
 use Nomicms\Component\Http\Response\ResponseInterface;
 use Nomicms\Component\Http\Response\ResponseCodes;
+use Nomicms\Component\Http\Server\Server;
 
 use Exception;
 
-/**
- * Класс Response
- */
+// Класс Response
 class Response extends ResponseCodes implements ResponseInterface
 {
     // Код ответа сервера
-    protected $status;
+    protected $status = 200;
+
+    // Заголовки
+    protected $headers = [];
+
+    // Тип контента
+    protected $contentType = 'text/html';
+
+    // Кодировка
+    protected $charset = 'utf-8';
 
     // Тело
     protected $body = '';
@@ -35,41 +43,100 @@ class Response extends ResponseCodes implements ResponseInterface
     // Конструктор
     public function __construct(array $options = [])
     {
-        $status = isset($options['status']) ? $options['status'] : 200;
-
-        $this->status = $this->invalidStatus($status);
+        $this->status = $this->invalidStatus(
+            $options['status'] ?? 200
+        );
     }
 
     // Проверить статус на валидность
     public function invalidStatus(int $status): int
     {
-        if ($status < 100 || $status > 599) {
-            throw new Exception("Недопустимый код состояния HTTP: {$status}");
+        if ($status < 100 || $status > 511) {
+            throw new Exception("Недопустимый статус {$status} должно быть от 100 до 511");
+        }
+
+        if (! $this->hasStatus($status)) {
+            throw new Exception("Статус {$status} не найден");
         }
 
         return $status;
     }
 
+    // Проверить статус
+    public function hasStatus(int $status): bool
+    {
+        return  isset(self::$codes[$status]) &&
+                array_key_exists($status, self::$codes);
+    }
+
+    // Проверить заголовок
+    public function hasHeader(string $name): bool
+    {
+        return  isset($this->headers[$name]) &&
+                array_key_exists($name, $this->headers);
+    }
+
+    // Установить статус
+    public function setStatus(int $status = 200): self
+    {
+        $this->status = $this->invalidStatus($status);
+        return $this;
+    }
+
+    // Установить заголовки
+    public function setHeader(string $name, string $desc): self
+    {
+        if ($this->hasHeader($name)) {
+            throw new Exception("Заголовок {$mime} указан");
+        }
+
+        $this->headers[$name] = $desc;
+        return $this;
+    }
+
+    // Установить заголовки
+    public function setHeaders(array $headers): self
+    {
+        $this->headers = $headers;
+        return $this;
+    }
+
+    // Установить тип содержимого
+    public function setContentType(string $mime): self
+    {
+        if (! isset(self::$mimeTypes[$mime]) && ! array_key_exists($mime, self::$mimeTypes))
+        {
+            throw new Exception("Недопустимый mimeTypes {$mime}");
+        }
+
+        $this->contentType = self::$mimeTypes[$mime];
+        return $this;
+    }
+
     // Установить тело
-    public function body(string $body): void
+    public function body(string $body): self
     {
         $this->body = $body;
+        return $this;
     }
 
     // Записать в содержимое
-    public function write(string $str): void
+    public function write(string $str): self
     {
         $this->content .= $str;
+        return $this;
     }
 
-    public function sendHeaders()
+    // Получить статус
+    public function getStatus(): int
     {
-        if (! headers_sent()) {
+        return $this->status;
+    }
 
-            return true;
-        }
-
-        return false;
+    // Получить статус
+    public function getHeaders(): array
+    {
+        return $this->headers;
     }
 
     // Получить тело
@@ -84,34 +151,54 @@ class Response extends ResponseCodes implements ResponseInterface
         return $this->content;
     }
 
-    // Получить статус
-    public function getStatus(): int
+    // Тип содержимого
+    public function getContentType(): string
     {
-        return $this->status;
+        return $this->contentType;
     }
 
-    // Установить статус ответа
-    public function setStatus(int $status): void
+    // Отправились заголовки или нет
+    public function sentHeaders(): bool
     {
-        $this->status = $this->invalidStatus($status);
+        return headers_sent();
     }
 
-    // Получить код статуса
-    public function hasStatus(int $status)
+    // Отправить заголовки
+    protected function sendHeaders(): bool
     {
-        if (! isset(self::$codes[$status])) {
-            throw new Exception("Неверный код состояния HTTP: {$status}");
+        if (headers_sent()) {
+            return false;
         }
+
+        // Send the protocol/status line first, FCGI servers need different status header
+		if (Server::has('FCGI_SERVER_VERSION'))
+		{
+			header('Status: ' . $this->status . ' ' . self::$codes[$this->status]);
+		} else {
+            $protocol = Server::get('SERVER_PROTOCOL') ? Server::get('SERVER_PROTOCOL') : 'HTTP/1.1';
+			header($protocol . ' ' . $this->status . ' ' . self::$codes[$this->status]);
+        }
+
+        foreach ($this->headers as $name => $value) {
+
+            is_string($name) and $value = "{$name}: {$value}";
+            header($value, true);
+        }
+
+        return true;
     }
 
     // Отправить содержимое
-    public function send()
+    public function send(bool $sendHeaders = true)
     {
-        // Проверить статус
-        $this->hasStatus($this->status);
+        // Отправить заголовки?
+        if ($sendHeaders) {
+            $this->sendHeaders();
+		}
 
-        // Установить код ответа
-        http_response_code($this->status);
+        //http_response_code($this->status);
+
+        header("Content-Type: {$this->contentType}; charset={$this->charset}", true);
 
         // Если sent false отправить тело
         if ($this->sent === false) {
@@ -120,5 +207,4 @@ class Response extends ResponseCodes implements ResponseInterface
             echo $this->body;
         }
     }
-
 }

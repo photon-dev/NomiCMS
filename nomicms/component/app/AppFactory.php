@@ -40,13 +40,14 @@ class AppFactory
 
             // Получить response, user, view
             $response = $container->get('response');
-            $view = $container->get('view');
             $user = $container->get('user');
+            $view = $container->get('view');
 
-            // Установить headers
-            header('Cache-Control: no-store, no-cache, must-revalidate', true);
-            header('Expires: ' . date('r'), true);
-            header('Content-Type: text/html; charset=utf-8', true);
+            // Заголовки
+            $response->setHeaders([
+                'Cache-Control' => 'no-store, no-cache, must-revalidate',
+                'Expires' => date('r')
+            ]);
 
             // Получить, извлечь параметры
             if ($app->getParams()) {
@@ -55,12 +56,6 @@ class AppFactory
 
             // Загрузить файл источник
             require PACKAGES . $app->getPathSource();
-
-            // Если выключено скрытите
-            if (! $view->show) {
-                // Вывести на экран все содержимое
-                $view->put();
-            }
 
             // Отправить ответ
             return $response;

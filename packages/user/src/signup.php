@@ -118,4 +118,4 @@ $view->set('error', $error->show())
     ->set('gender', $request->gender);
 
 // Рендерить
-$view->render('signup');
+$view->render('signup')->put();

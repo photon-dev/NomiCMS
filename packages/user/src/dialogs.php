@@ -15,3 +15,5 @@ if (! $user->logger) {
 }
 
 $view->title = 'Диалоги';
+
+$view->put();

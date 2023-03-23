@@ -48,4 +48,4 @@ $text = "Привет. Твой логин {$profile->login}";
 $view->set('text', $text);
 
 // Рендерить
-$view->render('user.view');
+$view->render('user.view')->put();

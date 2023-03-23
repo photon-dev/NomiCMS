@@ -14,16 +14,15 @@ if ($user->logger) {
     $cookie = $container->get('cookie');
 
         // Если у в куках есть данные
-        if ($cookie->login && $cookie->password) {
+        if ($cookie->token) {
             // Удалить куки
-            $cookie->delete('login');
-            $cookie->delete('password');
+            $cookie->delete('token');
         }
 
         // Если у в сессиях есть данные
-        if ($session->login && $session->password) {
+        if ($session->token) {
             // Удалить сессии
-            unset($session->login, $session->password);
+            unset($session->token);
         }
 
         // Уничтожить сессии
