@@ -12,3 +12,5 @@ $forumId =  $forumId ?? false;
 $view->title = 'Форум - ' .  $forumId;
 
 //$view->render('section');
+
+$view->put();

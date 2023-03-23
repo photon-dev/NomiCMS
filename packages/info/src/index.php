@@ -11,4 +11,4 @@
 $view->title = 'Информация';
 
 // Рендерим шаблон
-$view->render('info');
+$view->render('info')->put();

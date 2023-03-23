@@ -6,3 +6,5 @@
  * @package nomicms/NomiCMS
  * @link   http://nomicms.ru
  */
+
+$view->put();

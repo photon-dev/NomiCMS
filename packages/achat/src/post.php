@@ -16,4 +16,4 @@ if (! $user->logger || $user->getUser()['level'] < 2) {
 $view->title = 'Админ-чат - post';
 
 // Рендерить шаблон
-$view->render('post');
+$view->render('post')->put();

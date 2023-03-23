@@ -11,3 +11,6 @@ $forumId =  $forumId ?? false;
 $forumSubId = $forumSubId ?? false;
 
 $view->title = 'Форум - ' .  $forumId . ' - ' . $forumforumSubId;
+
+
+$view->put();

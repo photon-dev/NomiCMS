@@ -11,4 +11,4 @@
  $view->title = 'Смайлы';
 
  // Рендерим шаблон
- $view->render('emo');
+ $view->render('emo')->put();

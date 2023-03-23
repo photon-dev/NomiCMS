@@ -9,3 +9,5 @@
 
  echo '<br />Сообщение ' . $postId;
  echo '<br />Действие ' . $action;
+
+$view->put();

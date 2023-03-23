@@ -11,4 +11,4 @@
 $view->title = 'ББ-коды';
 
 // Рендерим шаблон
-$view->render('bb');
+$view->render('bb')->put();

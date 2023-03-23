@@ -9,4 +9,4 @@
 
 $view->title = 'Форум';
 
-$view->render('index');
+$view->render('index')->put();

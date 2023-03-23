@@ -54,4 +54,4 @@ $view->set('rows', $rows);
 $page->view($view, '/news');
 
 // Рендерить шаблон
-$view->render('index');
+$view->render('index')->put();
