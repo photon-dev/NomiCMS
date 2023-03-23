@@ -83,7 +83,7 @@ class Response extends ResponseCodes implements ResponseInterface
         return $this;
     }
 
-    // Установить заголовки
+    // Установить заголовок
     public function setHeader(string $name, string $desc): self
     {
         if ($this->hasHeader($name)) {

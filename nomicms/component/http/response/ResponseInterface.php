@@ -18,8 +18,14 @@ interface ResponseInterface
     // Проверить статус
     public function hasStatus(int $status): bool;
 
+    // Проверить заголовок
+    public function hasHeader(string $name): bool;
+
     // Установить статус
     public function setStatus(int $status = 200): self;
+
+    // Установить заголовок
+    public function setHeader(string $name, string $desc): self;
 
     // Установить заголовки
     public function setHeaders(array $headers): self;
@@ -52,5 +58,5 @@ interface ResponseInterface
     public function sentHeaders(): bool;
 
     // Отправить содержимое
-    public function send(bool $sendHeaders = false);
+    public function send(bool $sendHeaders = true);
 }
