@@ -9,9 +9,9 @@ DROP TABLE IF EXISTS `user_alerts`;
 --
 
 CREATE TABLE IF NOT EXISTS `user_alerts` (
-    `uid` int(10) unsigned NOT NULL,
-    `who` int(10) unsigned NOT NULL,
-    `to_whom` int(10) unsigned NOT NULL,
+    `uid` int(10) UNSIGNED NOT NULL,
+    `who` int(10) UNSIGNED NOT NULL,
+    `to_whom` int(10) UNSIGNED NOT NULL,
     `message` text NOT NULL,
     `url` varchar(255) NOT NULL,
     `read` enum('yes','no') NOT NULL DEFAULT 'no',
@@ -23,9 +23,22 @@ CREATE TABLE IF NOT EXISTS `user_alerts` (
 --
 
 ALTER TABLE `user_alerts`
-    MODIFY `uid` int(10) unsigned NOT NULL AUTO_INCREMENT,
     ADD PRIMARY KEY (`uid`),
-    ADD FOREIGN KEY (`who`) REFERENCES `user` (`uid`),
-    ADD FOREIGN KEY (`to_whom`) REFERENCES `user` (`uid`),
     ADD KEY `who` (`who`),
     ADD KEY `to_whom` (`to_whom`);
+
+--
+-- AUTO_INCREMENT для таблицы `user_alerts`
+--
+
+ALTER TABLE `user_alerts`
+    MODIFY `uid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- Ограничения внешнего ключа таблицы `user_alerts`
+--
+
+ALTER TABLE `user_alerts`
+    ADD CONSTRAINT `user_alerts_ibfk_1` FOREIGN KEY (`who`) REFERENCES `user` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE,
+    ADD CONSTRAINT `user_alerts_ibfk_2` FOREIGN KEY (`to_whom`) REFERENCES `user` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;

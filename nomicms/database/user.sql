@@ -1,4 +1,3 @@
-
 --
 -- Удаление таблицы `user`
 --
@@ -37,8 +36,15 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 ALTER TABLE `user`
-    MODIFY `uid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-    ADD PRIMARY KEY (`uid`),
-    ADD KEY `login` (`login`),
-    ADD KEY `token` (`token`),
-    ADD KEY `ip` (`ip`);
+  ADD PRIMARY KEY (`uid`),
+  ADD KEY `login` (`login`),
+  ADD KEY `token` (`token`),
+  ADD KEY `ip` (`ip`);
+
+--
+-- AUTO_INCREMENT для таблицы `user`
+--
+
+ALTER TABLE `user`
+  MODIFY `uid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+COMMIT;

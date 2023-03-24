@@ -9,9 +9,9 @@ DROP TABLE IF EXISTS `user_friends`;
 --
 
 CREATE TABLE IF NOT EXISTS `user_friends` (
-    `uid` int(10) unsigned NOT NULL,
-    `who` int(10) unsigned NOT NULL,
-    `to_whom` int(10) unsigned NOT NULL,
+    `uid` int(10) UNSIGNED NOT NULL,
+    `who` int(10) UNSIGNED NOT NULL,
+    `to_whom` int(10) UNSIGNED NOT NULL,
     `status` enum('yes','no') NOT NULL DEFAULT 'no',
     `date_add` int(10) NOT NULL,
     `date_accept` int(10) NOT NULL
@@ -20,11 +20,21 @@ CREATE TABLE IF NOT EXISTS `user_friends` (
 --
 -- Индексы таблицы `user_friends`
 --
-
 ALTER TABLE `user_friends`
-    MODIFY `uid` int(10) unsigned NOT NULL AUTO_INCREMENT,
     ADD PRIMARY KEY (`uid`),
-    ADD FOREIGN KEY (`who`) REFERENCES `user` (`uid`),
-    ADD FOREIGN KEY (`to_whom`) REFERENCES `user` (`uid`),
     ADD KEY `who` (`who`),
     ADD KEY `to_whom` (`to_whom`);
+
+--
+-- AUTO_INCREMENT для таблицы `user_friends`
+--
+ALTER TABLE `user_friends`
+    MODIFY `uid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- Ограничения внешнего ключа таблицы `user_friends`
+--
+ALTER TABLE `user_friends`
+    ADD CONSTRAINT `user_friends_ibfk_1` FOREIGN KEY (`who`) REFERENCES `user` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE,
+    ADD CONSTRAINT `user_friends_ibfk_2` FOREIGN KEY (`to_whom`) REFERENCES `user` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
