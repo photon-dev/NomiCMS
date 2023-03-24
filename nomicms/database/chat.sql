@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `chat` (
     `message` text NOT NULL,
     `date_write` int(10) NOT NULL,
     `date_edit` int(10) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_general_ci AUTO_INCREMENT=1 COMMENT='Мини-чат';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci AUTO_INCREMENT=1 COMMENT='Мини-чат';
 
 --
 -- Индексы таблицы `chat`
@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS `chat` (
 ALTER TABLE `chat`
     MODIFY `uid` int(10) unsigned NOT NULL AUTO_INCREMENT,
     ADD PRIMARY KEY (`uid`),
+    ADD FOREIGN KEY (`user_uid`) REFERENCES `user` (`uid`),
     ADD KEY `user_uid` (`user_uid`);
 
 --

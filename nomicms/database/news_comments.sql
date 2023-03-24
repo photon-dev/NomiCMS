@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS `news_comments` (
     `message` text NOT NULL,
     `date_write` int(10) NOT NULL,
     `date_edit` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_general_ci AUTO_INCREMENT=2 COMMENT='Комментарии новостей';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci AUTO_INCREMENT=2 COMMENT='Комментарии новостей';
 
 --
 -- Индексы таблицы `news_comments`

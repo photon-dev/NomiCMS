@@ -10,7 +10,7 @@ DROP TABLE IF EXISTS `user`;
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
-    `uid` int(10) unsigned NOT NULL,
+    `uid` int(10) UNSIGNED NOT NULL,
     `login` varchar(20) NOT NULL, -- Логин
     `algo` varchar(7) NOT NULL, -- Алгоритм шифрования токена
     `token` varchar(60) NOT NULL, -- Токен
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `user` (
     `country` varchar(64) NOT NULL DEFAULT '', -- Страна
     `city` varchar(32) NOT NULL DEFAULT '', -- Город
     `about` varchar(512) NOT NULL DEFAULT '', -- Обо мне
-    `coins` mediumint(8) unsigned NOT NULL DEFAULT '100', -- Монеты
+    `coins` mediumint(8) UNSIGNED NOT NULL DEFAULT '100', -- Монеты
     `avatar` varchar(128) NOT NULL DEFAULT 'none.jpg', -- Аватар
     `ip` int(10) NOT NULL, -- Ip адрес
     `email` varchar(128) NOT NULL DEFAULT '',
@@ -30,14 +30,14 @@ CREATE TABLE IF NOT EXISTS `user` (
     `browser` varchar(255) NOT NULL DEFAULT '',
     `date_signup` int(10) NOT NULL,
     `date_entry` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_general_ci AUTO_INCREMENT=1 COMMENT='Пользователь';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci AUTO_INCREMENT=1 COMMENT='Пользователь';
 
 --
 -- Индексы таблицы `user`
 --
 
 ALTER TABLE `user`
-    MODIFY `uid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    MODIFY `uid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
     ADD PRIMARY KEY (`uid`),
     ADD KEY `login` (`login`),
     ADD KEY `token` (`token`),

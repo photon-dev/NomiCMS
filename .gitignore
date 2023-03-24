@@ -2,15 +2,12 @@
 setur/*
 
 # System dir ignores
-system/apps/*
-system/cache/*
-system/system/*
-
-# Website dir ignores
+nomicms/database_normalaze/*
 uploads/downloads/*
 uploads/avatars/*
 uploads/forum/*
 uploads/lib/*
 
 # Other files ignores
+nomicms/component/container/definition/ReflectionAction.php
 test_smile.txt

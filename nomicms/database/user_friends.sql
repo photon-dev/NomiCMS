@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS `user_friends` (
     `status` enum('yes','no') NOT NULL DEFAULT 'no',
     `date_add` int(10) NOT NULL,
     `date_accept` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_general_ci AUTO_INCREMENT=1 COMMENT='Друзья';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci AUTO_INCREMENT=1 COMMENT='Друзья';
 
 --
 -- Индексы таблицы `user_friends`

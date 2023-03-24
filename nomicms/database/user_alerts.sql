@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `user_alerts` (
     `url` varchar(255) NOT NULL,
     `read` enum('yes','no') NOT NULL DEFAULT 'no',
     `date_write` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_general_ci AUTO_INCREMENT=1 COMMENT='Оповещения';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci AUTO_INCREMENT=1 COMMENT='Оповещения';
 
 --
 -- Индексы таблицы `user_alerts`
