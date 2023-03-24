@@ -10,4 +10,6 @@ uploads/lib/*
 
 # Other files ignores
 nomicms/component/container/definition/ReflectionAction.php
+nomicms/database/news.txt
+nomicms/database/sql.sql
 test_smile.txt
