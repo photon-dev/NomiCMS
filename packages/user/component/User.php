@@ -123,15 +123,26 @@ class User
         return false;
     }
 
-    // Получить аватар пользователя
-    public function getAvatar(string $avatar = ''): string
+    // Получить данные пользователя
+    public function getUser(): array
     {
-        // Уровень пользователя не найден
-        if (empty($avatar)) {
-            $avatar = $this->user['avatar'];
+        if ($this->logger && isset($this->user['uid'])) {
+            return $this->user;
         }
 
-        return '<img src="/uploads/avatars/' . $avatar . '" alt="Alt">';
+        return [];
+    }
+
+    // Получить аватар пользователя
+    public function getAvatar($avatar): string
+    {
+        // Уровень пользователя не найден
+        if ($avatar == NULL) {
+             return 'none.jpg';
+        }
+
+        return $avatar;
+        //return '<img src="/uploads/avatars/' . $avatar . '" alt="Alt">';
     }
 
     // Получить имя уровня
@@ -184,15 +195,5 @@ class User
         }
 
         return $level;
-    }
-
-    // Получить данные пользователя
-    public function getUser(): array
-    {
-        if ($this->logger && isset($this->user['uid'])) {
-            return $this->user;
-        }
-
-        return [];
     }
 }

@@ -31,11 +31,3 @@ ALTER TABLE `chat`
 
 ALTER TABLE `chat`
     MODIFY `uid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- Ограничения внешнего ключа таблицы `chat`
---
-
-ALTER TABLE `chat`
-    ADD CONSTRAINT `chat_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;

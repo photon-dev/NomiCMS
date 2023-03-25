@@ -29,30 +29,29 @@ $page = $container->get('pagination', [
     'page' => $pageId
 ]);
 
-// Сделать выборку из базы данных
-$result = $db->query('SELECT c.*, u.login, u.level, u.avatar, u.status
+// Текст запроса
+$query = 'SELECT c.*, u.login, u.level, u.avatar, u.status
 FROM chat AS c
 LEFT JOIN user AS u
 ON u.uid = c.user_uid
 GROUP BY c.uid
-ORDER BY c.uid DESC LIMIT  ' . $page->start . ', ' . $app->post_page);
+ORDER BY c.uid DESC LIMIT  ' . $page->start . ', ' . $app->post_page;
 
-if ($result) {
+// Выполнить запрос
+if ($result = $db->query($query)) {
     $chat = $result->fetch_all(MYSQLI_ASSOC);
 }
 
-$rand = mt_rand(101, 999);
-
-// Установить данные для шаблона error
+// Установить данные для шаблона errors
 $view->set('errors', $error->getErrors(), 'error');
 
-// Установить данные для главного шаблона
+// Установить данные posts шаблона
 $view->set('error', $error->show())
     ->set('posts', $chat ?? false)
-    ->set('code', $rand);
+    ->set('code', mt_rand(101, 999));
 
 // Установить постраничную навигацию
 $page->view($view, '/chat');
 
-// Рендерить шаблоны posts
+// Рендерить шаблон posts
 $view->render('posts')->put();

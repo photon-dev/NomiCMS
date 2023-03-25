@@ -32,14 +32,6 @@ ALTER TABLE `news_comments`
     MODIFY `uid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- Ограничения внешнего ключа таблицы `news_comments`
---
-ALTER TABLE `news_comments`
-    ADD CONSTRAINT `news_comments_ibfk_1` FOREIGN KEY (`news_uid`) REFERENCES `news` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE,
-    ADD CONSTRAINT `news_comments_ibfk_2` FOREIGN KEY (`user_uid`) REFERENCES `user` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
-
---
 -- Дамп данных таблицы `news_comments`
 --
 

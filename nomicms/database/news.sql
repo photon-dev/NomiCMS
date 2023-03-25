@@ -32,13 +32,6 @@ ALTER TABLE `news`
     MODIFY `uid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- Ограничения внешнего ключа таблицы `news`
---
-ALTER TABLE `news`
-    ADD CONSTRAINT `news_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
-
---
 -- Дамп данных таблицы `news`
 --
 
