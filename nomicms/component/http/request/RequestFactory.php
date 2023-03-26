@@ -24,7 +24,7 @@ class RequestFactory
     }
 
     // Получить
-    public function __get(string $name)
+    public function __get(string $name):string
     {
         if ($this->has($name)) {
             return $this->data[$name];
