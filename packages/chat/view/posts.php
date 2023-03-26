@@ -1,13 +1,4 @@
-<?php
-
-// Использовать
-use Nomicms\Component\Text\{
-    DateTime, Misc
-};
-
-$us = $view->container->get('user');
-
-if ($user->logger): ?>
+<?php if ($user->logger): ?>
 <div class="menu">
     <a href="/chat?<?php echo $code; ?>" title="Обновить">
         <i class="icon-arrows-cw c-red"></i>
@@ -34,46 +25,50 @@ if ($user->logger): ?>
     <? foreach ($posts as $post): ?>
     <div class="row">
         <div class="row_user flex just-between align-start">
-            <img class="avatar" src="/uploads/avatars/<?php echo $us->getAvatar($post['avatar']); ?>" alt="Alt">
+            <img class="avatar" src="/uploads/avatars/<?php echo $post->avatar; ?>" alt="Alt">
             <div class="name flex-grow1">
-                <?php if ($post['login'] == NULL): ?>
+                <?php if ($post->login == NULL): ?>
                     <span class="none_name">
                         Пользователь удален
                     </span>
                 <?php else:?>
-                    <a href="/user/id<?php echo $post['user_uid']; ?>" title="Профиль <?php echo $post['login']; ?>">
-                        <?php echo $post['login']; ?>
-                        <span class="level <?php echo $us->getLevel($post['level']); ?>"><?php echo $us->getLevel($post['level']); ?></span>
+                    <a href="/user/id<?php echo $post->user_uid; ?>" title="Профиль <?php echo $post->login; ?>">
+                        <?php echo $post->login; ?>
+                        <span class="level <?php echo $post->level; ?>"><?php echo $post->level; ?></span>
                     </a>
-                    <a href="/chat/reply/<?php echo $post['user_uid']; ?>">
+                    <a href="/chat/reply/<?php echo $post->user_uid; ?>">
                         <i class="icon-reply c-gray"></i>
                     </a>
+                    <?php if ($post->status): ?>
                     <div>
-                        <?php echo Misc::output($post['status']); ?>
+                        <?php echo $post->status; ?>
                     </div>
+                    <?php endif; ?>
                 <?php endif; ?>
             </div>
             <div class="date">
-                <?php echo DateTime::times($post['date_write']); ?>
+                <?php echo $post->date_write; ?>
             </div>
         </div>
         <div class="message">
-            <?php echo Misc::output($post['message']); ?>
+            <?php echo $post->message; ?>
         </div>
         <?php if ($user->logger): ?>
         <div class="navbar flex just-flex-end">
-            <a href="/chat/like/<?php echo $post['uid']; ?>" title="">
+            <a href="/chat/like/<?php echo $post->uid; ?>" title="">
                 <i class="icon-thumbs-up-alt c-gray"></i>
                 Мне нравиться
             </a>
-            <?php if ($user->uid == $post['user_uid']): ?>
-            <a href="/chat/edit/<?php echo $post['uid']; ?>" title="">
+            <?php if ($user->uid == $post->user_uid || $user->level > 1): ?>
+            <a href="/chat/edit/<?php echo $post->uid; ?>" title="">
                 <i class="icon-pencil c-yellow"></i>
             </a>
             <?php endif; ?>
-            <a href="/chat/del/<?php echo $post['uid']; ?>" title="">
+            <?php if ($user->level > 1): ?>
+            <a href="/chat/del/<?php echo $post->uid; ?>" title="">
                 <i class="icon-trash-empty c-red"></i>
             </a>
+            <?php endif; ?>
         </div>
         <?php endif; ?>
     </div>

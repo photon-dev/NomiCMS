@@ -26,7 +26,7 @@ function uploadFile(target) {
 }
 function smile() {
     var s = document.getElementById("smile");
-    if (s.style.maxHeight == "") s.style.maxHeight = "100px"; else s.style.maxHeight = "";
+    if (s.style.maxHeight == "") s.style.maxHeight = "150px"; else s.style.maxHeight = "";
 }
 </script>
 <style>

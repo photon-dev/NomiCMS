@@ -78,11 +78,12 @@ if ($request->has('submit')) {
 
         // Создать хэш пароля
         $password = Password::create($password);
+        $hash = Password::cutHash($password, true);
 
-        // Выполнить запрос, создать пользователя
-        $db->query('INSERT INTO user (login, password, name, gender, ip, date_signup, date_entry)
+        //Выполнить запрос, создать пользователя
+        $db->query('INSERT INTO user (login, algo, token, name, gender, ip, date_signup, date_entry)
         VALUES (
-            "' . $login . '", "' . $password . '", "' . $name . '", "' . $gender . '", "' . Ipus::to() . '", "' . TIME . '", "' . TIME . '"
+            "' . $login . '", "' . $hash['algo'] . '", "' . $hash['token'] . '", "' . $name . '", "' . $gender . '", "' . Ipus::to() . '", "' . TIME . '", "' . TIME . '"
         );');
         // Получить следущий индификатор
         $next_uid = $db->insert_id;
@@ -98,8 +99,7 @@ if ($request->has('submit')) {
         $db->query('INSERT INTO user_soc (user_uid) VALUES ("' . $next_uid . '");');
 
         // Установить cookie
-        $container->get('cookie')->login($login, ['expires' => TIME + YEAR]);
-        $container->get('cookie')->password($password, ['expires' => TIME + YEAR]);
+        $container->get('cookie')->password($hash['token'], ['expires' => TIME + YEAR]);
 
         // Перейти в кабинет
         go_die($container, '/user');

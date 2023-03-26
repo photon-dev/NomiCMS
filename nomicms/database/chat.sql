@@ -13,8 +13,7 @@ CREATE TABLE IF NOT EXISTS `chat` (
     `uid` int(10) UNSIGNED NOT NULL,
     `user_uid` int(10) UNSIGNED NOT NULL,
     `message` text NOT NULL,
-    `date_write` int(10) NOT NULL,
-    `date_edit` int(10) NOT NULL DEFAULT '0'
+    `date_write` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci AUTO_INCREMENT=1 COMMENT='Мини-чат';
 
 --

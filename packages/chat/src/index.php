@@ -7,6 +7,11 @@
  * @link   http://nomicms.ru
  */
 
+ // Использовать
+ use Nomicms\Component\Text\{
+     DateTime, Misc
+ };
+
 // Получить db
 $db = $container->get('db');
 
@@ -33,13 +38,29 @@ ON u.uid = c.user_uid
 GROUP BY c.uid
 ORDER BY c.uid DESC LIMIT  ' . $page->start . ', ' . $app->post_page;
 
-// Выполнить запрос
-if ($result = $db->query($query)) {
-    $chat = $result->fetch_all(MYSQLI_ASSOC);
+// // Выполнить запрос
+// if ($result = $db->query($query)) {
+//     $chat = $result->fetch_all(MYSQLI_ASSOC);
+//     $result->free();
+// }
+
+$result = $db->query($query);
+
+// Обработать
+while ($chat = $result->fetch_object()) {
+    $chat->date_write = DateTime::times($chat->date_write);
+    $chat->message = Misc::output($chat->message);
+    $chat->level = $user->getLevel($chat->level);
+    $chat->avatar = $user->getAvatar($chat->avatar);
+    $chat->status = $user->getStatus($chat->status);
+
+    // Слить посты
+    $posts[] = $chat;
 }
+$result->free();
 
 // Установить данные posts шаблона
-$view->set('posts', $chat ?? false)
+$view->set('posts', $posts ?? false)
     ->set('code', mt_rand(101, 999));
 
 // Установить постраничную навигацию

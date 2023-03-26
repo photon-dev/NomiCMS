@@ -47,6 +47,8 @@ while ($news = $result->fetch_assoc()) {
     $rows[] = $news;
 }
 
+$result->free();
+
 // Установить полученные новости
 $view->set('rows', $rows);
 

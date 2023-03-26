@@ -196,4 +196,13 @@ class User
 
         return $level;
     }
+
+    public function getStatus(string $status)
+    {
+        if (! empty($status)) {
+            return Misc::output($status);
+        }
+
+        return false;
+    }
 }

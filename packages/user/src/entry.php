@@ -46,14 +46,11 @@ if ($request->has('submit')) {
                 // Подключить сессии
                 $session = $container->get('session');
 
-                // Установить сессии
-                //$session->login = $login;
+                // Установить сессию
                 $session->token = $row['token'];
 
                 // Если надо запомнить авторизацию
                 if ($request->remember_me && $request->remember_me == 'yes') {
-                    // Получить cookie
-                    $cookie = $container->get('cookie');
 
                     // Установить cookie
                     $container->get('cookie')

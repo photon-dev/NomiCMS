@@ -11,7 +11,6 @@
 use Nomicms\Component\Text\Misc;
 
 // Если не авторизован
-//if (! $user->logger || $user->getUser()['level'] < 2) {
 if (! $user->logger) {
     go_die($container, '/');
 }
@@ -20,19 +19,22 @@ if (! $user->logger) {
 $postId = $postId ?? false;
 $postId = Misc::abs($postId, $container);
 
-// Получить db, id пользователя
+// Получить db
 $db = $container->get('db');
-$post = $db->query('SELECT user_uid FROM chat WHERE uid = "' . $postId . '" LIMIT 1');
 
-if (! $post->num_rows) {
+// Получить пост
+$result = $db->query('SELECT user_uid FROM chat WHERE uid = "' . $postId . '" LIMIT 1');
+
+if (! $result->num_rows) {
     error('Сообщение не найдено');
 }
-$userId = $post->fetch_assoc();
+$post = $result->fetch_object();
+$result->free();
 
 // Удалить сообщение
-if ($userId['user_uid'] == $user->getUser()['uid'] || $user->getUser()['level'] > 2) {
-
+if ($post->user_uid == $user->getUser()['uid'] || $user->getUser()['level'] > 1) {
     // Удалить сообщение
     $db->query('DELETE FROM chat WHERE uid = "' . $postId . '"');
-    go_die($container, '/chat');
 }
+
+go_die($container, '/chat');
