@@ -110,3 +110,16 @@ if (! function_exists('getHomeBack')) {
         return ($url == '/') ? false : true;
     }
 }
+
+if (! function_exists('smile')) {
+    function smile($text = '') {
+        $smiles = config('smiles');
+
+    	$smiles = array_unique($smiles, SORT_REGULAR);
+    	foreach ($smiles as $a) {
+            echo '<a onclick="tag(\':'.$a.':\')"><i class="emoji-'. $a .'"></i></a>';
+        }
+
+        return true;
+    }
+}

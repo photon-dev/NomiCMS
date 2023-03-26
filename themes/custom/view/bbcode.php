@@ -69,5 +69,5 @@ function smile() {
 <span onclick="tag('[youtube]', '[/youtube]')"><i class="icon-youtube-2"></i></span>
 </div>
 <div id="smile"><hr>
-<? //smile('', true); ?>
+<?php smile(); ?>
 </div>
