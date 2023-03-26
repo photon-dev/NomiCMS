@@ -83,5 +83,5 @@ $view->set('error', $error->show())
         'message' => $request->has('message') ? $request->message : $post->message
     ]);
 
-// Рендерить add
-$view->render('add')->put();
+// Рендерить edit
+$view->render('edit')->put();
