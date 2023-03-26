@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS `chat`;
 DROP TABLE IF EXISTS `chat`;
 CREATE TABLE IF NOT EXISTS `chat` (
     `uid` int(10) UNSIGNED NOT NULL,
-    `user_uid` int(10) NOT NULL,
+    `user_uid` int(10) UNSIGNED NOT NULL,
     `message` text NOT NULL,
     `date_write` int(10) NOT NULL,
     `date_edit` int(10) NOT NULL DEFAULT '0'
@@ -31,3 +31,10 @@ ALTER TABLE `chat`
 
 ALTER TABLE `chat`
     MODIFY `uid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- Ограничения внешнего ключа таблицы `chat`
+--
+ALTER TABLE `chat`
+  ADD CONSTRAINT `chat_ibfk_1` FOREIGN KEY (`user_uid`) REFERENCES `user` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;

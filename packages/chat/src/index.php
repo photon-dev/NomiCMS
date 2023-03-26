@@ -9,10 +9,8 @@
 
 $pageId = $pageId ?? false;
 
-// Получить db, request, error
+// Получить db
 $db = $container->get('db');
-$request = $container->get('request')->post;
-$error = $container->get('error');
 
 // Выполнить запрос и получить сообщений
 $count = $db->query('SELECT COUNT(*) FROM chat')->fetch_row()[0];
@@ -42,12 +40,8 @@ if ($result = $db->query($query)) {
     $chat = $result->fetch_all(MYSQLI_ASSOC);
 }
 
-// Установить данные для шаблона errors
-$view->set('errors', $error->getErrors(), 'error');
-
 // Установить данные posts шаблона
-$view->set('error', $error->show())
-    ->set('posts', $chat ?? false)
+$view->set('posts', $chat ?? false)
     ->set('code', mt_rand(101, 999));
 
 // Установить постраничную навигацию

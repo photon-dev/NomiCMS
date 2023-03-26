@@ -48,13 +48,14 @@ if ($request->has('submit')) {
         $message =  Misc::str($request->message, $container);
 
         // Выполнить запрос, создать сообщение
-        $db->query('INSERT INTO `chat` set user_uid = "' . $user_uid . '", message = "' . $message . '", date_write = "' . TIME . '"');
+        $sql = $db->query('INSERT INTO `chat` set user_uid = "' . $user_uid . '", message = "' . $message . '", date_write = "' . TIME . '"');
+        dd($sql);
 
         // Добавить монету пользователю
         $db->query('UPDATE user SET coins = coins + 1 WHERE uid = "' . $user_uid . '"');
 
         // Направить в чат
-        go_die($container, '/chat');
+        //go_die($container, '/chat');
     }
 }
 
