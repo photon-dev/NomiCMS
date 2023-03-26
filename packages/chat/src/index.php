@@ -7,8 +7,6 @@
  * @link   http://nomicms.ru
  */
 
-$pageId = $pageId ?? false;
-
 // Получить db
 $db = $container->get('db');
 
@@ -24,7 +22,7 @@ $view->keywords = 'Чат, Общение, chat, message';
 $page = $container->get('pagination', [
     'count' => $count,
     'limit' => $app->post_page,
-    'page' => $pageId
+    'page' => $pageId ?? false
 ]);
 
 // Текст запроса
