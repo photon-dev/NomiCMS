@@ -14,13 +14,25 @@ namespace Nomicms\Component\Text;
  */
 class Password
 {
-    // Создать хэш паролей
+    // Создать хэш
     public static function create(string $pass, array $options = ['cost' => 10]): string
     {
         return password_hash($pass, PASSWORD_BCRYPT, $options);
     }
 
-    // Получить информацию о заданном хеше
+    // Вырезать из хэша алгоритм шифрования
+    public static function cutHash(string $hash): array
+    {
+        $algo = mb_substr($hash, 0, 7);
+        $token = mb_substr($hash, 7);
+
+        return [
+            'algo' => $algo,
+            'token' => $token
+        ];
+    }
+
+    // Получить информацию о хеше
     public static function info(string $hash): array
     {
         return password_get_info($hash);
