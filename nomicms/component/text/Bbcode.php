@@ -40,9 +40,9 @@ class Bbcode
         '/\[bg\=(\w+)\](.*?)\[\/bg\]/s',
 
         // Ссылки
+        '/(^|\s|-|:| |\()(http:\/\/|https:\/\/)?(www)?([\da-z\.-]+)\.([a-z\.]{2,6})*\/?/s',
         '/\[url\](.*?)\[\/url\]/s',
         '/\[url\=(.*?)\](.*?)\[\/url\]/s',
-        '/(^|\s|-|:| |\()(http:\/\/|https:\/\/)?(www)?([\da-z\.-]+)\.([a-z\.]{2,6})*\/?/s',
 
         // Изображение, Аудио, Видео
         '/\[img\](.*?)\[\/img\]/s',
@@ -73,9 +73,9 @@ class Bbcode
         '<span style="background-color: $1">$2</span>',
 
         // Ссылки
+        ' <a class="link_visual" href="http://$4.$5" title="Перейти на $4.$5" target="_blank">$4.$5</a>',
         '<a class="link_visual" href="$1" title="Перейти по ссылке" target="_blank">$1</a>',
         '<a class="link_visual" href="$1" title="Перейти на $2" target="_blank">$2</a>',
-        '$1<a class="link_visual" href="$2$4.$5" title="Перейти на $4.$5" target="_blank">$4.$5</a>',
 
         // Изображение, Аудио, Видео
         '<a href="$1" title="Перейти к изображению"><img class="attach" src="$1" alt="Image"></a>',
