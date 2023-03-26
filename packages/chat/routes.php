@@ -30,6 +30,14 @@ return [
         'src' => 'add'
     ],
     [
+        'url' => '/chat/edit/{num}',
+        'package' => 'chat',
+        'src' => 'edit',
+        'params' => [
+            'postId'
+        ]
+    ],
+    [
         'url' => '/chat/del/{num}',
         'package' => 'chat',
         'src' => 'del',
@@ -43,14 +51,6 @@ return [
         'src' => 'reply',
         'params' => [
             'userLogin'
-        ]
-    ],
-    [
-        'url' => '/chat/{num}/{str}',
-        'package' => 'chat',
-        'src' => 'post',
-        'params' => [
-            'postId', 'action'
         ]
     ]
 ];

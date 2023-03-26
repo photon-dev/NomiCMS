@@ -30,21 +30,13 @@ $page = $container->get('pagination', [
     'page' => $pageId ?? false
 ]);
 
-// Текст запроса
-$query = 'SELECT c.*, u.login, u.level, u.avatar, u.status
+// Выполнить запрос
+$result = $db->query('SELECT c.*, u.login, u.level, u.avatar, u.status
 FROM chat AS c
 LEFT JOIN user AS u
 ON u.uid = c.user_uid
 GROUP BY c.uid
-ORDER BY c.uid DESC LIMIT  ' . $page->start . ', ' . $app->post_page;
-
-// // Выполнить запрос
-// if ($result = $db->query($query)) {
-//     $chat = $result->fetch_all(MYSQLI_ASSOC);
-//     $result->free();
-// }
-
-$result = $db->query($query);
+ORDER BY c.uid DESC LIMIT  ' . $page->start . ', ' . $app->post_page);
 
 // Обработать
 while ($chat = $result->fetch_object()) {

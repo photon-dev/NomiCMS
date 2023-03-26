@@ -16,7 +16,15 @@ if (! $user->logger) {
 }
 
 // Настроить seo
-$view->title = 'Мини-чат - Отправить сообщение';
+$view->title = 'Отправить сообщение';
+
+// Настроить навигацию
+$view->nav = [
+    [
+        'url' => '/chat',
+        'name' => 'Мини-чат'
+    ]
+];
 
 // Получить request, error
 $request = $container->get('request')->post;
@@ -44,18 +52,18 @@ if ($request->has('submit')) {
     //     }
     // }
 
+    // Нет ощибок
     if (! $error->show()) {
         $message =  Misc::str($request->message, $container);
 
         // Выполнить запрос, создать сообщение
-        $sql = $db->query('INSERT INTO `chat` set user_uid = "' . $user_uid . '", message = "' . $message . '", date_write = "' . TIME . '"');
-        dd($sql);
+        $db->query('INSERT INTO `chat` set user_uid = "' . $user_uid . '", message = "' . $message . '", date_write = "' . TIME . '"');
 
         // Добавить монету пользователю
         $db->query('UPDATE user SET coins = coins + 1 WHERE uid = "' . $user_uid . '"');
 
         // Направить в чат
-        //go_die($container, '/chat');
+        go_die($container, '/chat');
     }
 }
 
