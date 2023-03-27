@@ -46,27 +46,32 @@ class DateTime
         return self::replaceMonths($data);
     }
 
+    public static function datetimes(int $timestamp = 0)
+    {
+        // Получить текущий год
+        $currentYear = date('Y', TIME);
+        // Получить указанный год
+        $specifiedYear = date('Y', $timestamp);
+
+        // Если текущий год равен указанный год
+        if ($currentYear == $specifiedYear) {
+            $dateTime = date('j M в H:i', $timestamp);
+        } else {
+            $dateTime = date('j M Y в H:i', $timestamp);
+        }
+
+        return self::replaceMonths($dateTime);
+    }
+
     // Получить время
-    public static function times(int $timestamp = 0)
+    public static function times(int $timestamp = 0, bool $view = true)
     {
         $ago = TIME - $timestamp;
 
         // Если прошло >= 24 часов (Одного дня)
         if ($ago >= DAY) {
 
-            // Получить текущий год
-            $currentYear = date('Y', TIME);
-            // Получить указанный год
-            $specifiedYear = date('Y', $timestamp);
-
-            // Если текущий год равен указанный год
-            if ($currentYear == $specifiedYear) {
-                $dateTime = date('j M в H:i', $timestamp);
-            } else {
-                $dateTime = date('j M Y в H:i', $timestamp);
-            }
-
-            return self::replaceMonths($dateTime);
+            return self::datetimes($timestamp);
         }
 
         // Если прошло >= час

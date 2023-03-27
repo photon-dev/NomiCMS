@@ -37,17 +37,33 @@
                     <?php echo $post->date_write; ?>
                 </div>
             </div>
+            <?php if ($user->logger): ?>
             <div class="post_admin">
+                <?php if ($post->user_uid == $user->uid || $user->level >= 2): ?>
                 <a href="/chat/edit/<?php echo $post->uid; ?>" title="Изменить"><i class="icon-pencil c-gray"></i></a>
+                <?php endif; ?>
+                <?php if ($user->level >= 2): ?>
                 <a href="/chat/del/<?php echo $post->uid; ?>" title="Удалить"><i class="icon-trash-empty c-red"></i></a>
+                <?php endif; ?>
             </div>
+            <?php endif; ?>
         </div>
         <div class="post_message">
             <?php echo $post->message; ?>
         </div>
-        <div class="post_footer">
-            
+        <?php if ($user->logger): ?>
+        <div class="post_footer flex just-between align-end">
+            <a href="/chat/reply/<?php echo $post->login; ?>" title="Ответить">
+                <i class="icon-reply c-gray"></i>
+                Ответить
+            </a>
+            <?php if ($post->date_edit): ?>
+            <div class="post_date_edit">
+                изменен <?php echo $post->date_edit; ?>
+            </div>
+            <?php endif; ?>
         </div>
+        <?php endif; ?>
     </div>
     <? endforeach; ?>
 <?php else: ?>

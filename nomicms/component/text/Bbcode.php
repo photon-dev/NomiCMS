@@ -30,6 +30,7 @@ class Bbcode
         // Елементы из css
         '/\[cit\](.*?)\[\/cit\]/s',
         '/\[rep\](.*?)\[\/rep\]/s',
+        '/\[reply\=(.*?)\](.*?)\[\/reply\]/s',
 
         // Цветовые коды
         '/\[red\](.*?)\[\/red\]/s',
@@ -63,6 +64,7 @@ class Bbcode
         // Елементы из css
         '<div class="cit">$1</div>',
         '<div class="rep">$1</div>',
+        '<a class="link_reply" href="$1" title="Перейти на $2" target="_blank">$2</a>',
 
         // Цветовые коды
         '<span style="color: #f44336">$1</span>',

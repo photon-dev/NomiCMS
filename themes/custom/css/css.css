@@ -1,13 +1,12 @@
 .post {
     background: #212a31;
-    padding: 1rem;
+    padding: 1.2rem;
     color: #fff;
     border-bottom: .1rem solid #1a2127;
 }
 
 /** Шапка поста **/
 .post > .post_header {
-    margin-bottom: 1rem;
 }
 
 .post > .post_header > .post_avatar img {
@@ -18,7 +17,7 @@
 }
 
 .post > .post_header > .post_user {
-    margin-left: 1rem;
+    margin-left: 1.2rem;
 }
 
 .post > .post_header > .post_user > a, .post_not_user {
@@ -56,84 +55,32 @@
 
 /** Сообщение поста **/
 .post > .post_message {
-    margin-bottom: 1rem;
+    margin-top: 1.2rem;
 }
 
+/** Ноги поста **/
 .post > .post_footer {
-
+    margin-top: 1.2rem;
+    font-size: 1.25rem;
 }
 
-/*
-.row > .row_user {
-    margin-bottom: 10px;
-}
-
-.row > .row_user > .name {
-    padding: 2px 0;
-    margin-left: 10px;
-}
-
-.row > .row_user > .name a, .none_name {
+.post > .post_footer a {
     background: #27313a;
-    display: inline-block;
-    padding: 4px 10px;
-    border-radius: 2px;
-    margin-right: 8px;
+    padding: .3rem .6rem;
+    border-radius: .2rem;
+    margin-left: .6rem;
 }
 
-.row > .row_user > .name a:first-child, .none_name {
-    background: #1a2127
-}
-
-.row > .row_user > .name div {
-    font-size: 10px;
-    margin-top: 6px
-}
-
-.row > .row_user > .postman {
-    min-width: 50px
-}
-
-.row > .row_user > .postman a {
-    background: #27313a;
-    padding: 4px 6px;
-    border-radius: 2px;
-    margin-left: 2px;
-}
-
-.row > .row_user > .postman a:first-child {
+.post > .post_footer a:first-child {
     margin-left: 0;
 }
 
-.row > .row_user > .postman i:before {
-    margin-right: 0;
-}
-
-.row > .row_user > .avatar {
-    border-radius: 50%;
-    width: 48px;
-    height: 48px;
-    vertical-align: top;
-}
-
-.row > .message {
-    margin-bottom: 10px;
-}
-
-.row > .under > .date {
-    border: 2px solid #2d3840;
-    border-radius: 2px;
-    font-size: 10px;
-    padding: 2px 8px;
+.post > .post_footer .post_date_edit {
+    border: .2rem solid #2d3840;
+    border-radius: .2rem;
+    font-size: 1rem;
+    padding: .3rem .6rem;
     color: #4d575f;
-    margin-left: 10px;
+    margin-left: .1rem;
     font-weight: bold;
 }
-
-.row > .under > a {
-    background: #27313a;
-    padding: 4px 10px;
-    border-radius: 2px;
-    margin-left: 8px;
-}
-*/

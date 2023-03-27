@@ -534,7 +534,15 @@ a.topic {
 }
 
 .link_visual {
-  border-bottom: 1px dashed rgba(255, 255, 255, 0.27);
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.33);
+}
+.link_reply {
+    background: #27313a;
+    padding: .3rem .6rem;
+    font-size: 1.25rem;
+    border-radius: .2rem;
+    margin-right: .6rem;
+    color: #2980b9
 }
 
 .friends_menu a {
