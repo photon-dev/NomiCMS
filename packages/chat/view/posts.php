@@ -55,9 +55,9 @@
         </div>
         <?php if ($user->logger): ?>
         <div class="navbar flex just-flex-end">
-            <a href="/chat/like/<?php echo $post->uid; ?>" title="">
+            <a href="/chat/reply/<?php echo $post->uid; ?>" title="">
                 <i class="icon-thumbs-up-alt c-gray"></i>
-                Мне нравиться
+                Ответить
             </a>
             <?php if ($user->uid == $post->user_uid || $user->level > 1): ?>
             <a href="/chat/edit/<?php echo $post->uid; ?>" title="">

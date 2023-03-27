@@ -59,8 +59,8 @@ if ($request->has('submit')) {
     // Cообщение не введно
     if ($request->em('message')) {
         $error->set('Введите сообщение');
-    } elseif (strlen($request->message) > 1024) {
-        $error->set('Неверная длина сообщения. Допустимо макс 1024 символов');
+    } elseif (strlen($request->message) > 2024) {
+        $error->set('Неверная длина сообщения. Допустимо макс 2024 символов');
     }
 
     // Нет ощибок

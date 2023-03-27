@@ -43,14 +43,9 @@ if ($request->has('submit')) {
         $error->set('Введите сообщение');
     } elseif (strlen($request->message) > 1024) {
         $error->set('Неверная длина сообщения. Допустимо макс 1024 символов');
+    } elseif ($db->query('SELECT date_write FROM chat WHERE user_uid = "' . $user_uid . '" AND date_write+5 > "' . TIME . '" LIMIT 1')->num_rows > 0) {
+        $error->set('Запрещено писать чаще 30 сек');
     }
-
-    // if (! $error->show()) {
-    //     $chat = $db->query('SELECT date_write FROM chat WHERE user_uid = "' . $user_uid . '" ORDER BY date_write DESC LIMIT 1')->fetch_assoc();
-    //     if ($chat != NULL && ($chat['date_write'] + 30) > TIME) {
-    //         $error->set('Запрещено писать чаще 30 сек');
-    //     }
-    // }
 
     // Нет ощибок
     if (! $error->show()) {
