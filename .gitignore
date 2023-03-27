@@ -1,9 +1,5 @@
 # dirs ignores
 install/*
-uploads/downloads/*
-uploads/avatars/*
-uploads/forum/*
-uploads/lib/*
 
 # other files ignores
 packages/user/db/sql.sql
