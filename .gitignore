@@ -2,5 +2,6 @@
 install/*
 
 # other files ignores
+uploads/avatars/Photon_NomiCMS_1.jpg
 packages/user/db/sql.sql
 test_smile.txt
