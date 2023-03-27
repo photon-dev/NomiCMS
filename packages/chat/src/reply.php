@@ -35,7 +35,7 @@ $us = $result->fetch_object();
 $result->free();
 
 // Нет доступа к посту
-if ($post->user_uid == $user->getUser()['uid']) {
+if ($us->uid == $user->getUser()['uid']) {
     go_die($container, '/chat');
 }
 
