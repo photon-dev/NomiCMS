@@ -91,7 +91,7 @@ class Dependencies
         return $this->getClosure($dependency);
     }
 
-    private function has(string|int $name)
+    private function has($name)
     {
         return isset($this->userParams[$name]);
     }
