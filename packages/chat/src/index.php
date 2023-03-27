@@ -40,8 +40,11 @@ ORDER BY c.uid DESC LIMIT  ' . $page->start . ', ' . $app->post_page);
 
 // Обработать
 while ($chat = $result->fetch_object()) {
-    $chat->date_write = DateTime::times($chat->date_write);
     $chat->message = Misc::output($chat->message);
+    $chat->date_write = DateTime::times($chat->date_write);
+    if ($chat->date_edit > 0) {
+        $chat->date_edit = DateTime::times($chat->date_edit);
+    }
     $chat->level = $user->getLevel($chat->level);
     $chat->avatar = $user->getAvatar($chat->avatar);
     $chat->status = $user->getStatus($chat->status);

@@ -53,10 +53,12 @@
         </div>
         <?php if ($user->logger): ?>
         <div class="post_footer flex just-between align-end">
+            <?php if ($post->user_uid != $user->uid): ?>
             <a href="/chat/reply/<?php echo $post->login; ?>" title="Ответить">
                 <i class="icon-reply c-gray"></i>
                 Ответить
             </a>
+            <?php endif; ?>
             <?php if ($post->date_edit): ?>
             <div class="post_date_edit">
                 изменен <?php echo $post->date_edit; ?>
