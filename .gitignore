@@ -1,14 +1,10 @@
-# Root dir ignores
-setur/*
-
-# System dir ignores
-nomicms/database_normalaze/*
+# dirs ignores
+install/*
 uploads/downloads/*
 uploads/avatars/*
 uploads/forum/*
 uploads/lib/*
 
-# Other files ignores
-nomicms/database/news.txt
-nomicms/database/sql.sql
+# other files ignores
+packages/user/db/sql.sql
 test_smile.txt
