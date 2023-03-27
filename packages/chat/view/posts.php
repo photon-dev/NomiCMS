@@ -45,6 +45,9 @@
         <div class="post_message">
             <?php echo $post->message; ?>
         </div>
+        <div class="post_footer">
+            
+        </div>
     </div>
     <? endforeach; ?>
 <?php else: ?>
