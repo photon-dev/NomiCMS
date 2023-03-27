@@ -23,54 +23,28 @@
 <?php endif; ?>
 <?php if ($posts): ?>
     <? foreach ($posts as $post): ?>
-    <div class="row">
-        <div class="row_user flex just-between align-start">
-            <img class="avatar" src="/uploads/avatars/<?php echo $post->avatar; ?>" alt="Alt">
-            <div class="name flex-grow1">
-                <?php if ($post->login == NULL): ?>
-                    <span class="none_name">
-                        Пользователь удален
-                    </span>
-                <?php else:?>
-                    <a href="/user/id<?php echo $post->user_uid; ?>" title="Профиль <?php echo $post->login; ?>">
-                        <?php echo $post->login; ?>
-                        <span class="level <?php echo $post->level; ?>"><?php echo $post->level; ?></span>
-                    </a>
-                    <a href="/chat/reply/<?php echo $post->user_uid; ?>">
-                        <i class="icon-reply c-gray"></i>
-                    </a>
-                    <?php if ($post->status): ?>
-                    <div>
-                        <?php echo $post->status; ?>
-                    </div>
-                    <?php endif; ?>
-                <?php endif; ?>
+    <div class="post">
+        <div class="post_header flex just-between align-start">
+            <div class="post_avatar">
+                <img src="/uploads/avatars/<?php echo $post->avatar; ?>" alt="Alt">
             </div>
-            <div class="date">
-                <?php echo $post->date_write; ?>
+            <div class="post_user flex-grow1">
+                <a href="/user/id<?php echo $post->user_uid; ?>" title="Профиль <?php echo $post->login; ?>">
+                    <?php echo $post->login; ?>
+                    <span class="level <?php echo $post->level; ?>"><?php echo $post->level; ?></span>
+                </a>
+                <div class="post_date">
+                    <?php echo $post->date_write; ?>
+                </div>
+            </div>
+            <div class="post_admin">
+                <a href="/chat/edit/<?php echo $post->uid; ?>" title="Изменить"><i class="icon-pencil c-gray"></i></a>
+                <a href="/chat/del/<?php echo $post->uid; ?>" title="Удалить"><i class="icon-trash-empty c-red"></i></a>
             </div>
         </div>
-        <div class="message">
+        <div class="post_message">
             <?php echo $post->message; ?>
         </div>
-        <?php if ($user->logger): ?>
-        <div class="navbar flex just-flex-end">
-            <a href="/chat/reply/<?php echo $post->uid; ?>" title="">
-                <i class="icon-thumbs-up-alt c-gray"></i>
-                Ответить
-            </a>
-            <?php if ($user->uid == $post->user_uid || $user->level > 1): ?>
-            <a href="/chat/edit/<?php echo $post->uid; ?>" title="">
-                <i class="icon-pencil c-yellow"></i>
-            </a>
-            <?php endif; ?>
-            <?php if ($user->level > 1): ?>
-            <a href="/chat/del/<?php echo $post->uid; ?>" title="">
-                <i class="icon-trash-empty c-red"></i>
-            </a>
-            <?php endif; ?>
-        </div>
-        <?php endif; ?>
     </div>
     <? endforeach; ?>
 <?php else: ?>

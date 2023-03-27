@@ -12,7 +12,7 @@ use Nomicms\Component\Text\Misc;
 
 // Если не авторизован
 if (! $user->logger) {
-    go_die($container, '/');
+    go_die($container, '/chat');
 }
 
 // Индификатор сообщения

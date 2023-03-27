@@ -1,18 +1,72 @@
-.row {
+.post {
     background: #212a31;
-    padding: 10px;
-    font-size: 12px;
+    padding: 1rem;
     color: #fff;
-    border-bottom: 1px solid #1a2127;
+    border-bottom: .1rem solid #1a2127;
 }
 
+/** Шапка поста **/
+.post > .post_header {
+    margin-bottom: 1rem;
+}
+
+.post > .post_header > .post_avatar img {
+    width: 4.8rem;
+    height: 4.8rem;
+    border-radius: 50%;
+    vertical-align: top;
+}
+
+.post > .post_header > .post_user {
+    margin-left: 1rem;
+}
+
+.post > .post_header > .post_user > a, .post_not_user {
+    background: #27313a;
+    display: inline-flex;
+    align-items: center;
+    padding: .4rem .8rem;
+    border-radius: .2rem;
+    margin-bottom: .4rem;
+}
+
+.post > .post_header > .post_user > .post_date {
+    font-size: 1rem;
+}
+
+.post > .post_header > .post_admin {
+    margin-left: 1rem;
+    font-size: 1.25rem;
+}
+
+.post > .post_header > .post_admin a {
+    background: #27313a;
+    padding: .3rem .6rem;
+    border-radius: .2rem;
+    margin-left: .1rem;
+}
+
+.post > .post_header > .post_admin a:first-child {
+    margin-left: 0;
+}
+
+.post > .post_header > .post_admin i:before {
+    margin-right: 0;
+}
+
+/** Сообщение поста **/
+.post > .post_message {
+    margin-bottom: 1rem;
+}
+
+/*
 .row > .row_user {
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .row > .row_user > .name {
     padding: 2px 0;
-    margin-left: 8px;
+    margin-left: 10px;
 }
 
 .row > .row_user > .name a, .none_name {
@@ -29,17 +83,26 @@
 
 .row > .row_user > .name div {
     font-size: 10px;
-    margin-top: 8px;
+    margin-top: 6px
 }
 
-.row > .row_user > .date {
-    border: 2px solid #2d3840;
+.row > .row_user > .postman {
+    min-width: 50px
+}
+
+.row > .row_user > .postman a {
+    background: #27313a;
+    padding: 4px 6px;
     border-radius: 2px;
-    font-size: 10px;
-    padding: 2px 8px;
-    color: #4d575f;
-    margin-left: 8px;
-    font-weight: bold;
+    margin-left: 2px;
+}
+
+.row > .row_user > .postman a:first-child {
+    margin-left: 0;
+}
+
+.row > .row_user > .postman i:before {
+    margin-right: 0;
 }
 
 .row > .row_user > .avatar {
@@ -50,30 +113,23 @@
 }
 
 .row > .message {
-    margin-top: 8px;
+    margin-bottom: 10px;
 }
 
-.row > .navbar {
-    margin-top: 8px;
+.row > .under > .date {
+    border: 2px solid #2d3840;
+    border-radius: 2px;
+    font-size: 10px;
+    padding: 2px 8px;
+    color: #4d575f;
+    margin-left: 10px;
+    font-weight: bold;
 }
 
-.row > .navbar > a {
+.row > .under > a {
     background: #27313a;
     padding: 4px 10px;
     border-radius: 2px;
     margin-left: 8px;
 }
-
-.row > .navbar > a > i {
-    margin-right: 0;
-    color: #516677;
-}
-
-.row > .navbar > a:first-child {
-    margin-left: 0;
-    margin-right: auto;
-}
-
-.row > .navbar > a:last-child > i {
-    /*color: #c74242*/
-}
+*/

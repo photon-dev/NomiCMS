@@ -30,6 +30,22 @@ return [
         'src' => 'add'
     ],
     [
+        'url' => '/chat/reply/{str}',
+        'package' => 'chat',
+        'src' => 'reply',
+        'params' => [
+            'userLogin'
+        ]
+    ],
+    [
+        'url' => '/chat/like/{num}',
+        'package' => 'chat',
+        'src' => 'like',
+        'params' => [
+            'postId'
+        ]
+    ],
+    [
         'url' => '/chat/edit/{num}',
         'package' => 'chat',
         'src' => 'edit',
@@ -43,14 +59,6 @@ return [
         'src' => 'del',
         'params' => [
             'postId'
-        ]
-    ],
-    [
-        'url' => '/chat/reply/{str}',
-        'package' => 'chat',
-        'src' => 'reply',
-        'params' => [
-            'userLogin'
         ]
     ]
 ];

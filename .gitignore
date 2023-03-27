@@ -6,5 +6,6 @@ uploads/forum/*
 uploads/lib/*
 
 # other files ignores
+packages/chat/view/posts.old.php
 packages/user/db/sql.sql
 test_smile.txt

@@ -11,7 +11,7 @@
 use Nomicms\Component\Text\Misc;
 use Nomicms\Component\Http\Server\Server;
 
-// Если не авторизован
+// Не авторизован
 if (! $user->logger) {
     go_die($container, '/');
 }
@@ -23,18 +23,20 @@ $postId = Misc::abs($postId, $container);
 // Получить db
 $db = $container->get('db');
 
-// Получить пост
+// Выполнить запрос
 $result = $db->query('SELECT user_uid, message FROM chat WHERE uid = "' . $postId . '" LIMIT 1');
 
+// Пост не найден
 if (! $result->num_rows) {
     error('Сообщение не найдено');
 }
 
+// Получить user_uid, message, в виде обьекта
 $post = $result->fetch_object();
 $result->free();
 
-// Удалить сообщение
-if ($post->user_uid != $user->getUser()['uid'] || $user->getUser()['level'] < 2) {
+// Нет доступа к посту
+if ($post->user_uid != $user->getUser()['uid'] && $user->getUser()['level'] <= 1) {
     go_die($container, '/chat');
 }
 
