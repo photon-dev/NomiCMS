@@ -38,7 +38,7 @@ ON u.uid = c.user_uid
 GROUP BY c.uid
 ORDER BY c.uid DESC LIMIT  ' . $page->start . ', ' . $app->post_page);
 
-// Обработать
+// Получить данные в виде обьекта
 while ($chat = $result->fetch_object()) {
     $chat->message = Misc::output($chat->message);
     $chat->date_write = DateTime::times($chat->date_write);
@@ -55,8 +55,8 @@ while ($chat = $result->fetch_object()) {
 $result->free();
 
 // Установить данные posts шаблона
-$view->set('posts', $posts ?? false)
-    ->set('code', mt_rand(101, 999));
+$view->set('code', mt_rand(101, 999))
+    ->set('posts', $posts ?? false);
 
 // Установить постраничную навигацию
 $page->view($view, '/chat');

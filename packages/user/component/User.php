@@ -23,7 +23,7 @@ class User
     protected $container;
 
     // Данные пользователя
-    protected $user = [];
+    protected $user;
 
     // Авторизован
     public $logger = false;
@@ -56,8 +56,9 @@ class User
         if ($this->logger) {
             return [
                 'logger' => $this->logger,
-                'uid' => $this->user['uid'],
-                'level' => $this->user['level']
+                'uid' => $this->user->uid,
+                'login' => $this->user->login,
+                'level' => $this->user->level
             ];
         }
 
@@ -83,7 +84,7 @@ class User
         $result = $this->container->get('db')->query($query);
 
         // Удачно
-        if ($user = $result->fetch_assoc()) {
+        if ($user = $result->fetch_object()) {
             // Сохранить пользователя
             $this->user = $user;
 
@@ -124,9 +125,9 @@ class User
     }
 
     // Получить данные пользователя
-    public function getUser(): array
+    public function getUser()
     {
-        if ($this->logger && isset($this->user['uid'])) {
+        if ($this->logger && isset($this->user->uid)) {
             return $this->user;
         }
 
@@ -150,7 +151,7 @@ class User
     {
         // Уровень пользователя не введён
         if (! empty($userLevel)) {
-            $userlevel = $this->user['level'];
+            $userlevel = $this->user->level;
         }
 
         switch ($userlevel) {
@@ -176,7 +177,7 @@ class User
     {
         // Уровень пользователя не введён
         if (! empty($userLevel)) {
-            $userlevel = $this->user['level'];
+            $userlevel = $this->user->level;
         }
 
         switch ($userlevel) {

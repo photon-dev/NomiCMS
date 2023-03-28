@@ -9,7 +9,6 @@
 
 // Использовать
 use Nomicms\Component\Text\Misc;
-use Nomicms\Component\Http\Server\Server;
 
 // Не авторизован
 if (! $user->logger) {
@@ -36,7 +35,7 @@ $post = $result->fetch_object();
 $result->free();
 
 // Нет доступа к посту
-if ($post->user_uid != $user->getUser()['uid'] && $user->getUser()['level'] <= 1) {
+if ($post->user_uid != $user->getUser()->uid && $user->getUser()->level <= 1) {
     go_die($container, '/chat');
 }
 

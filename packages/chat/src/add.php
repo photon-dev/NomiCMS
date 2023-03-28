@@ -36,7 +36,7 @@ if ($request->has('submit')) {
     $db = $container->get('db');
 
     // Обработать данные
-    $user_uid = Misc::abs($user->getUser()['uid']);
+    $user_uid = Misc::abs($user->getUser()->uid);
 
     // Cообщение не введно
     if ($request->em('message')) {

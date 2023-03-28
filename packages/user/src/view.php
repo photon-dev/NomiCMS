@@ -19,21 +19,19 @@ $userId = Misc::abs($userId, $container);
 
 $db = $container->get('db');
 
-// Текст запроса в базу данных
-$query = 'SELECT u.*, uset.*, usoc.*
+// Выполнить запрос в базу данных
+$result = $db->query('SELECT u.*, uset.*, usoc.*
 FROM user AS u
 LEFT JOIN user_settings AS uset ON uset.user_uid = u.uid
 LEFT JOIN user_soc AS usoc  ON uset.user_uid = u.uid
-WHERE uid = "' . $userId . '" LIMIT 1';
+WHERE uid = "' . $userId . '" LIMIT 1');
 
-// Выполнить запрос в базу данных
-$profile = $db->query($query);
-
-if (! $profile->num_rows) {
+if (! $result->num_rows) {
     error('Пользователь не найден');
 }
 
-$profile = $profile->fetch_object();
+$profile = $result->fetch_object();
+$result->free();
 
 // Имя, описание, ключевые слова
 $view->title = $profile->login;
@@ -41,11 +39,10 @@ $view->desc= 'Профиль ' . $profile->login;
 $view->keywords = '';
 
 
-$text = "Привет. Твой логин {$profile->login}";
-
+$profile->avatar = $user->getAvatar($profile->avatar);
 
 // Добавить данные
-$view->set('text', $text);
+$view->set('profile', $profile);
 
 // Рендерить
 $view->render('user.view')->put();

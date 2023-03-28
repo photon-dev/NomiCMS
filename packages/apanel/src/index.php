@@ -8,7 +8,7 @@
  */
 
 // Если не авторизован, либо не модератор или выше
-if (! $user->logger || $user->getUser()['level'] < 2) {
+if (! $user->logger || $user->getUser()->level < 2) {
     go_die($container, '/');
 }
 
@@ -16,7 +16,7 @@ if (! $user->logger || $user->getUser()['level'] < 2) {
 $view->title = 'Панель управления ' . $app->getVersion();
 
 $view->set('user', [
-    'level' => $user->getUser()['level']
+    'level' => $user->getUser()->level
 ])->set('version', $app->getVersion())->set('status', $app->getStatus());
 
 // Рендерить шаблон

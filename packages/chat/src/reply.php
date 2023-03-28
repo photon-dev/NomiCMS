@@ -35,7 +35,7 @@ $us = $result->fetch_object();
 $result->free();
 
 // Нет доступа к посту
-if ($us->uid == $user->getUser()['uid']) {
+if ($us->uid == $user->getUser()->uid) {
     go_die($container, '/chat');
 }
 
@@ -58,7 +58,7 @@ $error = $container->get('error');
 if ($request->has('submit')) {
 
     // Обработать данные
-    $user_uid = Misc::abs($user->getUser()['uid']);
+    $user_uid = Misc::abs($user->getUser()->uid);
 
     // Cообщение не введно
     if ($request->em('message')) {

@@ -51,7 +51,7 @@ class Themes
         // Если пользователь авторизован
         if ($user->logger) {
             // Установить тему пользователя
-            return $user->getUser()['theme'];
+            return $user->getUser()->theme;
         }
 
         // Получить зависимость user

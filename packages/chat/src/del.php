@@ -32,7 +32,7 @@ $post = $result->fetch_object();
 $result->free();
 
 // Удалить сообщение
-if ($post->user_uid == $user->getUser()['uid'] || $user->getUser()['level'] > 1) {
+if ($post->user_uid == $user->getUser()->uid || $user->getUser()->level > 1) {
     // Удалить сообщение
     $db->query('DELETE FROM chat WHERE uid = "' . $postId . '"');
 }

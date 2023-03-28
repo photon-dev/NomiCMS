@@ -73,10 +73,10 @@ class NomiApp extends AppConfigure implements AppInterface
         $user = $this->container->get('user');
 
         // Установить язык
-        $this->local = $user->logger ? $user->getUser()['local'] : $this->system['local'];
+        $this->local = $user->logger ? $user->getUser()->local : $this->system['local'];
 
         // Установить количество пунктов
-        $this->post_page = $user->logger ? $user->getUser()['post_page'] : $this->system['post_page'];
+        $this->post_page = $user->logger ? $user->getUser()->post_page : $this->system['post_page'];
 
         // Установить пакет
         if ($this->found) {
