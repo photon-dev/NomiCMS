@@ -14,7 +14,7 @@ if (! $user->logger) {
 
 // Имя, описание, ключевые слова
 $view->title = 'Кабинет';
-$view->desc= 'Кабинет пользователя c ником - ' . $user->getUser()->login;
+$view->desc= 'Кабинет пользователя c ником - ' . $user->getUser()->nick;
 $view->keywords = 'Пользователь, кабинет, user';
 
 // Подключиться к базе
@@ -23,10 +23,10 @@ $us = $user->getUser();
 
 // Получить количество оповещений, и друзей
 $count = $db->query('SELECT
-(SELECT COUNT(*) FROM user_alerts WHERE to_whom = "' . $us->uid . '") AS alerts,
-(SELECT COUNT(*) FROM user_alerts WHERE to_whom = "' . $us->uid . '" AND `read` = "no") AS new_alerts,
-(SELECT COUNT(*) FROM user_friends WHERE to_whom = "' . $us->uid . '" AND `status` = "yes") AS friends,
-(SELECT COUNT(*) FROM user_friends WHERE to_whom = "' . $us->uid . '" AND `status` = "no") AS new_friends
+(SELECT COUNT(*) FROM user_alerts WHERE to_whom = "' . $us->id . '") AS alerts,
+(SELECT COUNT(*) FROM user_alerts WHERE to_whom = "' . $us->id . '" AND `read` = "no") AS new_alerts,
+(SELECT COUNT(*) FROM user_friends WHERE to_whom = "' . $us->id . '" AND `status` = "yes") AS friends,
+(SELECT COUNT(*) FROM user_friends WHERE to_whom = "' . $us->id . '" AND `status` = "no") AS new_friends
 FROM dual')->fetch_object();
 
 // Установить данные для шаблона index

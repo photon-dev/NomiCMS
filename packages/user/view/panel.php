@@ -1,5 +1,5 @@
 <div class="main">
-    Добро пожаловать <span class="c-blue"><?php echo $user->login; ?></span>, в кабинет
+    Добро пожаловать <span class="c-blue"><?php echo $user->nick; ?></span>, в кабинет
 </div>
 <div class="menu">
     <div class="fmenu">
