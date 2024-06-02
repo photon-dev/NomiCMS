@@ -23,9 +23,7 @@ $count = $db->query('SELECT
 (SELECT COUNT(*) FROM chat WHERE time_write > "' . (TIME - DAY) . '") AS new_chat_message,
 (SELECT COUNT(*) FROM user) AS users,
 (SELECT COUNT(*) FROM user WHERE time_signup > "' . (TIME - DAY) . '") AS new_users
-FROM dual');//->fetch_assoc();
-
-dd($count);
+FROM dual')->fetch_assoc();
 
 // Установить данные для шаблона index
 $view->set('count', $count);

@@ -74,7 +74,7 @@ class User
         $token = Misc::str($token, $this->container);
 
         // Запрос
-        $query = 'SELECT u.id, u.nick, u.level, u.coins, us.shift_time, us.local, us.theme, us.post_page
+        $query = 'SELECT u.id, u.nick, u.level, u.coins, us.time_shift, us.local, us.theme, us.post_page
             FROM user AS u
             LEFT JOIN user_settings AS us ON us.user_id = u.id
             WHERE token = "' . $token . '"LIMIT 1
@@ -127,7 +127,7 @@ class User
     // Получить данные пользователя
     public function getUser()
     {
-        if ($this->logger && isset($this->user->uid)) {
+        if ($this->logger && isset($this->user->id)) {
             return $this->user;
         }
 

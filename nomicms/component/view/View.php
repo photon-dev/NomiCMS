@@ -182,7 +182,7 @@ class View extends Template implements TemplateInteface
 
         if ($user->logger) {
             $header->user = [
-                'uid' => $user->getUser()->uid,
+                'id' => $user->getUser()->id,
                 'level' => $user->getUser()->level
             ];
         }

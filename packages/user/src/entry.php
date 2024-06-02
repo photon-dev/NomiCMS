@@ -36,7 +36,7 @@ if ($request->has('submit')) {
         $password = Misc::str($request->password, $container);
 
         // Выполнить запрос
-        $query = $container->get('db')->query('SELECT algo, token FROM user WHERE login = "' . $login . '" LIMIT 1');
+        $query = $container->get('db')->query('SELECT algo, token FROM user WHERE nick = "' . $login . '" LIMIT 1');
 
         // Если пользователь найден
         if ($row = $query->fetch_assoc()) {

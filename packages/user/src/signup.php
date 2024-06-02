@@ -92,18 +92,17 @@ if ($request->has('submit')) {
         if ($next_id == 1) {
             $db->query('UPDATE user SET level = "4" WHERE uid = "' . $next_id . '"');
         }
-        dd($db);
 
         // Cоздать настройки пользователя
-        //$db->query('INSERT INTO user_settings (user_id) VALUES ("' . $next_id . '");');
+        $db->query('INSERT INTO user_settings (user_id) VALUES ("' . $next_id . '");');
         // Cоздать социальные ссылки
-        //$db->query('INSERT INTO user_soc (user_id) VALUES ("' . $next_id . '");');
+        $db->query('INSERT INTO user_soc (user_id) VALUES ("' . $next_id . '");');
 
         // Установить cookie
-        //$container->get('cookie')->password($hash['token'], ['expires' => TIME + YEAR]);
+        $container->get('cookie')->password($hash['token'], ['expires' => TIME + YEAR]);
 
         // Перейти в кабинет
-        //go_die($container, '/user');
+        go_die($container, '/user');
     }
 }
 
