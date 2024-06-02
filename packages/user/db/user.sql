@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS `user`;
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
-    `uid` int(10) UNSIGNED NOT NULL,
+    `id` int(10) UNSIGNED NOT NULL,
     `login` varchar(20) NOT NULL, -- Логин
     `algo` varchar(7) NOT NULL, -- Алгоритм шифрования токена
     `token` varchar(60) NOT NULL, -- Токен
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`uid`),
+  ADD PRIMARY KEY (`id`),
   ADD KEY `login` (`login`),
   ADD KEY `token` (`token`),
   ADD KEY `ip` (`ip`);
