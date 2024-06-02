@@ -36,7 +36,7 @@ if ($request->has('submit')) {
     } elseif (Valid::login($request->login)) {
         $error->set('В логине присутствуют запрещенные символы');
     // Если логин уже занят
-    } elseif ($db->query('SELECT login FROM user WHERE login = "' . Misc::str($request->login, $container) . '" LIMIT 1')->num_rows != 0) {
+    } elseif ($db->query('SELECT nick FROM user WHERE nick = "' . Misc::str($request->login, $container) . '" LIMIT 1')->num_rows != 0) {
         $error->set("Логин: <b>{$request->login}</b>, уже зарегистрирован");
     }
 
@@ -81,28 +81,29 @@ if ($request->has('submit')) {
         $hash = Password::cutHash($password, true);
 
         //Выполнить запрос, создать пользователя
-        $db->query('INSERT INTO user (login, algo, token, name, gender, ip, date_signup, date_entry)
+        $db->query('INSERT INTO user (algo, token, nick, name, gender, ip, time_signup, time_entry)
         VALUES (
-            "' . $login . '", "' . $hash['algo'] . '", "' . $hash['token'] . '", "' . $name . '", "' . $gender . '", "' . Ipus::to() . '", "' . TIME . '", "' . TIME . '"
+            "' . $hash['algo'] . '", "' . $hash['token'] . '", "' . $login . '", "' . $name . '", "' . $gender . '", "' . Ipus::to() . '", "' . TIME . '", "' . TIME . '"
         );');
         // Получить следущий индификатор
-        $next_uid = $db->insert_id;
+        $next_id = $db->insert_id;
 
         // Если превый зарегистрированый получит разработчика
-        if ($next_uid == 1) {
-            $db->query('UPDATE user SET level = "4" WHERE uid = "' . $next_uid . '"');
+        if ($next_id == 1) {
+            $db->query('UPDATE user SET level = "4" WHERE uid = "' . $next_id . '"');
         }
+        dd($db);
 
         // Cоздать настройки пользователя
-        $db->query('INSERT INTO user_settings (user_uid) VALUES ("' . $next_uid . '");');
+        //$db->query('INSERT INTO user_settings (user_id) VALUES ("' . $next_id . '");');
         // Cоздать социальные ссылки
-        $db->query('INSERT INTO user_soc (user_uid) VALUES ("' . $next_uid . '");');
+        //$db->query('INSERT INTO user_soc (user_id) VALUES ("' . $next_id . '");');
 
         // Установить cookie
-        $container->get('cookie')->password($hash['token'], ['expires' => TIME + YEAR]);
+        //$container->get('cookie')->password($hash['token'], ['expires' => TIME + YEAR]);
 
         // Перейти в кабинет
-        go_die($container, '/user');
+        //go_die($container, '/user');
     }
 }
 

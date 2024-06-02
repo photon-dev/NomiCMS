@@ -56,8 +56,8 @@ class User
         if ($this->logger) {
             return [
                 'logger' => $this->logger,
-                'uid' => $this->user->uid,
-                'login' => $this->user->login,
+                'id' => $this->user->id,
+                'nick' => $this->user->nick,
                 'level' => $this->user->level
             ];
         }
@@ -74,9 +74,9 @@ class User
         $token = Misc::str($token, $this->container);
 
         // Запрос
-        $query = 'SELECT u.uid, u.login, u.level, u.coins, us.shift_time, us.local, us.theme, us.post_page
+        $query = 'SELECT u.id, u.nick, u.level, u.coins, us.shift_time, us.local, us.theme, us.post_page
             FROM user AS u
-            LEFT JOIN user_settings AS us ON us.user_uid = u.uid
+            LEFT JOIN user_settings AS us ON us.user_id = u.id
             WHERE token = "' . $token . '"LIMIT 1
         ';
 
