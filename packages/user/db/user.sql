@@ -1,50 +1,29 @@
 --
--- Удаление таблицы `user`
---
-
-DROP TABLE IF EXISTS `user`;
-
---
 -- Структура таблицы `user`
 --
 
-CREATE TABLE IF NOT EXISTS `user` (
-    `id` int(10) UNSIGNED NOT NULL,
-    `login` varchar(20) NOT NULL, -- Логин
-    `algo` varchar(7) NOT NULL, -- Алгоритм шифрования токена
-    `token` varchar(60) NOT NULL, -- Токен
-    `level` enum('1','2','3','4') NOT NULL DEFAULT '1', -- Уровень пользователя
-    `name` varchar(32) NOT NULL  DEFAULT '', -- Имя
-    `first_name` varchar(64) NOT NULL DEFAULT '', -- Фамилия
-    `gender` enum('male','female') NOT NULL DEFAULT 'male', -- Пол
-    `status` varchar(128) NOT NULL DEFAULT '', -- Статус
-    `country` varchar(64) NOT NULL DEFAULT '', -- Страна
-    `city` varchar(32) NOT NULL DEFAULT '', -- Город
-    `about` varchar(512) NOT NULL DEFAULT '', -- Обо мне
-    `coins` mediumint(8) UNSIGNED NOT NULL DEFAULT '100', -- Монеты
-    `avatar` varchar(128) NOT NULL DEFAULT 'none.jpg', -- Аватар
-    `ip` int(10) NOT NULL, -- Ip адрес
-    `email` varchar(128) NOT NULL DEFAULT '',
-    `email_c` enum('off','wait','on') NOT NULL DEFAULT 'off',
-    `browser` varchar(255) NOT NULL DEFAULT '',
-    `date_signup` int(10) NOT NULL,
-    `date_entry` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci AUTO_INCREMENT=1 COMMENT='Пользователь';
-
---
--- Индексы таблицы `user`
---
-
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `login` (`login`),
-  ADD KEY `token` (`token`),
-  ADD KEY `ip` (`ip`);
-
---
--- AUTO_INCREMENT для таблицы `user`
---
-
-ALTER TABLE `user`
-  MODIFY `uid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-COMMIT;
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `algo` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nick` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `first_name` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `level` enum('1','2','3','4') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1',
+  `gender` enum('male','female') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'male',
+  `status` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `country` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `city` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `about` varchar(512) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `coins` mediumint(8) unsigned NOT NULL DEFAULT '100',
+  `avatar` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'none.jpg',
+  `ip` int(10) NOT NULL,
+  `email` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `email_c` enum('off','wait','on') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'off',
+  `browser` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `time_signup` int(10) NOT NULL,
+  `time_entry` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `login` (`nick`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Пользователь';

@@ -1,3 +1,7 @@
+--
+-- Структура таблицы `user_settings`
+--
+
 DROP TABLE IF EXISTS `user_settings`;
 CREATE TABLE `user_settings` (
   `user_id` int(10) unsigned NOT NULL,

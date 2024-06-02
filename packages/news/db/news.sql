@@ -1,3 +1,7 @@
+--
+-- Структура таблицы `news`
+--
+
 DROP TABLE IF EXISTS `news`;
 CREATE TABLE `news` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -7,5 +11,6 @@ CREATE TABLE `news` (
   `time_write` int(10) NOT NULL,
   `time_edit` int(10) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`)
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `news_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Новости';

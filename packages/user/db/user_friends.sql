@@ -1,3 +1,7 @@
+--
+-- Структура таблицы `user_friends`
+--
+
 DROP TABLE IF EXISTS `user_friends`;
 CREATE TABLE `user_friends` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,

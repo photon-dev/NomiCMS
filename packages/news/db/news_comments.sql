@@ -1,3 +1,7 @@
+--
+-- Структура таблицы `news_comments`
+--
+
 DROP TABLE IF EXISTS `news_comments`;
 CREATE TABLE `news_comments` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,

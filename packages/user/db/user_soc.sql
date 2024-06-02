@@ -1,3 +1,7 @@
+--
+-- Структура таблицы `user_soc`
+--
+
 DROP TABLE IF EXISTS `user_soc`;
 CREATE TABLE `user_soc` (
   `user_id` int(10) unsigned NOT NULL,

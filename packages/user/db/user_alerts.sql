@@ -1,3 +1,7 @@
+--
+-- Структура таблицы `user_alerts`
+--
+
 DROP TABLE IF EXISTS `user_alerts`;
 CREATE TABLE `user_alerts` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
