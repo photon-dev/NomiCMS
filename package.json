@@ -1,5 +1,5 @@
 {
-  "name": "Photon-Dev/NomiCMS",
+  "name": "photon-dev/NomiCMS",
   "version": "3.0.0",
   "description": "NomiCMS - Content Management System",
   "homepage": "http://nomicms.ru",
@@ -13,6 +13,6 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Photon-Dev/NomiCMS"
+    "url": "https://github.com/photon-dev/NomiCMS"
   }
 }
